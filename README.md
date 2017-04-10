@@ -16,6 +16,10 @@
 
 5. `cd <project-name> && yarn `
 
+    [yarn介绍与安装 `npm i -g yarn`](https://yarn.bootcss.com/), 
+    
+    或者你也可以使用npm install开安装依赖
+
 6. 开发`react-native run-ios || react-native run-android`
 
 7. 开发增添页面时，`npm run createPage TestAuAPage`
