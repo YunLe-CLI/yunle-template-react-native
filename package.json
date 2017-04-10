@@ -1,0 +1,39 @@
+{
+  "name": "RN",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "createPage": "node ./libs/createPage/index.js",
+    "test": "jest"
+  },
+  "dependencies": {
+    "antd-mobile": "^1.0.8",
+    "immutable": "^3.8.1",
+    "moment": "^2.18.1",
+    "react": "16.0.0-alpha.6",
+    "react-native": "0.43.2",
+    "react-native-splash-screen": "^2.0.0",
+    "react-native-vector-icons": "^4.0.0",
+    "react-redux": "^5.0.3",
+    "react-router-native": "^4.0.0",
+    "redux": "^3.6.0",
+    "redux-immutable": "^4.0.0",
+    "redux-saga": "^0.14.6",
+    "whatwg-fetch": "^2.0.3",
+    "yunle-key": "^1.0.1"
+  },
+  "devDependencies": {
+    "babel-jest": "19.0.0",
+    "babel-plugin-import": "^1.1.1",
+    "babel-preset-react-native": "1.9.1",
+    "commander": "^2.9.0",
+    "fs-extra": "^2.1.2",
+    "inquirer": "^3.0.6",
+    "jest": "19.0.2",
+    "react-test-renderer": "16.0.0-alpha.6"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}
