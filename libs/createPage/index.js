@@ -181,11 +181,7 @@ function eRoute(toPath, name, config) {
 	name: '${name}',
 	breadcrumbName: '${config.breadcrumbName}',
 	_indexRoute: false,
-	getComponents(nextState, callback) {
-		require.ensure([], (require) => {
-			callback(null, require('./index').default);
-		});
-	},
+	component: require('./index').default,
 	childRoutes: [],
 };`;
 	}

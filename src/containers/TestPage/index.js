@@ -33,14 +33,14 @@ export default class TestPage extends Component {
 	}
 	render() {
 		const { actions, state } = this.props;
-		console.log(this.props)
-		// const { testTemplate, testFetchTemplate } = actions.TestPage;
-		// const { globalModal, text, async } = state.get('TestPage').toJS();
+		const { testTemplate, testFetchTemplate } = actions.TestPage;
+		const { globalModal, text, async } = state.get('TestPage').toJS();
 		return (
 			<View>
 				<View>
+					<Text>TestPage</Text>
 					<Link to="/" underlayColor='#f0f4f7'>
-						<Text>Home</Text>
+						<Text>返回</Text>
 					</Link>
 				</View>
 			</View>

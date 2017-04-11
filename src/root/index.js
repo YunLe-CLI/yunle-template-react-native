@@ -4,7 +4,7 @@ import routes from '../router';
 import App from '../containers/App';
 import configureStore from '../store';
 import SplashScreen from 'react-native-splash-screen';
-import { NativeRouter } from 'react-router-native';
+import { NativeRouter, Route } from 'react-router-native';
 import PageConfig from '../containers/config';
 
 const store = configureStore();
@@ -19,7 +19,9 @@ export default class Root extends Component {
 		return (
       <Provider store={store}>
 	      <NativeRouter>
-		      <App />
+		      <Route path="/" render={(props) => (
+		        <App {...props} /> )}
+		      />
 	      </NativeRouter>
       </Provider>
 		);

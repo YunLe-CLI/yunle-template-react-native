@@ -7,7 +7,8 @@ const config = [
 		sagas: require('./TestPage/sagas').default,
 		route: require('./TestPage/route').default,
 		reducer: require('./TestPage/reducer').default,
-	}
+	},
+
 ];
 
 export default config;

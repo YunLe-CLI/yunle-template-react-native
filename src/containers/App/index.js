@@ -2,10 +2,12 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { is, fromJS } from 'immutable';
-import { Route } from 'react-router-native';
+import route from './route';
+import { Route, Link } from 'react-router-native';
 import AppActions from './actions';
 import styles from './assets/style';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { Button } from 'antd-mobile';
 import {
 	Text,
 	View,
@@ -24,14 +26,25 @@ class App extends Component {
     const { loading, loadingTxt, globalModal } = state.get('app').toJS();
     return (
 	    <View style={styles.container}>
-				<Route path="/" render={() => (
-					<Icon.Button name="home" backgroundColor="#3b5998">
-						<Text style={{fontFamily: 'Arial', fontSize: 15, color: '#fff'}}>Home</Text>
-					</Icon.Button>
-				)}/>
+		    <Icon.Button name="home" backgroundColor="#3b5998">
+			    <Text style={{fontFamily: 'Arial', fontSize: 15, color: '#fff'}}>Home</Text>
+		    </Icon.Button>
+		    <Button className="btn" onClick={
+			    ()=>{
+				    history.push('/AGG')
+			    }
+		    } type="primary">
+			    <Text style={{fontFamily: 'Arial', fontSize: 15, color: '#fff'}}>Home</Text>
+		    </Button>
+		    {route.childRoutes.map((item) => RouteWithSubRoutes(item, {actions, state}))}
 	    </View>
     );
   }
+}
+function RouteWithSubRoutes(route = {}, reduxState = {}) {
+	return (<Route key={`route-${route.path}`} path={route.path} render={(props) => (
+		<route.component {...props} {...reduxState} routes={route.path}/>
+	)}/>);
 }
 
 function mapStateToProps(state) {
