@@ -1,6 +1,7 @@
 import React, { Component, PropTypes }  from 'react'
 import { is, fromJS } from 'immutable';
-import { NativeRouter, Route, Link } from 'react-router-native'
+import { NativeRouter, Route, Link } from 'react-router-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from './assets/style';
 
 import {
@@ -10,7 +11,7 @@ import {
 	AppRegistry,
 } from 'react-native'
 
-// import { Button } from 'antd-mobile';
+import { Button } from 'antd-mobile';
 
 export default class TestPage extends Component {
 	state = {
@@ -32,16 +33,20 @@ export default class TestPage extends Component {
 		return false;
 	}
 	render() {
-		const { actions, state } = this.props;
+		const { history, actions, state } = this.props;
 		const { testTemplate, testFetchTemplate } = actions.TestPage;
 		const { globalModal, text, async } = state.get('TestPage').toJS();
 		return (
 			<View>
 				<View>
 					<Text>TestPage</Text>
-					<Link to="/" underlayColor='#f0f4f7'>
-						<Text>返回</Text>
-					</Link>
+					<View>
+						<Icon.Button onClick={() => history.push('/')} name="home" backgroundColor="#3b5998">
+							<Link to="/" underlayColor='#f0f4f7'>
+								<Text style={{fontFamily: 'Arial', fontSize: 15, color: '#fff'}}>Home</Text>
+							</Link>
+						</Icon.Button>
+					</View>
 				</View>
 			</View>
 		);

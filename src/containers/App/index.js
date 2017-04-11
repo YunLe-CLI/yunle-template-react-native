@@ -26,15 +26,12 @@ class App extends Component {
     const { loading, loadingTxt, globalModal } = state.get('app').toJS();
     return (
 	    <View style={styles.container}>
-		    <Icon.Button name="home" backgroundColor="#3b5998">
-			    <Text style={{fontFamily: 'Arial', fontSize: 15, color: '#fff'}}>Home</Text>
-		    </Icon.Button>
 		    <Button className="btn" onClick={
 			    ()=>{
-				    history.push('/AGG')
+				    history.push('/TestPage')
 			    }
 		    } type="primary">
-			    <Text style={{fontFamily: 'Arial', fontSize: 15, color: '#fff'}}>Home</Text>
+			    <Text style={{fontFamily: 'Arial', fontSize: 15, color: '#fff'}}>go /TestPage</Text>
 		    </Button>
 		    {route.childRoutes.map((item) => RouteWithSubRoutes(item, {actions, state}))}
 	    </View>

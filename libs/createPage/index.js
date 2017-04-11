@@ -176,14 +176,16 @@ export default yunleKey({
 function eRoute(toPath, name, config) {
 	var toPath = path.join('./', toPath, 'route.js');
 	var tmp = function(name) {
-		return `export default {
-	path: '${config.route}',
-	name: '${name}',
-	breadcrumbName: '${config.breadcrumbName}',
-	_indexRoute: false,
-	component: require('./index').default,
-	childRoutes: [],
-};`;
+		return `export default [
+		{
+			path: '${config.route}',
+			name: '${name}',
+			breadcrumbName: '${config.breadcrumbName}',
+			_indexRoute: false,
+			component: require('./index').default,
+			childRoutes: [],
+		},
+];`;
 	}
 	var data = tmp(name);
 	fs.open(toPath, 'w+', function(err, fd) {
