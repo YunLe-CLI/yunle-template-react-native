@@ -20,7 +20,6 @@ export default class Root extends Component {
       <Provider store={store}>
 	      <NativeRouter>
 		      <App />
-
 	      </NativeRouter>
       </Provider>
 		);

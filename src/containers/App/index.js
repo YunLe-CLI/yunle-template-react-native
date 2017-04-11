@@ -5,7 +5,7 @@ import { is, fromJS } from 'immutable';
 import { Route } from 'react-router-native';
 import AppActions from './actions';
 import styles from './assets/style';
-
+import Icon from 'react-native-vector-icons/FontAwesome';
 import {
 	Text,
 	View,
@@ -24,7 +24,11 @@ class App extends Component {
     const { loading, loadingTxt, globalModal } = state.get('app').toJS();
     return (
 	    <View style={styles.container}>
-				<Route path="/" render={() => <Text>Home</Text>}/>
+				<Route path="/" render={() => (
+					<Icon.Button name="home" backgroundColor="#3b5998">
+						<Text style={{fontFamily: 'Arial', fontSize: 15, color: '#fff'}}>Home</Text>
+					</Icon.Button>
+				)}/>
 	    </View>
     );
   }
