@@ -1,3 +1,3 @@
-rootProject.name = 'DvaStarter'
+rootProject.name = 'app'
 
 include ':app'

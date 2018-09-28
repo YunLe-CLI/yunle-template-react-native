@@ -1,4 +1,4 @@
-package com.dvastarter;
+package com.rn.app;
 
 import android.app.Application;
 
