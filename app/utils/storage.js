@@ -5,8 +5,8 @@ function clear() {
 }
 
 function get(key, defaultValue = null) {
-  return AsyncStorage.getItem(key).then(
-    value => (value !== null ? JSON.parse(value) : defaultValue)
+  return AsyncStorage.getItem(key).then(value =>
+    value !== null ? JSON.parse(value) : defaultValue
   )
 }
 
