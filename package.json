@@ -5,15 +5,15 @@
   "scripts": {
     "clean:all": "watchman watch-del-all && rm -rf $TMPDIR/react-native-packager-cache-* && rm -rf $TMPDIR/metro-bundler-cache-* && rm -rf node_modules/ && rm -fr package-loca.json && rm -fr yarn.lock && npm cache clean && npm cache verify",
     "purge": "yarn clean:all && yarn",
-    "start": "node node_modules/react-native/local-cli/cli.js start  -- --reset-cache",
+    "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
     "prettier": "prettier --write --single-quote --no-semi --trailing-comma es5 --print-width 80 \"app/**/*.js\"",
     "lint": "eslint app",
     "format": "yarn prettier && yarn lint --fix",
     "openDebugger": "open /Applications/\"React Native Debugger.app\"",
-    "ios": "concurrently \"npm run openDebugger\" \"npm start\" \"node node_modules/react-native/local-cli/cli.js run-ios  --simulator 'iPhone 7'\"",
+    "ios": "concurrently \"npm run openDebugger\" \"npm start -- --reset-cache\" \"node node_modules/react-native/local-cli/cli.js run-ios  --simulator 'iPhone 7'\"",
     "emulator": "cd /Users/hexiao/Library/Android/sdk/emulator && ./emulator @Nexus_5X_API_27",
-    "android": "concurrently \"npm run openDebugger\"  \"npm start\"  \"npm run emulator\" \"node node_modules/react-native/local-cli/cli.js run-android\" "
+    "android": "concurrently \"npm run openDebugger\"  \"npm start -- --reset-cache\"  \"npm run emulator\" \"node node_modules/react-native/local-cli/cli.js run-android\" "
   },
   "dependencies": {
     "dva-core": "^1.4.0",
