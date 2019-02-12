@@ -11,13 +11,16 @@
     "lint": "eslint app",
     "format": "yarn prettier && yarn lint --fix",
     "openDebugger": "open /Applications/\"React Native Debugger.app\"",
-    "ios": "concurrently \"npm run openDebugger\" \"npm start -- --reset-cache\" \"node node_modules/react-native/local-cli/cli.js run-ios  --simulator 'iPhone 7'\"",
+    "start:ios": "concurrently \"npm run openDebugger\" \"npm start -- --reset-cache\" \"node node_modules/react-native/local-cli/cli.js run-ios  --simulator 'iPhone 7'\"",
     "emulator": "cd /Users/hexiao/Library/Android/sdk/emulator && ./emulator @Nexus_5X_API_27",
-    "android": "concurrently \"npm run openDebugger\"  \"npm start -- --reset-cache\"  \"npm run emulator\" \"node node_modules/react-native/local-cli/cli.js run-android\" "
+    "start:android": "concurrently \"npm run openDebugger\"  \"npm start -- --reset-cache\"  \"npm run emulator\" \"node node_modules/react-native/local-cli/cli.js run-android\" "
   },
   "dependencies": {
     "dva-core": "^1.4.0",
+    "hash.js": "^1.1.7",
+    "isomorphic-fetch": "^2.2.1",
     "metro-react-native-babel-preset": "^0.51.1",
+    "qs": "^6.6.0",
     "react": "^16.6.3",
     "react-native": "^0.57.4",
     "react-navigation": "^2.17.0",
