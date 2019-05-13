@@ -6,12 +6,9 @@ import { connect } from 'react-redux';
 import { Query } from "react-apollo";
 import { StackActions, NavigationActions } from 'react-navigation'; // Version can be specified in package.json
 
-@connect(({ app }) => {
-    return app;
-})
 class DetailsScreen extends React.Component {
     render() {
-        console.log(this.props, this.context)
+        console.log(this.props, 111)
         return (
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                 <Text>Details Screen</Text>
@@ -52,4 +49,6 @@ class DetailsScreen extends React.Component {
     }
 }
 
-export default withApollo(DetailsScreen)
+export default connect(({ app }) => {
+    return { app };
+})(withApollo(DetailsScreen))

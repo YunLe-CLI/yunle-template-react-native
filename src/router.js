@@ -66,13 +66,14 @@ export const routerMiddleware = createReactNavigationReduxMiddleware(
 
 const App = createReduxContainer(AppNavigator, 'root')
 
-@connect(({ app, router }) => ({ app, router }))
+// @connect(({ app, router }) => ({ app, router }))
 class Router extends PureComponent {
     render() {
-        const { app, dispatch, router } = this.props
+        const { dispatch, router } = this.props
         // if (app.loading) return <Loading />
         return <App dispatch={dispatch} state={router} />
     }
 }
 
-export default Router;
+// export default Router;
+export default connect(({ router }) => ({ router }))(Router);

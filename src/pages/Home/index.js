@@ -4,9 +4,7 @@ import { withApollo } from 'react-apollo';
 import { connect } from 'react-redux';
 import { StackActions, NavigationActions } from 'react-navigation'; // Version can be specified in package.json
 import { Button } from '@ant-design/react-native';
-@connect(({ app }) => {
-    return app;
-})
+
 class HomeScreen extends React.Component {
     render() {
         return (
@@ -30,4 +28,6 @@ class HomeScreen extends React.Component {
     }
 }
 
-export default withApollo(HomeScreen)
+export default connect(({ app }) => {
+    return { app };
+})(withApollo(HomeScreen))
