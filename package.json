@@ -1,14 +1,14 @@
 {
-  "name": "RN_TEMP",
+  "name": "rn_temp",
   "version": "0.0.1",
   "private": true,
   "scripts": {
     "clean:all": "watchman watch-del-all && rm -rf $TMPDIR/react-native-packager-cache-* && rm -rf $TMPDIR/metro-bundler-cache-* && rm -rf node_modules/ && rm -fr package-loca.json && rm -fr yarn.lock",
     "purge": "yarn clean:all && yarn",
     "start": "react-native start  -- --reset-cache",
+    "start:ios": "concurrently \"react-native run-ios \"",
+    "start:android": "concurrently \"react-native run-android\" ",
     "openDebugger": "open /Applications/\"React Native Debugger.app\"",
-    "start:ios": "concurrently \"npm start\" \"react-native run-ios \"",
-    "start:android": "concurrently \"npm start\"  \"npm run emulator\" \"node node_modules/react-native/local-cli/cli.js run-android\" ",
     "emulator": "cd /Users/hexiao/Library/Android/sdk/emulator && ./emulator @Nexus_5X_API_27",
     "test": "jest"
   },
@@ -20,7 +20,7 @@
     "graphql": "^14.3.0",
     "hash.js": "^1.1.7",
     "isomorphic-fetch": "^2.2.1",
-    "react": "16.8.3",
+    "react": "16.8.6",
     "react-apollo": "^2.5.5",
     "react-native": "0.59.8",
     "react-native-gesture-handler": "^1.2.1",
@@ -37,7 +37,7 @@
     "concurrently": "^4.1.0",
     "jest": "^24.8.0",
     "metro-react-native-babel-preset": "^0.54.0",
-    "react-test-renderer": "16.8.3"
+    "react-test-renderer": "16.8.6"
   },
   "jest": {
     "preset": "react-native"
