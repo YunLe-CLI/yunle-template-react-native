@@ -1,25 +1,58 @@
 import React, { PureComponent } from 'react';
-import { createStackNavigator } from 'react-navigation'; // Version can be specified in package.json
+import { createStackNavigator, createBottomTabNavigator } from 'react-navigation'; // Version can be specified in package.json
 import {
     createReduxContainer,
     createReactNavigationReduxMiddleware,
     createNavigationReducer,
 } from 'react-navigation-redux-helpers';
 import { connect } from 'react-redux';
-import Home from './pages/Home';
-import Details from './pages/Details';
+
+import {Icon} from '@ant-design/react-native';
+
+import HomePage from './pages/Home';
+import DetailsPage from './pages/Details';
+
+const AppTabNav = createBottomTabNavigator(
+    {
+        Home: {
+            screen: HomePage,
+            navigationOptions: {
+                tabBarLabel: '首页',
+                tabBarIcon: ({tintColor, focused}) => (
+                    <Icon
+                        name={'home'}
+                        size={26}
+                    />
+                ),
+            }
+        },
+        Details: {
+            screen: DetailsPage,
+            navigationOptions: {
+                tabBarLabel: '我的',
+                tabBarIcon: ({tintColor, focused }) => (
+                    <Icon
+                        name={'user'}
+                        size={26}
+                    />
+                ),
+            }
+        },
+    }
+)
 
 const AppNavigator = createStackNavigator(
     {
-        Home: {
-            screen: Home,
-        },
-        Details: {
-            screen: Details,
+        Main: {
+            screen: AppTabNav,
+            navigationOptions: ({  navigation }) => ({
+                header: null
+            })
         },
     }, 
     {
-        initialRouteName: 'Home',
+        initialRouteName: 'Main',
+        headerMode: 'screen'
     }
 );
 

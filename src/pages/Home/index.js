@@ -16,7 +16,10 @@ class HomeScreen extends React.Component {
                     this.props.navigation.dispatch(StackActions.reset({
                         index: 0,
                         actions: [
-                            NavigationActions.navigate({ routeName: 'Details' })
+                            NavigationActions.navigate({ 
+                                routeName: 'Main',
+                                action: NavigationActions.navigate({ routeName: 'Details' })
+                            })
                         ],
                     }))
                 }}>

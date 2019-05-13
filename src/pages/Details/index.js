@@ -18,13 +18,13 @@ class DetailsScreen extends React.Component {
                 <Query
                     query={
                         gql`query{
-                posts_list(query: { current: 1, pageSize: 10 }){
-                  title,
-                  createTime,
-                  intro,
-                  content
-                }
-            }`
+                            posts_list(query: { current: 1, pageSize: 10 }){
+                            title,
+                            createTime,
+                            intro,
+                            content
+                            }
+                        }`
                     }
                 >
                     {(result) => {
@@ -39,7 +39,10 @@ class DetailsScreen extends React.Component {
                         this.props.navigation.dispatch(StackActions.reset({
                             index: 0,
                             actions: [
-                                NavigationActions.navigate({ routeName: 'Home' })
+                                NavigationActions.navigate({
+                                    routeName: 'Main',
+                                    action: NavigationActions.navigate({ routeName: 'Home' })
+                                })
                             ],
                         }))
                     }}

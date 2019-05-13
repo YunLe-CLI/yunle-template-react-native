@@ -5,10 +5,10 @@
   "scripts": {
     "clean:all": "watchman watch-del-all && rm -rf $TMPDIR/react-native-packager-cache-* && rm -rf $TMPDIR/metro-bundler-cache-* && rm -rf node_modules/ && rm -fr package-loca.json && rm -fr yarn.lock",
     "purge": "yarn clean:all && yarn",
-    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "start": "react-native start  -- --reset-cache",
     "openDebugger": "open /Applications/\"React Native Debugger.app\"",
-    "start:ios": "concurrently \"npm start -- --reset-cache\" \"react-native run-ios \"",
-    "start:android": "concurrently \"npm start -- --reset-cache\"  \"npm run emulator\" \"node node_modules/react-native/local-cli/cli.js run-android\" ",
+    "start:ios": "concurrently \"npm start\" \"react-native run-ios \"",
+    "start:android": "concurrently \"npm start\"  \"npm run emulator\" \"node node_modules/react-native/local-cli/cli.js run-android\" ",
     "emulator": "cd /Users/hexiao/Library/Android/sdk/emulator && ./emulator @Nexus_5X_API_27",
     "test": "jest"
   },
