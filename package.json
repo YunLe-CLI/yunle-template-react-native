@@ -6,10 +6,14 @@
     "clean:all": "watchman watch-del-all && rm -rf $TMPDIR/react-native-packager-cache-* && rm -rf $TMPDIR/metro-bundler-cache-* && rm -rf node_modules/ && rm -fr package-loca.json && rm -fr yarn.lock",
     "purge": "yarn clean:all && yarn",
     "start": "node node_modules/react-native/local-cli/cli.js start",
+    "openDebugger": "open /Applications/\"React Native Debugger.app\"",
     "start:ios": "concurrently \"npm run openDebugger\" \"npm start -- --reset-cache\" \"react-native run-ios \"",
+    "start:android": "concurrently \"npm run openDebugger\"  \"npm start -- --reset-cache\"  \"npm run emulator\" \"node node_modules/react-native/local-cli/cli.js run-android\" ",
+    "emulator": "cd /Users/hexiao/Library/Android/sdk/emulator && ./emulator @Nexus_5X_API_27",
     "test": "jest"
   },
   "dependencies": {
+    "@ant-design/react-native": "^3.1.8",
     "apollo-boost": "^0.3.1",
     "apollo-client": "^2.5.1",
     "dva-core": "^1.4.0",
@@ -29,6 +33,7 @@
     "@babel/plugin-proposal-decorators": "^7.4.4",
     "@babel/runtime": "^7.4.4",
     "babel-jest": "^24.8.0",
+    "babel-plugin-import": "^1.11.0",
     "concurrently": "^4.1.0",
     "jest": "^24.8.0",
     "metro-react-native-babel-preset": "^0.54.0",
