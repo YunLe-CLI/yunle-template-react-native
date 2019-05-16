@@ -10,6 +10,9 @@
     "start:android": "concurrently \"react-native run-android\" ",
     "openDebugger": "open /Applications/\"React Native Debugger.app\"",
     "emulator": "cd /Users/hexiao/Library/Android/sdk/emulator && ./emulator @Nexus_5X_API_27",
+    "build:ios": "xcodebuild archive && xcodebuild -exportArchive",
+    "build:android": "cd android && ./gradlew assembleRelease",
+    "build": "npm run build:ios && npm run build:android",
     "test": "jest"
   },
   "dependencies": {
