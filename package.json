@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "clean:all": "watchman watch-del-all && rm -rf $TMPDIR/react-native-packager-cache-* && rm -rf $TMPDIR/metro-bundler-cache-* && rm -rf node_modules/ && rm -fr package-loca.json && rm -fr yarn.lock",
-    "purge": "yarn clean:all && yarn",
+    "purge": "yarn clean:all && yarn && rm -fr ios/build && rm -fr android/app/build",
     "start": "react-native start  -- --reset-cache",
     "start:ios": "concurrently \"react-native run-ios \"",
     "start:android": "concurrently \"react-native run-android\" ",
