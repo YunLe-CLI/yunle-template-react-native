@@ -268,7 +268,7 @@
   dependencies:
     "@babel/helper-plugin-utils" "^7.0.0"
 
-"@babel/plugin-proposal-class-properties@^7.0.0", "@babel/plugin-proposal-class-properties@^7.4.4":
+"@babel/plugin-proposal-class-properties@^7.0.0":
   version "7.4.4"
   resolved "http://r.cnpmjs.org/@babel/plugin-proposal-class-properties/download/@babel/plugin-proposal-class-properties-7.4.4.tgz#93a6486eed86d53452ab9bab35e368e9461198ce"
   integrity sha1-k6ZIbu2G1TRSq5urNeNo6UYRmM4=
@@ -5277,7 +5277,7 @@ react-native-swipeout@^2.3.6:
     prop-types "^15.5.10"
     react-tween-state "^0.1.5"
 
-react-native-tab-view@^1.2.0, react-native-tab-view@^1.3.4:
+react-native-tab-view@^1.2.0, react-native-tab-view@^1.4.0:
   version "1.4.0"
   resolved "http://r.cnpmjs.org/react-native-tab-view/download/react-native-tab-view-1.4.0.tgz#c70a1f6a86a12bdb6e8b30c390afc751dfe41275"
   integrity sha1-xwofaoahK9tuizDDkK/HUd/kEnU=
@@ -5359,26 +5359,26 @@ react-navigation-stack@1.3.0:
   resolved "http://r.cnpmjs.org/react-navigation-stack/download/react-navigation-stack-1.3.0.tgz#34bbddb068c094c9ab843e36059b9fd92b728250"
   integrity sha1-NLvdsGjAlMmrhD42BZuf2StyglA=
 
-react-navigation-tabs@1.1.2:
-  version "1.1.2"
-  resolved "http://r.cnpmjs.org/react-navigation-tabs/download/react-navigation-tabs-1.1.2.tgz#10b7501522d99960340a0d23a471d571b70aeb82"
-  integrity sha1-ELdQFSLZmWA0Cg0jpHHVcbcK64I=
+react-navigation-tabs@1.1.3:
+  version "1.1.3"
+  resolved "http://r.cnpmjs.org/react-navigation-tabs/download/react-navigation-tabs-1.1.3.tgz#72dded7764cffc6b1de029cd1f0468da3976ed30"
+  integrity sha1-ct3td2TP/Gsd4CnNHwRo2jl27TA=
   dependencies:
     hoist-non-react-statics "^2.5.0"
     prop-types "^15.6.1"
     react-lifecycles-compat "^3.0.4"
-    react-native-tab-view "^1.3.4"
+    react-native-tab-view "^1.4.0"
 
-react-navigation@^3.9.1:
-  version "3.9.1"
-  resolved "http://r.cnpmjs.org/react-navigation/download/react-navigation-3.9.1.tgz#2b2545f5c11905b534d96996c658d0691bc5f11f"
-  integrity sha1-KyVF9cEZBbU02WmWxljQaRvF8R8=
+react-navigation@^3.9.2:
+  version "3.9.2"
+  resolved "http://r.cnpmjs.org/react-navigation/download/react-navigation-3.9.2.tgz#200742455345bfb78567c8b83befdc248796c959"
+  integrity sha1-IAdCRVNFv7eFZ8i4O+/cJIeWyVk=
   dependencies:
     "@react-navigation/core" "~3.4.1"
     "@react-navigation/native" "~3.4.0"
     react-navigation-drawer "1.2.1"
     react-navigation-stack "1.3.0"
-    react-navigation-tabs "1.1.2"
+    react-navigation-tabs "1.1.3"
 
 react-proxy@^1.1.7:
   version "1.1.8"

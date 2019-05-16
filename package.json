@@ -5,9 +5,9 @@
   "scripts": {
     "clean:all": "watchman watch-del-all && rm -rf $TMPDIR/react-native-packager-cache-* && rm -rf $TMPDIR/metro-bundler-cache-* && rm -rf node_modules/ && rm -fr package-loca.json && rm -fr yarn.lock",
     "purge": "yarn clean:all && yarn && rm -fr ios/build && rm -fr android/app/build",
-    "start": "react-native start  -- --reset-cache",
-    "start:ios": "concurrently \"react-native run-ios \"",
-    "start:android": "concurrently \"react-native run-android\" ",
+    "start": "react-native start --reset-cache",
+    "start:ios": "concurrently \"npm run start\" \"react-native run-ios \"",
+    "start:android": "concurrently \"npm run start\" \"react-native run-android\"",
     "openDebugger": "open /Applications/\"React Native Debugger.app\"",
     "emulator": "cd /Users/hexiao/Library/Android/sdk/emulator && ./emulator @Nexus_5X_API_27",
     "build:ios": "xcodebuild archive && xcodebuild -exportArchive",
@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@ant-design/react-native": "^3.1.8",
+    "@babel/plugin-proposal-decorators": "^7.4.4",
     "apollo-boost": "^0.3.1",
     "apollo-client": "^2.5.1",
     "dva-core": "^1.4.0",
@@ -27,14 +28,12 @@
     "react-apollo": "^2.5.5",
     "react-native": "0.59.8",
     "react-native-gesture-handler": "^1.2.1",
-    "react-navigation": "^3.9.1",
+    "react-navigation": "^3.9.2",
     "react-navigation-redux-helpers": "^3.0.2",
     "react-redux": "^7.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.4.4",
-    "@babel/plugin-proposal-class-properties": "^7.4.4",
-    "@babel/plugin-proposal-decorators": "^7.4.4",
     "@babel/runtime": "^7.4.4",
     "babel-jest": "^24.8.0",
     "babel-plugin-import": "^1.11.0",
