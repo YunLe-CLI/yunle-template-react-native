@@ -3,5 +3,10 @@ module.exports = {
   plugins: [
     ['@babel/plugin-proposal-decorators', { 'legacy': true }],
     ["import", { libraryName: "@ant-design/react-native" }]
-  ]
+  ],
+  "env": {
+    "production": {
+      "plugins": ["transform-remove-console"]
+    }
+  }
 };
