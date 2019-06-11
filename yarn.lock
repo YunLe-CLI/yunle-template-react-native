@@ -32,7 +32,7 @@
   dependencies:
     "@babel/highlight" "^7.0.0"
 
-"@babel/core@^7.0.0", "@babel/core@^7.1.0", "@babel/core@^7.4.4":
+"@babel/core@^7.0.0", "@babel/core@^7.1.0":
   version "7.4.4"
   resolved "http://r.cnpmjs.org/@babel/core/download/@babel/core-7.4.4.tgz#84055750b05fcd50f9915a826b44fa347a825250"
   integrity sha1-hAVXULBfzVD5kVqCa0T6NHqCUlA=
@@ -43,6 +43,26 @@
     "@babel/parser" "^7.4.4"
     "@babel/template" "^7.4.4"
     "@babel/traverse" "^7.4.4"
+    "@babel/types" "^7.4.4"
+    convert-source-map "^1.1.0"
+    debug "^4.1.0"
+    json5 "^2.1.0"
+    lodash "^4.17.11"
+    resolve "^1.3.2"
+    semver "^5.4.1"
+    source-map "^0.5.0"
+
+"@babel/core@^7.4.5":
+  version "7.4.5"
+  resolved "http://r.cnpmjs.org/@babel/core/download/@babel/core-7.4.5.tgz#081f97e8ffca65a9b4b0fdc7e274e703f000c06a"
+  integrity sha1-CB+X6P/KZam0sP3H4nTnA/AAwGo=
+  dependencies:
+    "@babel/code-frame" "^7.0.0"
+    "@babel/generator" "^7.4.4"
+    "@babel/helpers" "^7.4.4"
+    "@babel/parser" "^7.4.5"
+    "@babel/template" "^7.4.4"
+    "@babel/traverse" "^7.4.5"
     "@babel/types" "^7.4.4"
     convert-source-map "^1.1.0"
     debug "^4.1.0"
@@ -260,6 +280,11 @@
   version "7.4.4"
   resolved "http://r.cnpmjs.org/@babel/parser/download/@babel/parser-7.4.4.tgz#5977129431b8fe33471730d255ce8654ae1250b6"
   integrity sha1-WXcSlDG4/jNHFzDSVc6GVK4SULY=
+
+"@babel/parser@^7.4.5":
+  version "7.4.5"
+  resolved "http://r.cnpmjs.org/@babel/parser/download/@babel/parser-7.4.5.tgz#04af8d5d5a2b044a2a1bffacc1e5e6673544e872"
+  integrity sha1-BK+NXVorBEoqG/+sweXmZzVE6HI=
 
 "@babel/plugin-external-helpers@^7.0.0":
   version "7.2.0"
@@ -654,10 +679,17 @@
     core-js "^2.5.3"
     regenerator-runtime "^0.11.1"
 
-"@babel/runtime@^7.0.0", "@babel/runtime@^7.4.3", "@babel/runtime@^7.4.4":
+"@babel/runtime@^7.0.0", "@babel/runtime@^7.4.3":
   version "7.4.4"
   resolved "http://r.cnpmjs.org/@babel/runtime/download/@babel/runtime-7.4.4.tgz#dc2e34982eb236803aa27a07fea6857af1b9171d"
   integrity sha1-3C40mC6yNoA6onoH/qaFevG5Fx0=
+  dependencies:
+    regenerator-runtime "^0.13.2"
+
+"@babel/runtime@^7.4.5":
+  version "7.4.5"
+  resolved "http://r.cnpmjs.org/@babel/runtime/download/@babel/runtime-7.4.5.tgz#582bb531f5f9dc67d2fcb682979894f75e253f12"
+  integrity sha1-WCu1MfX53GfS/LaCl5iU914lPxI=
   dependencies:
     regenerator-runtime "^0.13.2"
 
@@ -680,6 +712,21 @@
     "@babel/helper-function-name" "^7.1.0"
     "@babel/helper-split-export-declaration" "^7.4.4"
     "@babel/parser" "^7.4.4"
+    "@babel/types" "^7.4.4"
+    debug "^4.1.0"
+    globals "^11.1.0"
+    lodash "^4.17.11"
+
+"@babel/traverse@^7.4.5":
+  version "7.4.5"
+  resolved "http://r.cnpmjs.org/@babel/traverse/download/@babel/traverse-7.4.5.tgz#4e92d1728fd2f1897dafdd321efbff92156c3216"
+  integrity sha1-TpLRco/S8Yl9r90yHvv/khVsMhY=
+  dependencies:
+    "@babel/code-frame" "^7.0.0"
+    "@babel/generator" "^7.4.4"
+    "@babel/helper-function-name" "^7.1.0"
+    "@babel/helper-split-export-declaration" "^7.4.4"
+    "@babel/parser" "^7.4.5"
     "@babel/types" "^7.4.4"
     debug "^4.1.0"
     globals "^11.1.0"
@@ -970,10 +1017,45 @@
     "@types/istanbul-lib-coverage" "*"
     "@types/istanbul-lib-report" "*"
 
-"@types/prop-types@^15.5.5":
+"@types/jest-diff@*":
+  version "20.0.1"
+  resolved "http://r.cnpmjs.org/@types/jest-diff/download/@types/jest-diff-20.0.1.tgz#35cc15b9c4f30a18ef21852e255fdb02f6d59b89"
+  integrity sha1-NcwVucTzChjvIYUuJV/bAvbVm4k=
+
+"@types/jest@^24.0.13":
+  version "24.0.13"
+  resolved "http://r.cnpmjs.org/@types/jest/download/@types/jest-24.0.13.tgz#10f50b64cb05fb02411fbba49e9042a3a11da3f9"
+  integrity sha1-EPULZMsF+wJBH7uknpBCo6Edo/k=
+  dependencies:
+    "@types/jest-diff" "*"
+
+"@types/prop-types@*", "@types/prop-types@^15.5.5":
   version "15.7.1"
   resolved "http://r.cnpmjs.org/@types/prop-types/download/@types/prop-types-15.7.1.tgz#f1a11e7babb0c3cad68100be381d1e064c68f1f6"
   integrity sha1-8aEee6uww8rWgQC+OB0eBkxo8fY=
+
+"@types/react-native@^0.57.60":
+  version "0.57.60"
+  resolved "http://r.cnpmjs.org/@types/react-native/download/@types/react-native-0.57.60.tgz#61e97a84e2f64ed971e7d238bb30cec188898235"
+  integrity sha1-Yel6hOL2Ttlx59I4uzDOwYiJgjU=
+  dependencies:
+    "@types/prop-types" "*"
+    "@types/react" "*"
+
+"@types/react-test-renderer@^16.8.1":
+  version "16.8.1"
+  resolved "http://r.cnpmjs.org/@types/react-test-renderer/download/@types/react-test-renderer-16.8.1.tgz#96f3ce45a3a41c94eca532a99103dd3042c9d055"
+  integrity sha1-lvPORaOkHJTspTKpkQPdMELJ0FU=
+  dependencies:
+    "@types/react" "*"
+
+"@types/react@*", "@types/react@^16.8.19":
+  version "16.8.19"
+  resolved "http://r.cnpmjs.org/@types/react/download/@types/react-16.8.19.tgz#629154ef05e2e1985cdde94477deefd823ad9be3"
+  integrity sha1-YpFU7wXi4Zhc3elEd97v2COtm+M=
+  dependencies:
+    "@types/prop-types" "*"
+    csstype "^2.2.0"
 
 "@types/stack-utils@^1.0.1":
   version "1.0.1"
@@ -1957,6 +2039,11 @@ cssstyle@^1.0.0:
   integrity sha1-Qn6k1YWxhiT2/b+d56Kho7pxMHc=
   dependencies:
     cssom "0.3.x"
+
+csstype@^2.2.0:
+  version "2.6.5"
+  resolved "http://r.cnpmjs.org/csstype/download/csstype-2.6.5.tgz#1cd1dff742ebf4d7c991470ae71e12bb6751e034"
+  integrity sha1-HNHf90Lr9NfJkUcK5x4Su2dR4DQ=
 
 dashdash@^1.12.0:
   version "1.14.1"
@@ -4062,10 +4149,10 @@ metro-babel7-plugin-react-transform@0.51.1:
   dependencies:
     "@babel/helper-module-imports" "^7.0.0"
 
-metro-babel7-plugin-react-transform@0.54.0:
-  version "0.54.0"
-  resolved "http://r.cnpmjs.org/metro-babel7-plugin-react-transform/download/metro-babel7-plugin-react-transform-0.54.0.tgz#3c76e15b149db114f636a443f76771b52b7904a1"
-  integrity sha1-PHbhWxSdsRT2NqRD92dxtSt5BKE=
+metro-babel7-plugin-react-transform@0.54.1:
+  version "0.54.1"
+  resolved "http://r.cnpmjs.org/metro-babel7-plugin-react-transform/download/metro-babel7-plugin-react-transform-0.54.1.tgz#5335b810284789724886dc483d5bde9c149a1996"
+  integrity sha1-UzW4EChHiXJIhtxIPVvenBSaGZY=
   dependencies:
     "@babel/helper-module-imports" "^7.0.0"
 
@@ -4194,10 +4281,10 @@ metro-react-native-babel-preset@0.51.1:
     metro-babel7-plugin-react-transform "0.51.1"
     react-transform-hmr "^1.0.4"
 
-metro-react-native-babel-preset@^0.54.0:
-  version "0.54.0"
-  resolved "http://r.cnpmjs.org/metro-react-native-babel-preset/download/metro-react-native-babel-preset-0.54.0.tgz#9425ed40338f41234f1ea57d61026b78b66b06d6"
-  integrity sha1-lCXtQDOPQSNPHqV9YQJreLZrBtY=
+metro-react-native-babel-preset@^0.54.1:
+  version "0.54.1"
+  resolved "http://r.cnpmjs.org/metro-react-native-babel-preset/download/metro-react-native-babel-preset-0.54.1.tgz#b8f03865c381841d7f8912e7ba46804ea3a928b8"
+  integrity sha1-uPA4ZcOBhB1/iRLnukaATqOpKLg=
   dependencies:
     "@babel/plugin-proposal-class-properties" "^7.0.0"
     "@babel/plugin-proposal-export-default-from" "^7.0.0"
@@ -4233,7 +4320,7 @@ metro-react-native-babel-preset@^0.54.0:
     "@babel/plugin-transform-typescript" "^7.0.0"
     "@babel/plugin-transform-unicode-regex" "^7.0.0"
     "@babel/template" "^7.0.0"
-    metro-babel7-plugin-react-transform "0.54.0"
+    metro-babel7-plugin-react-transform "0.54.1"
     react-transform-hmr "^1.0.4"
 
 metro-react-native-babel-transformer@0.51.0:
@@ -5219,7 +5306,7 @@ react-devtools-core@^3.6.0:
     shell-quote "^1.6.1"
     ws "^3.3.1"
 
-react-is@^16.7.0, react-is@^16.8.1, react-is@^16.8.4, react-is@^16.8.6:
+react-is@^16.7.0, react-is@^16.8.1, react-is@^16.8.3, react-is@^16.8.4, react-is@^16.8.6:
   version "16.8.6"
   resolved "http://r.cnpmjs.org/react-is/download/react-is-16.8.6.tgz#5bbc1e2d29141c9fbdfed456343fe2bc430a6a16"
   integrity sha1-W7weLSkUHJ+9/tRWND/ivEMKahY=
@@ -5405,15 +5492,15 @@ react-redux@^7.0.3:
     prop-types "^15.7.2"
     react-is "^16.8.6"
 
-react-test-renderer@16.8.6:
-  version "16.8.6"
-  resolved "http://r.cnpmjs.org/react-test-renderer/download/react-test-renderer-16.8.6.tgz#188d8029b8c39c786f998aa3efd3ffe7642d5ba1"
-  integrity sha1-GI2AKbjDnHhvmYqj79P/52QtW6E=
+react-test-renderer@16.8.3:
+  version "16.8.3"
+  resolved "http://r.cnpmjs.org/react-test-renderer/download/react-test-renderer-16.8.3.tgz#230006af264cc46aeef94392e04747c21839e05e"
+  integrity sha1-IwAGryZMxGru+UOS4EdHwhg54F4=
   dependencies:
     object-assign "^4.1.1"
     prop-types "^15.6.2"
-    react-is "^16.8.6"
-    scheduler "^0.13.6"
+    react-is "^16.8.3"
+    scheduler "^0.13.3"
 
 react-transform-hmr@^1.0.4:
   version "1.0.4"
@@ -5808,7 +5895,7 @@ sax@~1.1.1:
   resolved "http://r.cnpmjs.org/sax/download/sax-1.1.6.tgz#5d616be8a5e607d54e114afae55b7eaf2fcc3240"
   integrity sha1-XWFr6KXmB9VOEUr65Vt+ry/MMkA=
 
-scheduler@^0.13.6:
+scheduler@^0.13.3, scheduler@^0.13.6:
   version "0.13.6"
   resolved "http://r.cnpmjs.org/scheduler/download/scheduler-0.13.6.tgz#466a4ec332467b31a91b9bf74e5347072e4cd889"
   integrity sha1-RmpOwzJGezGpG5v3TlNHBy5M2Ik=
@@ -6420,6 +6507,11 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "http://r.cnpmjs.org/typedarray/download/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
+
+typescript@^3.5.1:
+  version "3.5.1"
+  resolved "http://r.cnpmjs.org/typescript/download/typescript-3.5.1.tgz#ba72a6a600b2158139c5dd8850f700e231464202"
+  integrity sha1-unKmpgCyFYE5xd2IUPcA4jFGQgI=
 
 ua-parser-js@^0.7.18:
   version "0.7.19"

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import dva from './utils/dva';
 import Apollo from './utils/apollo';
 import Router, { routerMiddleware, routerReducer } from './router';
@@ -16,7 +16,8 @@ const dvaApp = dva({
     },
 })
 
-class App extends React.Component {
+interface Props {}
+class App extends Component<Props> {
     render() {
         return (
             <Apollo>
