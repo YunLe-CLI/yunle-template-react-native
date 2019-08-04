@@ -3,10 +3,12 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "react-native start --reset-cache",
     "clean:all": "watchman watch-del-all && rm -rf node_modules && rm -rf $TMPDIR/metro-* && rm -rf $TMPDIR/haste-map-* && rm -fr package-loca.json && rm -fr yarn.lock",
+    "emulator": "cd /Users/dgz/Library/Android/sdk/emulator && ./emulator @Nexus_5X_API_27",
+    "start": "react-native start --reset-cache",
     "start:ios": "react-native run-ios",
     "start:android": "react-native run-android",
+    "build:android": "cd android && ./gradlew assembleRelease",
     "test": "jest"
   },
   "dependencies": {
