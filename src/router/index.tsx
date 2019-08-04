@@ -24,7 +24,7 @@ const AppNavigator = createSwitchNavigator(
         },
     },
     {
-        initialRouteName: 'QRCode',
+        initialRouteName: 'Splash',
     }
 );
 
