@@ -28,7 +28,7 @@
     "react": "^16.9.0",
     "react-apollo": "^3.0.1",
     "react-native": "^0.60.5",
-    "react-native-bootsplash": "^0.1.1",
+    "react-native-bootsplash": "^1.0.0",
     "react-native-camera": "^3.3.0",
     "react-native-device-info": "^2.3.2",
     "react-native-elements": "^1.1.0",
