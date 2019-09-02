@@ -3,9 +3,11 @@ import { Platform, BackHandler, ToastAndroid } from 'react-native';
 import {
     NavigationActions,
     createSwitchNavigator,
-    createBottomTabNavigator,
-    createStackNavigator
-} from 'react-navigation'; // Version can be specified in package.json
+} from 'react-navigation'; // Version can be specified in package.json、
+import { createStackNavigator } from 'react-navigation-stack';
+// @ts-ignore
+import { createBottomTabNavigator } from 'react-navigation-tabs';
+
 import {
     createReduxContainer,
     createReactNavigationReduxMiddleware,
