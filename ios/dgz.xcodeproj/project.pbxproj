@@ -18,6 +18,7 @@
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* dgzTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* dgzTests.m */; };
 		B856A680EBB2CEFFF039113D /* libPods-dgzTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B8D6EB4235E0DFEE014BABE /* libPods-dgzTests.a */; };
+		C30C7F8C232663A200E21E9C /* iconfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C30C7F8B232663A200E21E9C /* iconfont.ttf */; };
 		C33A66B8230138310016CFD8 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C33A66B7230138310016CFD8 /* UserNotifications.framework */; };
 		C33A66BB23013D540016CFD8 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C3A4D5D0230074E500BCD079 /* libsqlite3.tbd */; };
 		C33A66BC23013D640016CFD8 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3A4D5D4230074FB00BCD079 /* SystemConfiguration.framework */; };
@@ -45,6 +46,7 @@
 		C3A4D5CF230074AE00BCD079 /* UMAnalyticsModule.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A4D5BF230074AE00BCD079 /* UMAnalyticsModule.m */; };
 		C3A4D5D3230074F100BCD079 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3A4D5D2230074F100BCD079 /* CoreGraphics.framework */; };
 		C3A4D5D72300750400BCD079 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C3A4D5D62300750400BCD079 /* libc++.tbd */; };
+		C3A5FCAF23715484007CA4CE /* AppInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A5FCAE23715484007CA4CE /* AppInfo.m */; };
 		E82DB65DB3EA50ED1B956FDA /* libPods-dgz-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B85C0093EE6916B43D5143FD /* libPods-dgz-tvOS.a */; };
 		F42C9865EA551DA736567D2F /* libPods-dgz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EBD4CACA0CE214A772575CCA /* libPods-dgz.a */; };
 /* End PBXBuildFile section */
@@ -71,26 +73,53 @@
 		00E356EE1AD99517003FC87E /* dgzTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = dgzTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* dgzTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = dgzTests.m; sourceTree = "<group>"; };
+		030C91EE71AD20B7F29AA029 /* Pods-dgz.releaseproduction.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgz.releaseproduction.xcconfig"; path = "Target Support Files/Pods-dgz/Pods-dgz.releaseproduction.xcconfig"; sourceTree = "<group>"; };
+		03768AD3E77DECEF7B60CB5E /* Pods-dgz.debug production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgz.debug production.xcconfig"; path = "Target Support Files/Pods-dgz/Pods-dgz.debug production.xcconfig"; sourceTree = "<group>"; };
 		0A50EAC3A39A002BB4AC2D8C /* libPods-dgz-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-dgz-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07F961A680F5B00A75B9A /* dgz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dgz.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07F961A680F5B00A75B9A /* 大狗吱.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "大狗吱.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = dgz/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = dgz/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = dgz/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = dgz/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = dgz/main.m; sourceTree = "<group>"; };
+		13F5055C74AB93D4F493F0C0 /* Pods-dgzTests.release production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgzTests.release production.xcconfig"; path = "Target Support Files/Pods-dgzTests/Pods-dgzTests.release production.xcconfig"; sourceTree = "<group>"; };
 		1B8D6EB4235E0DFEE014BABE /* libPods-dgzTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-dgzTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1C80801BE7255CE16B4D7BB5 /* Pods-dgz-tvOSTests.debug qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgz-tvOSTests.debug qa.xcconfig"; path = "Target Support Files/Pods-dgz-tvOSTests/Pods-dgz-tvOSTests.debug qa.xcconfig"; sourceTree = "<group>"; };
+		20F908E5173B5C4437964E90 /* Pods-dgzTests.debug qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgzTests.debug qa.xcconfig"; path = "Target Support Files/Pods-dgzTests/Pods-dgzTests.debug qa.xcconfig"; sourceTree = "<group>"; };
+		21888D8F852EB22293232443 /* Pods-dgz-tvOS.debugqa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgz-tvOS.debugqa.xcconfig"; path = "Target Support Files/Pods-dgz-tvOS/Pods-dgz-tvOS.debugqa.xcconfig"; sourceTree = "<group>"; };
 		255CB48F4AD1E40844B70A84 /* Pods-dgz.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgz.release.xcconfig"; path = "Target Support Files/Pods-dgz/Pods-dgz.release.xcconfig"; sourceTree = "<group>"; };
+		291D6B6BD9DC5133FCF609C0 /* Pods-dgz-tvOS.release qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgz-tvOS.release qa.xcconfig"; path = "Target Support Files/Pods-dgz-tvOS/Pods-dgz-tvOS.release qa.xcconfig"; sourceTree = "<group>"; };
 		2C28E8E98B0B95617D357E3C /* Pods-dgz-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgz-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-dgz-tvOSTests/Pods-dgz-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* dgz-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "dgz-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* dgz-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "dgz-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		369AF4C67BED49E99C4AF3D6 /* Pods-dgz-tvOSTests.release qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgz-tvOSTests.release qa.xcconfig"; path = "Target Support Files/Pods-dgz-tvOSTests/Pods-dgz-tvOSTests.release qa.xcconfig"; sourceTree = "<group>"; };
+		377349C51752EB6BA088107A /* Pods-dgz-tvOSTests.debug production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgz-tvOSTests.debug production.xcconfig"; path = "Target Support Files/Pods-dgz-tvOSTests/Pods-dgz-tvOSTests.debug production.xcconfig"; sourceTree = "<group>"; };
+		3BBD6BBC29B5AC9CBCCAB40D /* Pods-dgzTests.debugproduction.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgzTests.debugproduction.xcconfig"; path = "Target Support Files/Pods-dgzTests/Pods-dgzTests.debugproduction.xcconfig"; sourceTree = "<group>"; };
 		49139FA8133B491848DA138F /* Pods-dgz-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgz-tvOS.release.xcconfig"; path = "Target Support Files/Pods-dgz-tvOS/Pods-dgz-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		52C3B53066AEF9FA182D49DB /* Pods-dgz-tvOS.debugproduction.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgz-tvOS.debugproduction.xcconfig"; path = "Target Support Files/Pods-dgz-tvOS/Pods-dgz-tvOS.debugproduction.xcconfig"; sourceTree = "<group>"; };
 		64AE1DFE0F9207E62696FCD3 /* Pods-dgz-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgz-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-dgz-tvOS/Pods-dgz-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		6808C51361CBF88C11DDBAD8 /* Pods-dgzTests.releaseproduction.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgzTests.releaseproduction.xcconfig"; path = "Target Support Files/Pods-dgzTests/Pods-dgzTests.releaseproduction.xcconfig"; sourceTree = "<group>"; };
+		6B58857227D3A49A9F931691 /* Pods-dgzTests.debugqa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgzTests.debugqa.xcconfig"; path = "Target Support Files/Pods-dgzTests/Pods-dgzTests.debugqa.xcconfig"; sourceTree = "<group>"; };
+		6DA76A3F15847E4714733876 /* Pods-dgz-tvOS.releaseqa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgz-tvOS.releaseqa.xcconfig"; path = "Target Support Files/Pods-dgz-tvOS/Pods-dgz-tvOS.releaseqa.xcconfig"; sourceTree = "<group>"; };
+		6F1266D1432BA7510D074861 /* Pods-dgz-tvOSTests.debugqa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgz-tvOSTests.debugqa.xcconfig"; path = "Target Support Files/Pods-dgz-tvOSTests/Pods-dgz-tvOSTests.debugqa.xcconfig"; sourceTree = "<group>"; };
+		8214880D286A0B6EF6ECA0D4 /* Pods-dgz.debugqa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgz.debugqa.xcconfig"; path = "Target Support Files/Pods-dgz/Pods-dgz.debugqa.xcconfig"; sourceTree = "<group>"; };
+		8AF985899A653B4279608132 /* Pods-dgzTests.debug production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgzTests.debug production.xcconfig"; path = "Target Support Files/Pods-dgzTests/Pods-dgzTests.debug production.xcconfig"; sourceTree = "<group>"; };
 		8CB4E6383D89700E875F23A9 /* Pods-dgzTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgzTests.release.xcconfig"; path = "Target Support Files/Pods-dgzTests/Pods-dgzTests.release.xcconfig"; sourceTree = "<group>"; };
+		9946914AE21607E7AD160102 /* Pods-dgz-tvOSTests.debugproduction.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgz-tvOSTests.debugproduction.xcconfig"; path = "Target Support Files/Pods-dgz-tvOSTests/Pods-dgz-tvOSTests.debugproduction.xcconfig"; sourceTree = "<group>"; };
+		9A1EC00CC44B38294F2CFA16 /* Pods-dgz-tvOSTests.release production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgz-tvOSTests.release production.xcconfig"; path = "Target Support Files/Pods-dgz-tvOSTests/Pods-dgz-tvOSTests.release production.xcconfig"; sourceTree = "<group>"; };
+		9A49BCF335A3131FEB764678 /* Pods-dgz-tvOSTests.releaseqa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgz-tvOSTests.releaseqa.xcconfig"; path = "Target Support Files/Pods-dgz-tvOSTests/Pods-dgz-tvOSTests.releaseqa.xcconfig"; sourceTree = "<group>"; };
+		9E532D6BB980DC3F91A5AB2C /* Pods-dgz-tvOS.debug production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgz-tvOS.debug production.xcconfig"; path = "Target Support Files/Pods-dgz-tvOS/Pods-dgz-tvOS.debug production.xcconfig"; sourceTree = "<group>"; };
+		A66F5ED68C3D182F269E37BD /* Pods-dgz-tvOS.debug qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgz-tvOS.debug qa.xcconfig"; path = "Target Support Files/Pods-dgz-tvOS/Pods-dgz-tvOS.debug qa.xcconfig"; sourceTree = "<group>"; };
+		A700C4B12390CC8400BEFBBD /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		AC50AB3222B78B631C949D3F /* Pods-dgz.releaseqa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgz.releaseqa.xcconfig"; path = "Target Support Files/Pods-dgz/Pods-dgz.releaseqa.xcconfig"; sourceTree = "<group>"; };
+		AEEA128E4E113BDB0AB83F2B /* Pods-dgzTests.releaseqa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgzTests.releaseqa.xcconfig"; path = "Target Support Files/Pods-dgzTests/Pods-dgzTests.releaseqa.xcconfig"; sourceTree = "<group>"; };
 		B85C0093EE6916B43D5143FD /* libPods-dgz-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-dgz-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BC7BB434B8939D8E431DF394 /* Pods-dgz.release qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgz.release qa.xcconfig"; path = "Target Support Files/Pods-dgz/Pods-dgz.release qa.xcconfig"; sourceTree = "<group>"; };
 		C22908DE9DC9B8898F69CC7C /* Pods-dgz-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgz-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-dgz-tvOSTests/Pods-dgz-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		C30C7F8B232663A200E21E9C /* iconfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = iconfont.ttf; path = ../src/components/XIcon/iconfont.ttf; sourceTree = "<group>"; };
 		C33A66B7230138310016CFD8 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
-		C33A66BA23013C510016CFD8 /* dgz.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = dgz.entitlements; path = dgz/dgz.entitlements; sourceTree = "<group>"; };
+		C34E32C16EBDF2FF362EF2ED /* Pods-dgz-tvOS.releaseproduction.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgz-tvOS.releaseproduction.xcconfig"; path = "Target Support Files/Pods-dgz-tvOS/Pods-dgz-tvOS.releaseproduction.xcconfig"; sourceTree = "<group>"; };
 		C378DEB622FD7EB6005A9DD8 /* dgz-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "dgz-Bridging-Header.h"; sourceTree = "<group>"; };
 		C378DEB722FD7EB7005A9DD8 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		C3A2E4A423007E5F00FE8564 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
@@ -120,11 +149,19 @@
 		C3A4D5D4230074FB00BCD079 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		C3A4D5D62300750400BCD079 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		C3A4D5D82300750A00BCD079 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		C3A5FCAD23715484007CA4CE /* AppInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppInfo.h; path = dgz/AppInfo.h; sourceTree = "<group>"; };
+		C3A5FCAE23715484007CA4CE /* AppInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AppInfo.m; path = dgz/AppInfo.m; sourceTree = "<group>"; };
 		C418A01BB41D0B9EDBFD6A8F /* Pods-dgzTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgzTests.debug.xcconfig"; path = "Target Support Files/Pods-dgzTests/Pods-dgzTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C57E30328FAC6D80AC9C2286 /* Pods-dgz.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgz.debug.xcconfig"; path = "Target Support Files/Pods-dgz/Pods-dgz.debug.xcconfig"; sourceTree = "<group>"; };
+		C86A08C4A8B29A7869919F3C /* Pods-dgz.debug qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgz.debug qa.xcconfig"; path = "Target Support Files/Pods-dgz/Pods-dgz.debug qa.xcconfig"; sourceTree = "<group>"; };
+		CA57DAF1EC20FBEFDA4D98D8 /* Pods-dgzTests.release qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgzTests.release qa.xcconfig"; path = "Target Support Files/Pods-dgzTests/Pods-dgzTests.release qa.xcconfig"; sourceTree = "<group>"; };
+		D716927B681706050527ABBA /* Pods-dgz.debugproduction.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgz.debugproduction.xcconfig"; path = "Target Support Files/Pods-dgz/Pods-dgz.debugproduction.xcconfig"; sourceTree = "<group>"; };
+		DD0E1C9065EDB18A687E0824 /* Pods-dgz-tvOS.release production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgz-tvOS.release production.xcconfig"; path = "Target Support Files/Pods-dgz-tvOS/Pods-dgz-tvOS.release production.xcconfig"; sourceTree = "<group>"; };
 		EBD4CACA0CE214A772575CCA /* libPods-dgz.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-dgz.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
+		FC6211BF0CCF2E1EDC1350F8 /* Pods-dgz.release production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgz.release production.xcconfig"; path = "Target Support Files/Pods-dgz/Pods-dgz.release production.xcconfig"; sourceTree = "<group>"; };
+		FF18CAFAC4001F294BCD9555 /* Pods-dgz-tvOSTests.releaseproduction.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgz-tvOSTests.releaseproduction.xcconfig"; path = "Target Support Files/Pods-dgz-tvOSTests/Pods-dgz-tvOSTests.releaseproduction.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -203,7 +240,7 @@
 		13B07FAE1A68108700A75B9A /* dgz */ = {
 			isa = PBXGroup;
 			children = (
-				C33A66BA23013C510016CFD8 /* dgz.entitlements */,
+				C30C7F8B232663A200E21E9C /* iconfont.ttf */,
 				C3A4D5A5230074AE00BCD079 /* UMComponent */,
 				C3A4D5BA230074AE00BCD079 /* UMReactBridge */,
 				C378DEB722FD7EB7005A9DD8 /* App.swift */,
@@ -215,6 +252,8 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				C3A5FCAD23715484007CA4CE /* AppInfo.h */,
+				C3A5FCAE23715484007CA4CE /* AppInfo.m */,
 			);
 			name = dgz;
 			sourceTree = "<group>";
@@ -265,7 +304,7 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* dgz.app */,
+				13B07F961A680F5B00A75B9A /* 大狗吱.app */,
 				00E356EE1AD99517003FC87E /* dgzTests.xctest */,
 				2D02E47B1E0B4A5D006451C7 /* dgz-tvOS.app */,
 				2D02E4901E0B4A5D006451C7 /* dgz-tvOSTests.xctest */,
@@ -382,6 +421,38 @@
 				2C28E8E98B0B95617D357E3C /* Pods-dgz-tvOSTests.release.xcconfig */,
 				C418A01BB41D0B9EDBFD6A8F /* Pods-dgzTests.debug.xcconfig */,
 				8CB4E6383D89700E875F23A9 /* Pods-dgzTests.release.xcconfig */,
+				C86A08C4A8B29A7869919F3C /* Pods-dgz.debug qa.xcconfig */,
+				03768AD3E77DECEF7B60CB5E /* Pods-dgz.debug production.xcconfig */,
+				BC7BB434B8939D8E431DF394 /* Pods-dgz.release qa.xcconfig */,
+				FC6211BF0CCF2E1EDC1350F8 /* Pods-dgz.release production.xcconfig */,
+				A66F5ED68C3D182F269E37BD /* Pods-dgz-tvOS.debug qa.xcconfig */,
+				9E532D6BB980DC3F91A5AB2C /* Pods-dgz-tvOS.debug production.xcconfig */,
+				291D6B6BD9DC5133FCF609C0 /* Pods-dgz-tvOS.release qa.xcconfig */,
+				DD0E1C9065EDB18A687E0824 /* Pods-dgz-tvOS.release production.xcconfig */,
+				1C80801BE7255CE16B4D7BB5 /* Pods-dgz-tvOSTests.debug qa.xcconfig */,
+				377349C51752EB6BA088107A /* Pods-dgz-tvOSTests.debug production.xcconfig */,
+				369AF4C67BED49E99C4AF3D6 /* Pods-dgz-tvOSTests.release qa.xcconfig */,
+				9A1EC00CC44B38294F2CFA16 /* Pods-dgz-tvOSTests.release production.xcconfig */,
+				20F908E5173B5C4437964E90 /* Pods-dgzTests.debug qa.xcconfig */,
+				8AF985899A653B4279608132 /* Pods-dgzTests.debug production.xcconfig */,
+				CA57DAF1EC20FBEFDA4D98D8 /* Pods-dgzTests.release qa.xcconfig */,
+				13F5055C74AB93D4F493F0C0 /* Pods-dgzTests.release production.xcconfig */,
+				8214880D286A0B6EF6ECA0D4 /* Pods-dgz.debugqa.xcconfig */,
+				D716927B681706050527ABBA /* Pods-dgz.debugproduction.xcconfig */,
+				AC50AB3222B78B631C949D3F /* Pods-dgz.releaseqa.xcconfig */,
+				030C91EE71AD20B7F29AA029 /* Pods-dgz.releaseproduction.xcconfig */,
+				21888D8F852EB22293232443 /* Pods-dgz-tvOS.debugqa.xcconfig */,
+				52C3B53066AEF9FA182D49DB /* Pods-dgz-tvOS.debugproduction.xcconfig */,
+				6DA76A3F15847E4714733876 /* Pods-dgz-tvOS.releaseqa.xcconfig */,
+				C34E32C16EBDF2FF362EF2ED /* Pods-dgz-tvOS.releaseproduction.xcconfig */,
+				6F1266D1432BA7510D074861 /* Pods-dgz-tvOSTests.debugqa.xcconfig */,
+				9946914AE21607E7AD160102 /* Pods-dgz-tvOSTests.debugproduction.xcconfig */,
+				9A49BCF335A3131FEB764678 /* Pods-dgz-tvOSTests.releaseqa.xcconfig */,
+				FF18CAFAC4001F294BCD9555 /* Pods-dgz-tvOSTests.releaseproduction.xcconfig */,
+				6B58857227D3A49A9F931691 /* Pods-dgzTests.debugqa.xcconfig */,
+				3BBD6BBC29B5AC9CBCCAB40D /* Pods-dgzTests.debugproduction.xcconfig */,
+				AEEA128E4E113BDB0AB83F2B /* Pods-dgzTests.releaseqa.xcconfig */,
+				6808C51361CBF88C11DDBAD8 /* Pods-dgzTests.releaseproduction.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -420,6 +491,7 @@
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				C30F59B122FAA8D6006DA7D8 /* ShellScript */,
 				90B6EEFA1B14B91E96F7CA79 /* [CP] Copy Pods Resources */,
+				1FD65B760000C1511BC2632F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -427,7 +499,7 @@
 			);
 			name = dgz;
 			productName = dgz;
-			productReference = 13B07F961A680F5B00A75B9A /* dgz.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* 大狗吱.app */;
 			productType = "com.apple.product-type.application";
 		};
 		2D02E47A1E0B4A5D006451C7 /* dgz-tvOS */ = {
@@ -486,6 +558,7 @@
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = U2784YTGC6;
 						LastSwiftMigration = 1100;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -497,10 +570,12 @@
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = U2784YTGC6;
 						ProvisioningStyle = Automatic;
 					};
 					2D02E48F1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = U2784YTGC6;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 2D02E47A1E0B4A5D006451C7;
 					};
@@ -508,12 +583,12 @@
 			};
 			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "dgz" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
@@ -540,6 +615,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C30C7F8C232663A200E21E9C /* iconfont.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				C3A4D5C3230074AE00BCD079 /* UMSocialSDKResources.bundle in Resources */,
@@ -576,7 +652,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
 		025169C1FDB4736BD4DD3A7F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -620,6 +696,32 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		1FD65B760000C1511BC2632F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-dgz/Pods-dgz-frameworks.sh",
+				"${PODS_ROOT}/AliPlayerSDK_iOS/AliyunPlayer.framework",
+				"${PODS_ROOT}/AliPlayerSDK_iOS/alivcffmpeg.framework",
+				"${PODS_ROOT}/AliPlayerSDK_iOS/AlivcConan.framework",
+				"${PODS_ROOT}/AliPlayerSDK_iOS/AliyunMediaDownloader.framework",
+				"${PODS_ROOT}/AliPlayerSDK_iOS/artpSource.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AliyunPlayer.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/alivcffmpeg.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlivcConan.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AliyunMediaDownloader.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/artpSource.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-dgz/Pods-dgz-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		2B5A1245820524715DEB5C5B /* [CP] Check Pods Manifest.lock */ = {
@@ -799,6 +901,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C3A4D5CF230074AE00BCD079 /* UMAnalyticsModule.m in Sources */,
+				C3A5FCAF23715484007CA4CE /* AppInfo.m in Sources */,
 				C3A4D5CD230074AE00BCD079 /* UMShareModule.m in Sources */,
 				C378DEB822FD7EB7005A9DD8 /* App.swift in Sources */,
 				C3A4D5CE230074AE00BCD079 /* RNUMConfigure.m in Sources */,
@@ -846,6 +949,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				13B07FB21A68108700A75B9A /* Base */,
+				A700C4B12390CC8400BEFBBD /* zh-Hans */,
 			);
 			name = LaunchScreen.xib;
 			path = dgz;
@@ -860,6 +964,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				DEVELOPMENT_TEAM = U2784YTGC6;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -875,7 +980,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/dgz.app/dgz";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/大狗吱.app/大狗吱";
 			};
 			name = Debug;
 		};
@@ -885,6 +990,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = U2784YTGC6;
 				INFOPLIST_FILE = dgzTests/Info.plist;
@@ -897,7 +1003,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/dgz.app/dgz";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/大狗吱.app/大狗吱";
 			};
 			name = Release;
 		};
@@ -906,11 +1012,17 @@
 			baseConfigurationReference = C57E30328FAC6D80AC9C2286 /* Pods-dgz.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				BUILD_TYPE = debug;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_PUSH_KEY = zuvJXOJ2Y7IU8BnGPwZs8eVsnXHQWcCZfzWND;
 				CODE_SIGN_ENTITLEMENTS = dgz/dgz.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = U2784YTGC6;
+				ENVIRONMENT = development;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/UMComponent/UMShare/UMSocialUI",
@@ -920,6 +1032,7 @@
 					"$(PROJECT_DIR)/UMComponent/UMAnalytics",
 				);
 				INFOPLIST_FILE = dgz/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -927,13 +1040,15 @@
 					"$(PROJECT_DIR)/UMComponent/UMShare/SocialLibraries/Sina",
 					"$(PROJECT_DIR)/UMComponent/UMShare/SocialLibraries/QQ",
 				);
+				MARKETING_VERSION = 0.0.12;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.hexiao-o.app.blog";
-				PRODUCT_NAME = dgz;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dagouzhi.app.temp;
+				PRODUCT_NAME = "大狗吱";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "dgz-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -946,10 +1061,15 @@
 			baseConfigurationReference = 255CB48F4AD1E40844B70A84 /* Pods-dgz.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				BUILD_TYPE = release;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_PUSH_KEY = zuvJXOJ2Y7IU8BnGPwZs8eVsnXHQWcCZfzWND;
 				CODE_SIGN_ENTITLEMENTS = dgz/dgz.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = U2784YTGC6;
+				ENVIRONMENT = development;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/UMComponent/UMShare/UMSocialUI",
@@ -959,6 +1079,7 @@
 					"$(PROJECT_DIR)/UMComponent/UMAnalytics",
 				);
 				INFOPLIST_FILE = dgz/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -966,13 +1087,15 @@
 					"$(PROJECT_DIR)/UMComponent/UMShare/SocialLibraries/Sina",
 					"$(PROJECT_DIR)/UMComponent/UMShare/SocialLibraries/QQ",
 				);
+				MARKETING_VERSION = 0.0.12;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.hexiao-o.app.blog";
-				PRODUCT_NAME = dgz;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dagouzhi.app.temp;
+				PRODUCT_NAME = "大狗吱";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "dgz-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -990,6 +1113,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = U2784YTGC6;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "dgz-tvOS/Info.plist";
@@ -1019,6 +1143,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = U2784YTGC6;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "dgz-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1046,6 +1171,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = U2784YTGC6;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "dgz-tvOSTests/Info.plist";
@@ -1075,6 +1201,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = U2784YTGC6;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "dgz-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1095,6 +1222,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -1120,6 +1248,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1148,6 +1277,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -1173,6 +1303,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1190,6 +1321,732 @@
 			};
 			name = Release;
 		};
+		C3A5FC99237152FB007CA4CE /* DebugProduction */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_BITCODE = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = DebugProduction;
+		};
+		C3A5FC9A237152FB007CA4CE /* DebugProduction */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D716927B681706050527ABBA /* Pods-dgz.debugproduction.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				BUILD_TYPE = debug;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_PUSH_KEY = Y3Odw3fDgDAxmgG1ZTbXfsfPpoIA7UeAQ0of8_;
+				CODE_SIGN_ENTITLEMENTS = dgz/dgz.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = NO;
+				DEVELOPMENT_TEAM = U2784YTGC6;
+				ENVIRONMENT = production;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/UMComponent/UMShare/UMSocialUI",
+					"$(PROJECT_DIR)/UMComponent/UMShare",
+					"$(PROJECT_DIR)/UMComponent/UMPush",
+					"$(PROJECT_DIR)/UMComponent",
+					"$(PROJECT_DIR)/UMComponent/UMAnalytics",
+				);
+				INFOPLIST_FILE = dgz/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/UMComponent/UMShare/SocialLibraries/WeChat",
+					"$(PROJECT_DIR)/UMComponent/UMShare/SocialLibraries/Sina",
+					"$(PROJECT_DIR)/UMComponent/UMShare/SocialLibraries/QQ",
+				);
+				MARKETING_VERSION = 0.0.12;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.dagouzhi.app.temp;
+				PRODUCT_NAME = "大狗吱";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "dgz-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = DebugProduction;
+		};
+		C3A5FC9B237152FB007CA4CE /* DebugProduction */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3BBD6BBC29B5AC9CBCCAB40D /* Pods-dgzTests.debugproduction.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				DEVELOPMENT_TEAM = U2784YTGC6;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = dgzTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lc++",
+					"$(inherited)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/大狗吱.app/大狗吱";
+			};
+			name = DebugProduction;
+		};
+		C3A5FC9C237152FB007CA4CE /* DebugProduction */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 52C3B53066AEF9FA182D49DB /* Pods-dgz-tvOS.debugproduction.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = U2784YTGC6;
+				ENABLE_TESTABILITY = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "dgz-tvOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.dgz-tvOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.2;
+			};
+			name = DebugProduction;
+		};
+		C3A5FC9D237152FB007CA4CE /* DebugProduction */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9946914AE21607E7AD160102 /* Pods-dgz-tvOSTests.debugproduction.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = U2784YTGC6;
+				ENABLE_TESTABILITY = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "dgz-tvOSTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.dgz-tvOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/dgz-tvOS.app/dgz-tvOS";
+				TVOS_DEPLOYMENT_TARGET = 10.1;
+			};
+			name = DebugProduction;
+		};
+		C3A5FC9E23715312007CA4CE /* ReleaseProduction */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_BITCODE = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = ReleaseProduction;
+		};
+		C3A5FC9F23715312007CA4CE /* ReleaseProduction */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 030C91EE71AD20B7F29AA029 /* Pods-dgz.releaseproduction.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				BUILD_TYPE = release;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_PUSH_KEY = Y3Odw3fDgDAxmgG1ZTbXfsfPpoIA7UeAQ0of8_;
+				CODE_SIGN_ENTITLEMENTS = dgz/dgz.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = U2784YTGC6;
+				ENVIRONMENT = production;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/UMComponent/UMShare/UMSocialUI",
+					"$(PROJECT_DIR)/UMComponent/UMShare",
+					"$(PROJECT_DIR)/UMComponent/UMPush",
+					"$(PROJECT_DIR)/UMComponent",
+					"$(PROJECT_DIR)/UMComponent/UMAnalytics",
+				);
+				INFOPLIST_FILE = dgz/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/UMComponent/UMShare/SocialLibraries/WeChat",
+					"$(PROJECT_DIR)/UMComponent/UMShare/SocialLibraries/Sina",
+					"$(PROJECT_DIR)/UMComponent/UMShare/SocialLibraries/QQ",
+				);
+				MARKETING_VERSION = 0.0.12;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.dagouzhi.app.temp;
+				PRODUCT_NAME = "大狗吱";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "dgz-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = ReleaseProduction;
+		};
+		C3A5FCA023715312007CA4CE /* ReleaseProduction */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6808C51361CBF88C11DDBAD8 /* Pods-dgzTests.releaseproduction.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = U2784YTGC6;
+				INFOPLIST_FILE = dgzTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lc++",
+					"$(inherited)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/大狗吱.app/大狗吱";
+			};
+			name = ReleaseProduction;
+		};
+		C3A5FCA123715312007CA4CE /* ReleaseProduction */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C34E32C16EBDF2FF362EF2ED /* Pods-dgz-tvOS.releaseproduction.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = U2784YTGC6;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "dgz-tvOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.dgz-tvOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.2;
+			};
+			name = ReleaseProduction;
+		};
+		C3A5FCA223715312007CA4CE /* ReleaseProduction */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FF18CAFAC4001F294BCD9555 /* Pods-dgz-tvOSTests.releaseproduction.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = U2784YTGC6;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "dgz-tvOSTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.dgz-tvOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/dgz-tvOS.app/dgz-tvOS";
+				TVOS_DEPLOYMENT_TARGET = 10.1;
+			};
+			name = ReleaseProduction;
+		};
+		C3A5FCA323715331007CA4CE /* DebugQa */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_BITCODE = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = DebugQa;
+		};
+		C3A5FCA423715331007CA4CE /* DebugQa */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8214880D286A0B6EF6ECA0D4 /* Pods-dgz.debugqa.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				BUILD_TYPE = debug;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_PUSH_KEY = zuvJXOJ2Y7IU8BnGPwZs8eVsnXHQWcCZfzWND;
+				CODE_SIGN_ENTITLEMENTS = dgz/dgz.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = NO;
+				DEVELOPMENT_TEAM = U2784YTGC6;
+				ENVIRONMENT = qa;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/UMComponent/UMShare/UMSocialUI",
+					"$(PROJECT_DIR)/UMComponent/UMShare",
+					"$(PROJECT_DIR)/UMComponent/UMPush",
+					"$(PROJECT_DIR)/UMComponent",
+					"$(PROJECT_DIR)/UMComponent/UMAnalytics",
+				);
+				INFOPLIST_FILE = dgz/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/UMComponent/UMShare/SocialLibraries/WeChat",
+					"$(PROJECT_DIR)/UMComponent/UMShare/SocialLibraries/Sina",
+					"$(PROJECT_DIR)/UMComponent/UMShare/SocialLibraries/QQ",
+				);
+				MARKETING_VERSION = 0.0.12;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.dagouzhi.app.temp;
+				PRODUCT_NAME = "大狗吱";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "dgz-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = DebugQa;
+		};
+		C3A5FCA523715331007CA4CE /* DebugQa */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6B58857227D3A49A9F931691 /* Pods-dgzTests.debugqa.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				DEVELOPMENT_TEAM = U2784YTGC6;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = dgzTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lc++",
+					"$(inherited)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/大狗吱.app/大狗吱";
+			};
+			name = DebugQa;
+		};
+		C3A5FCA623715331007CA4CE /* DebugQa */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 21888D8F852EB22293232443 /* Pods-dgz-tvOS.debugqa.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = U2784YTGC6;
+				ENABLE_TESTABILITY = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "dgz-tvOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.dgz-tvOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.2;
+			};
+			name = DebugQa;
+		};
+		C3A5FCA723715331007CA4CE /* DebugQa */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6F1266D1432BA7510D074861 /* Pods-dgz-tvOSTests.debugqa.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = U2784YTGC6;
+				ENABLE_TESTABILITY = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "dgz-tvOSTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.dgz-tvOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/dgz-tvOS.app/dgz-tvOS";
+				TVOS_DEPLOYMENT_TARGET = 10.1;
+			};
+			name = DebugQa;
+		};
+		C3A5FCA82371533C007CA4CE /* ReleaseQa */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_BITCODE = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = ReleaseQa;
+		};
+		C3A5FCA92371533C007CA4CE /* ReleaseQa */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AC50AB3222B78B631C949D3F /* Pods-dgz.releaseqa.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				BUILD_TYPE = release;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_PUSH_KEY = zuvJXOJ2Y7IU8BnGPwZs8eVsnXHQWcCZfzWND;
+				CODE_SIGN_ENTITLEMENTS = dgz/dgz.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = U2784YTGC6;
+				ENVIRONMENT = qa;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/UMComponent/UMShare/UMSocialUI",
+					"$(PROJECT_DIR)/UMComponent/UMShare",
+					"$(PROJECT_DIR)/UMComponent/UMPush",
+					"$(PROJECT_DIR)/UMComponent",
+					"$(PROJECT_DIR)/UMComponent/UMAnalytics",
+				);
+				INFOPLIST_FILE = dgz/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/UMComponent/UMShare/SocialLibraries/WeChat",
+					"$(PROJECT_DIR)/UMComponent/UMShare/SocialLibraries/Sina",
+					"$(PROJECT_DIR)/UMComponent/UMShare/SocialLibraries/QQ",
+				);
+				MARKETING_VERSION = 0.0.12;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.dagouzhi.app.temp;
+				PRODUCT_NAME = "大狗吱";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "dgz-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = ReleaseQa;
+		};
+		C3A5FCAA2371533C007CA4CE /* ReleaseQa */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AEEA128E4E113BDB0AB83F2B /* Pods-dgzTests.releaseqa.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = U2784YTGC6;
+				INFOPLIST_FILE = dgzTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lc++",
+					"$(inherited)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/大狗吱.app/大狗吱";
+			};
+			name = ReleaseQa;
+		};
+		C3A5FCAB2371533C007CA4CE /* ReleaseQa */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6DA76A3F15847E4714733876 /* Pods-dgz-tvOS.releaseqa.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = U2784YTGC6;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "dgz-tvOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.dgz-tvOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.2;
+			};
+			name = ReleaseQa;
+		};
+		C3A5FCAC2371533C007CA4CE /* ReleaseQa */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9A49BCF335A3131FEB764678 /* Pods-dgz-tvOSTests.releaseqa.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = U2784YTGC6;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "dgz-tvOSTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.dgz-tvOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/dgz-tvOS.app/dgz-tvOS";
+				TVOS_DEPLOYMENT_TARGET = 10.1;
+			};
+			name = ReleaseQa;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1197,7 +2054,11 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				00E356F61AD99517003FC87E /* Debug */,
+				C3A5FCA523715331007CA4CE /* DebugQa */,
+				C3A5FC9B237152FB007CA4CE /* DebugProduction */,
 				00E356F71AD99517003FC87E /* Release */,
+				C3A5FCAA2371533C007CA4CE /* ReleaseQa */,
+				C3A5FCA023715312007CA4CE /* ReleaseProduction */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1206,7 +2067,11 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
+				C3A5FCA423715331007CA4CE /* DebugQa */,
+				C3A5FC9A237152FB007CA4CE /* DebugProduction */,
 				13B07F951A680F5B00A75B9A /* Release */,
+				C3A5FCA92371533C007CA4CE /* ReleaseQa */,
+				C3A5FC9F23715312007CA4CE /* ReleaseProduction */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1215,7 +2080,11 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2D02E4971E0B4A5E006451C7 /* Debug */,
+				C3A5FCA623715331007CA4CE /* DebugQa */,
+				C3A5FC9C237152FB007CA4CE /* DebugProduction */,
 				2D02E4981E0B4A5E006451C7 /* Release */,
+				C3A5FCAB2371533C007CA4CE /* ReleaseQa */,
+				C3A5FCA123715312007CA4CE /* ReleaseProduction */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1224,7 +2093,11 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2D02E4991E0B4A5E006451C7 /* Debug */,
+				C3A5FCA723715331007CA4CE /* DebugQa */,
+				C3A5FC9D237152FB007CA4CE /* DebugProduction */,
 				2D02E49A1E0B4A5E006451C7 /* Release */,
+				C3A5FCAC2371533C007CA4CE /* ReleaseQa */,
+				C3A5FCA223715312007CA4CE /* ReleaseProduction */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1233,7 +2106,11 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,
+				C3A5FCA323715331007CA4CE /* DebugQa */,
+				C3A5FC99237152FB007CA4CE /* DebugProduction */,
 				83CBBA211A601CBA00E9B192 /* Release */,
+				C3A5FCA82371533C007CA4CE /* ReleaseQa */,
+				C3A5FC9E23715312007CA4CE /* ReleaseProduction */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

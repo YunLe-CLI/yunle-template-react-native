@@ -133,9 +133,18 @@
     public static **[] values();
     public static ** valueOf(java.lang.String);
 }
--keep public class com.hexiao_o.app.blog.R$*{
+-keep public class com.dagouzhi.app.temp.R$*{
     public static final int *;
 }
 
 
 # end 友盟分享
+
+
+-keep public class com.horcrux.svg.** {*;}
+
+
+-keep class com.alivc.**{*;}
+-keep class com.aliyun.**{*;}
+-dontwarn com.alivc.**
+-dontwarn com.aliyun.**

@@ -8,7 +8,9 @@ export { connect }
 declare global {
     namespace NodeJS {
         interface Global {
-            registered: boolean
+          ENVIRONMENT: string;
+          dropDownAlertRef: any;
+          registered: boolean
         }
     }
 }

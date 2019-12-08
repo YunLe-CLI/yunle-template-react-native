@@ -7,6 +7,8 @@
 
 #import "AppDelegate.h"
 
+#import <CodePush/CodePush.h>
+
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
@@ -23,6 +25,8 @@
 /** start 友盟推送 **/
 #import <UMAnalytics/MobClick.h>
 /** end 友盟推送 **/
+
+#import <React/RCTLinkingManager.h> // 打开app
 
 #import "Orientation.h" // react-native-orientation-locker
 
@@ -43,7 +47,7 @@
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
   [RNBootSplash show:@"LaunchScreen" inView:rootView]; // react-native-bootsplash
-  
+
   /** start 友盟分享 **/
   /* 打开调试日志 */
   [UMConfigure setLogEnabled:YES];
@@ -51,7 +55,7 @@
   [self configUSharePlatforms];
   [self confitUShareSettings];
   /** end 友盟分享 **/
-  
+
   /** start 友盟推送 **/
   // Push组件基本功能配置
   UMessageRegisterEntity * entity = [[UMessageRegisterEntity alloc] init];
@@ -64,11 +68,11 @@
     }
   }];
   /** end 友盟推送 **/
-  
+
   /** start 友盟统计 **/
   [MobClick setScenarioType:E_UM_NORMAL];
   /** start 友盟统计 **/
-  
+
   return YES;
 }
 
@@ -77,7 +81,8 @@
 #if DEBUG
   return [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
 #else
-  return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
+  return [CodePush bundleURL];
+//  return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
 #endif
 }
 
@@ -101,12 +106,13 @@
 - (void)configUSharePlatforms
 {
   /* 设置微信的appKey和appSecret */
-  [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:@"wx716aef9bbeaff909" appSecret:@"ae46ada81044fee6e4e8955fa5fb023e" redirectURL:@"http://mobile.umeng.com/social"];
+  [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:@"wxa3e9527542c4bc64" appSecret:@"ca5e7b939f85979fa70993377228705c" redirectURL:@"http://mobile.umeng.com/social"];
   [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_QQ appKey:@"101584810"/*设置QQ平台的appID*/  appSecret:nil redirectURL:@"http://mobile.umeng.com/social"];
   /* 设置新浪的appKey和appSecret */
   [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Sina appKey:@"3921700954"  appSecret:@"04b48b094faeb16683c32669824ebdad" redirectURL:@"https://sns.whalecloud.com/sina2/callback"];
-  
+
 }
+
 // 支持所有iOS系统
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
@@ -114,6 +120,9 @@
   BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url sourceApplication:sourceApplication annotation:annotation];
   if (!result) {
     // 其他如支付等SDK的回调
+    // html 开app
+    return [RCTLinkingManager application:application openURL:url
+    sourceApplication:sourceApplication annotation:annotation];
   }
   return result;
 }
@@ -151,7 +160,7 @@
   //关闭友盟自带的弹出框
   [UMessage setAutoAlert:NO];
   [UMessage didReceiveRemoteNotification:userInfo];
-  
+
   //    self.userInfo = userInfo;
   //    //定制自定的的弹出框
   //    if([UIApplication sharedApplication].applicationState == UIApplicationStateActive)
@@ -171,13 +180,13 @@
 -(void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler{
   NSDictionary * userInfo = notification.request.content.userInfo;
   if([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
-    
+
     //应用处于前台时的远程推送接受
     //关闭友盟自带的弹出框
     [UMessage setAutoAlert:NO];
     //必须加这句代码
     [UMessage didReceiveRemoteNotification:userInfo];
-    
+
   }else{
     //应用处于前台时的本地推送接受
   }
@@ -189,11 +198,11 @@
 -(void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler{
   NSDictionary * userInfo = response.notification.request.content.userInfo;
   if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
-    
+
     //应用处于后台时的远程推送接受
     //必须加这句代码
     [UMessage didReceiveRemoteNotification:userInfo];
-    
+
   }else{
     //应用处于后台时的本地推送接受
   }
@@ -204,5 +213,5 @@
 - (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
   return [Orientation getOrientation];
 }
-  
+
 @end

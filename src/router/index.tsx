@@ -1,12 +1,10 @@
 import React, { PureComponent } from 'react';
 import { Platform, BackHandler, ToastAndroid } from 'react-native';
 import {
-    NavigationActions,
-    createSwitchNavigator,
-} from 'react-navigation'; // Version can be specified in package.json、
-import { createStackNavigator } from 'react-navigation-stack';
-// @ts-ignore
-import { createBottomTabNavigator } from 'react-navigation-tabs';
+  NavigationActions,
+} from 'react-navigation';
+import createAnimatedSwitchNavigator from 'react-navigation-animated-switch';
+import { Transition } from 'react-native-reanimated';
 
 import {
     createReduxContainer,
@@ -16,78 +14,42 @@ import {
 
 import { connect } from 'react-redux';
 
-import { Icon, ThemeConsumer } from 'react-native-elements'
-
 import Splash from '@/pages/Splash';
-import Home from '@/pages/Home';
-import QRCodeDemo from '@/components/QRCodeDemo';
-import ElementsDemo from '@/components/ElementsDemo';
+import AuthRouter from '@/router/AuthStack.router';
+import BottomTab from '@/router/BottomTab.router';
 
-const DomeStack = createStackNavigator(
-    {
-        Home: { screen: Home },
-        QRCodeDemo: {
-            screen: QRCodeDemo,
-        },
-        ElementsDemo: { screen: ElementsDemo },
-    },
-    {
-        initialRouteName: 'Home',
-        headerMode: 'none',
-        navigationOptions: ({ navigation }) => {
-            let tabBarVisible: boolean = true;
-            if (navigation.state.index > 0) {
-                tabBarVisible = false;
-            }
-            return {
-                tabBarVisible,
-            };
-        }
-    }
+
+const MainRouter = createAnimatedSwitchNavigator(
+  {
+    Main: BottomTab,
+    Auth: AuthRouter,
+  },
+  {
+    initialRouteName: 'Main',
+    // headerMode: 'none',
+    // mode: 'modal',
+      transition: (
+      <Transition.Together>
+          <Transition.Out type="slide-bottom" durationMs={300} interpolation="easeInOut" />
+          <Transition.In type="fade" durationMs={300} interpolation="easeInOut" />
+      </Transition.Together>
+    ),
+  }
 );
 
-const BottomTabNavigator = createBottomTabNavigator(
+const AppNavigator = createAnimatedSwitchNavigator(
     {
-        DomeStack: {
-            screen: DomeStack,
-            navigationOptions: () => {
-                return {
-                    tabBarLabel: '首页',
-                    tabBarIcon: () => (
-                        <ThemeConsumer>
-                            {({ theme }: any) => {
-                                return <Icon
-                                    name='home'
-                                    color={theme.colors.grey1}
-                                    size={26}
-                                />
-                            }}
-                        </ThemeConsumer>
-                    ),
-                }
-            }
-        },
+        Splash: Splash,
+        MainRouter: MainRouter,
     },
     {
-        initialRouteName: 'DomeStack',
-        tabBarOptions: {
-            activeTintColor: '#13C2C2'
-        }
-    },
-);
-
-
-const AppNavigator = createSwitchNavigator(
-    {
-        Splash: {
-            screen: Splash,
-        },
-        Main: {
-            screen: BottomTabNavigator,
-        }
-    },
-    {
-        initialRouteName: 'Splash',
+      initialRouteName: 'Splash',
+      transition: (
+        <Transition.Together>
+          <Transition.Out type="fade" durationMs={400} interpolation="easeInOut" />
+          <Transition.In type="fade" durationMs={300} interpolation="easeInOut"  />
+        </Transition.Together>
+      ),
     }
 );
 
@@ -99,6 +61,7 @@ export const routerMiddleware = createReactNavigationReduxMiddleware(
     'root'
 )
 
+// const App = createReduxContainer(<AppNavigator uriPrefix={uriPrefix} />, 'root')
 const App = createReduxContainer(AppNavigator, 'root')
 
 export interface IRouterProps {
@@ -123,27 +86,30 @@ export function getActiveRouteName(navigationState: any): string {
 
 class Router extends PureComponent<IRouterProps, {}> {
     constructor(props: IRouterProps) {
-        super(props);
-        if (!isIos) {
-            BackHandler.addEventListener('hardwareBackPress', this.onBackButtonPressAndroid);
-        }
+      super(props);
+      // @ts-ignore
+      if (!isIos) {
+        BackHandler.addEventListener('hardwareBackPress', this.onBackButtonPressAndroid);
+      }
     }
+
     componentWillUnmount() {
-        if (!isIos) {
-            BackHandler.removeEventListener('hardwareBackPress', this.onBackButtonPressAndroid);
-        }
+      if (!isIos) {
+          BackHandler.removeEventListener('hardwareBackPress', this.onBackButtonPressAndroid);
+      }
     }
+
     onBackButtonPressAndroid = () => {
         const { dispatch, router } = this.props;
         const currentScreen = getActiveRouteName(router);
 
-        if (currentScreen !== 'Home') {
+        if (currentScreen !== 'Home' && currentScreen !== 'Login' ) {
             dispatch(NavigationActions.back());
             return true
         }
         if (lastBackPressed && lastBackPressed + 2000 >= Date.now()) {
-            BackHandler.exitApp();
-            return false;
+          BackHandler.exitApp();
+          return true;
         }
         lastBackPressed = Date.now();
         ToastAndroid.show('再按一次退出应用', ToastAndroid.SHORT);

@@ -30,7 +30,10 @@ build/
 local.properties
 *.iml
 android/app/release/
-
+android/app/qa/
+android/app/development/
+android/app/production/
+android/.project
 # node.js
 #
 node_modules/
@@ -44,6 +47,7 @@ buck-out/
 \.buckd/
 *.keystore
 !debug.keystore
+!app.keystore
 
 # fastlane
 #
@@ -62,3 +66,4 @@ buck-out/
 # CocoaPods
 /ios/Pods/
 /ios/Podfile.lock
+android/*.hprof

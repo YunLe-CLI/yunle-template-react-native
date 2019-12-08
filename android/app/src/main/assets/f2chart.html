@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="chart-name" content="雷达面积图">
+  <title>F2 图表组件库 - AntV</title>
+  <link rel="stylesheet" href="https://gw.alipayobjects.com/os/rmsportal/YmDAMEQVbLJpVbKiRQVX.css" />
+
+</head>
+<body>
+<script>/*Fixing iframe window.innerHeight 0 issue in Safari*/document.body.clientHeight;</script>
+
+<script src="https://gw.alipayobjects.com/os/antv/assets/f2/3.4.2/f2.min.js"></script>
+
+<script src="https://gw.alipayobjects.com/os/antv/assets/lib/lodash-4.17.4.min.js"></script>
+<script src="https://gw.alipayobjects.com/os/antv/assets/lib/jquery-3.2.1.min.js"></script>
+<!-- 在 PC 上模拟 touch 事件 -->
+<script src="https://gw.alipayobjects.com/os/rmsportal/NjNldKHIVQRozfbAOJUW.js"></script>
+
+<div class="chart-wrapper">
+  <canvas id="mountNode"></canvas>
+</div>
+<script>
+    function renderChart(info, max) {
+        try {
+            const neData = info
+            var data = neData || [{
+                item: '11',
+                score: 70
+            },{
+                item: '22',
+                score: 60
+            },
+                {
+                    item: '33',
+                    score: 50
+                }, {
+                    item: '44',
+                    score: 40
+                }, {
+                    item: '55',
+                    score: 60
+                }, {
+                    item: '666',
+                    score: 70
+                }, {
+                    item: '77',
+                    score: 70
+                },{
+                    item: '88',
+                    score: 60
+                },];
+            var chart = new F2.Chart({
+                id: 'mountNode',
+                pixelRatio: window.devicePixelRatio,
+                appendPadding: 10,
+                width: 250,
+                height: 250,
+            });
+            chart.coord('polar');
+            chart.source(data, {
+                score: {
+                    min: 0,
+                    max: max || 150,
+                    nice: false,
+                    tickCount: 4
+                }
+            });
+            chart.axis('score', {
+                label: function label(text, index, total) {
+                    return null;
+                },
+                line: {
+                    top: false
+                }
+            });
+            chart.area().position('item*score').style({
+                stroke: '#FB3A3A',
+                fillStyle: '#FB3A3A',
+                lineWidth: 1
+            });
+            chart.line().position('item*score').style({
+                stroke: '#FB3A3A',
+                lineWidth: 1
+            });
+            chart.point().position('item*score').style({
+                stroke: '#FB3A3A',
+                fillStyle: '#FB3A3A',
+                lineWidth: 0
+            });
+            chart.tooltip(false);
+            chart.animate(false)
+            chart.render();
+            if (window.ReactNativeWebView && window.ReactNativeWebView.postMessage) {
+                window.ReactNativeWebView.postMessage(JSON.stringify({
+                    type: 'success',
+                }))
+            }
+        } catch (e) {
+            if (window.ReactNativeWebView && window.ReactNativeWebView.postMessage) {
+                window.ReactNativeWebView.postMessage(JSON.stringify({
+                    type: 'error',
+                    msg: JSON.stringify(e)
+                }))
+            }
+        }
+
+    }
+
+</script>
+
+
+</body>
+</html>

@@ -1,46 +1,37 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { Dispatch } from 'redux';
+import { SafeAreaView, View ,Text } from 'react-native';
 import { connect } from 'react-redux';
-import { withApollo } from 'react-apollo';
-import {
-    Theme,
-    UpdateTheme,
-    withTheme,
-} from 'react-native-elements';
+import {Container, Header, Left, Body, Right, Title, Icon, Button, List, ListItem, Content} from 'native-base';
+import styles from './styles';
+import {NavigationActions} from "react-navigation";
 
-import MainDemo from '@/components/MainDemo'
 
-export interface IProps {
-    navigation: any;
-    client: any;
-    dispatch: Dispatch<{}>;
-    handleChangeTheme: Function;
-    theme: Theme;
-    updateTheme: UpdateTheme;
+export interface IProps {}
 
-}
-class Home extends React.Component<IProps> {
-
-    render() {
-        return (
-            <View style={styles.container}>
-                <MainDemo />
-            </View>
-        );
-    }
+export interface IState {
 }
 
-export default connect(undefined, (dispatch) => {
-    return {
-        dispatch,
-        handleChangeTheme: (theme: {}) => dispatch({ type: 'app/changeTheme', payload: theme })
-    }
-},)(withTheme(withApollo(Home)));
+@(connect() as any)
+class Home extends React.Component<IProps, IState> {
 
+  state = {
+  };
 
-const styles = StyleSheet.create({
-  container: {
-      flex: 1,
-  },
-});
+  render() {
+    return (
+      <Container style={styles.container}>
+        <Header>
+          <Left/>
+          <Body>
+              <Title>首页</Title>
+          </Body>
+          <Right />
+        </Header>
+        <Content>
+          
+        </Content>
+      </Container>
+    );
+  }
+}
+export default Home;

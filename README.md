@@ -33,3 +33,20 @@
 
 ## 欢迎star
 > [开源github](https://github.com/YunLe-CLI/yunle-template-RN) 欢迎star ⭐⭐⭐ 感谢感谢！！！
+>
+
+┌────────────┬────────────────────────────────────────┐
+│ Name       │ Deployment Key                         │
+├────────────┼────────────────────────────────────────┤
+│ Production │ Y3Odw3fDgDAxmgG1ZTbXfsfPpoIA7UeAQ0of8_ │
+├────────────┼────────────────────────────────────────┤
+│ Staging    │ zuvJXOJ2Y7IU8BnGPwZs8eVsnXHQWcCZfzWND  │
+└────────────┴────────────────────────────────────────┘
+
+┌────────────┬────────────────────────────────────────┐
+│ Name       │ Deployment Key                         │
+├────────────┼────────────────────────────────────────┤
+│ Production │ 2Pa25zSE6DyK5Qt9CFiYykRmYWfQbNtgznp-Vb │
+├────────────┼────────────────────────────────────────┤
+│ Staging    │ vDuCly02AMF2JpeJmVZoL9Okryk6TyPtrrTd2  │
+└────────────┴────────────────────────────────────────┘

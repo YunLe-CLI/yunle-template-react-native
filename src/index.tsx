@@ -1,143 +1,211 @@
 import React, { PureComponent } from 'react';
-import { AppState } from 'react-native';
+import {AppState, Linking, View} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import { persistStore, persistReducer } from 'redux-persist';
+import { persistStore, persistReducer, REHYDRATE } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 import { connect } from "react-redux";
-import NetInfo from '@react-native-community/netinfo';
 import RNBootSplash from 'react-native-bootsplash';
 import Orientation from 'react-native-orientation-locker';
-import { ThemeProvider } from 'react-native-elements';
+import codePush from "react-native-code-push";
+import _ from 'lodash';
 import dva from '@/utils/dva';
 import ApolloRoot from '@/utils/apollo';
 import Router, { routerMiddleware, routerReducer } from '@/router';
-import appModel from '@/models/app';
-
+import * as models from '@/models';
+import {UrlProcessUtil, getEnv} from '@/utils/utils';
+import CheckUpdate from '@/components/CheckUpdate';
+import IsTester from '@/components/isTester';
+import Loading from '@/pages/Loading'
+import { IAppModelState } from '@/models';
+const PERSIST_KEY = 'root';
 const persistConfig = {
-  key: 'root',
+  key: PERSIST_KEY,
   storage: AsyncStorage,
-  whitelist: [
-    'app',
+  blacklist: [
+    'router',
+    'courses',
   ],
-}
+};
 
-const dvaApp = dva({
+
+export const dvaApp = dva({
     initialState: {},
-    models: [appModel],
+    models: Object.values(models),
     extraReducers: { router: routerReducer },
     onAction: [routerMiddleware],
-    "onReducer": (rootReducer:any) => persistReducer(persistConfig, rootReducer),
-    "onError": (e: any) => {
+    onReducer: (rootReducer:any) => persistReducer(persistConfig, rootReducer),
+    onError: (e: any) => {
         console.log('onError', e);
     },
 });
 
 const createPersist = (store: any) => {
   const persistor = persistStore(store)
-  // persistor.dispatch({
-  //     type: REHYDRATE
-  // });
+  persistor.dispatch({
+    type: REHYDRATE,
+    key: PERSIST_KEY,
+  });
   return persistor
+};
+
+let codePushOptions = {
+  //设置检查更新的频率
+  //ON_APP_RESUME APP恢复到前台的时候
+  //ON_APP_START APP开启的时候
+  //MANUAL 手动检查
+  checkFrequency : codePush.CheckFrequency.ON_APP_RESUME,
+  updateDialog : {
+    //是否显示更新描述
+    appendReleaseDescription : true ,
+    //更新描述的前缀。 默认为"Description"
+    descriptionPrefix : "更新内容：" ,
+    //强制更新按钮文字，默认为continue
+    mandatoryContinueButtonLabel : "立即更新" ,
+    //强制更新时的信息. 默认为"An update is available that must be installed."
+    mandatoryUpdateMessage : "必须更新后才能使用" ,
+    //非强制更新时，按钮文字,默认为"ignore"
+    optionalIgnoreButtonLabel : '稍后' ,
+    //非强制更新时，确认按钮文字. 默认为"Install"
+    optionalInstallButtonLabel : '后台更新' ,
+    //非强制更新时，检查到更新的消息文本
+    optionalUpdateMessage : '有新版本了，是否更新？' ,
+    //Alert窗口的标题
+    title : '更新提示'
+  },
+};
+
+export interface IMProps {
+  loading: boolean;
 }
 
+@(connect((state: IAppModelState) => {
+  return {
+    loading: _.get(state, 'app.loading', {}),
+    ENV: _.get(state, 'app.ENV', {}),
+  }
+}, (dispatch) => {
+  return {
+    dispatch
+  }
+}) as any)
+class Main extends PureComponent<IMProps> {
+  constructor(props: IMProps) {
+    super(props)
+    codePush.disallowRestart(); // 禁止重启
+    const { dispatch } = props;
+    // @ts-ignore
+    UrlProcessUtil.dispatch = props.dispatch;
+    Orientation.lockToPortrait();
+    const initial = Orientation.getInitialOrientation();
+    if (dispatch) {
+      dispatch({
+        type: 'app/orientationChange',
+        orientation: initial,
+      })
+    }
+  }
 
+  state = {
+    loading: true,
+    isLogin: false,
+    initLoading: false,
+  };
 
-interface IMProps {
-    theme: {};
+  async componentDidMount() {
+    await this.init();
+    codePush.allowRestart();// 在加载完了，允许重启
+  }
+
+  componentWillUnmount() {
+    AppState.removeEventListener('change', this._handleAppStateChange);
+    Linking.removeEventListener('url', ({url}) => UrlProcessUtil.handleOpenURL(url));
+  }
+
+  async init() {
+    try {
+      await this.initENV();
+      await this.initLinking();
+      AppState.addEventListener('change', this._handleAppStateChange);
+      Orientation.addOrientationListener(this._onOrientationDidChange);
+    } catch (e) {
+
+    } finally {
+      this.setState({
+        initLoading: false,
+      }, () => {
+        RNBootSplash.hide({ duration: 300 });
+      });
+    }
+  }
+
+  _handleAppStateChange = async (nextAppState: string) => {
+    const { dispatch } = this.props;
+    if (dispatch) {
+      dispatch({
+        type: 'app/appStateChange',
+        appState: nextAppState,
+      });
+    }
+  };
+
+  _onOrientationDidChange = async (orientation: string) => {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'app/orientationChange',
+      orientation,
+    })
+  };
+
+  initENV = async () => {
+    const { dispatch } = this.props;
+    const env = await getEnv();
+    await dispatch({
+      type: 'app/changeENV',
+      payload: env,
+    });
+  };
+
+  async initLinking() {
+    Linking.addEventListener('url', ({url}) => UrlProcessUtil.handleOpenURL(url));
+  }
+
+  render() {
+    // const { loading, ENV } = this.props;
+    const { initLoading } = this.state;
+    return (
+      <>
+        <View style={{ flexGrow: 1, }}>
+          {
+            !initLoading ? <Router /> : undefined
+          }
+          {/*{*/}
+          {/*  !initLoading && ENV === 'development' ? <IsTester /> : undefined*/}
+          {/*}*/}
+          <IsTester />
+        </View>
+        {
+          this.state.isLogin ? (<CheckUpdate />) : undefined
+        }
+      </>
+    );
+  }
 }
-export interface IConnect {
-    app: {
-        theme: {};
-    };
-}
 
-const MainRouter = connect(
-    (state: IConnect) => ({
-        theme: state.app.theme
-    }),
-)(
-    class extends PureComponent<IMProps> {
-        componentDidMount(): void {
-            RNBootSplash.hide({ duration: 300 });
-        }
-
-        render() {
-            const { theme } = this.props;
-            return (
-                <ThemeProvider theme={theme}>
-                    <Router />
-                </ThemeProvider>
-            );
-        }
-    }
-)
-
-
-interface IAPPProps {}
-class App extends PureComponent<IAPPProps> {
-    constructor(props: IAPPProps) {
-        super(props);
-        const { dispatch } = dvaApp._store;
-        Orientation.lockToPortrait();
-        const initial = Orientation.getInitialOrientation();
-        if (dispatch) {
-            dispatch({
-                type: 'app/orientationChange',
-                orientation: initial,
-            })
-        }
-    }
-
-    componentDidMount() {
-        NetInfo.fetch().then(state => {
-            console.log("Connection type", state.type);
-            console.log("Is connected?", state.isConnected);
-        });
-        AppState.addEventListener('change', this._handleAppStateChange);
-
-        Orientation.addOrientationListener(this._onOrientationDidChange);
-
-    }
-
-    componentWillUnmount() {
-        AppState.removeEventListener('change', this._handleAppStateChange);
-    }
-
-
-    _handleAppStateChange = (nextAppState: string) => {
-        const { dispatch } = dvaApp._store;
-        dispatch({
-            type: 'app/appStateChange',
-            appState: nextAppState,
-        })
-    }
-
-    _onOrientationDidChange = (orientation: string) => {
-        console.log(orientation)
-        const { dispatch } = dvaApp._store;
-        dispatch({
-            type: 'app/orientationChange',
-            orientation,
-        })
-        if (orientation == 'LANDSCAPE-LEFT') {
-            //do something with landscape left layout
-        } else {
-            //do something with portrait layout
-        }
-    };
-
-
+@codePush(codePushOptions)
+class App extends PureComponent {
     render() {
-        return (
-            <ApolloRoot>
-                <PersistGate persistor={createPersist(dvaApp._store)} loading={null}>
-                    <MainRouter />
-                </PersistGate>
-            </ApolloRoot>
-        );
+      return (
+        <PersistGate
+            persistor={createPersist(dvaApp._store)}
+            loading={<Loading />}
+        >
+          <ApolloRoot>
+            <Main />
+          </ApolloRoot>
+        </PersistGate>
+      );
     }
 }
 
 
-// @ts-ignore
 export default dvaApp.start(<App />);
