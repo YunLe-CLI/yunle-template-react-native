@@ -1,7 +1,14 @@
 利用脚手架开发一套react-native(ios & android)项目(让你开发网页dva.js 一套，**牛奶香浓浓,丝般感受** )
 > 1. dva.js
-> 2. Ant Design React Native
-> 3. apollo graphql
+>
+>
+>
+
+## demo 密码: `dagouzhi`
+[android : https://www.pgyer.com/temp2android](https://www.pgyer.com/temp2android)
+
+[ios : https://www.pgyer.com/temp2ios](https://www.pgyer.com/temp2ios)
+
 
 ## 安装脚手架
 > ` npm i -g yunle-cli`
@@ -34,19 +41,3 @@
 ## 欢迎star
 > [开源github](https://github.com/YunLe-CLI/yunle-template-RN) 欢迎star ⭐⭐⭐ 感谢感谢！！！
 >
-
-┌────────────┬────────────────────────────────────────┐
-│ Name       │ Deployment Key                         │
-├────────────┼────────────────────────────────────────┤
-│ Production │ Y3Odw3fDgDAxmgG1ZTbXfsfPpoIA7UeAQ0of8_ │
-├────────────┼────────────────────────────────────────┤
-│ Staging    │ zuvJXOJ2Y7IU8BnGPwZs8eVsnXHQWcCZfzWND  │
-└────────────┴────────────────────────────────────────┘
-
-┌────────────┬────────────────────────────────────────┐
-│ Name       │ Deployment Key                         │
-├────────────┼────────────────────────────────────────┤
-│ Production │ 2Pa25zSE6DyK5Qt9CFiYykRmYWfQbNtgznp-Vb │
-├────────────┼────────────────────────────────────────┤
-│ Staging    │ vDuCly02AMF2JpeJmVZoL9Okryk6TyPtrrTd2  │
-└────────────┴────────────────────────────────────────┘
