@@ -62,7 +62,7 @@ export async function getOrigin(url: string, type: string = 'app'): Promise<stri
 }
 
 export class UrlProcessUtil {
-  dispatch = null // Will assign when navigator mount
+  public dispatch = null // Will assign when navigator mount
   // This two function copy from react-navigation/src/createNavigationContainer.js
   // Modify by wd add more feature
   static _urlToPathAndParams(url: string) {

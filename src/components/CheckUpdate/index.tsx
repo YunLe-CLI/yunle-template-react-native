@@ -98,15 +98,15 @@ class CheckUpdate extends React.Component<{}, IState> {
           borderRadius: 8,
         }}>
           <View>
-            {/*<Text style={styles.title}>*/}
-            {/*  APP更新提示*/}
-            {/*</Text>*/}
+            <Text style={styles.title}>
+              APP更新提示
+            </Text>
             <Text style={styles.infoText}>
               发现新版本，马上更新体验吧！
             </Text>
-            {/*<Text style={styles.infoText}>*/}
-            {/*  马上更新体验吧！*/}
-            {/*</Text>*/}
+            <Text style={styles.infoText}>
+              马上更新体验吧！
+            </Text>
           </View>
           <View style={styles.btnWrap}>
             <Button

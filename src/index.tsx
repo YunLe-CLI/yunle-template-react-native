@@ -74,18 +74,12 @@ let codePushOptions = {
   },
 };
 
-export interface IMProps {
-  loading: boolean;
-}
+export interface IMProps {}
 
 @(connect((state: IAppModelState) => {
   return {
     loading: _.get(state, 'app.loading', {}),
     ENV: _.get(state, 'app.ENV', {}),
-  }
-}, (dispatch) => {
-  return {
-    dispatch
   }
 }) as any)
 class Main extends PureComponent<IMProps> {
