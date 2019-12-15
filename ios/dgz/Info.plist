@@ -73,10 +73,10 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>xiaoshangye</string>
+			<string>dagouzhi</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>xiaoshangye</string>
+				<string>dagouzhi</string>
 			</array>
 		</dict>
 	</array>

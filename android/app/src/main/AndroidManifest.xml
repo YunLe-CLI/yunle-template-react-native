@@ -23,24 +23,28 @@
         android:label="@string/app_name"
         android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
         android:windowSoftInputMode="adjustResize">
-          <intent-filter>
-              <!-- 这里添加 -->
-              <action android:name="android.intent.action.VIEW"/>
-              <category android:name="android.intent.category.DEFAULT"/>
-              <category android:name="android.intent.category.BROWSABLE"/>
-              <data android:scheme="xiaoshangye" android:host="xiaoshangye"/>
-              <!-- 这里结束 -->
-          </intent-filter>
-      </activity>
+          <!-- Splash Screen -->
+        <activity
+            android:name="com.zoontek.rnbootsplash.RNBootSplashActivity"
+            android:theme="@style/BootTheme"
+            android:launchMode="singleTask">
 
-      <activity
-        android:name="com.zoontek.rnbootsplash.RNBootSplashActivity"
-        android:theme="@style/BootTheme"> <!-- apply the theme you created at step 3. -->
-        <intent-filter>
+            <intent-filter>
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+            </intent-filter>
+
+            <!-- Deep Linking -->
+            <intent-filter>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <data android:scheme="dagouzhi" android:host="dagouzhi" />
+            </intent-filter>
+
+        </activity>
       </activity>
+
 
       <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
 <!--    stat 友盟分享    -->
