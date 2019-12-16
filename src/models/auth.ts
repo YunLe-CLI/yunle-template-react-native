@@ -6,6 +6,7 @@ import {NavigationActions} from "react-navigation";
 export interface IModelState {
   token: string | undefined;
   isLogin: boolean;
+  isVisible: boolean;
 };
 
 export interface IModelType extends Model{
@@ -16,6 +17,8 @@ export interface IModelType extends Model{
       checkLogin: Effect | EffectWithType;
       login: Effect | EffectWithType;
       logout: Effect | EffectWithType;
+      openModal: Effect | EffectWithType;
+      closeModal: Effect | EffectWithType;
     };
     reducers: {
       clearCacheHandle: Reducer<IModelState>;
@@ -28,14 +31,15 @@ export interface IModelType extends Model{
 const initState: IModelState = {
   token: '',
   isLogin: false,
+  isVisible: false,
 }
 
 const authModel: IModelType = {
     namespace: 'auth',
     state: { ...initState },
     reducers: {
-      clearCacheHandle() {
-        return { ...initState }
+      clearCacheHandle(state) {
+        return { ...initState, isVisible: state.isVisible }
       },
       updateState(state, { payload }) {
           return { ...state, ...payload }
@@ -53,6 +57,18 @@ const authModel: IModelType = {
           isLogin: true,
         }
       },
+      openModal(state) {
+        return {
+          ...state,
+          isVisible: true,
+        }
+      },
+      closeModal(state) {
+        return {
+          ...state,
+          isVisible: false,
+        }
+      },
     },
     effects: {
       *clearCache({ payload = {} }, { put }) {
@@ -65,22 +81,25 @@ const authModel: IModelType = {
       },
       *login({ payload = {} }, { put }) {
         // const { mobile, smsCode }: { mobile: string, smsCode: string } = payload;
-        return yield put({
+        const res = yield put({
           type: 'setToken',
           payload: {
             token: '123',
           }
         })
+        yield put({
+          type: 'auth/closeModal',
+        });
+        return res
       },
       *logout({ payload = {} }, { put }) {
         yield clearAllStorage();
         yield put({
           type: 'app/clearCache',
         });
-        yield put(NavigationActions.navigate({
-          routeName: 'Auth',
-          params: {},
-        }))
+        yield put({
+          type: 'auth/openModal',
+        })
         return true;
       },
     },

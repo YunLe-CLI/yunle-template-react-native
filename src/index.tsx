@@ -15,6 +15,7 @@ import Router, { routerMiddleware, routerReducer } from '@/router';
 import * as models from '@/models';
 import {UrlProcessUtil, getEnv} from '@/utils/utils';
 import CheckUpdate from '@/components/CheckUpdate';
+import Login from '@/components/Login';
 import IsTester from '@/components/isTester';
 import Loading from '@/pages/Loading'
 import { IAppModelState } from '@/models';
@@ -83,6 +84,7 @@ export interface IMProps {}
 
 @(connect((state: IAppModelState) => {
   return {
+    isVisible: state.auth.isVisible,
     loading: _.get(state, 'app.loading', {}),
     ENV: _.get(state, 'app.ENV', {}),
   }
@@ -169,7 +171,7 @@ class Main extends PureComponent<IMProps> {
   }
 
   render() {
-    // const { loading, ENV } = this.props;
+    const { isVisible } = this.props;
     const { initLoading } = this.state;
     return (
       <>
@@ -185,6 +187,7 @@ class Main extends PureComponent<IMProps> {
         {
           this.state.isLogin ? (<CheckUpdate />) : undefined
         }
+        <Login isVisible={isVisible} />
       </>
     );
   }

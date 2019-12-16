@@ -34,7 +34,7 @@ class Splash extends React.PureComponent<IProps, {}> {
     return IS_LOGIN;
   }
 
-  goToMain = () => {
+  goToMain = async () => {
     const { dispatch } = this.props;
     dispatch(NavigationActions.navigate({
       routeName: 'MainRouter',
@@ -43,6 +43,9 @@ class Splash extends React.PureComponent<IProps, {}> {
     this.setState({
       isLogin: true,
     });
+    await dispatch({
+      type: 'auth/closeModal'
+    });
   };
 
   goToLogin = async () => {
@@ -50,8 +53,12 @@ class Splash extends React.PureComponent<IProps, {}> {
     this.setState({
       isLogin: false,
     });
+    dispatch(NavigationActions.navigate({
+      routeName: 'MainRouter',
+      params: {},
+    }));
     await dispatch({
-      type: 'auth/logout'
+      type: 'auth/openModal'
     });
   };
 
