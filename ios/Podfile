@@ -71,8 +71,6 @@ target 'dgz' do
   pod 'RNSVG', :path => '../node_modules/react-native-svg'
   pod 'RNFS', :path => '../node_modules/react-native-fs'
 
-  pod 'CodePush', :path => '../node_modules/react-native-code-push'
-
 
   target 'dgzTests' do
     inherit! :search_paths

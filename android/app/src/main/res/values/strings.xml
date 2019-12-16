@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">大狗吱</string>
+<!--    <string moduleConfig="true" name="CodePushDeploymentKey">BuildConfig.CODEPUSH_KEY</string>-->
 </resources>

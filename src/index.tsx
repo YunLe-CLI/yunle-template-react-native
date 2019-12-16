@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import {AppState, Linking, View} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { persistStore, persistReducer, REHYDRATE } from 'redux-persist';
+import { StyleProvider } from 'native-base';
 import { PersistGate } from 'redux-persist/integration/react';
 import { connect } from "react-redux";
 import RNBootSplash from 'react-native-bootsplash';
@@ -17,6 +18,10 @@ import CheckUpdate from '@/components/CheckUpdate';
 import IsTester from '@/components/isTester';
 import Loading from '@/pages/Loading'
 import { IAppModelState } from '@/models';
+
+import getTheme from '@/utils/native-base-theme/components';
+import platform from '@/utils/native-base-theme/variables/platform';
+
 const PERSIST_KEY = 'root';
 const persistConfig = {
   key: PERSIST_KEY,
@@ -194,7 +199,9 @@ class App extends PureComponent {
             loading={<Loading />}
         >
           <ApolloRoot>
-            <Main />
+            <StyleProvider style={getTheme(platform)}>
+              <Main />
+            </StyleProvider>
           </ApolloRoot>
         </PersistGate>
       );

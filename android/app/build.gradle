@@ -32,7 +32,7 @@ import com.android.build.OutputFile
  *   // The configuration property can be in the following formats
  *   //         'bundleIn${productFlavor}${buildType}'
  *   //         'bundleIn${buildType}'
- *   // bundleInFreeDebug: true,
+ *   // bundleInFreeDebug: true,react.gradle
  *   // bundleInPaidRelease: true,
  *   // bundleInBeta: true,
  *
@@ -192,12 +192,15 @@ android {
     productFlavors {
         development {
             buildConfigField "String", "CODEPUSH_KEY",  CODE_PUSH_KEY_STAGING
+            resValue "string", "CodePushDeploymentKey", CODE_PUSH_KEY_STAGING
         }
         qa {
             buildConfigField "String", "CODEPUSH_KEY",  CODE_PUSH_KEY_STAGING
+            resValue "string", "CodePushDeploymentKey",  CODE_PUSH_KEY_STAGING
         }
         production {
             buildConfigField "String", "CODEPUSH_KEY",  CODE_PUSH_KEY_PRODUCTION
+            resValue "string", "CodePushDeploymentKey",  CODE_PUSH_KEY_PRODUCTION
         }
     }
 

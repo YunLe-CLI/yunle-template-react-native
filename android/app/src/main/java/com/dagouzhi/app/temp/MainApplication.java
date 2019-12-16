@@ -72,7 +72,6 @@ public class MainApplication extends Application implements ReactApplication {
       // packages.add(new MyReactNativePackage());
       packages.add(new AppPackage());
       packages.add(new DplusReactPackage());
-      packages.add(new CodePush(BuildConfig.CODEPUSH_KEY, getApplicationContext(), BuildConfig.DEBUG));
       return packages;
     }
 

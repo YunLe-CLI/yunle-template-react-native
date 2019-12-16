@@ -2,7 +2,7 @@ import React from 'react';
 import {
   View,
 } from 'react-native';
-import { Container, Header, Left, Right, Body, Icon, Content, Footer, FooterTab, Button, Text } from 'native-base';
+import { StyleProvider, Container, Header, Left, Right, Body, Icon, Content, Footer, FooterTab, Button, Text } from 'native-base';
 import DeviceInfo from "react-native-device-info";
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
@@ -11,6 +11,9 @@ import styles from './styles';
 import FastImage from 'react-native-fast-image';
 import logoImg from './assets/logo.png';
 import {ENVIRONMENT, BUILD_TYPE} from "@/utils/env";
+
+import getTheme from '@/utils/native-base-theme/components';
+import platform from '@/utils/native-base-theme/variables/platform';
 
 export interface IProps {
   navigation: any;
@@ -65,6 +68,7 @@ class Login extends React.Component<IProps, IState> {
 
   render() {
     return (
+      <StyleProvider style={getTheme(platform)}>
       <Container style={styles.container}>
         <Header  style={{ borderBottomWidth: 0, backgroundColor: '#fff' }}>
           <Left />
@@ -110,7 +114,6 @@ class Login extends React.Component<IProps, IState> {
             <View style={styles.btnWrap}>
               <Button
                   rounded
-                  danger
                   onPress={async () => {
                     await this.handleLogin();
                   }}
@@ -136,6 +139,7 @@ class Login extends React.Component<IProps, IState> {
           </FooterTab>
         </Footer>
       </Container>
+      </StyleProvider>
     );
   }
 }
