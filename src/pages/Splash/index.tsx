@@ -44,7 +44,7 @@ class Splash extends React.PureComponent<IProps, {}> {
       isLogin: true,
     });
     await dispatch({
-      type: 'auth/closeModal'
+      type: 'cache/closeLoginModal'
     });
   };
 
@@ -58,7 +58,7 @@ class Splash extends React.PureComponent<IProps, {}> {
       params: {},
     }));
     await dispatch({
-      type: 'auth/openModal'
+      type: 'cache/openLoginModal'
     });
   };
 

@@ -14,8 +14,7 @@ import ApolloRoot from '@/utils/apollo';
 import Router, { routerMiddleware, routerReducer } from '@/router';
 import * as models from '@/models';
 import {UrlProcessUtil, getEnv} from '@/utils/utils';
-import CheckUpdate from '@/components/CheckUpdate';
-import Login from '@/components/Login';
+import LoginModal from '@/components/LoginModal';
 import IsTester from '@/components/isTester';
 import Loading from '@/pages/Loading'
 import { IAppModelState } from '@/models';
@@ -29,8 +28,9 @@ const persistConfig = {
   storage: AsyncStorage,
   blacklist: [
     'router',
-    'courses',
+    'cache',
   ],
+
 };
 
 
@@ -84,7 +84,7 @@ export interface IMProps {}
 
 @(connect((state: IAppModelState) => {
   return {
-    isVisible: state.auth.isVisible,
+    isVisibleLoginModal:  _.get(state, 'cache.isVisibleLoginModal', false),
     loading: _.get(state, 'app.loading', {}),
     ENV: _.get(state, 'app.ENV', {}),
   }
@@ -171,7 +171,7 @@ class Main extends PureComponent<IMProps> {
   }
 
   render() {
-    const { isVisible } = this.props;
+    const { isVisibleLoginModal } = this.props;
     const { initLoading } = this.state;
     return (
       <>
@@ -184,10 +184,7 @@ class Main extends PureComponent<IMProps> {
           {/*}*/}
           <IsTester />
         </View>
-        {
-          this.state.isLogin ? (<CheckUpdate />) : undefined
-        }
-        <Login isVisible={isVisible} />
+        <LoginModal isVisible={isVisibleLoginModal} />
       </>
     );
   }
@@ -213,3 +210,4 @@ class App extends PureComponent {
 
 
 export default dvaApp.start(<App />);
+w

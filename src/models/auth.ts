@@ -88,7 +88,7 @@ const authModel: IModelType = {
           }
         })
         yield put({
-          type: 'auth/closeModal',
+          type: 'cache/closeLoginModal',
         });
         return res
       },
@@ -98,7 +98,7 @@ const authModel: IModelType = {
           type: 'app/clearCache',
         });
         yield put({
-          type: 'auth/openModal',
+          type: 'cache/openLoginModal',
         })
         return true;
       },
