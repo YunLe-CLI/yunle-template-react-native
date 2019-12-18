@@ -9,12 +9,15 @@ buildscript {
     }
     repositories {
         google()
-        jcenter()
+        jcenter() {
+            url "http://jcenter.bintray.com/"
+        }
         mavenCentral()
         maven { url 'https://dl.bintray.com/umsdk/release' }
         maven(){
             url 'https://maven.aliyun.com/repository/releases'
         }
+        maven { url "https://dl.bintray.com/android/android-tools" }
     }
     dependencies {
         classpath('com.android.tools.build:gradle:3.5.3')

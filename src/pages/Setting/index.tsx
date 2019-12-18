@@ -5,6 +5,8 @@ import {Container, Header, Left, Body, Right, Title, Icon, Button, List, ListIte
 import { connect } from 'react-redux';
 import styles from './styles';
 
+import nativeAutoUpdate from '@/utils/native-auto-update';
+
 
 export interface IProps {}
 
@@ -39,12 +41,9 @@ class Home extends React.Component<IProps, IState> {
                 <Content style={{ paddingHorizontal: 24 }}>
                     <List>
                         <ListItem onPress={() => {
-                            this.props.dispatch(NavigationActions.navigate({
-                                routeName: 'Setting',
-                                params: {},
-                            }));
+                            nativeAutoUpdate()
                         }}>
-                            <Text>设置</Text>
+                            <Text>检查更新</Text>
                         </ListItem>
                     </List>
                     <Button
