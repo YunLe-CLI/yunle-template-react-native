@@ -310,5 +310,6 @@
 <!--  <uses-permission android:name="com.android.voicemail.permission.ADD_VOICEMAIL" />-->
   <!-- react-native-permissions -->
 
-
+    <!--8.0安装apk需要权限-->
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
 </manifest>
