@@ -146,7 +146,7 @@ android {
         applicationId "com.dagouzhi.app.temp"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 6
+        versionCode 1
         versionName appVersion
         missingDimensionStrategy 'react-native-camera', 'general'
         multiDexEnabled true

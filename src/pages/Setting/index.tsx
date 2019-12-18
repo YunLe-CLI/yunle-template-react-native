@@ -4,9 +4,10 @@ import { NavigationActions } from 'react-navigation';
 import {Container, Header, Left, Body, Right, Title, Icon, Button, List, ListItem, Content} from 'native-base';
 import { connect } from 'react-redux';
 import styles from './styles';
+import { getOnlineAppVersion } from '@/services/api'
 
 import nativeAutoUpdate from '@/utils/native-auto-update';
-
+import { checkAppVersion } from '@/utils/utils'
 
 export interface IProps {}
 
@@ -40,8 +41,25 @@ class Home extends React.Component<IProps, IState> {
                 </Header>
                 <Content style={{ paddingHorizontal: 24 }}>
                     <List>
-                        <ListItem onPress={() => {
-                            nativeAutoUpdate()
+                        <ListItem onPress={async () => {
+                            const res = await getOnlineAppVersion();
+                            try {
+                                const is = await checkAppVersion({
+                                    appPlatform: res.os,
+                                    appVersion: res.version,
+                                    appBuildNumber:  res.build,
+                                });
+                                console.log(res, is)
+                                if (is) {
+                                    alert('有新的更新包')
+                                    nativeAutoUpdate(res.download)
+                                } else {
+                                    throw '无更新'
+                                }
+                            } catch (e) {
+                                alert('暂无更新')
+                            }
+
                         }}>
                             <Text>检查更新</Text>
                         </ListItem>
