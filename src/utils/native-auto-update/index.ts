@@ -35,6 +35,5 @@ export default () => {
       }).catch((e) => {
         alert(e)
       })
-      alert(downloadDest)
     }
   }
