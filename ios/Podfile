@@ -1,5 +1,6 @@
 platform :ios, '9.0'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
+
 # CocoaPods 到 1.8.4 版本
 source 'https://github.com/CocoaPods/Specs.git'
 
@@ -10,7 +11,6 @@ project 'dgz',
   'ReleaseProduction' => :release
 
 target 'dgz' do
-  
   
   # Pods for dgz
   pod 'FBLazyVector', :path => "../node_modules/react-native/Libraries/FBLazyVector"
