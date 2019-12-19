@@ -7,7 +7,7 @@ import styles from './styles';
 import { getOnlineAppVersion } from '@/services/api'
 
 import nativeAutoUpdate from '@/utils/native-auto-update';
-import { checkAppVersion } from '@/utils/u~~tils'
+import { checkAppVersion } from '@/utils/utils'
 
 export interface IProps {}
 
