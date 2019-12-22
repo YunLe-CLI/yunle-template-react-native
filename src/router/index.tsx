@@ -15,14 +15,12 @@ import {
 import { connect } from 'react-redux';
 
 import Splash from '@/pages/Splash';
-import AuthRouter from '@/router/AuthStack.router';
 import BottomTab from '@/router/BottomTab.router';
 
 
 const MainRouter = createAnimatedSwitchNavigator(
   {
     Main: BottomTab,
-    Auth: AuthRouter,
   },
   {
     initialRouteName: 'Main',

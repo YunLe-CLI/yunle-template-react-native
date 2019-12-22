@@ -16,7 +16,7 @@ import * as models from '@/models';
 import {UrlProcessUtil, getEnv} from '@/utils/utils';
 import LoginModal from '@/components/LoginModal';
 import IsTester from '@/components/isTester';
-import Loading from '@/pages/Loading'
+import Loading from '@/components/Loading'
 import { IAppModelState } from '@/models';
 
 import getTheme from '@/utils/native-base-theme/components';

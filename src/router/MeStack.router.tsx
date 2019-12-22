@@ -1,6 +1,6 @@
 import { createStackNavigator } from "react-navigation-stack";
 import { fromRight } from 'react-navigation-transitions';
-import * as routerConf from "@/router/router.config";
+import * as routerConf from "@/pages";
 
 const MeStack = createStackNavigator(
     {
