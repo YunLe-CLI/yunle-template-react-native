@@ -1,10 +1,7 @@
 import React from 'react';
-import { SafeAreaView, View ,Text } from 'react-native';
 import { connect } from 'react-redux';
-import {Container, Header, Left, Body, Right, Title, Icon, Button, List, ListItem, Content} from 'native-base';
+import {Container, Header, Left, Body, Right, Title, Content} from 'native-base';
 import styles from './styles';
-import {NavigationActions} from "react-navigation";
-
 
 export interface IProps {}
 
