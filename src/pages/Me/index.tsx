@@ -17,6 +17,10 @@ class Me extends React.PureComponent<IProps, IState> {
     super(props);
   }
 
+  componentDidMount(): void {
+    console.log('me componentDidMount')
+  }
+
   render() {
     return (
       <Container style={styles.container}>

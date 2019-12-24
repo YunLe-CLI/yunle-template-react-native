@@ -83,7 +83,9 @@ let codePushOptions = {
 export interface IMProps {}
 
 @(connect((state: IAppModelState) => {
+  const { auth } = state;
   return {
+    token: auth.token,
     isVisibleLoginModal:  _.get(state, 'cache.isVisibleLoginModal', false),
     loading: _.get(state, 'app.loading', {}),
     ENV: _.get(state, 'app.ENV', {}),
@@ -110,11 +112,34 @@ class Main extends PureComponent<IMProps> {
     loading: true,
     isLogin: false,
     initLoading: false,
+    forceUpdate: false,
   };
+
+  forceUpdateNum: number = 0;
 
   async componentDidMount() {
     await this.init();
     codePush.allowRestart();// 在加载完了，允许重启
+    console.log('app main did mount')
+  }
+
+  async componentDidUpdate(prevProps: Readonly<IMProps>, prevState: Readonly<{}>, snapshot?: any): void {
+    // todo: 暂时 当token改变强置刷新
+    if (this.props.token !== prevProps.token) {
+      // this.forceUpdate(() => {
+      //   this.forceUpdateNum += 1;
+      //   console.log("forceUpdate: ", this.forceUpdateNum)
+      // })
+      this.forceUpdateNum += 1;
+      console.log("forceUpdate: ", this.forceUpdateNum)
+      this.setState({
+        forceUpdate: true,
+      }, () => {
+        this.setState({
+          forceUpdate: false,
+        })
+      })
+    }
   }
 
   componentWillUnmount() {
@@ -172,12 +197,12 @@ class Main extends PureComponent<IMProps> {
 
   render() {
     const { isVisibleLoginModal } = this.props;
-    const { initLoading } = this.state;
+    const { initLoading, forceUpdate } = this.state;
     return (
       <>
         <View style={{ flexGrow: 1, }}>
           {
-            !initLoading ? <Router /> : undefined
+            !initLoading && !forceUpdate ? <Router /> : undefined
           }
           {/*{*/}
           {/*  !initLoading && ENV === 'development' ? <IsTester /> : undefined*/}
