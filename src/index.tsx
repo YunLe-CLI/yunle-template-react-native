@@ -196,7 +196,7 @@ class Main extends PureComponent<IMProps> {
   }
 
   render() {
-    const { isVisibleLoginModal } = this.props;
+    const { isVisibleLoginModal, ENV } = this.props;
     const { initLoading, forceUpdate } = this.state;
     return (
       <>
@@ -204,10 +204,9 @@ class Main extends PureComponent<IMProps> {
           {
             !initLoading && !forceUpdate ? <Router /> : undefined
           }
-          {/*{*/}
-          {/*  !initLoading && ENV === 'development' ? <IsTester /> : undefined*/}
-          {/*}*/}
-          <IsTester />
+          {
+            !initLoading && ENV === 'development' ? <IsTester /> : undefined
+          }
         </View>
         <LoginModal isVisible={isVisibleLoginModal} />
       </>
