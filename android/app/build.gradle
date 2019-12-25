@@ -76,7 +76,7 @@ import com.android.build.OutputFile
  */
 
 project.ext.react = [
-    entryFile: "index.ts",
+    entryFile: "index.js",
     enableHermes: true,  // clean and rebuild if changing
 ]
 
@@ -120,13 +120,28 @@ def jscFlavor = 'org.webkit:android-jsc:+'
 def enableHermes = project.ext.react.get("enableHermes", false);
 
 import groovy.json.JsonSlurper;
-//获取配置文件的版本信息
+// 获取配置文件的版本信息
 def getAppVersion() {
     def inputFile = new File("../package.json")
     def packageJson = new JsonSlurper().parseText(inputFile.text)
     return packageJson["version"]
 }
 def appVersion = getAppVersion()
+
+// 获取配置code push key
+def getCodePushKeyStaging() {
+    def inputFile = new File("../package.json")
+    def packageJson = new JsonSlurper().parseText(inputFile.text)
+    return packageJson["codePush_android_key_staging"]
+}
+def codePushKeyStaging = getCodePushKeyStaging()
+
+def getCodePushKeyProduction() {
+    def inputFile = new File("../package.json")
+    def packageJson = new JsonSlurper().parseText(inputFile.text)
+    return packageJson["codePush_android_key_production"]
+}
+def codePushKeyProduction = getCodePushKeyProduction()
 
 android {
 
@@ -191,16 +206,16 @@ android {
     flavorDimensions  "default"
     productFlavors {
         development {
-            buildConfigField "String", "CODEPUSH_KEY",  CODE_PUSH_KEY_STAGING
-            resValue "string", "CodePushDeploymentKey", CODE_PUSH_KEY_STAGING
+            buildConfigField "String", "CODEPUSH_KEY",  "\"${codePushKeyStaging}\""
+            resValue "string", "CodePushDeploymentKey", "\"${codePushKeyStaging}\""
         }
         qa {
-            buildConfigField "String", "CODEPUSH_KEY",  CODE_PUSH_KEY_STAGING
-            resValue "string", "CodePushDeploymentKey",  CODE_PUSH_KEY_STAGING
+            buildConfigField "String", "CODEPUSH_KEY",  "\"${codePushKeyStaging}\""
+            resValue "string", "CodePushDeploymentKey", "\"${codePushKeyStaging}\""
         }
         production {
-            buildConfigField "String", "CODEPUSH_KEY",  CODE_PUSH_KEY_PRODUCTION
-            resValue "string", "CodePushDeploymentKey",  CODE_PUSH_KEY_PRODUCTION
+            buildConfigField "String", "CODEPUSH_KEY",  "\"${codePushKeyProduction}\""
+            resValue "string", "CodePushDeploymentKey",  "\"${codePushKeyProduction}\""
         }
     }
 
