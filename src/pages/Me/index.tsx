@@ -41,6 +41,14 @@ class Me extends React.PureComponent<IProps, IState> {
             }}>
               <Text>设置</Text>
             </ListItem>
+            <ListItem onPress={() => {
+              const { dispatch } = this.props;
+              dispatch({
+                type: 'auth/logout'
+              });
+            }}>
+              <Text>推出登陆</Text>
+            </ListItem>
           </List>
         </Content>
       </Container>
