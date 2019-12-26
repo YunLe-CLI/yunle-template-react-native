@@ -8,6 +8,9 @@ import { connect } from "react-redux";
 import RNBootSplash from 'react-native-bootsplash';
 import Orientation from 'react-native-orientation-locker';
 import codePush from "react-native-code-push";
+import DropdownAlert from 'react-native-dropdownalert';
+import { WToast } from 'react-native-smart-tip'
+import Spinner from 'react-native-loading-spinner-overlay';
 import _ from 'lodash';
 import dva from '@/utils/dva';
 import ApolloRoot from '@/utils/apollo';
@@ -21,6 +24,8 @@ import { IAppModelState } from '@/models';
 
 import getTheme from '@/utils/native-base-theme/components';
 import platform from '@/utils/native-base-theme/variables/platform';
+import {NavigationActions} from "react-navigation";
+import {gold} from "@ant-design/colors/lib";
 
 const PERSIST_KEY = 'root';
 const persistConfig = {
@@ -113,6 +118,8 @@ class Main extends PureComponent<IMProps> {
     isLogin: false,
     initLoading: false,
     forceUpdate: false,
+    spinner: false,
+    spinnerText: 'loading...'
   };
 
   forceUpdateNum: number = 0;
@@ -123,7 +130,7 @@ class Main extends PureComponent<IMProps> {
     console.log('app main did mount')
   }
 
-  async componentDidUpdate(prevProps: Readonly<IMProps>, prevState: Readonly<{}>, snapshot?: any): void {
+  componentDidUpdate(prevProps: Readonly<IMProps>, prevState: Readonly<{}>, snapshot?: any): void {
     // todo: 暂时 当token改变强置刷新
     if (this.props.token !== prevProps.token) {
       // this.forceUpdate(() => {
@@ -131,13 +138,21 @@ class Main extends PureComponent<IMProps> {
       //   console.log("forceUpdate: ", this.forceUpdateNum)
       // })
       this.forceUpdateNum += 1;
-      console.log("forceUpdate: ", this.forceUpdateNum)
       this.setState({
         forceUpdate: true,
       }, () => {
         this.setState({
           forceUpdate: false,
+        }, () => {
         })
+        if (!this.props.token) {
+          WToast.show({data: '退出成功！', position: WToast.position.CENTER,});
+          this.dropDownAlertRef.alertWithType('success', '退出', "退出成功");
+        }
+        if (this.props.token) {
+          WToast.show({data: '登陆成功！', position: WToast.position.CENTER,});
+          this.dropDownAlertRef.alertWithType('success', '登陆', "登陆成功");
+        }
       })
     }
   }
@@ -145,6 +160,7 @@ class Main extends PureComponent<IMProps> {
   componentWillUnmount() {
     AppState.removeEventListener('change', this._handleAppStateChange);
     Linking.removeEventListener('url', ({url}) => UrlProcessUtil.handleOpenURL(url));
+    this.hideGlobalLoading();
   }
 
   async init() {
@@ -153,6 +169,9 @@ class Main extends PureComponent<IMProps> {
       await this.initLinking();
       AppState.addEventListener('change', this._handleAppStateChange);
       Orientation.addOrientationListener(this._onOrientationDidChange);
+      global.dropDownAlertRef = this.dropDownAlertRef;
+      global.showGlobalLoading = this.showGlobalLoading;
+      global.hideGlobalLoading = this.hideGlobalLoading;
     } catch (e) {
 
     } finally {
@@ -191,8 +210,22 @@ class Main extends PureComponent<IMProps> {
     });
   };
 
-  async initLinking() {
+  initLinking = async () => {
     Linking.addEventListener('url', ({url}) => UrlProcessUtil.handleOpenURL(url));
+  }
+
+  showGlobalLoading = (text: string | undefined) => {
+    this.setState({
+      spinner: true,
+      spinnerText: text || 'Loading...'
+    })
+  }
+
+  hideGlobalLoading = (text: string | undefined) => {
+    this.setState({
+      spinner: false,
+      spinnerText: text || 'Loading...'
+    })
   }
 
   render() {
@@ -204,11 +237,19 @@ class Main extends PureComponent<IMProps> {
           {
             !initLoading && !forceUpdate ? <Router /> : undefined
           }
+        </View>
+        <LoginModal isVisible={isVisibleLoginModal} />
+        <DropdownAlert closeInterval={1000} useNativeDriver wrapperStyle={{ zIndex: 99999 }} ref={ref => this.dropDownAlertRef = ref} />
+        <Spinner
+            visible={this.state.spinner}
+            textContent={this.state.spinnerText || 'Loading...'}
+            textStyle={{ color: '#FFF' }}
+        />
+        <View style={{ position: 'absolute', zIndex: 99999, backgroundColor: '#ff00ff' }}>
           {
             !initLoading && ENV === 'development' ? <IsTester /> : undefined
           }
         </View>
-        <LoginModal isVisible={isVisibleLoginModal} />
       </>
     );
   }

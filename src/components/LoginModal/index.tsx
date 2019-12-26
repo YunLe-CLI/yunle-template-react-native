@@ -52,6 +52,7 @@ class Login extends React.Component<IProps, IState> {
       routeName: 'Main',
       params: {},
     }))
+    global.hideGlobalLoading();
   };
 
   handleGoBack = () => {
@@ -61,6 +62,7 @@ class Login extends React.Component<IProps, IState> {
 
   handleLogin = async () => {
     const { dispatch } = this.props;
+    global.showGlobalLoading();
     dispatch({
       type: 'auth/login',
       payload: {
@@ -73,12 +75,13 @@ class Login extends React.Component<IProps, IState> {
 
   render() {
     return (
-      <Modal {...this.props} 
+      <Modal {...this.props}
+        coverScreen={false}
+        useNativeDriver
         propagateSwipe
         style={{
           margin: 0,
         }}
-        seNativeDriver
         hideModalContentWhileAnimating
         onSwipeComplete={() => {
           const { dispatch } = this.props;
