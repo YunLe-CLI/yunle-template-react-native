@@ -5,8 +5,7 @@ import LottieView from 'lottie-react-native';
 import styles from "@/pages/Splash/styles";
 import animateData from './assets/12131-christmas-snow-loading.json';
 import {NavigationActions} from "react-navigation";
-import {checkAppVersion, UrlProcessUtil} from "@/utils/utils";
-import {getOnlineAppVersion} from "@/services/api";
+import {UrlProcessUtil} from "@/utils/utils";
 import nativeAutoUpdate from "@/utils/native-auto-update";
 
 export interface IProps {}
@@ -18,21 +17,7 @@ class Splash extends React.PureComponent<IProps, {}> {
   }
 
   checkUpdate = async () => {
-    const res = await getOnlineAppVersion();
-    try {
-      const is = await checkAppVersion({
-        appPlatform: res.os,
-        appVersion: res.version,
-        appBuildNumber:  res.build,
-      });
-      console.log(res, is)
-      if (is) {
-        alert('有新的更新包')
-        nativeAutoUpdate(res.download)
-      }
-    } catch (e) {
-
-    }
+    await nativeAutoUpdate();
   }
 
   checkLogin = async () => {

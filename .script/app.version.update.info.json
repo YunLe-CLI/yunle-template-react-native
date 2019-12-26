@@ -1,12 +1,36 @@
 {
   "ios": {
-    "version": "0.0.1",
-    "build": "1",
-    "download": "itms-services://?action=download-manifest&url=https://dagouzhi.oss-cn-qingdao.aliyuncs.com/com.dagouzhi.app.temp/ios/production/release/ipa_info.plist"
+    "qa": {
+      "version": "0.0.1",
+      "build": "1",
+      "download": "itms-services://?action=download-manifest&url=https://dagouzhi.oss-cn-qingdao.aliyuncs.com/com.dagouzhi.app.temp/ios/qa/release/ipa_info.plist"
+    },
+    "debug": {
+      "version": "0.0.1",
+      "build": "1",
+      "download": "itms-services://?action=download-manifest&url=https://dagouzhi.oss-cn-qingdao.aliyuncs.com/com.dagouzhi.app.temp/ios/debug/release/ipa_info.plist"
+    },
+    "production": {
+      "version": "0.0.1",
+      "build": "1",
+      "download": "itms-services://?action=download-manifest&url=https://dagouzhi.oss-cn-qingdao.aliyuncs.com/com.dagouzhi.app.temp/ios/production/release/ipa_info.plist"
+    }
   },
   "android": {
-    "version": "0.0.1",
-    "build": "1",
-    "download": "https://dagouzhi.oss-cn-qingdao.aliyuncs.com/com.dagouzhi.app.temp/production/release/app-production-release.apk"
+    "qa": {
+      "version": "0.0.1",
+      "build": "1",
+      "download": "https://dagouzhi.oss-cn-qingdao.aliyuncs.com/com.dagouzhi.app.temp/qa/release/app-production-release.apk"
+    },
+    "debug": {
+      "version": "0.0.1",
+      "build": "1",
+      "download": "https://dagouzhi.oss-cn-qingdao.aliyuncs.com/com.dagouzhi.app.temp/debug/release/app-production-release.apk"
+    },
+    "production": {
+      "version": "0.0.1",
+      "build": "1",
+      "download": "https://dagouzhi.oss-cn-qingdao.aliyuncs.com/com.dagouzhi.app.temp/production/release/app-production-release.apk"
+    }
   }
 }

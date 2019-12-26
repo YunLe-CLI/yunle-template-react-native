@@ -350,7 +350,7 @@ export function checkAppVersion(remoteVersion: IAppInfo): boolean {
     appBuildNumber: DeviceInfo.getBuildNumber(),
   };
   let isUpdate = false;
-  if (IAppInfo.appPlatform !== appInfo.appPlatform) {
+  if (appInfo.appPlatform !== appInfo.appPlatform) {
     isUpdate = false;
     return isUpdate;
   }
