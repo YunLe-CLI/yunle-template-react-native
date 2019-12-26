@@ -20,17 +20,17 @@
     "qa": {
       "version": "0.0.1",
       "build": "1",
-      "download": "https://dagouzhi.oss-cn-qingdao.aliyuncs.com/com.dagouzhi.app.temp/qa/release/app-production-release.apk"
+      "download": "https://dagouzhi.oss-cn-qingdao.aliyuncs.com/com.dagouzhi.app.temp/android/qa/release/app-production-release.apk"
     },
     "debug": {
       "version": "0.0.1",
       "build": "1",
-      "download": "https://dagouzhi.oss-cn-qingdao.aliyuncs.com/com.dagouzhi.app.temp/debug/release/app-production-release.apk"
+      "download": "https://dagouzhi.oss-cn-qingdao.aliyuncs.com/com.dagouzhi.app.temp/android/debug/release/app-production-release.apk"
     },
     "production": {
       "version": "0.0.1",
       "build": "1",
-      "download": "https://dagouzhi.oss-cn-qingdao.aliyuncs.com/com.dagouzhi.app.temp/production/release/app-production-release.apk"
+      "download": "https://dagouzhi.oss-cn-qingdao.aliyuncs.com/com.dagouzhi.app.temp/android/production/release/app-production-release.apk"
     }
   }
 }
