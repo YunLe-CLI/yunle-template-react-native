@@ -1,0 +1,59 @@
+{
+  "ios": {
+    "appKey": "",
+    "appSecret": "",
+    "UPush": {
+      "appKey": "",
+      "appSecret": "",
+      "channel": ""
+    },
+    "UShare": {
+      "QQ": {
+        "appKey": "",
+        "appSecret": ""
+      },
+      "wechat": {
+        "appKey": "",
+        "appSecret": ""
+      },
+      "sina": {
+        "appKey": "",
+        "appSecret": ""
+      }
+    }
+  },
+  "android": {
+    "appKey": "",
+    "appSecret": "",
+    "UPush": {
+      "appKey": "",
+      "appSecret": "",
+      "MiPush": {
+        "appKey": "",
+        "appSecret": ""
+      },
+      "HuaWei": {
+        "appKey": "",
+        "appSecret": ""
+      },
+      "Meizu": {
+        "appKey": "",
+        "appSecret": ""
+      }
+    },
+    "UShare": {
+      "QQ": {
+        "appKey": "",
+        "appSecret": ""
+      },
+      "wechat": {
+        "appKey": "",
+        "appSecret": ""
+      },
+      "sina": {
+        "appKey": "",
+        "appSecret": ""
+      }
+    }
+  }
+}

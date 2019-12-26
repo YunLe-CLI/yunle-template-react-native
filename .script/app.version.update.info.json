@@ -1,0 +1,12 @@
+{
+  "ios": {
+    "version": "0.0.1",
+    "build": "1",
+    "download": "itms-services://?action=download-manifest&url=https://dagouzhi.oss-cn-qingdao.aliyuncs.com/com.dagouzhi.app.temp/ios/production/release/ipa_info.plist"
+  },
+  "android": {
+    "version": "0.0.1",
+    "build": "1",
+    "download": "https://dagouzhi.oss-cn-qingdao.aliyuncs.com/com.dagouzhi.app.temp/production/release/app-production-release.apk"
+  }
+}
