@@ -2,7 +2,7 @@
 
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android" android:opacity="opaque">
     <!-- the background color. it can be a system color or a custom one defined in colors.xml -->
-    <item android:drawable="@color/D32929" />
+    <item android:drawable="@color/FA1C30" />
 
     <item>
         <!-- the app logo, centered horizontally and vertically -->
