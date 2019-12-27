@@ -3,6 +3,7 @@ import request from '@/utils/request'
 import { getOrigin } from '@/utils/utils'
 import {ENVIRONMENT} from "@/utils/env";
 import _ from 'lodash';
+import moment from "moment";
 
 /**
  * 获取app版本
@@ -10,7 +11,7 @@ import _ from 'lodash';
  * @param params
  */
 export async function getOnlineAppVersion(): Promise<any> {
-  const url = `https://dagouzhi.oss-cn-qingdao.aliyuncs.com/com.dagouzhi.app.temp/app.version.update.info.json`;
+  const url = `https://dagouzhi.oss-cn-qingdao.aliyuncs.com/com.dagouzhi.app.temp/app.version.update.info.json?time=${moment().format("X")}`;
   return request(await getOrigin(url, 'app'), {
     method: 'GET',
   }).then((data = {}) => {
