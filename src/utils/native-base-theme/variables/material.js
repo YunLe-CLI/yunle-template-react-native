@@ -123,7 +123,7 @@ export default {
   checkboxTickColor: '#fff',
 
   // Color
-  brandPrimary: '#3F51B5',
+  brandPrimary: 'rgba(250, 28, 48, .7)',
   brandInfo: '#62B1F6',
   brandSuccess: '#5cb85c',
   brandDanger: '#d9534f',
@@ -157,27 +157,27 @@ export default {
 
   // Footer
   footerHeight: 55,
-  footerDefaultBg: '#3F51B5',
+  footerDefaultBg: 'rgba(250, 28, 48, .7)',
   footerPaddingBottom: 0,
 
   // FooterTab
   tabBarTextColor: '#bfc6ea',
   tabBarTextSize: 11,
   activeTab: '#fff',
-  sTabBarActiveTextColor: '#007aff',
+  sTabBarActiveTextColor: 'rgba(250, 28, 48, 1)',
   tabBarActiveTextColor: '#fff',
-  tabActiveBgColor: '#3F51B5',
+  tabActiveBgColor: 'rgba(250, 28, 48, .7)',
 
   // Header
   toolbarBtnColor: '#fff',
-  toolbarDefaultBg: '#3F51B5',
+  toolbarDefaultBg: 'rgba(250, 28, 48, .7)',
   toolbarHeight: 56,
   toolbarSearchIconSize: 23,
   toolbarInputColor: '#fff',
   searchBarHeight: platform === PLATFORM.IOS ? 30 : 40,
   searchBarInputHeight: platform === PLATFORM.IOS ? 40 : 50,
   toolbarBtnTextColor: '#fff',
-  toolbarDefaultBorder: '#3F51B5',
+  toolbarDefaultBorder: 'rgba(250, 28, 48, .7)',
   iosStatusbar: 'light-content',
   get statusBarColor() {
     return color(this.toolbarDefaultBg)
@@ -223,7 +223,7 @@ export default {
   listItemPadding: 12,
   listNoteColor: '#808080',
   listNoteSize: 13,
-  listItemSelected: '#3F51B5',
+  listItemSelected: 'rgba(250, 28, 48, .7)',
 
   // Progress Bar
   defaultProgressColor: '#E4202D',
@@ -231,26 +231,26 @@ export default {
 
   // Radio Button
   radioBtnSize: 23,
-  radioSelectedColorAndroid: '#3F51B5',
+  radioSelectedColorAndroid: 'rgba(250, 28, 48, .7)',
   radioBtnLineHeight: 24,
   get radioColor() {
     return this.brandPrimary;
   },
 
   // Segment
-  segmentBackgroundColor: '#3F51B5',
+  segmentBackgroundColor: 'rgba(250, 28, 48, .7)',
   segmentActiveBackgroundColor: '#fff',
   segmentTextColor: '#fff',
-  segmentActiveTextColor: '#3F51B5',
+  segmentActiveTextColor: 'rgba(250, 28, 48, .7)',
   segmentBorderColor: '#fff',
-  segmentBorderColorMain: '#3F51B5',
+  segmentBorderColorMain: 'rgba(250, 28, 48, .7)',
 
   // Spinner
   defaultSpinnerColor: '#45D56E',
   inverseSpinnerColor: '#1A191B',
 
   // Tab
-  tabDefaultBg: '#3F51B5',
+  tabDefaultBg: 'rgba(250, 28, 48, .7)',
   topTabBarTextColor: '#b3c7f9',
   topTabBarActiveTextColor: '#fff',
   topTabBarBorderColor: '#fff',

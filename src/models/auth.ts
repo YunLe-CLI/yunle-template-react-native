@@ -1,12 +1,9 @@
 import { Reducer } from 'redux';
 import { Model, Effect, EffectWithType } from 'dva';
-import { clearAllStorage } from "@/utils/utils";
 import {NavigationActions} from "react-navigation";
 
 export interface IModelState {
   token: string | undefined;
-  isLogin: boolean;
-  isVisible: boolean;
 };
 
 export interface IModelType extends Model{
@@ -30,8 +27,6 @@ export interface IModelType extends Model{
 
 const initState: IModelState = {
   token: '',
-  isLogin: false,
-  isVisible: false,
 }
 
 const authModel: IModelType = {
@@ -39,34 +34,12 @@ const authModel: IModelType = {
     state: { ...initState },
     reducers: {
       clearCacheHandle(state) {
-        return { ...initState, isVisible: state.isVisible }
-      },
-      updateState(state, { payload }) {
-          return { ...state, ...payload }
-      },
-      setIsLogin(state, { payload }) {
-        return {
-          ...state,
-          isLogin: payload.isLogin
-        }
+        return { ...initState }
       },
       setToken(state, { payload }) {
         return {
           ...state,
           token: payload.token,
-          isLogin: true,
-        }
-      },
-      openModal(state) {
-        return {
-          ...state,
-          isVisible: true,
-        }
-      },
-      closeModal(state) {
-        return {
-          ...state,
-          isVisible: false,
         }
       },
     },
@@ -87,19 +60,12 @@ const authModel: IModelType = {
             token: '123',
           }
         })
-        yield put({
-          type: 'cache/closeLoginModal',
-        });
         return res
       },
       *logout({ payload = {} }, { put }) {
-        yield clearAllStorage();
         yield put({
           type: 'app/clearCache',
         });
-        yield put({
-          type: 'cache/openLoginModal',
-        })
         return true;
       },
     },

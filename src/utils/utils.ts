@@ -111,16 +111,12 @@ export class UrlProcessUtil {
   }
 }
 
-export async function saveToken(token: string)  {
-  return await AsyncStorage.setItem('token', token);
+export function setToken(token: string | undefined)  {
+  return global.__TOKEN__ = token;
 }
-export async function getToken()  {
-  return await AsyncStorage.getItem('token');
+export function getToken()  {
+  return global.__TOKEN__;
 }
-export async function clearToken()  {
-  return await AsyncStorage.removeItem('token');
-}
-
 export async function saveEnv(env: string)  {
   await AsyncStorage.setItem('ENVIRONMENT', env);
   global.ENVIRONMENT = env || ENVIRONMENT;

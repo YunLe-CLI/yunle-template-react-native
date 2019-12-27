@@ -1,16 +1,23 @@
-import React from 'react';
-import {Platform, View, Linking, AppState, Text, Button} from 'react-native';
+import React, { createContext } from 'react';
+import { View, AppState,} from 'react-native';
 import styles from './styles';
 import Modal from "react-native-modal";
 import _ from "lodash";
-import { getAppVersion } from '@/services/api'
-import { IAppInfo, checkAppVersion } from '@/utils/utils'
+import {Button, Text} from 'native-base';
+
+import nativeAutoUpdate, { handleDownload } from "@/utils/native-auto-update";
+
+export const CheckUpdateContext = createContext({
+  handleCheck: () => {}
+})
+export const CheckUpdateConsumer = CheckUpdateContext.Consumer
 
 export interface IState {
   isModalVisible: boolean;
   isNotRemind: boolean;
+  isModalNotVisible: boolean;
 }
-class CheckUpdate extends React.Component<{}, IState> {
+class CheckUpdateProvider extends React.Component<{}, IState> {
 
   constructor(props: {}) {
     super(props);
@@ -20,6 +27,7 @@ class CheckUpdate extends React.Component<{}, IState> {
   state: IState = {
     isModalVisible: false,
     isNotRemind: false,
+    isModalNotVisible: false,
   };
 
   showModel = () => {
@@ -28,42 +36,45 @@ class CheckUpdate extends React.Component<{}, IState> {
     });
   };
 
-  closeModel = () => {
+  closeModel = (uri: string | undefined) => {
     this.setState({
       isModalVisible: false,
+    }, () => {
+      handleDownload(uri);
     })
   };
 
-  getRemoteDate = async (nextAppState: string) => {
+  showNotModel = () => {
+    this.setState({
+      isModalNotVisible: true,
+    });
+  };
+
+  closeNotModel = () => {
+    this.setState({
+      isModalNotVisible: false,
+    });
+  };
+
+  getRemoteDate = async (nextAppState: string, manual: boolean = false) => {
     if (nextAppState === 'active') {
+      let res = undefined;
       try {
-        const res = await getAppVersion();
-        const code = _.get(res, 'code', undefined);
-        const data = _.get(res, 'data', undefined);
-        if (code === 0) {
-          let appPlatform = 'ios';
-          if (_.toNumber(_.get(data, 'os', undefined)) === 1) {
-            appPlatform = 'android'
-          }
-          if (_.toNumber(_.get(data, 'os', undefined)) === 2) {
-            appPlatform = 'ios'
-          }
-          const remoteVersion: IAppInfo = {
-            appPlatform: appPlatform,
-            appVersion: _.get(data, 'version', undefined),
-            appBuildNumber: _.get(data, 'build', undefined),
-          }
-          const isUpdate: boolean = checkAppVersion(remoteVersion);
-          if (isUpdate) {
-            if (!this.state.isNotRemind) {
-              this.showModel();
-            }
-          }
+        res = await nativeAutoUpdate();
+        if (res) {
+          this.showModel();
+        } else {
+          throw '没有更新'
         }
       } catch (e) {
-
+        this.closeModel();
+        if (manual) {
+          this.showNotModel();
+        }
       } finally {
-
+        this.setState({
+          updateURI: res,
+        })
       }
     }
   }
@@ -79,76 +90,126 @@ class CheckUpdate extends React.Component<{}, IState> {
   }
 
   render() {
-    const { isModalVisible } = this.state;
+    const { isModalVisible, isModalNotVisible, updateURI } = this.state;
     return (
-      <Modal
-        isVisible={isModalVisible}
-        onBackButtonPress={() => {
+      <CheckUpdateContext.Provider value={{
+        handleCheck: async () => { await this.getRemoteDate('active', true) }
+      }}>
+        {this.props.children}
+        <Modal
+          useNativeDriver
+          propagateSwipe
+          isVisible={isModalVisible}
+          onBackButtonPress={() => {
+            this.closeModel()
+          }}
+          onBackdropPress={() => {
 
-        }}
-        onBackdropPress={() => {
+          }}
+        >
+          <View style={{
+            paddingVertical: 15,
+            paddingHorizontal: 16,
+            justifyContent: 'center',
+            backgroundColor: '#fff',
+            borderRadius: 8,
+          }}>
+              <View>
+                <View>
+                  <Text style={styles.title}>
+                    APP更新提示
+                  </Text>
+                  <Text style={styles.infoText}>
+                    发现新版本，马上更新体验吧！
+                  </Text>
+                </View>
+                <View style={styles.btnWrap}>
+                  <Button
+                      rounded
+                      transparent
+                      bordered
+                      onPress={async () => {
+                        this.setState({
+                          isNotRemind: true,
+                        }, () => {
+                          this.closeModel();
+                        })
+                      }}
+                      style={{
+                        flexGrow: 1,
+                        justifyContent: 'center',
+                      }}
+                  >
+                    <Text style={{ color: 'rgba(250, 28, 48, 1)' }}>下次再说</Text>
+                  </Button>
+                  <View style={{ width: 10, }} />
+                  <Button
+                      rounded
+                      onPress={async () => {
+                        this.setState({
+                          isNotRemind: true,
+                        }, () => {
+                          this.closeModel(updateURI);
+                        })
+                      }}
+                      style={{
+                        flexGrow: 1,
+                        justifyContent: 'center'
+                      }}
+                  >
+                    <Text style={{ color: '#fff' }}>立即更新</Text>
+                  </Button>
+                </View>
+              </View>
+          </View>
+        </Modal>
+        <Modal
+            useNativeDriver
+            propagateSwipe
+            isVisible={isModalNotVisible}
+            onBackButtonPress={() => {
+              this.closeNotModel()
+            }}
+            onBackdropPress={() => {
 
-        }}
-      >
-        <View style={{
-          paddingVertical: 15,
-          paddingHorizontal: 16,
-          justifyContent: 'center',
-          backgroundColor: '#fff',
-          borderRadius: 8,
-        }}>
-          <View>
-            <Text style={styles.title}>
-              APP更新提示
-            </Text>
-            <Text style={styles.infoText}>
-              发现新版本，马上更新体验吧！
-            </Text>
-            <Text style={styles.infoText}>
-              马上更新体验吧！
-            </Text>
+            }}
+        >
+          <View style={{
+            paddingVertical: 15,
+            paddingHorizontal: 16,
+            justifyContent: 'center',
+            backgroundColor: '#fff',
+            borderRadius: 8,
+          }}>
+            <View>
+              <View>
+                <Text style={styles.title}>
+                  APP暂无更新
+                </Text>
+                <Text style={styles.infoText}>
+                  暂无版本更新！
+                </Text>
+              </View>
+              <View style={styles.btnWrap}>
+                <Button
+                    rounded
+                    onPress={async () => {
+                      this.closeNotModel()
+                    }}
+                    style={{
+                      flexGrow: 1,
+                      justifyContent: 'center',
+                    }}
+                >
+                  <Text>知道了</Text>
+                </Button>
+              </View>
+            </View>
           </View>
-          <View style={styles.btnWrap}>
-            <Button
-              type="outline"
-              containerStyle={{
-                flexGrow: 1,
-              }}
-              buttonStyle={styles.buttonStyle2}
-              titleProps={{
-                style: styles.buttonTitleProps2,
-              }}
-              onPress={() => {
-                this.setState({
-                  isNotRemind: true,
-                }, () => {
-                  this.closeModel();
-                })
-              }}
-              title="下次再说" />
-            <View style={{ width: 10, }} />
-            <Button
-              containerStyle={{
-                flexGrow: 1,
-              }}
-              buttonStyle={styles.buttonStyle}
-              titleProps={{
-                style: styles.buttonTitleProps,
-              }}
-              onPress={() => {
-                if (Platform.OS === 'ios') {
-                  Linking.openURL('https://apps.apple.com/cn/app/%E5%B0%8F%E5%95%86%E4%B8%9A/id1478687087');
-                }
-                if (Platform.OS === 'android') {
-                  Linking.openURL('https://a.app.qq.com/o/simple.jsp?pkgname=net.xiaoshangye.app.android');
-                }
-              }}
-              title="立即更新" />
-          </View>
-        </View>
-      </Modal>
+        </Modal>
+      </CheckUpdateContext.Provider>
     );
   }
 }
 
-export default CheckUpdate
+export default CheckUpdateProvider

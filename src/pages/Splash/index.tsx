@@ -16,8 +16,16 @@ class Splash extends React.PureComponent<IProps, {}> {
     super(props);
   }
 
-  checkUpdate = async () => {
-    await nativeAutoUpdate();
+  componentDidMount() {
+    this.init();
+  }
+
+  init = async () => {
+    const url: string | null = await Linking.getInitialURL();
+    const isLogin: boolean = await this.checkLogin()
+    if (isLogin && url) {
+      UrlProcessUtil.handleOpenURL(url);
+    }
   }
 
   checkLogin = async () => {
@@ -70,19 +78,14 @@ class Splash extends React.PureComponent<IProps, {}> {
   render() {
     return (
       <View style={styles.container}>
-        <LottieView
-          autoPlay
-          loop={false}
-          source={animateData}
-          onAnimationFinish={async () => {
-            const url: string | null = await Linking.getInitialURL();
-            const isLogin: boolean = await this.checkLogin()
-            if (isLogin && url) {
-              UrlProcessUtil.handleOpenURL(url);
-            }
-            await this.checkUpdate()
-          }}
-        />
+        {/*<LottieView*/}
+        {/*  autoPlay*/}
+        {/*  loop={false}*/}
+        {/*  source={animateData}*/}
+        {/*  onAnimationFinish={async () => {*/}
+
+        {/*  }}*/}
+        {/*/>*/}
       </View>
     );
   }

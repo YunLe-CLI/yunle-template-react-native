@@ -10,14 +10,14 @@ import DeviceInfo from 'react-native-device-info';
 export default async function request(url: string, option: any): Promise<any> {
   const token = await getToken();
   interface IAppInfo {
-    appPlatform: 'android' | 'ios' | string;
-    appVersion: string; // '0.0.8'
-    appBuildNumber: number | string; // 1
+    app_platform: 'android' | 'ios' | string;
+    app_version: string; // '0.0.8'
+    app_build_number: number | string; // 1
   };
   const appInfo: IAppInfo = {
-    appPlatform: Platform.OS,
-    appVersion: DeviceInfo.getVersion(),
-    appBuildNumber: DeviceInfo.getBuildNumber(),
+    app_platform: Platform.OS,
+    app_version: DeviceInfo.getVersion(),
+    app_build_number: DeviceInfo.getBuildNumber(),
   };
   const response = await fetch(url, {
     ...option,

@@ -37,6 +37,10 @@
 
 ## android
 > `npm run start:android`
+>
+
+## 主题定制
+》 https://nativebase.io/customizer/#
 
 ## 欢迎star
 > [开源github](https://github.com/YunLe-CLI/yunle-template-RN) 欢迎star ⭐⭐⭐ 感谢感谢！！！

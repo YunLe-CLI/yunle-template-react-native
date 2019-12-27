@@ -133,7 +133,7 @@ export default {
   checkboxTextShadowRadius: 0,
 
   // Color
-  brandPrimary: platform === PLATFORM.IOS ? '#fa1c30' : '#fa1c30',
+  brandPrimary: "rgba(250, 28, 48, 1)",
   brandInfo: '#62B1F6',
   brandSuccess: '#5cb85c',
   brandDanger: '#d9534f',
@@ -186,28 +186,28 @@ export default {
 
   // Footer
   footerHeight: 55,
-  footerDefaultBg: platform === PLATFORM.IOS ? '#F8F8F8' : '#3F51B5',
+  footerDefaultBg: "#fff",
   footerPaddingBottom: 0,
 
   // FooterTab
   tabBarTextColor: platform === PLATFORM.IOS ? '#6b6b6b' : '#b3c7f9',
   tabBarTextSize: platform === PLATFORM.IOS ? 14 : 11,
-  activeTab: platform === PLATFORM.IOS ? '#007aff' : '#fff',
-  sTabBarActiveTextColor: '#007aff',
-  tabBarActiveTextColor: platform === PLATFORM.IOS ? '#007aff' : '#fff',
-  tabActiveBgColor: platform === PLATFORM.IOS ? '#cde1f9' : '#3F51B5',
+  activeTab: "rgba(250, 28, 48, 1)",
+  sTabBarActiveTextColor: 'rgba(250, 28, 48, 1)',
+  tabBarActiveTextColor: '#fff',
+  tabActiveBgColor: 'rgba(250, 28, 48, .7)',
 
   // Header
-  toolbarBtnColor: platform === PLATFORM.IOS ? '#007aff' : '#fff',
-  toolbarDefaultBg: platform === PLATFORM.IOS ? '#F8F8F8' : '#3F51B5',
+  toolbarBtnColor: "rgba(250, 28, 48, 1)",
+  toolbarDefaultBg: "rgba(250, 28, 48, 1)",
   toolbarHeight: platform === PLATFORM.IOS ? 64 : 56,
   toolbarSearchIconSize: platform === PLATFORM.IOS ? 20 : 23,
-  toolbarInputColor: platform === PLATFORM.IOS ? '#CECDD2' : '#fff',
+  toolbarInputColor: platform === PLATFORM.IOS ? '#fff' : '#fff',
   searchBarHeight: platform === PLATFORM.IOS ? 30 : 40,
   searchBarInputHeight: platform === PLATFORM.IOS ? 30 : 50,
-  toolbarBtnTextColor: platform === PLATFORM.IOS ? '#007aff' : '#fff',
-  toolbarDefaultBorder: platform === PLATFORM.IOS ? '#a7a6ab' : '#3F51B5',
-  iosStatusbar: platform === PLATFORM.IOS ? 'dark-content' : 'light-content',
+  toolbarBtnTextColor: platform === PLATFORM.IOS ? '#fff' : '#fff',
+  toolbarDefaultBorder: platform === PLATFORM.IOS ? 'rgba(250, 28, 48, 1)' : 'rgba(250, 28, 48, 1)',
+  iosStatusbar: platform === PLATFORM.IOS ? 'light-content' : 'light-content',
   get statusBarColor() {
     return color(this.toolbarDefaultBg)
       .darken(0.2)
@@ -243,7 +243,7 @@ export default {
   lineHeightH2: 27,
   lineHeightH3: 22,
   lineHeight: platform === PLATFORM.IOS ? 20 : 24,
-  listItemSelected: platform === PLATFORM.IOS ? '#007aff' : '#3F51B5',
+  listItemSelected: "rgba(250, 28, 48, 1)",
 
   // List
   listBg: 'transparent',
@@ -260,19 +260,19 @@ export default {
 
   // Radio Button
   radioBtnSize: platform === PLATFORM.IOS ? 25 : 23,
-  radioSelectedColorAndroid: '#3F51B5',
+  radioSelectedColorAndroid: 'rgba(250, 28, 48, .7)',
   radioBtnLineHeight: platform === PLATFORM.IOS ? 29 : 24,
   get radioColor() {
     return this.brandPrimary;
   },
 
   // Segment
-  segmentBackgroundColor: platform === PLATFORM.IOS ? '#F8F8F8' : '#3F51B5',
-  segmentActiveBackgroundColor: platform === PLATFORM.IOS ? '#007aff' : '#fff',
-  segmentTextColor: platform === PLATFORM.IOS ? '#007aff' : '#fff',
-  segmentActiveTextColor: platform === PLATFORM.IOS ? '#fff' : '#3F51B5',
-  segmentBorderColor: platform === PLATFORM.IOS ? '#007aff' : '#fff',
-  segmentBorderColorMain: platform === PLATFORM.IOS ? '#a7a6ab' : '#3F51B5',
+  segmentBackgroundColor: '#F8F8F8',
+  segmentActiveBackgroundColor: 'rgba(250, 28, 48, 1)',
+  segmentTextColor: 'rgba(250, 28, 48, 1)',
+  segmentActiveTextColor: '#fff',
+  segmentBorderColor: 'rgba(250, 28, 48, 1)',
+  segmentBorderColorMain: '#a7a6ab',
 
   // Spinner
   defaultSpinnerColor: '#45D56E',
@@ -280,11 +280,11 @@ export default {
 
   // Tab
   tabBarDisabledTextColor: '#BDBDBD',
-  tabDefaultBg: platform === PLATFORM.IOS ? '#F8F8F8' : '#3F51B5',
-  topTabBarTextColor: platform === PLATFORM.IOS ? '#6b6b6b' : '#b3c7f9',
-  topTabBarActiveTextColor: platform === PLATFORM.IOS ? '#007aff' : '#fff',
-  topTabBarBorderColor: platform === PLATFORM.IOS ? '#a7a6ab' : '#fff',
-  topTabBarActiveBorderColor: platform === PLATFORM.IOS ? '#007aff' : '#fff',
+  tabDefaultBg: '#F8F8F8',
+  topTabBarTextColor: '#6b6b6b',
+  topTabBarActiveTextColor: 'rgba(250, 28, 48, 1)',
+  topTabBarBorderColor: '#a7a6ab',
+  topTabBarActiveBorderColor: 'rgba(250, 28, 48, 1)',
 
   // Tabs
   tabBgColor: '#F8F8F8',
@@ -302,8 +302,8 @@ export default {
   titleFontfamily: platform === PLATFORM.IOS ? 'System' : 'Roboto_medium',
   titleFontSize: platform === PLATFORM.IOS ? 17 : 19,
   subTitleFontSize: platform === PLATFORM.IOS ? 11 : 14,
-  subtitleColor: platform === PLATFORM.IOS ? '#8e8e93' : '#FFF',
-  titleFontColor: platform === PLATFORM.IOS ? '#000' : '#FFF',
+  subtitleColor: platform === PLATFORM.IOS ? '#FFF' : '#FFF',
+  titleFontColor: platform === PLATFORM.IOS ? '#FFF' : '#FFF',
 
   // Other
   borderRadiusBase: platform === PLATFORM.IOS ? 5 : 2,
