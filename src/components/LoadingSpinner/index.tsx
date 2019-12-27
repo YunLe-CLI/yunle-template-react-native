@@ -1,7 +1,8 @@
 import React, { createContext } from 'react';
 import Spinner from 'react-native-loading-spinner-overlay';
 export const LoadingSpinnerContext = createContext({
-  handleCheck: () => {}
+  showLoading: () => {},
+  hiddenLoading: () => {}
 })
 export const LoadingSpinnerConsumer = LoadingSpinnerContext.Consumer
 
@@ -19,7 +20,18 @@ class LoadingSpinnerProvider extends React.Component<{}> {
   render() {
     return (
       <LoadingSpinnerContext.Provider value={{
-        handleCheck: async () => {  }
+        showLoading: async (text: string) => {
+          this.setState({
+            spinner: true,
+            spinnerText: text || 'loading...',
+          })
+        },
+        hiddenLoading: async () => {
+          this.setState({
+            spinner: false,
+            spinnerText: 'loading...',
+          })
+        }
       }}>
         {this.props.children}
         <Spinner

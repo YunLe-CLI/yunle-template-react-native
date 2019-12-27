@@ -23,13 +23,14 @@ class Home extends React.Component<IProps, IState> {
             <Container style={styles.container}>
                 <Header>
                     <Left>
-                        <Button transparent
-                                onPress={() => {
-                                    const { dispatch } = this.props;
-                                    dispatch(NavigationActions.back());
-                                }}
+                        <Button
+                            transparent
+                            onPress={() => {
+                                const { dispatch } = this.props;
+                                dispatch(NavigationActions.back());
+                            }}
                         >
-                            <Icon name='arrow-back' />
+                            <Icon style={{ paddingHorizontal: 12, color: '#fff', fontSize: 26 }} name='arrow-back' />
                         </Button>
                     </Left>
                     <Body>
@@ -37,7 +38,7 @@ class Home extends React.Component<IProps, IState> {
                     </Body>
                     <Right />
                 </Header>
-                <Content style={{ paddingHorizontal: 24 }}>
+                <Content style={{ paddingHorizontal: 12 }}>
                     <List>
                         <CheckUpdateConsumer>
                             {({ handleCheck }) => {

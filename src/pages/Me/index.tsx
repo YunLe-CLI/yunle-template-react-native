@@ -31,7 +31,7 @@ class Me extends React.PureComponent<IProps, IState> {
           </Body>
           <Right />
         </Header>
-        <Content style={{ paddingHorizontal: 24 }}>
+        <Content style={{ paddingHorizontal: 12 }}>
           <List>
             <ListItem onPress={() => {
               this.props.dispatch(NavigationActions.navigate({
