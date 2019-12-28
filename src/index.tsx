@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component, PureComponent } from 'react';
 import {AppState, Linking, View} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { persistStore, persistReducer, REHYDRATE } from 'redux-persist';
@@ -23,6 +23,7 @@ import CheckAppUpdateProvider from '@/components/CheckAppUpdate'
 import CheckCodePushProvider from '@/components/CheckCodePush'
 import { IAppModelState } from '@/models';
 import { setToken } from '@/utils/utils'
+import ErrorView from '@/components/ErrorView';
 
 import getTheme from '@/utils/native-base-theme/components';
 import platform from '@/utils/native-base-theme/variables/platform';
@@ -97,7 +98,7 @@ export interface IMProps {}
     ENV: _.get(state, 'app.ENV', {}),
   }
 }) as any)
-class Main extends PureComponent<IMProps> {
+class Main extends Component<IMProps> {
   constructor(props: IMProps) {
     super(props)
     codePush.disallowRestart(); // 禁止重启
@@ -119,9 +120,22 @@ class Main extends PureComponent<IMProps> {
     isLogin: false,
     initLoading: false,
     forceUpdate: false,
+    isError: false,
+    errorInfo: undefined,
   };
 
   forceUpdateNum: number = 0;
+
+  static getDerivedStateFromError(error) {
+    return { isError: true };
+  }
+
+  componentDidCatch (err, info) {
+    console.log(err, info)
+    this.setState({
+      errorInfo: info,
+    })
+  }
 
   async componentDidMount() {
     await this.init();
@@ -205,7 +219,7 @@ class Main extends PureComponent<IMProps> {
 
   render() {
     const { ENV } = this.props;
-    const { initLoading, forceUpdate } = this.state;
+    const { initLoading, forceUpdate, isError, errorInfo } = this.state;
     return (
       <LoadingSpinnerProvider>
         <DropdownAlertProvider>
@@ -214,7 +228,9 @@ class Main extends PureComponent<IMProps> {
               <LoginProvider>
                 <View style={{ flexGrow: 1, }}>
                   {
-                    !initLoading && !forceUpdate ? <Router /> : undefined
+                    isError ? (<ErrorView errorInfo={errorInfo} />) : (
+                        !initLoading && !forceUpdate ? <Router /> : undefined
+                    )
                   }
                 </View>
                 <View style={{ position: 'absolute', zIndex: 99999, backgroundColor: '#ff00ff' }}>
