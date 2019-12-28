@@ -16,6 +16,7 @@ export interface IState {
   isModalVisible: boolean;
   isNotRemind: boolean;
   isModalNotVisible: boolean;
+  updateURI: undefined | string;
 }
 class CheckUpdateProvider extends React.Component<{}, IState> {
 
@@ -28,6 +29,7 @@ class CheckUpdateProvider extends React.Component<{}, IState> {
     isModalVisible: false,
     isNotRemind: false,
     isModalNotVisible: false,
+    updateURI: undefined,
   };
 
   showModel = () => {
@@ -40,7 +42,9 @@ class CheckUpdateProvider extends React.Component<{}, IState> {
     this.setState({
       isModalVisible: false,
     }, () => {
-      handleDownload(uri);
+      if (uri) {
+        handleDownload(uri);
+      }
     })
   };
 
@@ -67,7 +71,7 @@ class CheckUpdateProvider extends React.Component<{}, IState> {
           throw '没有更新'
         }
       } catch (e) {
-        this.closeModel();
+        this.closeModel(undefined);
         if (manual) {
           this.showNotModel();
         }
@@ -85,7 +89,8 @@ class CheckUpdateProvider extends React.Component<{}, IState> {
   }
 
   componentWillUnmount(): void {
-    this.closeModel();
+    this.closeModel(undefined);
+    this.closeNotModel();
     AppState.removeEventListener('change', this.getRemoteDate);
   }
 
@@ -101,7 +106,7 @@ class CheckUpdateProvider extends React.Component<{}, IState> {
           propagateSwipe
           isVisible={isModalVisible}
           onBackButtonPress={() => {
-            this.closeModel()
+            this.closeModel(undefined)
           }}
           onBackdropPress={() => {
 
@@ -132,7 +137,7 @@ class CheckUpdateProvider extends React.Component<{}, IState> {
                         this.setState({
                           isNotRemind: true,
                         }, () => {
-                          this.closeModel();
+                          this.closeModel(undefined);
                         })
                       }}
                       style={{
@@ -169,9 +174,6 @@ class CheckUpdateProvider extends React.Component<{}, IState> {
             isVisible={isModalNotVisible}
             onBackButtonPress={() => {
               this.closeNotModel()
-            }}
-            onBackdropPress={() => {
-
             }}
         >
           <View style={{
