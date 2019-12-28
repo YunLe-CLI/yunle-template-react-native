@@ -17,10 +17,14 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   btn: {
-    marginTop: 20,
+    marginTop: 50,
   },
   Accordion: {
+    flex: 1,
+    flexDirection: 'row',
     marginTop: 20,
-    height: 300,
+    minHeight: 200,
+    paddingHorizontal: 12,
+    paddingVertical: 12,
   }
 });

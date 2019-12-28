@@ -16,6 +16,7 @@ export interface IState {
 class Home extends React.Component<IProps, IState> {
 
     state = {
+        list: []
     };
 
     render() {
@@ -49,6 +50,13 @@ class Home extends React.Component<IProps, IState> {
                                 </ListItem>
                             }}
                         </CheckUpdateConsumer>
+                        <ListItem onPress={async () => {
+                            this.setState({
+                                list: ''
+                            })
+                        }}>
+                           <Text>throw error</Text>
+                        </ListItem>
                     </List>
                     <LoginConsumer>
                         {
@@ -73,7 +81,11 @@ class Home extends React.Component<IProps, IState> {
                             }
                         }
                     </LoginConsumer>
-
+                    {
+                        this.state.list.map(() => {
+                            return <View/>
+                        })
+                    }
                 </Content>
             </Container>
         );

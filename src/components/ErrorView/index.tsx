@@ -1,9 +1,10 @@
 import React from 'react';
-import {ScrollView,NativeModules, View } from 'react-native';
-import {Accordion, Container, Header, Content, Button, Title, Text} from 'native-base';
+import {  View } from 'react-native';
+import {Accordion, Container, Header, Content, Footer, Button, Title, Text, Body} from 'native-base';
 import styles from './styles';
 import LottieView from "lottie-react-native";
 import animateData from "./assets/6638-not-found.json";
+import CodePush from "react-native-code-push";
 
 export interface IProps {
   errorInfo: undefined | {};
@@ -19,59 +20,66 @@ class ErrorView extends React.PureComponent<IProps, IState> {
 
   onReload = () => {
     try {
-      const { DevMenu } = NativeModules;
-      DevMenu.reload();
+      CodePush.restartApp();
     } catch (e) {
       alert(e)
     }
-    console.log(NativeModules)
   }
 
   render() {
     const { errorInfo } = this.props;
     console.log(errorInfo)
     return (
-      <Container style={styles.container}>
-        <Header>
-          <Title>
-            APP发生错误
-          </Title>
+      <Container style={[styles.container, {
+        backgroundColor: 'rgba(250, 28, 48, 1)'
+      }]}>
+        <Header transparent>
+          <Body>
+            <Title>APP发生错误</Title>
+          </Body>
         </Header>
-        <Content scrollEnabled={false} contentContainerStyle={{
+        <Content contentContainerStyle={{
           flex: 1,
-          justifyContent: 'center',
-          alignItems: 'center',
         }}>
           <View style={styles.content}>
             <View style={{
               flexGrow: 1,
+              paddingHorizontal: 12,
+              flexDirection: 'row',
               justifyContent: 'center',
-              alignItems: 'center',
             }}>
-              <View style={styles.lottie}>
-                <LottieView
-                    style={styles.lottie}
-                    autoPlay
-                    loop
-                    source={animateData}
-                    onAnimationFinish={async () => {
+              <View style={{
+                flex: 1,
+                marginTop: 100,
+              }}>
+                <View style={{
+                  justifyContent: 'center',
+                  alignItems: 'center',
 
-                    }}
-                />
-                <Title>刷新123</Title>
-              </View>
+                }}>
+                  <LottieView
+                      style={styles.lottie}
+                      autoPlay
+                      loop
+                      source={animateData}
+                      onAnimationFinish={async () => {
 
-              <View style={styles.btn}>
-                <Button
-                    rounded
-                    onPress={this.onReload}
-                    style={{
-                      justifyContent: 'center',
-                      alignContent: 'center',
-                    }}
-                >
-                  <Text>刷新</Text>
-                </Button>
+                      }}
+                  />
+                </View>
+                <View style={styles.btn}>
+                  <Button
+                      rounded
+                      onPress={this.onReload}
+                      style={{
+                        justifyContent: 'center',
+                        alignContent: 'center',
+                        backgroundColor: '#fff'
+                      }}
+                  >
+                    <Text style={{ color: '#000' }}>刷新APP</Text>
+                  </Button>
+                </View>
               </View>
             </View>
             <View style={styles.Accordion}>
@@ -80,7 +88,7 @@ class ErrorView extends React.PureComponent<IProps, IState> {
                   title: "错误祥情",
                   content: errorInfo && errorInfo.componentStack ? errorInfo.componentStack : '未知错误！'
                 }
-              ]} style={{ width: '100%' }} expanded={0}/>
+              ]} expanded={0}/>
             </View>
           </View>
         </Content>

@@ -43,7 +43,11 @@ class CheckUpdateProvider extends React.Component<{}, IState> {
       isModalVisible: false,
     }, () => {
       if (uri) {
-        handleDownload(uri);
+        try {
+          handleDownload(uri);
+        } catch (e) {
+          alert(e)
+        }
       }
     })
   };

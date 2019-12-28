@@ -64,6 +64,13 @@ class IsTester extends React.PureComponent<IProps, IState> {
                   >
                     <Icon name="color-palette" />
                   </Button>
+                  <Button style={{ backgroundColor: '#D32929' }}
+                          onPress={() => {
+                            throw new Error('12')
+                          }}
+                  >
+                    <Icon name="bug" />
+                  </Button>
                   <Button
                       onPress={() => {
                         const { dispatch } = this.props;
