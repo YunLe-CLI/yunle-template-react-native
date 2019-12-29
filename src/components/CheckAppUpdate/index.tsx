@@ -22,7 +22,7 @@ class CheckUpdateProvider extends React.Component<{}, IState> {
 
   constructor(props: {}) {
     super(props);
-    this.getRemoteDate = _.debounce(this.getRemoteDate, 1000)
+    this.getRemoteDate = _.debounce(this.getRemoteDate,  3000)
   }
 
   state: IState = {
@@ -106,6 +106,7 @@ class CheckUpdateProvider extends React.Component<{}, IState> {
       }}>
         {this.props.children}
         <Modal
+          coverScreen={false}
           useNativeDriver
           propagateSwipe
           isVisible={isModalVisible}
@@ -173,6 +174,7 @@ class CheckUpdateProvider extends React.Component<{}, IState> {
           </View>
         </Modal>
         <Modal
+            coverScreen={false}
             useNativeDriver
             propagateSwipe
             isVisible={isModalNotVisible}
