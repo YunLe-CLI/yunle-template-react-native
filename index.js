@@ -7,6 +7,7 @@
 import 'react-native-gesture-handler'
 import 'react-native-root-siblings'
 import {AppRegistry} from 'react-native';
+// import '@/utils/globalErrorHandle'
 import App from './src';
 import {name as appName} from './app.json';
 

@@ -6,7 +6,7 @@ import styles from "@/pages/Splash/styles";
 import animateData from './assets/12131-christmas-snow-loading.json';
 import {NavigationActions} from "react-navigation";
 import {UrlProcessUtil} from "@/utils/utils";
-import nativeAutoUpdate from "@/utils/native-auto-update";
+import { LoginConsumer } from '@/components/LoginModal'
 
 export interface IProps {}
 
@@ -15,6 +15,8 @@ class Splash extends React.PureComponent<IProps, {}> {
   constructor(props: IProps) {
     super(props);
   }
+
+  openLoginModal: any;
 
   componentDidMount() {
     this.init();
@@ -56,9 +58,6 @@ class Splash extends React.PureComponent<IProps, {}> {
     this.setState({
       isLogin: true,
     });
-    await dispatch({
-      type: 'cache/closeLoginModal'
-    });
   };
 
   goToLogin = async () => {
@@ -70,23 +69,28 @@ class Splash extends React.PureComponent<IProps, {}> {
       routeName: 'MainRouter',
       params: {},
     }));
-    await dispatch({
-      type: 'cache/openLoginModal'
-    });
+    if (this.openLoginModal) {
+      this.openLoginModal();
+    }
   };
 
   render() {
     return (
-      <View style={styles.container}>
-        {/*<LottieView*/}
-        {/*  autoPlay*/}
-        {/*  loop={false}*/}
-        {/*  source={animateData}*/}
-        {/*  onAnimationFinish={async () => {*/}
+      <LoginConsumer>
+        {({ openLoginModal }) => {
+          this.openLoginModal = openLoginModal;
+          return <View style={styles.container}>
+            {/*<LottieView*/}
+            {/*  autoPlay*/}
+            {/*  loop={false}*/}
+            {/*  source={animateData}*/}
+            {/*  onAnimationFinish={async () => {*/}
 
-        {/*  }}*/}
-        {/*/>*/}
-      </View>
+            {/*  }}*/}
+            {/*/>*/}
+          </View>
+        }}
+      </LoginConsumer>
     );
   }
 }
