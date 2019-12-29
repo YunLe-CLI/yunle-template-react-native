@@ -55,16 +55,10 @@ class Splash extends React.PureComponent<IProps, {}> {
       routeName: 'MainRouter',
       params: {},
     }));
-    this.setState({
-      isLogin: true,
-    });
   };
 
   goToLogin = async () => {
     const { dispatch } = this.props;
-    this.setState({
-      isLogin: false,
-    });
     dispatch(NavigationActions.navigate({
       routeName: 'MainRouter',
       params: {},

@@ -1,28 +1,22 @@
-import stacktraceParser from 'stacktrace-parser';
+const noop = () => {};
 
-
-const parseErrorStack = (error) => {
-    if (!error || !error.stack) {
-        return [];
+export const setJSExceptionHandler = (customHandler = noop, allowedInDevMode = false) => {
+    if (typeof allowedInDevMode !== "boolean" || typeof customHandler !== "function") {
+        return;
     }
-    return Array.isArray(error.stack) ? error.stack :
-        stacktraceParser.parse(error.stack);
+    const allowed = allowedInDevMode ? true : !__DEV__;
+    if (allowed) {
+        // !!! 关键代码
+        // 设置错误处理函数
+        global.ErrorUtils.setGlobalHandler(customHandler);
+        // 改写 console.error，保证报错能被 ErrorUtils 捕获并调用错误处理函数处理
+        console.error = (message, error) => global.ErrorUtils.reportError(error);
+    }
 };
 
+export const getJSExceptionHandler = () => global.ErrorUtils.getGlobalHandler();
 
-// intercept react-native error handling
-if (ErrorUtils._globalHandler) {
-    this.defaultHandler = (ErrorUtils.getGlobalHandler
-        && ErrorUtils.getGlobalHandler())
-        || ErrorUtils._globalHandler;
-    ErrorUtils.setGlobalHandler(this.wrapGlobalHandler); // feed errors directly to our wrapGlobalHandler function
-}
-
-async function wrapGlobalHandler(error, isFatal) {
-
-    const stack = parseErrorStack(error);
-
-    //do anything with the error here
-    alert(JSON.stringify(error))
-    this.defaultHandler(error, isFatal);  //after you're finished, call the defaultHandler so that react-native also gets the error
-}
+export default {
+    setJSExceptionHandler,
+    getJSExceptionHandler,
+};

@@ -86,7 +86,7 @@ class ErrorView extends React.PureComponent<IProps, IState> {
               <Accordion dataArray={[
                 {
                   title: "错误祥情",
-                  content: errorInfo && errorInfo.componentStack ? errorInfo.componentStack : '未知错误！'
+                  content: errorInfo ? JSON.stringify(errorInfo) : '未知错误！'
                 }
               ]} expanded={0}/>
             </View>

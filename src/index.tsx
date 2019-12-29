@@ -27,6 +27,7 @@ import ErrorView from '@/components/ErrorView';
 
 import getTheme from '@/utils/native-base-theme/components';
 import platform from '@/utils/native-base-theme/variables/platform';
+import {setJSExceptionHandler} from "@/utils/globalErrorHandle";
 
 const PERSIST_KEY = 'root';
 const persistConfig = {
@@ -131,9 +132,8 @@ class Main extends Component<IMProps> {
   }
 
   componentDidCatch (err, info) {
-    console.log(err, info)
     this.setState({
-      errorInfo: info,
+      errorInfo: err || info,
     })
   }
 
@@ -175,6 +175,12 @@ class Main extends Component<IMProps> {
       await this.initLinking();
       AppState.addEventListener('change', this._handleAppStateChange);
       Orientation.addOrientationListener(this._onOrientationDidChange);
+      setJSExceptionHandler((e) => {
+        this.setState({
+          isError: true,
+          errorInfo: e,
+        })
+      }, true);
     } catch (e) {
 
     } finally {

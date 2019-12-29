@@ -55,7 +55,7 @@ class Home extends React.Component<IProps, IState> {
                                 list: ''
                             })
                         }}>
-                           <Text>throw error</Text>
+                           <Text>throw error 001</Text>
                         </ListItem>
                     </List>
                     <LoginConsumer>
