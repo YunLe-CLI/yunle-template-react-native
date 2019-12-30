@@ -6,6 +6,22 @@ export const DropdownAlertContext = createContext({
 })
 export const DropdownAlertConsumer = DropdownAlertContext.Consumer
 
+export function withDropdownAlert(WrappedComponent: React.ReactNode) {
+  return class extends React.Component {
+    render() {
+      return <>
+        <DropdownAlertContext.Consumer>
+          {
+            ({ showAlert }) => {
+              return <WrappedComponent {...this.props} showAlert={showAlert} />;
+            }
+          }
+        </DropdownAlertContext.Consumer>
+      </>
+    }
+  }
+}
+
 type infoType = {
   type: DropdownAlertType,
   title: string,

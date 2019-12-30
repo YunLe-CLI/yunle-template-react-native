@@ -1,10 +1,27 @@
 import React, { createContext } from 'react';
 import Spinner from 'react-native-loading-spinner-overlay';
+
 export const LoadingSpinnerContext = createContext({
   showLoading: () => {},
   hiddenLoading: () => {}
 })
 export const LoadingSpinnerConsumer = LoadingSpinnerContext.Consumer
+
+export function withLoadingSpinner(WrappedComponent: React.ReactNode) {
+  return class extends React.Component {
+    render() {
+      return <>
+        <LoadingSpinnerContext.Consumer>
+          {
+            ({ showLoading, hiddenLoading }) => {
+              return <WrappedComponent {...this.props} showLoading={showLoading} hiddenLoading={hiddenLoading} />;
+            }
+          }
+        </LoadingSpinnerContext.Consumer>
+      </>
+    }
+  }
+}
 
 class LoadingSpinnerProvider extends React.Component<{}> {
 

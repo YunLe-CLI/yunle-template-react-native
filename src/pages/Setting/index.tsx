@@ -5,7 +5,7 @@ import {Container, Header, Left, Body, Right, Title, Icon, Button, List, ListIte
 import { connect } from 'react-redux';
 import styles from './styles';
 import { CheckUpdateConsumer } from '@/components/CheckAppUpdate'
-import { LoginConsumer } from '@/components/LoginModal'
+import { withLoginModal } from '@/components/LoginModal'
 
 export interface IProps {}
 
@@ -58,29 +58,21 @@ class Home extends React.Component<IProps, IState> {
                            <Text>throw error 001</Text>
                         </ListItem>
                     </List>
-                    <LoginConsumer>
-                        {
-                            ({ openLoginModal }) => {
-                                return (
-                                    <Button
-                                        style={{
-                                            marginTop: 20,
-                                            justifyContent: 'center'
-                                        }}
-                                        onPress={async () => {
-                                            const { dispatch } = this.props;
-                                            dispatch({
-                                                type: 'auth/logout'
-                                            });
-                                            openLoginModal()
-                                        }}
-                                    >
-                                        <Title>推出登陆</Title>
-                                    </Button>
-                                )
-                            }
-                        }
-                    </LoginConsumer>
+                    <Button
+                        style={{
+                            marginTop: 20,
+                            justifyContent: 'center'
+                        }}
+                        onPress={async () => {
+                            const { dispatch } = this.props;
+                            dispatch({
+                                type: 'auth/logout'
+                            });
+                            this.props.openLoginModal()
+                        }}
+                    >
+                        <Title>推出登陆</Title>
+                    </Button>
                     {
                         this.state.list.map(() => {
                             return <View/>
@@ -91,4 +83,4 @@ class Home extends React.Component<IProps, IState> {
         );
     }
 }
-export default Home;
+export default withLoginModal(Home);

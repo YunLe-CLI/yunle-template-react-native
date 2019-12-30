@@ -19,7 +19,23 @@ export const LoginContext = createContext({
   openLoginModal: () => {},
   closeLoginModal: () => {},
 })
-export const LoginConsumer = LoginContext.Consumer
+export const LoginConsumer = LoginContext.Consumer;
+
+export function withLoginModal(WrappedComponent: React.ReactNode) {
+  return class extends React.Component {
+    render() {
+      return <>
+        <LoginContext.Consumer>
+          {
+            ({ openLoginModal, closeLoginModal }) => {
+              return <WrappedComponent {...this.props} closeLoginModal={closeLoginModal} openLoginModal={openLoginModal} />;
+            }
+          }
+        </LoginContext.Consumer>
+      </>
+    }
+  }
+}
 
 export interface IProps {
   navigation: any;

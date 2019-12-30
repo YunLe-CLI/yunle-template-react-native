@@ -12,6 +12,22 @@ export const CheckUpdateContext = createContext({
 })
 export const CheckUpdateConsumer = CheckUpdateContext.Consumer
 
+export function withCheckUpdate(WrappedComponent: React.ReactNode) {
+  return class extends React.Component {
+    render() {
+      return <>
+        <CheckUpdateContext.Consumer>
+          {
+            ({ handleCheck }) => {
+              return <WrappedComponent {...this.props} handleCheckUpdate={handleCheck} />;
+            }
+          }
+        </CheckUpdateContext.Consumer>
+      </>
+    }
+  }
+}
+
 export interface IState {
   isModalVisible: boolean;
   isNotRemind: boolean;

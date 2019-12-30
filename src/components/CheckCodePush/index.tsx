@@ -6,12 +6,27 @@ import _ from "lodash";
 import {Button, Text} from 'native-base';
 import codePush, {DownloadProgress, RemotePackage} from 'react-native-code-push'
 import * as Progress from 'react-native-progress';
-import nativeAutoUpdate, { handleDownload } from "@/utils/native-auto-update";
 
 export const CheckUpdateContext = createContext({
   handleCheck: () => {}
 })
 export const CheckUpdateConsumer = CheckUpdateContext.Consumer
+
+export function withCheckUpdate(WrappedComponent: React.ReactNode) {
+  return class extends React.Component {
+    render() {
+      return <>
+        <CheckUpdateContext.Consumer>
+          {
+            ({ handleCheck }) => {
+              return <WrappedComponent {...this.props} handleCheckCodePush={handleCheck} />;
+            }
+          }
+        </CheckUpdateContext.Consumer>
+      </>
+    }
+  }
+}
 
 export interface IState {
   info: RemotePackage | null;
@@ -39,6 +54,7 @@ class CheckUpdateProvider extends React.Component<{}, IState> {
     updateURI: undefined,
   };
 
+
   showModel = () => {
     this.setState({
       isModalVisible: true,
@@ -57,12 +73,6 @@ class CheckUpdateProvider extends React.Component<{}, IState> {
         })
       }
     })
-  };
-
-  closeNotModel = () => {
-    this.setState({
-      isModalNotVisible: false,
-    });
   };
 
   getRemoteDate = async (nextAppState: string, manual: boolean = false) => {
@@ -89,18 +99,38 @@ class CheckUpdateProvider extends React.Component<{}, IState> {
       mandatoryInstallMode: codePush.InstallMode.ON_NEXT_RESUME
     }, (status) => {
       switch (status) {
+        case codePush.SyncStatus.CHECKING_FOR_UPDATE:
+          this.setState({ syncMessage: "检查更新!" });
+          break;
         case codePush.SyncStatus.DOWNLOADING_PACKAGE:
+          this.setState({ syncMessage: "正常下载安装包!" });
           this.setState({
             status,
           })
           break;
+        case codePush.SyncStatus.AWAITING_USER_ACTION:
+          this.setState({ syncMessage: "等待用户操作!" });
+          break;
         case codePush.SyncStatus.INSTALLING_UPDATE:
+          this.setState({ syncMessage: "正在安装...,请等待!" });
           this.setState({
             isModalVisible: true,
             status,
           })
           break;
+        case codePush.SyncStatus.UP_TO_DATE:
+          this.setState({ syncMessage: "已经是最新版本了！", progress: false });
+          break;
+        case codePush.SyncStatus.UPDATE_IGNORED:
+          this.setState({ syncMessage: "更新取消！", progress: false });
+          break;
+        case codePush.SyncStatus.UPDATE_INSTALLED:{
+          this.setState({ syncMessage: "新的版本已经安装完成,请重新登录!", progress: false });
+          // codePush.restartApp();
+          break;
+        }
         case codePush.SyncStatus.UNKNOWN_ERROR:
+          this.setState({ syncMessage: "更新发生错误,请重新启动程序！", progress: false });
           this.setState({
             isModalVisible: true,
             status,
@@ -117,7 +147,14 @@ class CheckUpdateProvider extends React.Component<{}, IState> {
   }
 
   restartApp = () => {
-    codePush.restartApp(true);
+    try {
+      this.closeModel(undefined);
+      setTimeout(() => {
+        codePush.restartApp();
+      }, 300);
+    } catch (e) {
+
+    }
   }
 
   async componentDidMount() {
@@ -127,7 +164,6 @@ class CheckUpdateProvider extends React.Component<{}, IState> {
 
   componentWillUnmount(): void {
     this.closeModel(undefined);
-    this.closeNotModel();
     AppState.removeEventListener('change', this.getRemoteDate);
   }
 
