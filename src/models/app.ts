@@ -1,7 +1,6 @@
 import { Reducer } from 'redux';
 import { Model, Effect, EffectWithType } from 'dva';
 import { ENVIRONMENT, BUILD_TYPE } from '@/utils/env';
-import { clearAllStorage } from '@/utils/utils';
 
 export interface IModelState {
   orientation: string;
@@ -64,7 +63,6 @@ const AppModel: IModelType = {
           yield put({ type: 'courses/clearCache' });
           yield put({ type: 'home/clearCache' });
           yield put({ type: 'user/clearCache' });
-          yield clearAllStorage();
         },
     },
 };

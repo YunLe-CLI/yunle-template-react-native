@@ -12,9 +12,11 @@ import moment from "moment";
  */
 export async function getOnlineAppVersion(): Promise<any> {
   const url = `https://dagouzhi.oss-cn-qingdao.aliyuncs.com/com.dagouzhi.app.temp/app.version.update.info.json?time=${moment().format("X")}`;
-  return request(await getOrigin(url, 'app'), {
-    method: 'GET',
+  return request({
+    url: await getOrigin(url, 'app'),
+    method: 'GET'
   }).then((data = {}) => {
+
     const res = _.get(data, `${Platform.OS}.${ENVIRONMENT}`, {}) || {};
     return res
   });

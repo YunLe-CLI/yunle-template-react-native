@@ -16,13 +16,13 @@ export function withCheckAppUpdate(WrappedComponent: React.ReactNode) {
   return class extends React.Component {
     render() {
       return <>
-        <CheckAppUpdateConsumer.Consumer>
+        <CheckAppUpdateConsumer>
           {
             ({ handleCheck }) => {
-              return <WrappedComponent {...this.props} handleCheckUpdate={handleCheck} />;
+              return <WrappedComponent  {...this.props} handleCheckAppUpdate={handleCheck} />
             }
           }
-        </CheckAppUpdateConsumer.Consumer>
+        </CheckAppUpdateConsumer>
       </>
     }
   }

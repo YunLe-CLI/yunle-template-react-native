@@ -242,7 +242,7 @@ class Main extends Component<IMProps> {
                   {/*{*/}
                   {/*  !initLoading && ENV === 'development' ? <IsTester /> : undefined*/}
                   {/*}*/}
-                  <IsTester />
+                  {/*<IsTester />*/}
                 </View>
               </LoginProvider>
             </CheckCodePushProvider>
@@ -271,3 +271,5 @@ class App extends PureComponent {
 
 
 export default dvaApp.start(<App />);
+
+export const store = dvaApp._store;

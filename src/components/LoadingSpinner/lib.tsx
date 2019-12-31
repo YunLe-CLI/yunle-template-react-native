@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, View, Text, ActivityIndicator } from 'react-native';
-import Modal from 'react-native-modal';
+import Modal from "react-native-modal";
 
 const transparent = 'transparent';
 const styles = StyleSheet.create({
@@ -135,9 +135,13 @@ export default class Spinner extends React.PureComponent {
 
         return (
             <Modal
+                style={{
+                    margin: 0,
+                    backgroundColor: 'transparent'
+                }}
                 useNativeDriver
+                animationIn="fadeIn"
                 coverScreen={false}
-                animationType={this.props.animation}
                 onRequestClose={() => this._handleOnRequestClose()}
                 supportedOrientations={['landscape', 'portrait']}
                 transparent

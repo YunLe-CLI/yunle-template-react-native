@@ -3,6 +3,7 @@ import {Container, Header, Content, List, ListItem, Text, Left, Body, Title, Rig
 import { connect } from 'react-redux';
 import styles from './styles';
 import {NavigationActions} from "react-navigation";
+import {withCheckAppUpdate} from "@/components/CheckAppUpdate";
 
 export interface IProps {
 
@@ -48,5 +49,5 @@ class Me extends React.PureComponent<IProps, IState> {
   }
 }
 
-export default Me;
+export default withCheckAppUpdate(Me);
 

@@ -4,7 +4,7 @@ import { NavigationActions } from 'react-navigation';
 import {Container, Header, Left, Body, Right, Title, Icon, Button, List, ListItem, Content} from 'native-base';
 import { connect } from 'react-redux';
 import styles from './styles';
-import { CheckUpdateConsumer } from '@/components/CheckAppUpdate'
+import { withCheckAppUpdate } from '@/components/CheckAppUpdate'
 import { withLoginModal } from '@/components/LoginModal'
 
 export interface IProps {}
@@ -41,15 +41,11 @@ class Home extends React.Component<IProps, IState> {
                 </Header>
                 <Content style={{ paddingHorizontal: 12 }}>
                     <List>
-                        <CheckUpdateConsumer>
-                            {({ handleCheck }) => {
-                                return <ListItem onPress={async () => {
-                                    await handleCheck()
-                                }}>
-                                    <Text>检查更新</Text>
-                                </ListItem>
-                            }}
-                        </CheckUpdateConsumer>
+                        <ListItem onPress={async () => {
+                            await this.props.handleCheckAppUpdate()
+                        }}>
+                            <Text>检查更新</Text>
+                        </ListItem>
                         <ListItem onPress={async () => {
                             this.setState({
                                 list: ''
@@ -83,4 +79,4 @@ class Home extends React.Component<IProps, IState> {
         );
     }
 }
-export default withLoginModal(Home);
+export default withCheckAppUpdate(withLoginModal(Home));

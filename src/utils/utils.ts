@@ -137,7 +137,6 @@ export async function clearEnv()  {
 export async function clearAllStorage()  {
   try {
     // await AsyncStorage.clear();
-    await clearToken();
     // await clearEnv();
     // await AsyncStorage.removeItem('root');
   } catch(e) {

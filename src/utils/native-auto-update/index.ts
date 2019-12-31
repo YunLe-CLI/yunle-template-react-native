@@ -9,6 +9,7 @@ export default async () => {
   let updateURI = undefined;
   try {
     const res = await getOnlineAppVersion();
+    console.log(3333, res)
     if (!res || !res.version) {
       updateURI = undefined;
       return updateURI;
