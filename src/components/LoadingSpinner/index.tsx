@@ -1,5 +1,5 @@
 import React, { createContext } from 'react';
-import Spinner from 'react-native-loading-spinner-overlay';
+import Spinner from './lib';
 
 export const LoadingSpinnerContext = createContext({
   showLoading: () => {},

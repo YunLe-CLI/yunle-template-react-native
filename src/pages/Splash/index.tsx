@@ -6,7 +6,7 @@ import styles from "@/pages/Splash/styles";
 import animateData from './assets/12131-christmas-snow-loading.json';
 import {NavigationActions} from "react-navigation";
 import {UrlProcessUtil} from "@/utils/utils";
-import { LoginConsumer } from '@/components/LoginModal'
+import { withLoginModal } from '@/components/LoginModal'
 
 export interface IProps {}
 
@@ -15,8 +15,6 @@ class Splash extends React.PureComponent<IProps, {}> {
   constructor(props: IProps) {
     super(props);
   }
-
-  openLoginModal: any;
 
   componentDidMount() {
     this.init();
@@ -63,31 +61,26 @@ class Splash extends React.PureComponent<IProps, {}> {
       routeName: 'MainRouter',
       params: {},
     }));
-    if (this.openLoginModal) {
-      this.openLoginModal();
+    if (this.props.openLoginModal) {
+      this.props.openLoginModal();
     }
   };
 
   render() {
     return (
-      <LoginConsumer>
-        {({ openLoginModal }) => {
-          this.openLoginModal = openLoginModal;
-          return <View style={styles.container}>
-            {/*<LottieView*/}
-            {/*  autoPlay*/}
-            {/*  loop={false}*/}
-            {/*  source={animateData}*/}
-            {/*  onAnimationFinish={async () => {*/}
+      <View style={styles.container}>
+        {/*<LottieView*/}
+        {/*  autoPlay*/}
+        {/*  loop={false}*/}
+        {/*  source={animateData}*/}
+        {/*  onAnimationFinish={async () => {*/}
 
-            {/*  }}*/}
-            {/*/>*/}
-          </View>
-        }}
-      </LoginConsumer>
+        {/*  }}*/}
+        {/*/>*/}
+      </View>
     );
   }
 }
 
 
-export default Splash;
+export default withLoginModal(Splash);

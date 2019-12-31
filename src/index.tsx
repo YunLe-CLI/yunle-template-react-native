@@ -10,7 +10,6 @@ import Orientation from 'react-native-orientation-locker';
 import codePush from "react-native-code-push";
 import _ from 'lodash';
 import dva from '@/utils/dva';
-import ApolloRoot from '@/utils/apollo';
 import Router, { routerMiddleware, routerReducer } from '@/router';
 import * as models from '@/models';
 import {UrlProcessUtil, getEnv} from '@/utils/utils';
@@ -262,11 +261,9 @@ class App extends PureComponent {
             persistor={createPersist(dvaApp._store)}
             loading={<Loading />}
         >
-          <ApolloRoot>
-            <StyleProvider style={getTheme(platform)}>
-              <Main />
-            </StyleProvider>
-          </ApolloRoot>
+          <StyleProvider style={getTheme(platform)}>
+            <Main />
+          </StyleProvider>
         </PersistGate>
       );
     }

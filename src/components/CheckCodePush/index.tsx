@@ -7,22 +7,23 @@ import {Button, Text} from 'native-base';
 import codePush, {DownloadProgress, RemotePackage} from 'react-native-code-push'
 import * as Progress from 'react-native-progress';
 
-export const CheckUpdateContext = createContext({
+export const CheckCodePushContext = createContext({
   handleCheck: () => {}
 })
-export const CheckUpdateConsumer = CheckUpdateContext.Consumer
 
-export function withCheckUpdate(WrappedComponent: React.ReactNode) {
+export const CheckCodePushConsumer = CheckCodePushContext.Consumer
+
+export function withCheckCodePush(WrappedComponent: React.ReactNode) {
   return class extends React.Component {
     render() {
       return <>
-        <CheckUpdateContext.Consumer>
+        <CheckCodePushContext.Consumer>
           {
             ({ handleCheck }) => {
               return <WrappedComponent {...this.props} handleCheckCodePush={handleCheck} />;
             }
           }
-        </CheckUpdateContext.Consumer>
+        </CheckCodePushContext.Consumer>
       </>
     }
   }
@@ -37,7 +38,7 @@ export interface IState {
   isModalNotVisible: boolean;
   updateURI: undefined | string;
 }
-class CheckUpdateProvider extends React.Component<{}, IState> {
+class CheckCodePushProvider extends React.Component<{}, IState> {
 
   constructor(props: {}) {
     super(props);
@@ -347,7 +348,7 @@ class CheckUpdateProvider extends React.Component<{}, IState> {
   render() {
     const { isModalVisible, info, downloadProgress, status } = this.state;
     return (
-      <CheckUpdateContext.Provider value={{
+      <CheckCodePushContext.Provider value={{
         handleCheck: async () => { await this.getRemoteDate('active', true) }
       }}>
         {this.props.children}
@@ -392,9 +393,9 @@ class CheckUpdateProvider extends React.Component<{}, IState> {
             }
           </View>
         </Modal>
-      </CheckUpdateContext.Provider>
+      </CheckCodePushContext.Provider>
     );
   }
 }
 
-export default CheckUpdateProvider
+export default CheckCodePushProvider

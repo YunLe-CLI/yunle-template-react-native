@@ -7,22 +7,22 @@ import {Button, Text} from 'native-base';
 
 import nativeAutoUpdate, { handleDownload } from "@/utils/native-auto-update";
 
-export const CheckUpdateContext = createContext({
+export const CheckAppUpdateContext = createContext({
   handleCheck: () => {}
 })
-export const CheckUpdateConsumer = CheckUpdateContext.Consumer
+export const CheckAppUpdateConsumer = CheckAppUpdateContext.Consumer
 
-export function withCheckUpdate(WrappedComponent: React.ReactNode) {
+export function withCheckAppUpdate(WrappedComponent: React.ReactNode) {
   return class extends React.Component {
     render() {
       return <>
-        <CheckUpdateContext.Consumer>
+        <CheckAppUpdateConsumer.Consumer>
           {
             ({ handleCheck }) => {
               return <WrappedComponent {...this.props} handleCheckUpdate={handleCheck} />;
             }
           }
-        </CheckUpdateContext.Consumer>
+        </CheckAppUpdateConsumer.Consumer>
       </>
     }
   }
@@ -34,7 +34,7 @@ export interface IState {
   isModalNotVisible: boolean;
   updateURI: undefined | string;
 }
-class CheckUpdateProvider extends React.Component<{}, IState> {
+class CheckAppUpdateProvider extends React.Component<{}, IState> {
 
   constructor(props: {}) {
     super(props);
@@ -117,7 +117,7 @@ class CheckUpdateProvider extends React.Component<{}, IState> {
   render() {
     const { isModalVisible, isModalNotVisible, updateURI } = this.state;
     return (
-      <CheckUpdateContext.Provider value={{
+      <CheckAppUpdateContext.Provider value={{
         handleCheck: async () => { await this.getRemoteDate('active', true) }
       }}>
         {this.props.children}
@@ -231,9 +231,9 @@ class CheckUpdateProvider extends React.Component<{}, IState> {
             </View>
           </View>
         </Modal>
-      </CheckUpdateContext.Provider>
+      </CheckAppUpdateContext.Provider>
     );
   }
 }
 
-export default CheckUpdateProvider
+export default CheckAppUpdateProvider
