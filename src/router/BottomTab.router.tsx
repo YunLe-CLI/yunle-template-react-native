@@ -13,6 +13,7 @@ const BottomTabNavigator = createBottomTabNavigator(
       screen: HomeStack,
       navigationOptions: () => {
         return {
+          // tabBarVisible: false,
           tabBarLabel: '首页',
           tabBarIcon: ({ tintColor }: { tintColor: string }) => (
               <Icon style={{ color: tintColor }} fontSize={20} name='home' />
@@ -24,6 +25,7 @@ const BottomTabNavigator = createBottomTabNavigator(
       screen: MeStack,
       navigationOptions: () => {
         return {
+          // tabBarVisible: false,
           tabBarLabel: '我的',
           tabBarIcon: ({ tintColor }: { tintColor: string }) => (
               <Icon style={{ color: tintColor }} fontSize={20} name='person' />

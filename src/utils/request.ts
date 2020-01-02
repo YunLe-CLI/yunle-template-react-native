@@ -9,8 +9,13 @@ import { store } from '@/index';
  * @param option
  */
 export default async function request(config: AxiosRequestConfig, token?: string | undefined): Promise<any> {
-  const allState = await store.getState();
-  const AUTH_TOKEN = token || _.get(allState, 'auth.token');
+  let AUTH_TOKEN = undefined;
+  try {
+    const allState = await store.getState();
+    AUTH_TOKEN = token || _.get(allState, 'auth.token');
+  } catch (e) {
+    AUTH_TOKEN = token || undefined;
+  }
   interface IAppInfo {
     app_platform: 'android' | 'ios' | string;
     app_version: string; // '0.0.8'

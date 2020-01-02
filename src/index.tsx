@@ -27,6 +27,7 @@ import ErrorView from '@/components/ErrorView';
 import getTheme from '@/utils/native-base-theme/components';
 import platform from '@/utils/native-base-theme/variables/platform';
 import {setJSExceptionHandler} from "@/utils/globalErrorHandle";
+import { BUILD_TYPE } from '@/utils/env'
 
 const PERSIST_KEY = 'root';
 const persistConfig = {
@@ -174,12 +175,12 @@ class Main extends Component<IMProps> {
       await this.initLinking();
       AppState.addEventListener('change', this._handleAppStateChange);
       Orientation.addOrientationListener(this._onOrientationDidChange);
-      setJSExceptionHandler((e) => {
-        this.setState({
-          isError: true,
-          errorInfo: e,
-        })
-      }, true);
+      // setJSExceptionHandler((e) => {
+      //   this.setState({
+      //     isError: true,
+      //     errorInfo: e,
+      //   })
+      // }, BUILD_TYPE === 'release');
     } catch (e) {
 
     } finally {
@@ -242,7 +243,7 @@ class Main extends Component<IMProps> {
                   {/*{*/}
                   {/*  !initLoading && ENV === 'development' ? <IsTester /> : undefined*/}
                   {/*}*/}
-                  {/*<IsTester />*/}
+                  <IsTester />
                 </View>
               </LoginProvider>
             </CheckCodePushProvider>
