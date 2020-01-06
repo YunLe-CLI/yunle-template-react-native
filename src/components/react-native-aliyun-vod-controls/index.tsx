@@ -452,7 +452,7 @@ export default class VideoPlayer extends Component {
                         />
                     </TouchableOpacity>
                 )}
-                {(Platform.OS === 'android' || this.props.disableFullscreen) ? null : (
+                {(this.props.disableFullscreen) ? null : (
                     <TouchableOpacity onPress={this.onToggleFullScreen} style={customStyles.controlButton}>
                         <Icon
                             style={[styles.extraControl, customStyles.controlIcon]}
@@ -476,7 +476,7 @@ export default class VideoPlayer extends Component {
             ...props
         } = this.props;
         return (
-            <View style={[customStyles.videoWrapper, style]}>
+            <View onLayout={this.props.onLayout} style={[customStyles.videoWrapper, style]}>
                 <Video
                     style={[
                         styles.video,
@@ -512,7 +512,7 @@ export default class VideoPlayer extends Component {
                                 this.onPlayPress();
                         }}
                         onLongPress={() => {
-                            if (fullScreenOnLongPress && Platform.OS !== 'android')
+                            if (fullScreenOnLongPress)
                                 this.onToggleFullScreen();
                         }}
                     />

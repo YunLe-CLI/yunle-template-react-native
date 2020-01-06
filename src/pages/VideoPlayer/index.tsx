@@ -1,5 +1,5 @@
 import React from 'react';
-import {ScrollView, Dimensions, View} from 'react-native';
+import { StatusBar, ScrollView, Dimensions, View} from 'react-native';
 import { connect } from 'react-redux';
 import {Container, Header, Left, Body, Right, Title, Content, Button, Icon} from 'native-base';
 import styles from './styles';
@@ -99,6 +99,7 @@ class Home extends React.Component<IProps, IState> {
                   Orientation.lockToPortrait();
               }}
           />
+          <StatusBar hidden={orientationType !== 'PORTRAIT'} />
           <View style={{
             position:'absolute',
             zIndex: 9999,
