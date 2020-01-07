@@ -103,6 +103,7 @@ class Home extends React.Component<IProps, IState> {
           <View style={{
             position:'absolute',
             zIndex: 9999,
+              elevation: 9999,
           }}>
             <Header transparent>
               <Left>

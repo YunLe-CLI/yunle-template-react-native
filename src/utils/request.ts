@@ -4,6 +4,17 @@ import _ from 'lodash';
 import DeviceInfo from 'react-native-device-info';
 import { store } from '@/index';
 
+// 添加响应拦截器
+axios.interceptors.response.use(function (response) {
+  // 对响应数据做点什么
+  console.log('response: ', response)
+  return response.data || {};
+}, function (error) {
+  // 对响应错误做点什么
+  return Promise.reject(error);
+});
+
+
 /**
  * @param url
  * @param option
@@ -30,15 +41,6 @@ export default async function request(config: AxiosRequestConfig, token?: string
   axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
   axios.defaults.headers.common['AppInfo'] = appInfo;
   axios.defaults.headers.post['Content-Type'] = 'application/json; charset=utf-8';
-  // 添加响应拦截器
-  axios.interceptors.response.use(function (response) {
-    // 对响应数据做点什么
-    console.log('response: ', response)
-    return response.data || {};
-  }, function (error) {
-    // 对响应错误做点什么
-    return Promise.reject(error);
-  });
 
   return axios(config);
 }

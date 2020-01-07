@@ -47,7 +47,7 @@ class DropdownAlertProvider extends React.Component<{}> {
         showAlert: this.showAlert
       }}>
         {this.props.children}
-        <DropdownAlert closeInterval={1000} useNativeDriver wrapperStyle={{ zIndex: 99999 }} ref={ref => this.dropDownAlertRef = ref} />
+        <DropdownAlert closeInterval={1000} useNativeDriver wrapperStyle={{ zIndex: 99999, elevation: 99999 }} ref={ref => this.dropDownAlertRef = ref} />
       </DropdownAlertContext.Provider>
     );
   }

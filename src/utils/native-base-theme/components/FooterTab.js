@@ -47,6 +47,7 @@ export default (variables /* : * */ = variable) => {
           alignSelf: 'center',
           left: 10,
           zIndex: 99,
+          elevation: 99,
           height: 18,
           padding: 1.7,
           paddingHorizontal: 3
