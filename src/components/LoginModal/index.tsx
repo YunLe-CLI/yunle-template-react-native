@@ -2,18 +2,27 @@ import React, {createContext} from 'react';
 import {
   View,
 } from 'react-native';
-import { Container, Header, Left, Right, Body, Icon, Content, Footer, FooterTab, Button, Text } from 'native-base';
+import {
+  Container,
+  Content,
+  Button,
+  Text,
+  Item,
+  Input, Form,
+  Title,
+} from 'native-base';
 import DeviceInfo from "react-native-device-info";
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import {NavigationActions } from "react-navigation";
 import Modal from "react-native-modal";
+import LinearGradient from 'react-native-linear-gradient';
 import styles from './styles';
 import FastImage from 'react-native-fast-image';
 import logoImg from './assets/logo.png';
 import {ENVIRONMENT, BUILD_TYPE} from "@/utils/env";
 import { withDropdownAlert } from '@/components/DropdownAlert';
-import { LoadingSpinnerConsumer } from '@/components/LoadingSpinner';
+import { withLoadingSpinner } from '@/components/LoadingSpinner';
 
 export const LoginContext = createContext({
   openLoginModal: () => {},
@@ -131,99 +140,114 @@ class LoginProvider extends React.Component<IProps, IState> {
         >
           <View style={{ flex: 1 }}>
             <Container style={styles.container}>
-              <Header noShadow  style={{ borderBottomWidth: 0, backgroundColor: '#fff' }}>
-                <Left />
-                <Body>
-
-                </Body>
-                <Right>
-                  <Button
-                    transparent
-                    onPress={() => {
-                      this.closeLogin();
-                    }}
-                  >
-                    <Icon color={"#eee"} name='close' />
-                  </Button>
-                </Right>
-              </Header>
               <Content
-
-                scrollEnabled={false}
+                scrollEnabled={true}
                 contentContainerStyle={{
-                  justifyContent: 'center',
-                  alignContent: 'center',
-                  paddingHorizontal: 24,
+                  paddingHorizontal: 32.5,
                   flex: 1,
                 }}
               >
                 <View style={{
-                  marginTop: -60,
+                  marginTop: 60,
                 }}>
                   <View style={styles.logoWrap}>
                     <FastImage
                       style={{
-                        width: 120,
-                        height: 120,
-                        borderRadius: 60,
+                        width: 39.5,
+                        height: 39.5,
+                        marginRight: 13.5,
                         alignContent: 'center',
                         justifyContent: 'center',
                       }}
                       source={logoImg}
                       resizeMode={FastImage.resizeMode.contain}
                     />
+                    <Text style={{
+                      fontSize: 32,
+                      fontWeight: '500',
+                      lineHeight: 45,
+                      color: '#11CD8F',
+                    }}>
+                      登录
+                    </Text>
                   </View>
-                  <LoadingSpinnerConsumer>
-                    {
-                      ({ showLoading, hiddenLoading }) => {
-                        return (
-                          <View style={styles.btnWrap}>
-                            <Button
-                              rounded
-                              onPress={async () => {
-                                try {
-                                  showLoading()
-                                  await this.handleLogin();
-                                  this.props.showAlert({
-                                    type: 'success',
-                                    title: '登陆成功',
-                                    message: '登陆成功',
-                                  })
-                                } catch (e) {
+                  <View style={styles.formWrap}>
+                    <Form>
+                      <Item style={styles.iptItem}>
+                        <Input value={this.state.loginName} style={styles.ipt} placeholder="输入用户名" placeholderTextColor={"#9C9EB9"}
+                               onChangeText={(value) => {
+                                 this.setState({
+                                   loginName: value,
+                                 })
+                               }}
+                        />
+                      </Item>
+                      <Item style={styles.iptItem}>
+                        <Input value={this.state.password} style={styles.ipt} placeholder="输入密码" placeholderTextColor={"#9C9EB9"}
+                               onChangeText={(value) => {
+                                 this.setState({
+                                   password: value,
+                                 })
+                               }}
+                        />
+                      </Item>
+                    </Form>
+                  </View>
+                  <View style={styles.btnWrap}>
+                    <LinearGradient
+                      start={{x: 0, y: 0}} end={{x: 1, y: 1}}
+                      colors={['#6AE27C', '#17D397']}
+                      style={[
+                        styles.linearGradientBtn,
+                        {
+                          opacity: this.state.password && this.state.loginName ? 1 : 0.4
+                        }
+                      ]}
+                    >
+                      <Button
+                        transparent
+                        rounded
+                        onPress={async () => {
+                          try {
+                            this.props.showLoading()
+                            await this.handleLogin();
+                            this.props.showAlert({
+                              type: 'success',
+                              title: '登陆成功',
+                              message: '登陆成功',
+                            })
+                          } catch (e) {
 
-                                } finally {
-                                  setTimeout(() => {
-                                    hiddenLoading()
-                                  }, 3000)
-                                }
+                          } finally {
+                            setTimeout(() => {
+                              this.props.hiddenLoading()
+                            }, 3000)
+                          }
 
-                              }}
-                              style={{
-                                justifyContent: 'center'
-                              }}
-                            >
-                              <Text>立即登录</Text>
-                            </Button>
-                          </View>
-                        )
-                      }
-                    }
-                  </LoadingSpinnerConsumer>
-
+                        }}
+                        style={styles.loginButton}
+                        textStyle={{
+                          color: '#fff'
+                        }}
+                      >
+                        <Title>登录</Title>
+                      </Button>
+                    </LinearGradient>
+                  </View>
                 </View>
               </Content>
-              <Footer style={{ borderTopWidth: 0, backgroundColor: '#fff' }}>
-                <FooterTab>
-                  <Button full>
-                    <Text>
-                      大狗吱@2019 version: {DeviceInfo.getVersion()}
-                    </Text>
-                    <Text>
-                      ENV: {ENVIRONMENT} -- TYPE: {BUILD_TYPE}
-                    </Text>
-                  </Button>
-                </FooterTab>
-              </Footer>
+              {/*<Footer style={{ borderTopWidth: 0, backgroundColor: '#fff' }}>*/}
+              {/*  <FooterTab>*/}
+              {/*    <Button full>*/}
+              {/*      <Text>*/}
+              {/*        大狗吱@2019 version: {DeviceInfo.getVersion()}*/}
+              {/*      </Text>*/}
+              {/*      <Text>*/}
+              {/*        ENV: {ENVIRONMENT} -- TYPE: {BUILD_TYPE}*/}
+              {/*      </Text>*/}
+              {/*    </Button>*/}
+              {/*  </FooterTab>*/}
+              {/*</Footer>*/}
             </Container>
           </View>
         </Modal>
@@ -232,4 +256,4 @@ class LoginProvider extends React.Component<IProps, IState> {
   }
 }
 
-export default withDropdownAlert(LoginProvider);
+export default withLoadingSpinner(withDropdownAlert(LoginProvider));
