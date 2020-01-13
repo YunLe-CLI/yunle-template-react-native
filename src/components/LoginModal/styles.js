@@ -24,16 +24,12 @@ export default StyleSheet.create({
   },
   logoWrap: {
     flexGrow: 1,
+    flexDirection: 'row',
     // paddingTop: 166,
     alignItems: 'center',
-    justifyContent: 'center',
-  },
-  btnWrap: {
-    marginTop: 60,
-    // alignItems: 'center',
     // justifyContent: 'center',
-    // alignSelf: 'flex-end',
   },
+
 
   footer: {
     paddingVertical: 12,
@@ -60,5 +56,28 @@ export default StyleSheet.create({
     width: 24,
     height: 24,
     borderColor: '#fff',
+  },
+  formWrap: {
+    marginTop: 45,
+  },
+  iptItem: {
+    marginBottom: 29,
+    marginLeft: 0,
+    paddingLeft: 0,
+    borderBottomColor: '#E3E7EF'
+  },
+  ipt: {
+
+  },
+  btnWrap: {
+    marginTop: 35,
+  },
+  linearGradientBtn: {
+    borderRadius: 24,
+  },
+  loginButton: {
+    height: 48,
+    alignItems: "center",
+    justifyContent: "center",
   }
 });
