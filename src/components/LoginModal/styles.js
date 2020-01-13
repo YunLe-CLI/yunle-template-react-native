@@ -67,7 +67,7 @@ export default StyleSheet.create({
     borderBottomColor: '#E3E7EF'
   },
   ipt: {
-
+    color: '#404E66',
   },
   btnWrap: {
     marginTop: 35,

@@ -183,7 +183,7 @@ class LoginProvider extends React.Component<IProps, IState> {
                         />
                       </Item>
                       <Item style={styles.iptItem}>
-                        <Input value={this.state.password} style={styles.ipt} placeholder="输入密码" placeholderTextColor={"#9C9EB9"}
+                        <Input secureTextEntry value={this.state.password} style={styles.ipt} placeholder="输入密码" placeholderTextColor={"#9C9EB9"}
                                onChangeText={(value) => {
                                  this.setState({
                                    password: value,
