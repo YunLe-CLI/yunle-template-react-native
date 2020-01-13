@@ -12,7 +12,7 @@ import styles from './styles';
 import FastImage from 'react-native-fast-image';
 import logoImg from './assets/logo.png';
 import {ENVIRONMENT, BUILD_TYPE} from "@/utils/env";
-import { DropdownAlertConsumer } from '@/components/DropdownAlert';
+import { withDropdownAlert } from '@/components/DropdownAlert';
 import { LoadingSpinnerConsumer } from '@/components/LoadingSpinner';
 
 export const LoginContext = createContext({
@@ -101,14 +101,14 @@ class LoginProvider extends React.Component<IProps, IState> {
   render() {
     return (
       <LoginContext.Provider
-          value={{
-            openLoginModal: () => {
-              this.openLogin()
-            },
-            closeLoginModal: () => {
-              this.closeLogin()
-            },
-          }}
+        value={{
+          openLoginModal: () => {
+            this.openLogin()
+          },
+          closeLoginModal: () => {
+            this.closeLogin()
+          },
+        }}
       >
         {this.props.children}
         <Modal
@@ -129,114 +129,107 @@ class LoginProvider extends React.Component<IProps, IState> {
             });
           }}
         >
-            <DropdownAlertConsumer>
-                { ({ showAlert }) => {
-                    return (
-                        <View style={{ flex: 1 }}>
-                            <Container style={styles.container}>
-                                <Header noShadow  style={{ borderBottomWidth: 0, backgroundColor: '#fff' }}>
-                                    <Left />
-                                    <Body>
+          <View style={{ flex: 1 }}>
+            <Container style={styles.container}>
+              <Header noShadow  style={{ borderBottomWidth: 0, backgroundColor: '#fff' }}>
+                <Left />
+                <Body>
 
-                                    </Body>
-                                    <Right>
-                                        <Button
-                                            transparent
-                                            onPress={() => {
-                                                this.closeLogin();
-                                            }}
-                                        >
-                                            <Icon color={"#eee"} name='close' />
-                                        </Button>
-                                    </Right>
-                                </Header>
-                                <Content
+                </Body>
+                <Right>
+                  <Button
+                    transparent
+                    onPress={() => {
+                      this.closeLogin();
+                    }}
+                  >
+                    <Icon color={"#eee"} name='close' />
+                  </Button>
+                </Right>
+              </Header>
+              <Content
 
-                                    scrollEnabled={false}
-                                    contentContainerStyle={{
-                                        justifyContent: 'center',
-                                        alignContent: 'center',
-                                        paddingHorizontal: 24,
-                                        flex: 1,
-                                    }}
-                                >
-                                    <View style={{
-                                        marginTop: -60,
-                                    }}>
-                                        <View style={styles.logoWrap}>
-                                            <FastImage
-                                                style={{
-                                                    width: 120,
-                                                    height: 120,
-                                                    borderRadius: 60,
-                                                    alignContent: 'center',
-                                                    justifyContent: 'center',
-                                                }}
-                                                source={logoImg}
-                                                resizeMode={FastImage.resizeMode.contain}
-                                            />
-                                        </View>
-                                        <LoadingSpinnerConsumer>
-                                          {
-                                            ({ showLoading, hiddenLoading }) => {
-                                              return (
-                                                  <View style={styles.btnWrap}>
-                                                    <Button
-                                                        rounded
-                                                        onPress={async () => {
-                                                          try {
-                                                            showLoading()
-                                                            await this.handleLogin();
-                                                            showAlert({
-                                                              type: 'success',
-                                                              title: '登陆成功',
-                                                              message: '登陆成功',
-                                                            })
-                                                          } catch (e) {
-
-                                                          } finally {
-                                                            setTimeout(() => {
-                                                              hiddenLoading()
-                                                            }, 3000)
-                                                          }
-
-                                                        }}
-                                                        style={{
-                                                          justifyContent: 'center'
-                                                        }}
-                                                    >
-                                                      <Text>立即登录</Text>
-                                                    </Button>
-                                                  </View>
-                                              )
-                                            }
-                                          }
-                                        </LoadingSpinnerConsumer>
-
-                                    </View>
-                                </Content>
-                                <Footer style={{ borderTopWidth: 0, backgroundColor: '#fff' }}>
-                                    <FooterTab>
-                                        <Button full>
-                                            <Text>
-                                                大狗吱@2019 version: {DeviceInfo.getVersion()}
-                                            </Text>
-                                            <Text>
-                                                ENV: {ENVIRONMENT} -- TYPE: {BUILD_TYPE}
-                                            </Text>
-                                        </Button>
-                                    </FooterTab>
-                                </Footer>
-                            </Container>
-                        </View>
-                    )
+                scrollEnabled={false}
+                contentContainerStyle={{
+                  justifyContent: 'center',
+                  alignContent: 'center',
+                  paddingHorizontal: 24,
+                  flex: 1,
                 }}
-            </DropdownAlertConsumer>
+              >
+                <View style={{
+                  marginTop: -60,
+                }}>
+                  <View style={styles.logoWrap}>
+                    <FastImage
+                      style={{
+                        width: 120,
+                        height: 120,
+                        borderRadius: 60,
+                        alignContent: 'center',
+                        justifyContent: 'center',
+                      }}
+                      source={logoImg}
+                      resizeMode={FastImage.resizeMode.contain}
+                    />
+                  </View>
+                  <LoadingSpinnerConsumer>
+                    {
+                      ({ showLoading, hiddenLoading }) => {
+                        return (
+                          <View style={styles.btnWrap}>
+                            <Button
+                              rounded
+                              onPress={async () => {
+                                try {
+                                  showLoading()
+                                  await this.handleLogin();
+                                  this.props.showAlert({
+                                    type: 'success',
+                                    title: '登陆成功',
+                                    message: '登陆成功',
+                                  })
+                                } catch (e) {
 
+                                } finally {
+                                  setTimeout(() => {
+                                    hiddenLoading()
+                                  }, 3000)
+                                }
+
+                              }}
+                              style={{
+                                justifyContent: 'center'
+                              }}
+                            >
+                              <Text>立即登录</Text>
+                            </Button>
+                          </View>
+                        )
+                      }
+                    }
+                  </LoadingSpinnerConsumer>
+
+                </View>
+              </Content>
+              <Footer style={{ borderTopWidth: 0, backgroundColor: '#fff' }}>
+                <FooterTab>
+                  <Button full>
+                    <Text>
+                      大狗吱@2019 version: {DeviceInfo.getVersion()}
+                    </Text>
+                    <Text>
+                      ENV: {ENVIRONMENT} -- TYPE: {BUILD_TYPE}
+                    </Text>
+                  </Button>
+                </FooterTab>
+              </Footer>
+            </Container>
+          </View>
         </Modal>
       </LoginContext.Provider>
     );
   }
 }
 
-export default LoginProvider;
+export default withDropdownAlert(LoginProvider);
