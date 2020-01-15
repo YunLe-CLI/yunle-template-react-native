@@ -7,7 +7,7 @@
 
     <item
         android:gravity="bottom"
-        android:bottom="50dp"
+        android:bottom="60dp"
     >
         <!-- the app logo, centered horizontally and vertically -->
 <!--      <bitmap-->
@@ -16,6 +16,8 @@
 <!--        android:src="@drawable/logo"-->
 <!--        android:gravity="center" />-->
         <bitmap
+            android:width="123dp"
+            android:height="80dp"
             android:src="@drawable/logo"
             android:gravity="center"
         />
