@@ -17,9 +17,14 @@ import LoadingSpinnerProvider from '@/components/LoadingSpinner';
 import DropdownAlertProvider from '@/components/DropdownAlert';
 import LoginProvider from '@/components/LoginModal';
 import IsTester from '@/components/isTester';
-import Loading from '@/components/Loading'
-import CheckAppUpdateProvider from '@/components/CheckAppUpdate'
-import CheckCodePushProvider from '@/components/CheckCodePush'
+import Loading from '@/components/Loading';
+import CheckAppUpdateProvider from '@/components/CheckAppUpdate';
+import CheckCodePushProvider from '@/components/CheckCodePush';
+import CancelModalProvider from '@/components/CancelModal';
+import GoToRoomModalProvider from '@/components/GoToRoomModal';
+import SelectDepartmentModalProvider from '@/components/SelectDepartmentModal';
+import SelectDoctorModalProvider from '@/components/SelectDoctorModal';
+import SelectLevelModalProvider from '@/components/SelectLevelModal';
 import { IAppModelState } from '@/models';
 import { setToken } from '@/utils/utils'
 import ErrorView from '@/components/ErrorView';
@@ -28,6 +33,7 @@ import getTheme from '@/utils/native-base-theme/components';
 import platform from '@/utils/native-base-theme/variables/platform';
 import {setJSExceptionHandler} from "@/utils/globalErrorHandle";
 import { BUILD_TYPE } from '@/utils/env'
+
 
 const PERSIST_KEY = 'root';
 const persistConfig = {
@@ -232,17 +238,27 @@ class Main extends Component<IMProps> {
           <CheckAppUpdateProvider>
             <CheckCodePushProvider>
               <LoginProvider>
-                <View style={{ flexGrow: 1, }}>
-                  {
-                    isError ? (<ErrorView errorInfo={errorInfo} />) : (
-                        !initLoading && !forceUpdate ? <Router /> : undefined
-                    )
-                  }
-                </View>
-                {/*{*/}
-                {/*  !initLoading && ENV === 'development' ? <IsTester /> : undefined*/}
-                {/*}*/}
-                <IsTester />
+                <GoToRoomModalProvider>
+                  <CancelModalProvider>
+                    <SelectDepartmentModalProvider>
+                      <SelectDoctorModalProvider>
+                        <SelectLevelModalProvider>
+                          <View style={{ flexGrow: 1, }}>
+                            {
+                              isError ? (<ErrorView errorInfo={errorInfo} />) : (
+                                  !initLoading && !forceUpdate ? <Router /> : undefined
+                              )
+                            }
+                          </View>
+                          {/*{*/}
+                          {/*  !initLoading && ENV === 'development' ? <IsTester /> : undefined*/}
+                          {/*}*/}
+                          <IsTester />
+                        </SelectLevelModalProvider>
+                      </SelectDoctorModalProvider>
+                    </SelectDepartmentModalProvider>
+                  </CancelModalProvider>
+                </GoToRoomModalProvider>
               </LoginProvider>
             </CheckCodePushProvider>
           </CheckAppUpdateProvider>

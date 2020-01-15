@@ -33,7 +33,7 @@ class ErrorView extends React.PureComponent<IProps, IState> {
     console.log(errorInfo)
     return (
       <Container style={[styles.container, {
-        backgroundColor: 'rgba(250, 28, 48, 1)'
+        backgroundColor: '#11CD8F'
       }]}>
         <Header transparent>
           <Body>

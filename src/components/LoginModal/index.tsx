@@ -19,7 +19,7 @@ import Modal from "react-native-modal";
 import LinearGradient from 'react-native-linear-gradient';
 import styles from './styles';
 import FastImage from 'react-native-fast-image';
-import logoImg from './assets/logo.png';
+import logoImg from './assets/logo_slices/pic_logo_s.png';
 import {ENVIRONMENT, BUILD_TYPE} from "@/utils/env";
 import { withDropdownAlert } from '@/components/DropdownAlert';
 import { withLoadingSpinner } from '@/components/LoadingSpinner';
@@ -88,10 +88,17 @@ class LoginProvider extends React.Component<IProps, IState> {
   }
 
   goToMain = () => {
-    this.props.dispatch(NavigationActions.navigate({
-      routeName: 'Main',
-      params: {},
-    }))
+    // this.props.dispatch(NavigationActions.navigate({
+    //   routeName: 'Main',
+    //   params: {},
+    // }))
+    setTimeout(() => {
+      this.props.dispatch(NavigationActions.navigate({
+        routeName: 'PersonalDetails',
+        params: {},
+      }))
+    }, 1000)
+
   };
 
   handleLogin = async () => {
@@ -141,7 +148,7 @@ class LoginProvider extends React.Component<IProps, IState> {
           <View style={{ flex: 1 }}>
             <Container style={styles.container}>
               <Content
-                scrollEnabled={true}
+                disableKBDismissScroll
                 contentContainerStyle={{
                   paddingHorizontal: 32.5,
                   flex: 1,
