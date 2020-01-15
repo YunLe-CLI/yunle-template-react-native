@@ -42,3 +42,8 @@
 ## 欢迎star
 > [开源github](https://github.com/YunLe-CLI/yunle-template-RN) 欢迎star ⭐⭐⭐ 感谢感谢！！！
 >
+
+### 支付组件
+> [内购 `react-native-iap`](https://github.com/dooboolab/react-native-iap)
+>
+> [支付(微信&支付宝) `react-native-puti-pay`](https://github.com/puti94/react-native-puti-pay)
