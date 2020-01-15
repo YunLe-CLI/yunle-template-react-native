@@ -52,6 +52,10 @@ const userModel: IModelType = {
       *clearCache({ payload = {} }, { put }) {
         yield put({ type: 'clearCacheHandle' });
       },
+      *setUserAsync({ payload = {} }, { put, select }) {
+        yield put({ type: 'setUser', payload: { user: payload.user }});
+        return yield select(({ user }) => user.info);
+      },
     },
 }
 

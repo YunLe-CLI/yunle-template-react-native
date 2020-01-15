@@ -31,25 +31,48 @@ import icon_zfb from './assets/icon_zfb_slices/icon_zfb.png';
 import icon_check_active from './assets/icon_check_active_slices/icon_check_active.png';
 import icon_check_default from './assets/icon_check_default_slices/icon_check_default.png';
 
+import {DOCTOR_ITEM, MAKE_POST} from '@/services/api';
+
 export interface IProps {}
 
 export interface IState {
-  orientationType: OrientationType,
+  remark: string;
+  payType: string;
 }
 
-@(connect() as any)
+@(connect(({ user }) => {
+  return {
+    user: user.info,
+  }
+}) as any)
 class Home extends React.Component<IProps, IState> {
 
-  state = {
-    orientationType: 'PORTRAIT',
-    video: {
-      videoUrl: '',
-      videoWidth: undefined,
-      height: undefined,
-      duration: 0,
-    },
+  state: IState = {
+    remark: undefined,
     payType: 'wx',
   };
+
+  async postData() {
+    try {
+      const { navigation, user } = this.props;
+      const { params = {} } = navigation.state;
+      const registration_id = params.registration_id || '';
+      const res = await MAKE_POST({
+        registration_id,
+        remark: this.state.remark,
+        patientId: user.id,
+      })
+      if (res.code === 0) {
+        this.props.dispatch(StackActions.replace({
+          routeName: 'AppointmentSuccess',
+          params: {},
+        }))
+      }
+    } catch (e) {
+      alert(e)
+    }
+  }
+
 
   handlePay = () => {
     const { payType } = this.state;
@@ -68,10 +91,7 @@ class Home extends React.Component<IProps, IState> {
           sign: 'sign',
         }
         XPay.wxPay(params,(res)=> {
-          this.props.dispatch(StackActions.replace({
-            routeName: 'AppointmentSuccess',
-            params: {},
-          }))
+          this.postData()
         })
       }
       if (payType === 'ali') {
@@ -82,24 +102,20 @@ class Home extends React.Component<IProps, IState> {
         //支付宝支付
         //orderInfo是后台拼接好的支付参数
         XPay.alipay('app_id=2015052600090779&biz_content=%7B%22timeout_express%22%3A%2230m%22%2C%22product_code%22%3A%22QUICK_MSECURITY_PAY%22%2C%22total_amount%22%3A%220.01%22%2C%22subject%22%3A%221%22%2C%22body%22%3A%22%E6%88%91%E6%98%AF%E6%B5%8B%E8%AF%95%E6%95%B0%E6%8D%AE%22%2C%22out_trade_no%22%3A%22IQJZSRC1YMQB5HU%22%7D&charset=utf-8&format=json&method=alipay.trade.app.pay&notify_url=http%3A%2F%2Fdomain.merchant.com%2Fpayment_notify&sign_type=RSA2&timestamp=2016-08-25%2020%3A26%3A31&version=1.0&sign=cYmuUnKi5QdBsoZEAbMXVMmRWjsuUj%2By48A2DvWAVVBuYkiBj13CFDHu2vZQvmOfkjE0YqCUQE04kqm9Xg3tIX8tPeIGIFtsIyp%2FM45w1ZsDOiduBbduGfRo1XRsvAyVAv2hCrBLLrDI5Vi7uZZ77Lo5J0PpUUWwyQGt0M4cj8g%3D', (res)=> {
-          this.props.dispatch(StackActions.replace({
-            routeName: 'AppointmentSuccess',
-            params: {},
-          }))
+          this.postData()
         })
       }
     } catch (e) {
       alert(e)
-      this.props.dispatch(StackActions.replace({
-        routeName: 'AppointmentSuccess',
-        params: {},
-      }))
+      this.postData()
     }
-
   }
 
   renderForm() {
     const { payType } = this.state;
+    const { navigation, user } = this.props;
+    const { params = {} } = navigation.state;
+    const doctorInfo:DOCTOR_ITEM = params.doctorInfo || {};
     return <View>
       <Card noShadow style={styles.formCard}>
         <CardItem style={styles.formItem}>
@@ -108,25 +124,25 @@ class Home extends React.Component<IProps, IState> {
         <CardItem style={styles.formItem}>
           <Text style={styles.formItemLabel}>医生姓名</Text>
           <Text style={styles.ipt}>
-            扁鹊
+            {doctorInfo.name}
           </Text>
         </CardItem>
         <CardItem style={styles.formItem}>
           <Text style={styles.formItemLabel}>医生职称</Text>
           <Text style={styles.ipt}>
-            主任医师
+            {doctorInfo.professionalTitle}
           </Text>
         </CardItem>
         <CardItem style={styles.formItem}>
           <Text style={styles.formItemLabel}>所在医院</Text>
           <Text style={styles.ipt}>
-            成都市第二人民医院
+            {doctorInfo.hospitalName}
           </Text>
         </CardItem>
         <CardItem style={styles.formItem}>
           <Text style={styles.formItemLabel}>就诊科室</Text>
           <Text style={styles.ipt}>
-            小儿科
+            {doctorInfo.medicalDepartment}
           </Text>
         </CardItem>
         <CardItem style={styles.formItem}>
@@ -145,7 +161,7 @@ class Home extends React.Component<IProps, IState> {
         <CardItem style={styles.formItem}>
           <Text style={styles.formItemLabel}>就诊人</Text>
           <Text style={styles.ipt}>
-            张三
+            {user.name}
           </Text>
         </CardItem>
         <CardItem style={styles.formItem}>
@@ -157,7 +173,7 @@ class Home extends React.Component<IProps, IState> {
         <CardItem style={styles.formItem}>
           <Text style={styles.formItemLabel}>手机号码</Text>
           <Text style={styles.ipt}>
-            1831387789
+            {user.name}
           </Text>
         </CardItem>
         <CardItem style={styles.formItem}>
@@ -165,7 +181,15 @@ class Home extends React.Component<IProps, IState> {
             alignSelf: 'flex-start'
           }]}>看诊疾病</Text>
           <View style={{ flex: 1, flexGrow: 1, backgroundColor: '#F9FBFF', borderRadius: 2, }}>
-            <Textarea rowSpan={5} placeholderTextColor={'#B0BED4'} placeholder="请描述下就诊人的疾病/症状" />
+            <Textarea rowSpan={5}
+                      value={this.state.remark}
+                      placeholderTextColor={'#B0BED4'} placeholder="请描述下就诊人的疾病/症状"
+                      onChangeText={(remark) => {
+                        this.setState({
+                          remark
+                        })
+                      }}
+            />
           </View>
         </CardItem>
       </Card>
@@ -173,7 +197,7 @@ class Home extends React.Component<IProps, IState> {
       <Card noShadow style={styles.formCard}>
         <CardItem style={[styles.formItem, styles.spaceBetween]}>
           <Text style={styles.formItemTitle}>支付信息</Text>
-          <Text style={[styles.formItemTitle, styles.formItemMoney]}>挂号费：￥20</Text>
+          <Text style={[styles.formItemTitle, styles.formItemMoney]}>挂号费：￥{doctorInfo.registrationFee}</Text>
         </CardItem>
         <CardItem
           onPress={() => {
@@ -309,7 +333,7 @@ class Home extends React.Component<IProps, IState> {
               style={[
                 styles.linearGradientBtn,
                 {
-                  opacity: this.state.password && this.state.loginName ? 1 : 0.4
+                  opacity: this.state.remark ? 1 : 0.4
                 }
               ]}
             >
@@ -322,7 +346,12 @@ class Home extends React.Component<IProps, IState> {
                   //   routeName: 'AppointmentSuccess',
                   //   params: {},
                   // }))
-                  this.handlePay();
+                  if (this.state.remark) {
+                    this.handlePay();
+                  } else {
+                    alert('请描述下就诊人的疾病/症状')
+                  }
+
                 }}
                 style={styles.submitButton}
                 textStyle={{

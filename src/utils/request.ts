@@ -38,7 +38,7 @@ export default async function request(config: AxiosRequestConfig, token?: string
     app_build_number: DeviceInfo.getBuildNumber(),
   };
   // axios.defaults.baseURL = 'https://api.example.com';
-  axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
+  axios.defaults.headers.common['token'] = AUTH_TOKEN;
   axios.defaults.headers.common['AppInfo'] = appInfo;
   axios.defaults.headers.post['Content-Type'] = 'application/json; charset=utf-8';
 

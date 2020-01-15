@@ -57,7 +57,7 @@ const authModel: IModelType = {
         const res = yield put({
           type: 'setToken',
           payload: {
-            token: '123',
+            token: payload.token,
           }
         })
         return res

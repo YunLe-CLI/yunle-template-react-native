@@ -26,35 +26,57 @@ import Orientation, {OrientationType} from "react-native-orientation-locker";
 import { Table, TableWrapper, Row, Cell } from 'react-native-table-component';
 import FastImage from 'react-native-fast-image';
 import icon from './assets/icon_left_slices/icon_left.png';
-import icon_wx from './assets/icon_wx_slices/icon_wx.png';
-import icon_zfb from './assets/icon_zfb_slices/icon_zfb.png';
-import icon_check_active from './assets/icon_check_active_slices/icon_check_active.png';
-import icon_check_default from './assets/icon_check_default_slices/icon_check_default.png';
-import pic_sce from './assets/pic_sce_slices/pic_sce.png';
 import logoImg from '@/components/LoginModal/assets/logo_slices/pic_logo_s.png';
+import {DOCTOR_ITEM, APPOINTMENT, APPOINTMENT_RES, REGISTRATIONS_ITEM} from '@/services/api';
+import moment from 'moment';
+// 里面的字符可以根据自己的需要进行调整
+moment.locale('zh-cn')
 
 export interface IProps {}
 
 export interface IState {
-  orientationType: OrientationType,
+  appointment: {
+    "registrationCount": number;// 总预约数
+    "registrations": Array<REGISTRATIONS_ITEM>
+  } | undefined,
 }
 
 @(connect() as any)
 class Home extends React.Component<IProps, IState> {
-
-  state = {
-    orientationType: 'PORTRAIT',
-    video: {
-      videoUrl: '',
-      videoWidth: undefined,
-      height: undefined,
-      duration: 0,
-    },
-    payType: 'wx',
+  constructor(props: IProps) {
+    super(props);
+    this.componentDidMount = _.debounce(this.componentDidMount, 800);
+  }
+  state: IState = {
+    appointment: undefined
   };
 
+  async componentDidMount() {
+    await this.getInfo();
+  }
+
+  async getInfo() {
+    try {
+      const { navigation } = this.props;
+      const { params = {} } = navigation.state;
+      const doctorInfo:DOCTOR_ITEM = params.doctorInfo || {};
+      const res = await APPOINTMENT({ doctorId: doctorInfo.id });
+      if (res.code === 0) {
+        this.setState({
+          appointment: res.data,
+        })
+        console.log('appointment', res.data)
+      }
+    } catch (e) {
+      alert(e)
+    }
+  }
+
   renderForm() {
-    const { payType } = this.state;
+    const { appointment = {} } = this.state;
+    const { navigation } = this.props;
+    const { params = {} } = navigation.state;
+    const doctorInfo:DOCTOR_ITEM = params.doctorInfo || {};
     return <View>
       <Card noShadow style={styles.formCard}>
         <CardItem style={styles.formItem}>
@@ -62,7 +84,7 @@ class Home extends React.Component<IProps, IState> {
         </CardItem>
         <CardItem style={styles.formItem}>
           <Text style={styles.formItemLabel}>
-            且队以装进别五了儿油任天深三建王立话不持须重飞可可育按眼族支加照格清系自和门水来流众者信山系。程易同阶市其接流心当矿八许气身完同表问属…
+            {doctorInfo.personalIntro}
           </Text>
           <Text style={styles.ipt}>
 
@@ -73,7 +95,7 @@ class Home extends React.Component<IProps, IState> {
         </CardItem>
         <CardItem style={styles.formItem}>
           <Text style={styles.formItemLabel}>
-            心脑血管病、糖尿病、中风后遗症、高血压、冠心病、痴呆、骨质疏松、抑郁症
+            {doctorInfo.skillsIntro}
           </Text>
           <Text style={styles.ipt}>
 
@@ -85,7 +107,7 @@ class Home extends React.Component<IProps, IState> {
       <Card noShadow style={styles.formCard}>
         <CardItem style={[styles.formItem, styles.spaceBetween]}>
           <Text style={styles.formItemTitle}>出诊信息</Text>
-          <Text style={[styles.formItemTitle, styles.formItemMoney]}>挂号费：￥20</Text>
+          <Text style={[styles.formItemTitle, styles.formItemMoney]}>挂号费：￥{doctorInfo.registrationFee}</Text>
         </CardItem>
         <CardItem style={styles.formItem}>
           {this.renderTable()}
@@ -96,77 +118,55 @@ class Home extends React.Component<IProps, IState> {
   }
 
   renderTable() {
+    const { appointment = {} } = this.state;
+    const { navigation } = this.props;
+    const { params = {} } = navigation.state;
+    const doctorInfo:DOCTOR_ITEM = params.doctorInfo || {};
+    const { registrations = [] } = appointment;
     const tableData1 = [
       '上午',
-      <TouchableOpacity onPress={() => {
-        this.props.dispatch(NavigationActions.navigate({
-          routeName: 'AppointmentDetails',
-          params: {},
-        }))
-      }}>
-        <Text style={styles.start}>剩余1</Text>
-      </TouchableOpacity>,
-      <TouchableOpacity onPress={() => {
-        this.props.dispatch(NavigationActions.navigate({
-          routeName: 'AppointmentDetails',
-          params: {},
-        }))
-      }}>
-        <Text style={styles.start}>剩余1</Text>
-      </TouchableOpacity>,
-      <TouchableOpacity onPress={() => {
-        this.props.dispatch(NavigationActions.navigate({
-          routeName: 'AppointmentDetails',
-          params: {},
-        }))
-      }}>
-        <Text style={styles.start}>剩余1</Text>
-      </TouchableOpacity>,
-      <TouchableOpacity onPress={() => {
-        this.props.dispatch(NavigationActions.navigate({
-          routeName: 'AppointmentDetails',
-          params: {},
-        }))
-      }}>
-        <Text style={styles.start}>剩余1</Text>
-      </TouchableOpacity>,
-      <TouchableOpacity onPress={() => {
-        this.props.dispatch(NavigationActions.navigate({
-          routeName: 'AppointmentDetails',
-          params: {},
-        }))
-      }}>
-        <Text style={styles.start}>剩余1</Text>
-      </TouchableOpacity>,
-      <TouchableOpacity onPress={() => {
-        this.props.dispatch(NavigationActions.navigate({
-          routeName: 'AppointmentDetails',
-          params: {},
-        }))
-      }}>
-        <Text style={styles.start}>剩余1</Text>
-      </TouchableOpacity>,
-      <TouchableOpacity onPress={() => {
-        this.props.dispatch(NavigationActions.navigate({
-          routeName: 'AppointmentDetails',
-          params: {},
-        }))
-      }}>
-        <Text style={styles.start}>剩余1</Text>
-      </TouchableOpacity>,
     ];
     const tableData2 = [
       '下午',
-      <Text style={styles.end}>挂满</Text>,
-      <Text style={styles.end}>挂满</Text>,
-      <Text style={styles.end}>挂满</Text>,
-      <Text style={styles.end}>挂满</Text>,
-      <Text style={styles.end}>挂满</Text>,
-      <Text style={styles.end}>挂满</Text>,
-      <Text style={styles.end}>挂满</Text>
     ];
-    const widthArr = [62.5, 62.5, 62.5, 62.5, 62.5, 62.5, 62.5, 62.5];
-    const tableHead = ['', '周六', '周日', '周一', '周二', '周三', '周四', '周五'];
+    const widthArr = [62.5]
+    const tableHead = [''];
+    registrations.forEach((item: REGISTRATIONS_ITEM) => {
+      widthArr.push(62.5)
+      tableHead.push(item.date || '')
+      const { data = [] } = item;
+      let NODE_AM = '';
+      let NODE_PM = '';
+      if (data && _.isArray(data) && data.length) {
+        data.forEach((cItem: REGISTRATIONS_ITEM_INFO) => {
+          if (cItem.remainCount > 0) {
+            NODE = (<TouchableOpacity onPress={() => {
+              this.props.dispatch(NavigationActions.navigate({
+                routeName: 'AppointmentDetails',
+                params: {
+                  doctorInfo,
+                  registration_id: cItem.id,
+                },
+              }))
+            }}>
+              <Text style={styles.start}>剩余{data[0].remainCount}</Text>
+            </TouchableOpacity>)
+          }
+          if (cItem.remainCount === 0) {
+            NODE = (<Text style={styles.end}>挂满</Text>);
+          }
+          if (cItem.timeslot === 1) {
+            NODE_AM = (NODE);
+          }
+          if (cItem.timeslot === 2) {
+            NODE_PM = (NODE);
+          }
+        })
+      }
+      tableData1.push(NODE_AM);
+      tableData2.push(NODE_PM);
+    });
+
     return <ScrollView style={styles.scrollView} horizontal={true}>
       <Table>
         <TableWrapper borderStyle={{borderWidth: 1, borderColor: '#E8E8E8'}} style={[styles.tableRow]}>
@@ -178,8 +178,8 @@ class Home extends React.Component<IProps, IState> {
                   <View style={[styles.cellWrap, { width: widthArr[cellIndex] }]}>
                     {
                       cellIndex === 0 ? undefined : <>
-                        <Text style={styles.tableHeaderText}>{cellData}</Text>
-                        <Text style={styles.headerCellSpanText}>01-30</Text>
+                        <Text style={styles.tableHeaderText}>周{moment(cellData).day()}</Text>
+                        <Text style={styles.headerCellSpanText}>{moment(cellData).format('MM-DD')}</Text>
                       </>
                     }
                   </View>
@@ -239,13 +239,17 @@ class Home extends React.Component<IProps, IState> {
   }
 
   render() {
-    const { orientationType } = this.state;
+    const { appointment = {} } = this.state;
+    const { navigation } = this.props;
+    const { params = {} } = navigation.state;
+    const doctorInfo:DOCTOR_ITEM = params.doctorInfo || {};
     return (
       <Container style={styles.container}>
         <NavigationEvents
           onWillFocus={payload => {
           }}
           onDidFocus={payload => {
+            this.componentDidMount()
           }}
           onWillBlur={payload => {
           }}
@@ -309,21 +313,21 @@ class Home extends React.Component<IProps, IState> {
                     alignContent: 'center',
                     justifyContent: 'center',
                   }}
-                  source={logoImg}
+                  source={{ uri: doctorInfo.avatar }}
                   resizeMode={FastImage.resizeMode.contain}
                 />
                 <Body>
                   <View style={styles.itemHeader}>
                     <Text style={styles.nameText}>
-                      王医生
+                      {doctorInfo.name}
                     </Text>
                     <Text style={[styles.note, styles.span]}>
-                      主任医师
+                      {doctorInfo.professionalTitle}
                     </Text>
                   </View>
 
-                  <Text style={styles.note}>河南开封中心医院 皮肤科</Text>
-                  <Text  style={[styles.note, styles.strong]}>已预约：666</Text>
+                  <Text style={styles.note}>{doctorInfo.hospitalName}  {doctorInfo.medicalDepartment}</Text>
+                  <Text  style={[styles.note, styles.strong]}>已预约：{appointment.registrationCount || 0}</Text>
                 </Body>
               </Left>
             </CardItem>

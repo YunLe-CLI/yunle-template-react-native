@@ -23,12 +23,13 @@ import {
 } from 'native-base';
 import FastImage from 'react-native-fast-image';
 import _ from 'lodash';
+import moment from 'moment';
 import styles from './styles';
 import {NavigationActions, NavigationEvents} from 'react-navigation';
 import VideoPlayer from '@/components/react-native-aliyun-vod-controls'
 import Orientation, {OrientationType} from "react-native-orientation-locker";
 import home_bg_slices from './assets/home_bg_slices/pic_home_bg.png'
-import user from './assets/user_slices/user.png'
+import userImg from './assets/user_slices/user.png'
 import icon_myorder_default_slices from './assets/icon_myorder_default_slices/icon_myorder_default.png';
 import icon_myorder_active_slices from './assets/icon_myorder_active_slices/icon_myorder_active.png';
 import icon_register_default_slices from './assets/icon_register_default_slices/icon_register_default.png';
@@ -45,37 +46,104 @@ import { withSelectDepartmentModal } from '@/components/SelectDepartmentModal';
 import { withSelectDoctorModal } from '@/components/SelectDoctorModal';
 import { withSelectLevelModal } from '@/components/SelectLevelModal';
 
+import { MAKE_LIST, MAKE_ITEM } from '@/services/api';
+
 export interface IProps {}
 
 export interface IState {
-  orientationType: OrientationType,
+  segmentActive: number;
+  department: undefined | string,
+  level: undefined | string,
+  today: Array<MAKE_ITEM>;
+  registrations: Array<MAKE_ITEM>,
 }
 
-@(connect() as any)
+@(connect(({ user }) => {
+  return {
+    user: user.info,
+  }
+}) as any)
 class Home extends React.Component<IProps, IState> {
+
+  constructor(props: IProps) {
+    super(props);
+    this.componentDidMount = _.debounce(this.componentDidMount, 800);
+  }
 
   state = {
     active: 0,
     segmentActive: 0,
     department: undefined,
     level: undefined,
-    orientationType: 'PORTRAIT',
-    video: {
-      videoUrl: '',
-      videoWidth: undefined,
-      height: undefined,
-      duration: 0,
-    }
+    today: [],
+    registrations: [],
   };
 
-  componentDidMount(): void {
-    // this.props.handleShowGoToRoomModal();
+  async componentDidMount() {
+    await this.getMakeList()
   }
 
-  renderItem() {
-    const type = 1;
-    const icon = icon_live_slices_0;
-    const iconText = styles.itemIconText00;
+  async getMakeList() {
+    try {
+      const res = await MAKE_LIST({});
+      console.log(1111, res);
+      if (res.code === 0) {
+        const { data = {} } = res;
+        this.setState({
+          today: data.today,
+          registrations: data.registrations,
+        })
+      }
+
+    } catch (e) {
+      alert(e)
+    }
+  }
+
+  renderItem(data: MAKE_ITEM = {}) {
+    let type = data.status;
+    console.log('type: sss', type)
+    let icon = icon_live_slices_0;
+    let iconText = styles.itemIconText00;
+    let typeText = '未开始';
+    // 就诊状态（ -1.取消 1.已预约 2-进行中 3-已诊 4-未到）
+    switch (type) {
+      case -1: {
+        icon = icon_live_slices_2;
+        iconText = styles.itemIconText02;
+        typeText = '已取消';
+       break;
+      }
+      case 1: {
+        icon = icon_live_slices_0;
+        iconText = styles.itemIconText00;
+        typeText = '已预约';
+        break;
+      }
+      case 2: {
+        icon = icon_live_slices_1;
+        iconText = styles.itemIconText01;
+        typeText = '进行中';
+        break;
+      }
+      case 3: {
+        icon = icon_live_slices_2;
+        iconText = styles.itemIconText02;
+        typeText = '已结束';
+        break;
+      }
+      case 4: {
+        icon = icon_live_slices_2;
+        iconText = styles.itemIconText02;
+        typeText = '已结束';
+        break;
+      }
+      default: {
+        icon = icon_live_slices_2;
+        iconText = styles.itemIconText02;
+        typeText = '已结束';
+      }
+    }
     return <Card bordered style={styles.itemBox}>
       <View style={[styles.typeLineDefault]}></View>
       <CardItem button onPress={() => {
@@ -96,104 +164,118 @@ class Home extends React.Component<IProps, IState> {
             resizeMode={FastImage.resizeMode.contain}
           />
           <Text  style={[styles.itemIconText, iconText]}>
-            未开始
+            {typeText}
           </Text>
         </View>
         <View style={styles.itemBoxContent}>
           <Title style={styles.itemBodyTitle}>
-            上午-小儿科
+            {data.timeslot === 1 ? '上午' : ''}
+            {data.timeslot === 2 ? '下午' : ''}
+            -小儿科
           </Title>
           <Text style={[styles.itemBodyText, styles.itemBodyText001]}>
-            成都市人民医院 张明 主治医师
+            {data.hospitalName} {data.name} {data.professionalTitle}
           </Text>
           <View style={[styles.itemBoxFooter]}>
-            <Text numberOfLines={2} style={[styles.itemBodyText]}>
-              前面还有
-              <Text style={[styles.itemBodyText, styles.itemBodyText002]}>12</Text>
-              人
-            </Text>
+            {
+              data.position >= 0 ? (
+                <Text numberOfLines={2} style={[styles.itemBodyText]}>
+                  前面还有
+                  <Text style={[styles.itemBodyText, styles.itemBodyText002]}>{data.position}</Text>
+                  人
+                </Text>
+              ) : undefined
+            }
+
             <View style={styles.itemBodyBtnWrap}>
-              <LinearGradient
-                start={{x: 0, y: 0}} end={{x: 1, y: 1}}
-                colors={['#DCE3EE', '#DCE3EE']}
-                style={[
-                  styles.linearGradientBtn,
-                ]}
-              >
-                <Button
-                  full
-                  transparent
-                  rounded
-                  onPress={async () => {
-                    this.props.dispatch(NavigationActions.navigate({
-                      routeName: 'Room',
-                      params: {},
-                    }))
-                  }}
+              {
+                (type === 1 || type === 4 || type == 3) ? <LinearGradient
+                  start={{x: 0, y: 0}} end={{x: 1, y: 1}}
+                  colors={['#DCE3EE', '#DCE3EE']}
                   style={[
-                    styles.btnDefault,
-                    styles.submitButton
+                    styles.linearGradientBtn,
                   ]}
-                  textStyle={{
-                    color: '#fff'
-                  }}
                 >
-                  <Title style={styles.btnText}>进入诊室</Title>
-                </Button>
-              </LinearGradient>
-              <LinearGradient
-                start={{x: 0, y: 0}} end={{x: 1, y: 1}}
-                colors={['#6AE27C', '#17D397']}
-                style={[
-                  styles.linearGradientBtn,
-                ]}
-              >
-                <Button
-                  full
-                  transparent
-                  rounded
-                  onPress={async () => {
-                    this.props.dispatch(NavigationActions.navigate({
-                      routeName: 'Room',
-                      params: {},
-                    }))
-                  }}
+                  <Button
+                    full
+                    transparent
+                    rounded
+                    onPress={async () => {
+                      // this.props.dispatch(NavigationActions.navigate({
+                      //   routeName: 'Room',
+                      //   params: {},
+                      // }))
+                    }}
+                    style={[
+                      styles.btnDefault,
+                      styles.submitButton
+                    ]}
+                    textStyle={{
+                      color: '#fff'
+                    }}
+                  >
+                    <Title style={styles.btnText}>进入诊室</Title>
+                  </Button>
+                </LinearGradient> : undefined
+              }
+              {
+                (type === 2) ? <LinearGradient
+                  start={{x: 0, y: 0}} end={{x: 1, y: 1}}
+                  colors={['#6AE27C', '#17D397']}
                   style={[
-                    styles.btnDefault,
-                    styles.submitButton
+                    styles.linearGradientBtn,
                   ]}
-                  textStyle={{
-                    color: '#fff'
-                  }}
                 >
-                  <Title style={styles.btnText}>进入诊室</Title>
-                </Button>
-              </LinearGradient>
-              <LinearGradient
-                start={{x: 0, y: 0}} end={{x: 1, y: 1}}
-                colors={['transparent', 'transparent']}
-                style={[
-                  styles.linearGradientBtn,
-                  styles.clearButton,
-                ]}
-              >
-                <Button
-                  full
-                  transparent
-                  rounded
-                  onPress={async () => {
-                    this.props.handleShowCancelModal();
-                  }}
+                  <Button
+                    full
+                    transparent
+                    rounded
+                    onPress={async () => {
+                      this.props.dispatch(NavigationActions.navigate({
+                        routeName: 'Room',
+                        params: {},
+                      }))
+                    }}
+                    style={[
+                      styles.btnDefault,
+                      styles.submitButton
+                    ]}
+                    textStyle={{
+                      color: '#fff'
+                    }}
+                  >
+                    <Title style={styles.btnText}>进入诊室</Title>
+                  </Button>
+                </LinearGradient> : undefined
+              }
+              {
+                type === 1 ? <LinearGradient
+                  start={{x: 0, y: 0}} end={{x: 1, y: 1}}
+                  colors={['transparent', 'transparent']}
                   style={[
-                    styles.btnDefault,
+                    styles.linearGradientBtn,
+                    styles.clearButton,
                   ]}
-                  textStyle={{
-                    color: '#fff'
-                  }}
                 >
-                  <Title style={[styles.btnText, styles.btnClearText]}>取消预约</Title>
-                </Button>
-              </LinearGradient>
+                  <Button
+                    full
+                    transparent
+                    rounded
+                    onPress={async () => {
+                      this.props.handleShowCancelModal();
+                    }}
+                    style={[
+                      styles.btnDefault,
+                    ]}
+                    textStyle={{
+                      color: '#fff'
+                    }}
+                  >
+                    <Title style={[styles.btnText, styles.btnClearText]}>取消预约</Title>
+                  </Button>
+                </LinearGradient> : undefined
+              }
+
             </View>
           </View>
         </View>
@@ -202,11 +284,22 @@ class Home extends React.Component<IProps, IState> {
   }
 
   renderTabList() {
-    const { orientationType } = this.state;
+    const { today, registrations } = this.state;
+    const todayList = {
+      title: "今日预约",
+      data: today,
+    };
+    const registrationsList = {
+      title: "全部预约",
+      data: registrations,
+    };
     let list = [
-      { title: "今日预约", data: [1,2,3] },
-      { title: "全部预约", data: [1,2,3] },
+      todayList,
+      registrationsList,
     ]
+    if (!today || !today.length) {
+      list = [registrationsList]
+    }
     return <SectionList
       style={{
         flexGrow: 1,
@@ -331,20 +424,25 @@ class Home extends React.Component<IProps, IState> {
 
   render() {
     const { active } = this.state;
+    const { user = {} } = this.props;
     return (
       <Container style={styles.container}>
         <NavigationEvents
             onWillFocus={payload => {
-              const { navigation, exams } = this.props;
-              const { params = {} } = navigation.state;
-              if (_.isNumber(params.active)) {
-                this.setState({
-                  active: params.active
-                })
+              try {
+                const { navigation, exams } = this.props;
+                const { params = {} } = navigation.state;
+                if (_.isNumber(params.active)) {
+                  this.setState({
+                    active: params.active
+                  })
+                }
+              } catch (e) {
+
               }
             }}
-            onDidFocus={payload => {
-
+            onDidFocus={async payload => {
+              await this.componentDidMount();
             }}
             onWillBlur={payload => {}}
             onDidBlur={payload => {}}
@@ -372,7 +470,7 @@ class Home extends React.Component<IProps, IState> {
                   alignContent: 'center',
                   justifyContent: 'center',
                 }}
-                source={user}
+                source={userImg}
                 resizeMode={FastImage.resizeMode.contain}
               />
             </View>
@@ -381,7 +479,7 @@ class Home extends React.Component<IProps, IState> {
               fontSize: 16,
               lineHeight: 22.5,
               fontWeight: '400',
-            }}>东毅</Text>
+            }}>{user.name || '未知'}</Text>
           </Content>
         </ImageBackground>
         <View

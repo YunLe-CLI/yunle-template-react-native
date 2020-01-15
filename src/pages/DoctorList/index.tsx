@@ -1,6 +1,6 @@
 import React from 'react';
 import {StatusBar, Text, View} from 'react-native';
-import { NavigationActions } from 'react-navigation';
+import {NavigationActions, NavigationEvents} from 'react-navigation';
 import {
     Container,
     Header,
@@ -24,25 +24,60 @@ import FastImage from 'react-native-fast-image';
 import iconLeft from '@/components/SelectDoctorModal/assets/icon_left_slices/icon_left.png';
 import logoImg from '@/components/LoginModal/assets/logo_slices/pic_logo_s.png';
 
+import {DOCTOR_ITEM, DOCTORS_LIST} from '@/services/api';
+import _ from 'lodash';
+
 export interface IProps {}
 
 export interface IState {
+  list: Array<DOCTOR_ITEM>;
+  selected: undefined | DOCTOR_ITEM;
 }
 
 @(connect() as any)
 class Home extends React.Component<IProps, IState> {
-
+  constructor(props: IProps) {
+    super(props);
+    this.componentDidMount = _.debounce(this.componentDidMount, 800);
+  }
     state = {
-        list: []
+        list: [],
+      selected: undefined,
     };
 
-    render() {
-        const list = [
-            '王医生',
-            '李医生',
-        ]
+    async componentDidMount(): void {
+      await this.getList();
+    }
+
+    async getList() {
+      try {
+        const res = await DOCTORS_LIST({});
+        console.log('DOCTORS_LIST: ', res)
+        if (res.code === 0) {
+          const { data }  = res;
+          this.setState({
+            list: data
+          })
+        }
+
+      } catch (e) {
+
+      }
+
+    }
+
+  render() {
+        const { list } = this.state;
         return (
           <Container style={styles.container}>
+            <NavigationEvents
+              onWillFocus={payload => {}}
+              onDidFocus={async payload => {
+                await this.componentDidMount();
+              }}
+              onWillBlur={payload => {}}
+              onDidBlur={payload => {}}
+            />
               <Header transparent>
                   <Left>
                       <Button
@@ -78,18 +113,20 @@ class Home extends React.Component<IProps, IState> {
               >
                   <Card noShadow style={styles.card}>
                       {
-                          list.map((item) => {
+                          list.map((item: DOCTOR_ITEM) => {
                               const { selected } = this.state;
-                              const isSelect = JSON.stringify(item) === JSON.stringify(selected)
+                              const isSelect: boolean = selected && item.id === selected.id
                               return <CardItem
                                 button
                                 onPress={async () => {
                                     this.props.dispatch(NavigationActions.navigate({
                                         routeName: 'DoctorDetails',
-                                        params: {},
+                                        params: {
+                                          doctorInfo: item,
+                                        },
                                     }))
                                 }}
-                                key={JSON.stringify(item)}>
+                                key={item.id}>
                                   <Left>
                                       <FastImage
                                         style={{
@@ -100,21 +137,21 @@ class Home extends React.Component<IProps, IState> {
                                             alignContent: 'center',
                                             justifyContent: 'center',
                                         }}
-                                        source={logoImg}
+                                        source={{ uri: item.avatar}}
                                         resizeMode={FastImage.resizeMode.contain}
                                       />
                                       <Body>
                                           <View style={styles.itemHeader}>
                                               <Text style={styles.nameText}>
-                                                  {item}
+                                                  {item.name}
                                               </Text>
                                               <Text style={[styles.note, styles.span]}>
-                                                  主任医师
+                                                  {item.professionalTitle}
                                               </Text>
                                           </View>
 
-                                          <Text style={styles.note}>河南开封中心医院 皮肤科</Text>
-                                          <Text  style={[styles.note, styles.strong]}>擅长：皮炎湿疹皮炎湿疹皮炎湿疹皮炎湿疹…</Text>
+                                          <Text style={styles.note}> {item.hospitalName} {item.medicalDepartment}</Text>
+                                          <Text  numberOfLines={2} style={[styles.note, styles.strong]}>擅长：{item.skillsIntro}</Text>
                                       </Body>
                                   </Left>
                               </CardItem>

@@ -24,6 +24,8 @@ import {ENVIRONMENT, BUILD_TYPE} from "@/utils/env";
 import { withDropdownAlert } from '@/components/DropdownAlert';
 import { withLoadingSpinner } from '@/components/LoadingSpinner';
 
+import { LOGIN, PATIENTS_DETAILS } from '@/services/api';
+
 export const LoginContext = createContext({
   openLoginModal: () => {},
   closeLoginModal: () => {},
@@ -56,23 +58,15 @@ export interface IProps {
 }
 export interface IState {
   mobile: string | undefined;
-  smsCode: string | undefined;
-  time: number | undefined;
-  mobileErr: string | undefined;
-  smsErr: string | undefined;
-  isVisible: boolean;
+  password: string | undefined;
 }
 
 @(connect() as any)
 class LoginProvider extends React.Component<IProps, IState> {
 
   state: IState = {
-    time: undefined,
-    mobile: undefined,
-    smsCode: undefined,
-    mobileErr: undefined,
-    smsErr: undefined,
-    isVisible: false,
+    mobile: '18200000001',
+    password: '123456',
   }
 
   openLogin = () => {
@@ -87,30 +81,59 @@ class LoginProvider extends React.Component<IProps, IState> {
     })
   }
 
-  goToMain = () => {
-    // this.props.dispatch(NavigationActions.navigate({
-    //   routeName: 'Main',
-    //   params: {},
-    // }))
-    setTimeout(() => {
+  goToMain = (type: boolean) => {
+    // type 是否填写个人信息
+    if (type) {
       this.props.dispatch(NavigationActions.navigate({
-        routeName: 'PersonalDetails',
+        routeName: 'Main',
         params: {},
       }))
-    }, 1000)
-
+    } else {
+      setTimeout(() => {
+        this.props.dispatch(NavigationActions.navigate({
+          routeName: 'PersonalDetails',
+          params: {},
+        }))
+      }, 1000)
+    }
   };
 
   handleLogin = async () => {
-    const { dispatch } = this.props;
-    dispatch({
-      type: 'auth/login',
-      payload: {
-        visible: true,
+    try {
+      const { dispatch } = this.props;
+      const { mobile, password } = this.state;
+      this.props.showLoading()
+      const res = await LOGIN({
+        mobile,
+        password,
+      })
+      if (res.code === 0) {
+        await dispatch({
+          type: 'auth/login',
+          payload: {
+            token: res.data.token,
+          }
+        });
+        const userRes = await PATIENTS_DETAILS({});
+        const userInfo = await dispatch({
+          type: 'user/setUserAsync',
+          payload: {
+            user: userRes.data,
+          }
+        });
+        // this.props.showAlert({
+        //   type: 'success',
+        //   title: '登陆成功',
+        //   message: '登陆成功',
+        // })
+        this.closeLogin();
+        this.goToMain(!!userInfo.idCard);
       }
-    });
-    this.closeLogin();
-    this.goToMain();
+    } catch (e) {
+      alert('登录失败')
+    } finally {
+      this.props.hiddenLoading()
+    }
   }
 
 
@@ -181,10 +204,10 @@ class LoginProvider extends React.Component<IProps, IState> {
                   <View style={styles.formWrap}>
                     <Form>
                       <Item style={styles.iptItem}>
-                        <Input value={this.state.loginName} style={styles.ipt} placeholder="输入用户名" placeholderTextColor={"#9C9EB9"}
+                        <Input value={this.state.mobile} style={styles.ipt} placeholder="输入用户名" placeholderTextColor={"#9C9EB9"}
                                onChangeText={(value) => {
                                  this.setState({
-                                   loginName: value,
+                                   mobile: value,
                                  })
                                }}
                         />
@@ -215,22 +238,7 @@ class LoginProvider extends React.Component<IProps, IState> {
                         transparent
                         rounded
                         onPress={async () => {
-                          try {
-                            this.props.showLoading()
                             await this.handleLogin();
-                            this.props.showAlert({
-                              type: 'success',
-                              title: '登陆成功',
-                              message: '登陆成功',
-                            })
-                          } catch (e) {
-
-                          } finally {
-                            setTimeout(() => {
-                              this.props.hiddenLoading()
-                            }, 3000)
-                          }
-
                         }}
                         style={styles.loginButton}
                         textStyle={{
