@@ -14,17 +14,17 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="launchLogo" translatesAutoresizingMaskIntoConstraints="NO" id="cpl-uS-p10">
-                    <rect key="frame" x="114.5" y="305" width="80" height="80"/>
+                    <rect key="frame" x="54.5" y="590" width="200" height="80"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="80" id="LGA-On-muh"/>
+                        <constraint firstAttribute="width" constant="200" id="LGA-On-muh"/>
                         <constraint firstAttribute="height" constant="80" id="MxV-2w-prh"/>
                     </constraints>
                 </imageView>
             </subviews>
-            <color key="backgroundColor" red="0.98039215686274506" green="0.10980392156862745" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <color key="tintColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="cpl-uS-p10" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="cw4-Yh-ggN"/>
+                <constraint firstItem="cpl-uS-p10" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="bottom" constant="-60" id="cw4-Yh-ggN"/>
                 <constraint firstItem="cpl-uS-p10" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="gn3-Ey-QUH"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
@@ -33,6 +33,6 @@
         </view>
     </objects>
     <resources>
-        <image name="launchLogo" width="110" height="110"/>
+        <image name="launchLogo" width="261" height="147"/>
     </resources>
 </document>

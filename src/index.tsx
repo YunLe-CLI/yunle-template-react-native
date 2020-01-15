@@ -239,12 +239,10 @@ class Main extends Component<IMProps> {
                     )
                   }
                 </View>
-                <View style={{ position: 'absolute', zIndex: 99999, elevation: 99999, backgroundColor: '#ff00ff' }}>
-                  {/*{*/}
-                  {/*  !initLoading && ENV === 'development' ? <IsTester /> : undefined*/}
-                  {/*}*/}
-                  <IsTester />
-                </View>
+                {/*{*/}
+                {/*  !initLoading && ENV === 'development' ? <IsTester /> : undefined*/}
+                {/*}*/}
+                <IsTester />
               </LoginProvider>
             </CheckCodePushProvider>
           </CheckAppUpdateProvider>

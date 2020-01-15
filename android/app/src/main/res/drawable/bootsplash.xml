@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android" android:opacity="opaque">
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:opacity="opaque">
     <!-- the background color. it can be a system color or a custom one defined in colors.xml -->
-    <item android:drawable="@color/FA1C30" />
+    <item android:drawable="@color/FFFFFF" />
 
-    <item>
+    <item
+        android:gravity="bottom"
+        android:bottom="50dp"
+    >
         <!-- the app logo, centered horizontally and vertically -->
-      <bitmap
-          android:width="80dp"
-          android:height="80dp"
-        android:src="@drawable/logo"
-        android:gravity="center" />
+<!--      <bitmap-->
+<!--          android:width="80dp"-->
+<!--          android:height="80dp"-->
+<!--        android:src="@drawable/logo"-->
+<!--        android:gravity="center" />-->
+        <bitmap
+            android:src="@drawable/logo"
+            android:gravity="center"
+        />
     </item>
 </layer-list>
