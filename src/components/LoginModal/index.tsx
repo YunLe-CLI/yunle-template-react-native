@@ -118,7 +118,7 @@ class LoginProvider extends React.Component<IProps, IState> {
         const userInfo = await dispatch({
           type: 'user/setUserAsync',
           payload: {
-            user: userRes.data,
+            user: res.data,
           }
         });
         // this.props.showAlert({
@@ -130,7 +130,7 @@ class LoginProvider extends React.Component<IProps, IState> {
         this.goToMain(!!userInfo.idCard);
       }
     } catch (e) {
-      alert('登录失败')
+      alert('登录失败'+e)
     } finally {
       this.props.hiddenLoading()
     }
