@@ -14,9 +14,9 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="launchLogo" translatesAutoresizingMaskIntoConstraints="NO" id="cpl-uS-p10">
-                    <rect key="frame" x="54.5" y="590" width="200" height="80"/>
+                    <rect key="frame" x="93" y="590" width="123" height="80"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="200" id="LGA-On-muh"/>
+                        <constraint firstAttribute="width" constant="123" id="LGA-On-muh"/>
                         <constraint firstAttribute="height" constant="80" id="MxV-2w-prh"/>
                     </constraints>
                 </imageView>
@@ -33,6 +33,6 @@
         </view>
     </objects>
     <resources>
-        <image name="launchLogo" width="261" height="147"/>
+        <image name="launchLogo" width="115" height="75"/>
     </resources>
 </document>
