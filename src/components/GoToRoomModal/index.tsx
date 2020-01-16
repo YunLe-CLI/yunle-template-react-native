@@ -8,6 +8,9 @@ import FastImage from 'react-native-fast-image';
 import {Button, Text, Content} from 'native-base';
 import icon from './assets/icon_lineup_slices/icon_lineup.png';
 import LinearGradient from "react-native-linear-gradient";
+import {NavigationActions} from "react-navigation";
+import {connect} from 'react-redux';
+import {MAKE_ITEM} from '@/services/api';
 
 export const GoToRoomContext = createContext({
   handleShowGoToRoomModal: () => {}
@@ -32,10 +35,9 @@ export function withGoToRoomModal(WrappedComponent: React.ReactNode) {
 
 export interface IState {
   isModalVisible: boolean;
-  isNotRemind: boolean;
-  isModalNotVisible: boolean;
-  updateURI: undefined | string;
+  room: MAKE_ITEM;
 }
+@(connect() as any)
 class GoToRoomModalProvider extends React.Component<{}, IState> {
 
   constructor(props: {}) {
@@ -44,11 +46,13 @@ class GoToRoomModalProvider extends React.Component<{}, IState> {
 
   state: IState = {
     isModalVisible: false,
+    room: {},
   };
 
-  showModel = () => {
+  showModel = (data: MAKE_ITEM) => {
     this.setState({
       isModalVisible: true,
+      room: data,
     });
   };
 
@@ -68,10 +72,12 @@ class GoToRoomModalProvider extends React.Component<{}, IState> {
   }
 
   render() {
-    const { isModalVisible, isModalNotVisible, updateURI } = this.state;
+    const { isModalVisible, room } = this.state;
     return (
       <GoToRoomContext.Provider value={{
-        handleShowGoToRoomModal: async () => { this.showModel() }
+        handleShowGoToRoomModal: async (data: MAKE_ITEM) => {
+          this.showModel(data)
+        }
       }}>
         {this.props.children}
         <Modal
@@ -113,16 +119,16 @@ class GoToRoomModalProvider extends React.Component<{}, IState> {
                 </View>
                 <View style={styles.body}>
                   <Text style={styles.infoText}>
-                    医生姓名：张三
+                    医生姓名：{room.name}
                   </Text>
                   <Text style={styles.infoText}>
-                    所在科室：小儿科
+                    所在科室：{room.medicalDepartment}
                   </Text>
                   <Text style={styles.infoText}>
-                    医生职称：主治医师
+                    医生职称：{room.professionalTitle}
                   </Text>
                   <Text style={styles.infoText}>
-                    所在医院：成都市第二人民医院
+                    所在医院：{room.hospitalName}
                   </Text>
                 </View>
                 <View style={styles.btnWrap}>
@@ -153,6 +159,12 @@ class GoToRoomModalProvider extends React.Component<{}, IState> {
                         rounded
                         bordered={false}
                         onPress={async () => {
+                          this.props.dispatch(NavigationActions.navigate({
+                            routeName: 'Room',
+                            params: {
+                              metaData: room.metaData,
+                            },
+                          }))
                           this.closeModel();
                         }}
                         style={styles.btn}

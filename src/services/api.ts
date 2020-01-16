@@ -70,6 +70,17 @@ export async function LOGIN(query: LOGIN_REQ): Promise<LOGIN_RES> {
 export interface MAKE_LIST_REQ {
 
 };
+export interface META_DATA {
+  "Id": "dkgzquiqSGK5oFlizWuqgQ==",
+  "Topic": "五官科-医生A",
+  "MeetingNo": 207309770,
+  "StartTime": "2020-01-18 09:00:00",
+  "UTCStartTime": "2020-01-18 01:00:00",
+  "OpenHostVideo": true,
+  "Duration": 360,
+  "Status": 0,
+  "MeetingType": 0
+}
 export interface MAKE_ITEM {
   "id": string;
   "timeslot": number;// 时间段(1-上午 2-下午)
@@ -77,10 +88,12 @@ export interface MAKE_ITEM {
   "startTime": string;
   "endTime": string;
   "registrationFee": number;
+  "name": string;
   "medicalDepartment": string;
   "hospitalName": string;
   "professionalTitle": string;
-  "status": number; // 就诊状态（ -1.取消 1.已预约 2-进行中 3-已诊 4-未到）
+  "status": number;// 就诊状态（ -1.取消 1.已预约 2-进行中 3-已诊 4-未到）
+  "metaData": META_DATA;
 }
 export interface MAKE_LIST_RES {
   "code": number;
@@ -266,35 +279,29 @@ export async function PATIENTS_DETAILS(query: PATIENTS_DETAILS_REQ): Promise<PAT
   return request({
     url: url,
     method: 'GET',
-    data: query,
   });
 }
-
 /**
- * 修改患者
+ * 请求房间消息（当前诊断人id）
  * api doc url: http://eolinker.class100.com/#/home/project/inside/api/detail?groupID=-1&apiID=1109&projectName=%E5%8C%BB%E7%96%97demo&projectID=77
  * @param params
  */
-export interface PATIENTS_DETAILS_PUT_REQ {
-  "id": string;// 修改必传
-  "name":string;// 【必须】
-  "mobile":string;
-  "idCard":string;// 身份证
-  "birthdate":number;// 生日
-  "gender":number;// 性别（1-男 2-女）
-  "age":number;// 年龄
-  "medicalHistory":string;// 病史
+export interface ROOM_MESSAGE_REQ {
+  mettingNo: string;
 }
-export interface PATIENTS_DETAILS_PUT_RES {
+export interface ROOM_MESSAGE_RES {
   "code": number;
   "success": boolean;
-  "data": PATIENTS_INFO;
+  "data":{
+    "kickId": string;// 被踢id，云视讯会议中的userid
+    "nextId": string;// 下一个id，业务服务那边传过来的userid
+    "mettingNuber": string;// 云视讯房间号
+  }
 }
-export async function PATIENTS_DETAILS_PUT(query: PATIENTS_DETAILS_PUT_REQ): Promise<PATIENTS_DETAILS_PUT_RES> {
-  const url = `https://treatment-api.dev.class100.com/api/v1/patients`;
+export async function ROOM_MESSAGE(query: ROOM_MESSAGE_REQ): Promise<ROOM_MESSAGE_RES> {
+  const url = `https://treatment-api.dev.class100.com/api/v1/meeting/${query.mettingNo}/message`;
   return request({
     url: url,
     method: 'GET',
-    data: query,
   });
 }

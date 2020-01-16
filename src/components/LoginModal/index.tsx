@@ -57,6 +57,7 @@ export interface IProps {
   skipBindWeChat: boolean;
 }
 export interface IState {
+  isVisible: boolean;
   mobile: string | undefined;
   password: string | undefined;
 }
@@ -65,6 +66,7 @@ export interface IState {
 class LoginProvider extends React.Component<IProps, IState> {
 
   state: IState = {
+    isVisible: false,
     mobile: '18200000001',
     password: '123456',
   }
@@ -118,7 +120,7 @@ class LoginProvider extends React.Component<IProps, IState> {
         const userInfo = await dispatch({
           type: 'user/setUserAsync',
           payload: {
-            user: res.data,
+            user: userRes.data,
           }
         });
         // this.props.showAlert({

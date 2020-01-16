@@ -51,6 +51,7 @@ import { MAKE_LIST, MAKE_ITEM } from '@/services/api';
 export interface IProps {}
 
 export interface IState {
+  refreshing: boolean;
   segmentActive: number;
   department: undefined | string,
   level: undefined | string,
@@ -68,9 +69,12 @@ class Home extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
     this.componentDidMount = _.debounce(this.componentDidMount, 800);
+    this._onRefresh = _.debounce(this._onRefresh, 800);
+    this._onRefresh = this._onRefresh.bind(this);
   }
 
   state = {
+    refreshing: false,
     active: 0,
     segmentActive: 0,
     department: undefined,
@@ -78,9 +82,23 @@ class Home extends React.Component<IProps, IState> {
     today: [],
     registrations: [],
   };
-
+  setIntervalEvent: any = undefined;
   async componentDidMount() {
-    await this.getMakeList()
+    await this._onRefresh()
+    if (this.setIntervalEvent) {
+      clearTimeout(this.setIntervalEvent);
+      this.setIntervalEvent = undefined;
+    }
+    this.setIntervalEvent = setInterval(() => {
+      this.componentDidMount()
+    }, 1000 * 60)
+  }
+
+  componentWillUnmount(): void {
+    if (this.setIntervalEvent) {
+      clearTimeout(this.setIntervalEvent);
+      this.setIntervalEvent = undefined;
+    }
   }
 
   async getMakeList() {
@@ -93,6 +111,17 @@ class Home extends React.Component<IProps, IState> {
           today: data.today,
           registrations: data.registrations,
         })
+        if (data.today) {
+          let isOpenInfo: MAKE_ITEM | undefined = undefined;
+          data.today.map((item: MAKE_ITEM) => {
+            if (item.status === 2) {
+              isOpenInfo = item;
+            }
+          })
+          if (isOpenInfo) {
+            this.props.handleShowGoToRoomModal(isOpenInfo)
+          }
+        }
       }
 
     } catch (e) {
@@ -100,7 +129,22 @@ class Home extends React.Component<IProps, IState> {
     }
   }
 
-  renderItem(data: MAKE_ITEM = {}) {
+  async _onRefresh() {
+    this.setState({
+      refreshing: true,
+    });
+    try {
+      await this.getMakeList();
+    } catch (e) {
+
+    } finally {
+      this.setState({
+        refreshing: false,
+      });
+    }
+  }
+
+  renderItem(data: MAKE_ITEM) {
     let type = data.status;
     console.log('type: sss', type)
     let icon = icon_live_slices_0;
@@ -144,7 +188,7 @@ class Home extends React.Component<IProps, IState> {
         typeText = '已结束';
       }
     }
-    return <Card bordered style={styles.itemBox}>
+    return <Card style={styles.itemBox}>
       <View style={[styles.typeLineDefault]}></View>
       <CardItem button onPress={() => {
         // this.props.dispatch(NavigationActions.navigate({
@@ -233,7 +277,9 @@ class Home extends React.Component<IProps, IState> {
                     onPress={async () => {
                       this.props.dispatch(NavigationActions.navigate({
                         routeName: 'Room',
-                        params: {},
+                        params: {
+                          metaData: data.metaData,
+                        },
                       }))
                     }}
                     style={[
@@ -311,7 +357,6 @@ class Home extends React.Component<IProps, IState> {
       onEndReachedThreshold={0.3}
       refreshing={this.state.refreshing}
       onRefresh={this._onRefresh}
-      onEndReached={this._onMore}
       showsVerticalScrollIndicator={false}
       renderItem={({ item, index, section }) => {
         if (item === 'MSG') {
@@ -428,7 +473,7 @@ class Home extends React.Component<IProps, IState> {
     return (
       <Container style={styles.container}>
         <NavigationEvents
-            onWillFocus={payload => {
+            onWillFocus={async payload => {
               try {
                 const { navigation, exams } = this.props;
                 const { params = {} } = navigation.state;
@@ -440,12 +485,17 @@ class Home extends React.Component<IProps, IState> {
               } catch (e) {
 
               }
-            }}
-            onDidFocus={async payload => {
               await this.componentDidMount();
             }}
-            onWillBlur={payload => {}}
-            onDidBlur={payload => {}}
+            onDidFocus={async payload => {
+
+            }}
+            onWillBlur={payload => {
+              this.componentWillUnmount()
+            }}
+            onDidBlur={payload => {
+
+            }}
         />
         <ImageBackground
           source={home_bg_slices}

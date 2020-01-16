@@ -4,10 +4,11 @@ import { bindPhone, bindWx, postFeedback, getUserInfo } from '@/services/api';
 import { getToken } from "@/utils/utils";
 import _ from 'lodash';
 import {touristsAccount} from '@/utils/config';
+import { PATIENTS_INFO } from '@/services/api';
 
 export interface IModelState {
   isTouristsAccount: boolean;
-  info: {} | undefined;
+  info: PATIENTS_INFO | undefined;
 };
 
 export interface IModelType extends Model{
