@@ -1,5 +1,5 @@
 import React from 'react';
-import {Dimensions, ImageBackground, SectionList, View} from 'react-native';
+import { ImageBackground, SectionList, View} from 'react-native';
 import { connect } from 'react-redux';
 import {
   Card,
@@ -46,7 +46,7 @@ import { withSelectDepartmentModal } from '@/components/SelectDepartmentModal';
 import { withSelectDoctorModal } from '@/components/SelectDoctorModal';
 import { withSelectLevelModal } from '@/components/SelectLevelModal';
 
-import { MAKE_LIST, MAKE_ITEM } from '@/services/api';
+import { MAKE_LIST, MAKE_ITEM, ROOM_MESSAGE } from '@/services/api';
 
 export interface IProps {}
 
@@ -114,18 +114,39 @@ class Home extends React.Component<IProps, IState> {
         if (data.today) {
           let isOpenInfo: MAKE_ITEM | undefined = undefined;
           data.today.map((item: MAKE_ITEM) => {
-            if (item.status === 2) {
+            if (item.status === 3) {
               isOpenInfo = item;
             }
+            isOpenInfo = item;
           })
           if (isOpenInfo) {
-            this.props.handleShowGoToRoomModal(isOpenInfo)
+            this.getIsMe(isOpenInfo)
           }
         }
       }
 
     } catch (e) {
       alert(e)
+    }
+  }
+
+  async getIsMe(item: MAKE_ITEM) {
+    try {
+      const { id } = this.props.user;
+      const res = await ROOM_MESSAGE({ mettingNo: item.metaData.MeetingNo  })
+      if (res.code === 0) {
+        const { nextId, kickId } = res.data;
+        if (id === nextId) {
+          this.props.handleShowGoToRoomModal(item)
+        }
+        if (kickId === id) {
+          alert('已完成')
+        }
+      }
+    } catch (e) {
+
+      // alert('已完成')
+      // alert(e)
     }
   }
 
@@ -146,16 +167,17 @@ class Home extends React.Component<IProps, IState> {
 
   renderItem(data: MAKE_ITEM) {
     let type = data.status;
+    console.log('type: sss', type)
     let icon = icon_live_slices_0;
     let iconText = styles.itemIconText00;
     let typeText = '未开始';
-    // 就诊状态（ -1.取消 1.已预约 2-进行中 3-已诊 4-未到）
+    // 就诊状态（1-开启 2-关闭 3-进行 4-过期）
     switch (type) {
-      case -1: {
+      case 4: {
         icon = icon_live_slices_2;
         iconText = styles.itemIconText02;
-        typeText = '已取消';
-       break;
+        typeText = '已结束';
+        break;
       }
       case 1: {
         icon = icon_live_slices_0;
@@ -163,13 +185,13 @@ class Home extends React.Component<IProps, IState> {
         typeText = '已预约';
         break;
       }
-      case 2: {
+      case 3: {
         icon = icon_live_slices_1;
         iconText = styles.itemIconText01;
         typeText = '进行中';
         break;
       }
-      case 3: {
+      case 2: {
         icon = icon_live_slices_2;
         iconText = styles.itemIconText02;
         typeText = '已结束';
@@ -232,7 +254,7 @@ class Home extends React.Component<IProps, IState> {
 
             <View style={styles.itemBodyBtnWrap}>
               {
-                (type === 1 || type === 4 || type == 3) ? <LinearGradient
+                (type === 1) ? <LinearGradient
                   start={{x: 0, y: 0}} end={{x: 1, y: 1}}
                   colors={['#DCE3EE', '#DCE3EE']}
                   style={[
@@ -262,7 +284,7 @@ class Home extends React.Component<IProps, IState> {
                 </LinearGradient> : undefined
               }
               {
-                (type === 2) ? <LinearGradient
+                (type === 3) ? <LinearGradient
                   start={{x: 0, y: 0}} end={{x: 1, y: 1}}
                   colors={['#6AE27C', '#17D397']}
                   style={[
@@ -294,7 +316,7 @@ class Home extends React.Component<IProps, IState> {
                 </LinearGradient> : undefined
               }
               {
-                type === 1 ? <LinearGradient
+                (type === 1) ? <LinearGradient
                   start={{x: 0, y: 0}} end={{x: 1, y: 1}}
                   colors={['transparent', 'transparent']}
                   style={[
@@ -472,29 +494,29 @@ class Home extends React.Component<IProps, IState> {
     return (
       <Container style={styles.container}>
         <NavigationEvents
-            onWillFocus={async payload => {
-              try {
-                const { navigation, exams } = this.props;
-                const { params = {} } = navigation.state;
-                if (_.isNumber(params.active)) {
-                  this.setState({
-                    active: params.active
-                  })
-                }
-              } catch (e) {
-
+          onWillFocus={async payload => {
+            try {
+              const { navigation, exams } = this.props;
+              const { params = {} } = navigation.state;
+              if (_.isNumber(params.active)) {
+                this.setState({
+                  active: params.active
+                })
               }
-              await this.componentDidMount();
-            }}
-            onDidFocus={async payload => {
+            } catch (e) {
 
-            }}
-            onWillBlur={payload => {
-              this.componentWillUnmount()
-            }}
-            onDidBlur={payload => {
+            }
+            await this.componentDidMount();
+          }}
+          onDidFocus={async payload => {
 
-            }}
+          }}
+          onWillBlur={payload => {
+            this.componentWillUnmount()
+          }}
+          onDidBlur={payload => {
+
+          }}
         />
         <ImageBackground
           source={home_bg_slices}

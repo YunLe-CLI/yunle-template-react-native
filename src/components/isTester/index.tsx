@@ -78,7 +78,6 @@ class IsTester extends React.PureComponent<IProps, IState> {
           dispatch({
             type: 'auth/logout'
           });
-          this.props.openLoginModal();
         }}
       >
         <Icon name="log-out" />

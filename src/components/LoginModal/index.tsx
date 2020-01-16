@@ -233,7 +233,7 @@ class LoginProvider extends React.Component<IProps, IState> {
                       style={[
                         styles.linearGradientBtn,
                         {
-                          opacity: this.state.password && this.state.loginName ? 1 : 0.4
+                          opacity: this.state.password && this.state.mobile ? 1 : 0.4
                         }
                       ]}
                     >
