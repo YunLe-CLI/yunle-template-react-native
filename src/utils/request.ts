@@ -3,7 +3,6 @@ import {Platform} from 'react-native';
 import _ from 'lodash';
 import DeviceInfo from 'react-native-device-info';
 import { store } from '@/index';
-import { LOGINMODAL_THIS } from '@/components/LoginModal';
 
 // 添加响应拦截器
 axios.interceptors.response.use(function (response) {
@@ -19,9 +18,6 @@ axios.interceptors.response.use(function (response) {
       store.dispatch({
         type: 'auth/logout'
       });
-      if (_.isFunction(LOGINMODAL_THIS.openLogin)) {
-        LOGINMODAL_THIS.openLogin();
-      }
     }
   }
   return response.data || {};
