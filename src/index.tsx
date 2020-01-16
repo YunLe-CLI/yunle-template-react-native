@@ -255,10 +255,9 @@ class Main extends Component<IMProps> {
                               )
                             }
                           </View>
-                          {/*{*/}
-                          {/*  !initLoading && ENV === 'development' ? <IsTester /> : undefined*/}
-                          {/*}*/}
-                          <IsTester />
+                          {
+                            !initLoading && ENV === 'development' ? <IsTester /> : undefined
+                          }
                         </SelectLevelModalProvider>
                       </SelectDoctorModalProvider>
                     </SelectDepartmentModalProvider>
