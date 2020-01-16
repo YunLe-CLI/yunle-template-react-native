@@ -29,7 +29,7 @@ export const LoginContext = createContext({
   closeLoginModal: () => {},
 })
 export const LoginConsumer = LoginContext.Consumer;
-
+export let LOGINMODAL_THIS = null;
 export function withLoginModal(WrappedComponent: React.ReactNode) {
   return class extends React.Component {
     render() {
@@ -108,6 +108,7 @@ class LoginProvider extends React.Component<IProps, IState> {
 
 
   render() {
+    LOGINMODAL_THIS = this;
     return (
       <LoginContext.Provider
         value={{
