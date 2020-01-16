@@ -1,5 +1,5 @@
 import React from 'react';
-import { ImageBackground, SectionList, View} from 'react-native';
+import {Dimensions, ImageBackground, NativeModules, SectionList, View} from 'react-native';
 import { connect } from 'react-redux';
 import {
   Card,
@@ -47,6 +47,9 @@ import { withSelectDoctorModal } from '@/components/SelectDoctorModal';
 import { withSelectLevelModal } from '@/components/SelectLevelModal';
 
 import { MAKE_LIST, MAKE_ITEM, ROOM_MESSAGE } from '@/services/api';
+
+const { MainViewController = {} } = NativeModules;
+const { SDKLeaveRoom } = MainViewController;
 
 export interface IProps {}
 
@@ -137,9 +140,11 @@ class Home extends React.Component<IProps, IState> {
       if (res.code === 0) {
         const { nextId, kickId } = res.data;
         if (id === nextId) {
-          this.props.handleShowGoToRoomModal(item)
+          this.props.handleShowGoToRoomModal(isOpenInfo)
         }
         if (kickId === id) {
+          // 离开房间
+          SDKLeaveRoom();
           alert('已完成')
         }
       }
@@ -177,7 +182,7 @@ class Home extends React.Component<IProps, IState> {
         icon = icon_live_slices_2;
         iconText = styles.itemIconText02;
         typeText = '已结束';
-        break;
+       break;
       }
       case 1: {
         icon = icon_live_slices_0;
@@ -494,29 +499,29 @@ class Home extends React.Component<IProps, IState> {
     return (
       <Container style={styles.container}>
         <NavigationEvents
-          onWillFocus={async payload => {
-            try {
-              const { navigation, exams } = this.props;
-              const { params = {} } = navigation.state;
-              if (_.isNumber(params.active)) {
-                this.setState({
-                  active: params.active
-                })
+            onWillFocus={async payload => {
+              try {
+                const { navigation, exams } = this.props;
+                const { params = {} } = navigation.state;
+                if (_.isNumber(params.active)) {
+                  this.setState({
+                    active: params.active
+                  })
+                }
+              } catch (e) {
+
               }
-            } catch (e) {
+              await this.componentDidMount();
+            }}
+            onDidFocus={async payload => {
 
-            }
-            await this.componentDidMount();
-          }}
-          onDidFocus={async payload => {
+            }}
+            onWillBlur={payload => {
+              this.componentWillUnmount()
+            }}
+            onDidBlur={payload => {
 
-          }}
-          onWillBlur={payload => {
-            this.componentWillUnmount()
-          }}
-          onDidBlur={payload => {
-
-          }}
+            }}
         />
         <ImageBackground
           source={home_bg_slices}

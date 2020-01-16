@@ -23,6 +23,7 @@ import {NavigationActions, NavigationEvents} from 'react-navigation';
 import VideoPlayer from '@/components/react-native-aliyun-vod-controls'
 import Orientation, {OrientationType} from "react-native-orientation-locker";
 import LinearGradient from "react-native-linear-gradient";
+import {PATIENTS_DETAILS, PATIENTS_INFO_PUT} from '@/services/api';
 
 export interface IProps {}
 
@@ -30,7 +31,9 @@ export interface IState {
   orientationType: OrientationType,
 }
 
-@(connect() as any)
+@(connect(({ user }) => {
+  return { user: user }
+}) as any)
 class Home extends React.Component<IProps, IState> {
 
   state = {
@@ -43,41 +46,80 @@ class Home extends React.Component<IProps, IState> {
     }
   };
 
+  async postData() {
+    try {
+      const { user } = this.props;
+      const res = await PATIENTS_INFO_PUT({
+        id: user.id,
+        "name": this.state.name,// 【必须】
+        "idCard":this.state.idCard,// 身份证
+        "birthdate":this.state.birthdate,// 生日
+        "gender":this.state.gender,// 性别（1-男 2-女）
+        "age":this.state.age,// 年龄
+        "medicalHistory":this.state.medicalHistory,// 病史
+      })
+      if (res.code === 0) {
+        this.props.dispatch(NavigationActions.navigate({
+          routeName: 'Home',
+          params: {},
+        }))
+      }
+    } catch (e) {
+      alert(e)
+    } finally {
+      this.getUserInfo()
+    }
+  }
+
+  async getUserInfo() {
+    try {
+      const userRes = await PATIENTS_DETAILS({});
+      const userInfo = await dispatch({
+        type: 'user/setUserAsync',
+        payload: {
+          user: userRes.data,
+        }
+      });
+    } catch (e) {
+
+    }
+  }
+
   renderForm() {
     return <View>
       <Card noShadow style={styles.formCard}>
         <CardItem style={styles.formItem}>
           <Text style={styles.formItemLabel}>姓名</Text>
-          <Input value={this.state.loginName} style={styles.ipt} placeholder="请输入姓名" placeholderTextColor={"#9C9EB9"}
+          <Input value={this.state.name} style={styles.ipt} placeholder="请输入姓名" placeholderTextColor={"#9C9EB9"}
                  onChangeText={(value) => {
                    this.setState({
-                     loginName: value,
+                     name: value,
                    })
                  }}
           />
           <Right>
-            <Icon name="arrow-forward" />
+
           </Right>
         </CardItem>
         <CardItem style={styles.formItem}>
           <Text style={styles.formItemLabel}>身份证号</Text>
-          <Input value={this.state.loginName} style={styles.ipt} placeholder="请输入身份证号" placeholderTextColor={"#9C9EB9"}
+          <Input value={this.state.idCard} style={styles.ipt} placeholder="请输入身份证号" placeholderTextColor={"#9C9EB9"}
                  onChangeText={(value) => {
                    this.setState({
-                     loginName: value,
+                     idCard: value,
                    })
                  }}
           />
           <Right>
-            <Icon name="arrow-forward" />
+
           </Right>
         </CardItem>
         <CardItem style={styles.formItem}>
           <Text style={styles.formItemLabel}>性别</Text>
-          <Input value={this.state.loginName} style={styles.ipt} placeholder="请选择性别" placeholderTextColor={"#9C9EB9"}
+          <Input value={this.state.gender} style={styles.ipt} placeholder="请选择性别" placeholderTextColor={"#9C9EB9"}
                  onChangeText={(value) => {
                    this.setState({
-                     loginName: value,
+                     gender: value,
                    })
                  }}
           />
@@ -87,10 +129,10 @@ class Home extends React.Component<IProps, IState> {
         </CardItem>
         <CardItem style={styles.formItem}>
           <Text style={styles.formItemLabel}>出生日期</Text>
-          <Input value={this.state.loginName} style={styles.ipt} placeholder="请选择出生日期" placeholderTextColor={"#9C9EB9"}
+          <Input value={this.state.birthdate} style={styles.ipt} placeholder="请选择出生日期" placeholderTextColor={"#9C9EB9"}
                  onChangeText={(value) => {
                    this.setState({
-                     loginName: value,
+                     birthdate: value,
                    })
                  }}
           />
@@ -100,15 +142,15 @@ class Home extends React.Component<IProps, IState> {
         </CardItem>
         <CardItem style={styles.formItem}>
           <Text style={styles.formItemLabel}>年龄</Text>
-          <Input value={this.state.loginName} style={styles.ipt} placeholder="请选择出生日期" placeholderTextColor={"#9C9EB9"}
+          <Input value={this.state.age} style={styles.ipt} placeholder="请输入年龄" placeholderTextColor={"#9C9EB9"}
                  onChangeText={(value) => {
                    this.setState({
-                     loginName: value,
+                     age: value,
                    })
                  }}
           />
           <Right>
-            <Icon name="arrow-forward" />
+
           </Right>
         </CardItem>
       </Card>
@@ -118,7 +160,13 @@ class Home extends React.Component<IProps, IState> {
         </CardItem>
         <CardItem style={styles.formItem}>
           <View style={{ flex: 1, flexGrow: 1, }}>
-            <Textarea rowSpan={5} placeholderTextColor={'#CCD5E3'} placeholder="请输入您的既往病史/过敏" />
+            <Textarea value={this.state.medicalHistory}
+                      onChangeText={(value) => {
+                        this.setState({
+                          medicalHistory: value,
+                        })
+                      }}
+                      rowSpan={5} placeholderTextColor={'#CCD5E3'} placeholder="请输入您的既往病史/过敏" />
           </View>
         </CardItem>
       </Card>
@@ -167,7 +215,13 @@ class Home extends React.Component<IProps, IState> {
               style={[
                 styles.linearGradientBtn,
                 {
-                  opacity: this.state.password && this.state.loginName ? 1 : 0.4
+                  opacity:
+                    this.state.name &&
+                    this.state.idCard &&
+                    this.state.birthdate &&
+                    this.state.gender &&
+                    this.state.age ?
+                      1 : 0.4
                 }
               ]}
             >
@@ -176,10 +230,7 @@ class Home extends React.Component<IProps, IState> {
                 transparent
                 rounded
                 onPress={async () => {
-                  this.props.dispatch(NavigationActions.navigate({
-                    routeName: 'Home',
-                    params: {},
-                  }))
+                  this.postData()
                 }}
                 style={styles.submitButton}
                 textStyle={{

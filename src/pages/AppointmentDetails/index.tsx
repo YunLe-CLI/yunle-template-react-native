@@ -52,11 +52,13 @@ class Home extends React.Component<IProps, IState> {
     payType: 'wx',
   };
 
-  async postData() {
+  async postData(time: string) {
     try {
       const { navigation, user } = this.props;
       const { params = {} } = navigation.state;
       const registration_id = params.registration_id || '';
+      const doctorInfo = params.doctorInfo || {};
+      const time = params.time;
       const res = await MAKE_POST({
         registration_id,
         remark: this.state.remark,
@@ -65,9 +67,14 @@ class Home extends React.Component<IProps, IState> {
       if (res.code === 0) {
         this.props.dispatch(StackActions.replace({
           routeName: 'AppointmentSuccess',
-          params: {},
+          params: {
+            doctorInfo,
+            time
+          },
         }))
+        return;
       }
+      throw res.msg
     } catch (e) {
       alert(e)
     }
@@ -76,22 +83,26 @@ class Home extends React.Component<IProps, IState> {
 
   handlePay = () => {
     const { payType } = this.state;
+    this.postData()
+    return
+    XPay.setWxId('2016082201783549')
+    //微信支付
+    //这些参数都是由后台生成的
+    let params = {
+      partnerId:'partnerId',
+      prepayId: 'prepayId',
+      packageValue:'packageValue',
+      nonceStr: 'nonceStr',
+      timeStamp: 'timeStamp',
+      sign: 'MIIEogIBAAKCAQEAgJE0gxIdi5wWomyeNymbZsJugIE1aTD6V4wJD/15MjcQ7W/uje9bx9v/4q51xGCIEA0GHqBTM3N4b3joXTaD68rc8/8uu0zl7S+QPOcrqcRdYbyBoCBywt4W73RpmyMr4QQ7h9laMp7n9cIuVfWaZU1lFHDcEJJPDjPnxYa4SOypnaJoUDmxTyqPl4jciS8tlPnhTZza0ICsnUvXD5fOFN7fpBf5UVBimQbSBBAhA2eefD3CPl976+nhFrMGTTulQuhDTgFfeftSHmncGttr/GDwlUg87HGKShrdWWyJD4bQYHpH4Eu+5X9V/sdgNMzD4NlQ4BPnaqP/juwn8NPN+wIDAQABAoIBAClG9VYTjdrR3U5+kvlg6Vy/ldy6HxzLtcQ/2HUCy1N87Hle03dMXuo2ztvHaVYILAcDN3DDxpKhQwx/BBNROl+MvQ21YxqNYNCa0bNMAO+7dMO5UuDHKjE4PqLYfENrsl3HDxnZhaT08cIsetXsSYq2o3pBldXYM3t63LHFRAtdQ6AX8wNqn9C6dMEwpqV10EJNL2zMAcxYqosjTddrqVWTsDeiHbvmiAtUVPBzs9erGtZ/cdKC5EMBXY5EyQUrnxUY289Lb8uDpIVj0qpN10kK0gT/8ol8XMR4fe12sO9k/s/qzSw1FZvWbtCANjEB/wCF4YIpcFTEXVKTihERDwECgYEAvrhiLuUQ6jfVLqwA4h7IsA95wnX/iYaadF9HVyD78dthvvNnpkVb70Y1DosOVvFGWgbsVRaIuAnm/6a6wNakZ8I/px4HagmgnJjAolZMHTnFq4JUgZ6K6n/kjAlz3S2Buf9FTIrBUxC+dtBc2R8UtiJoqMFYE/04mXOiaKlsOXsCgYEArJK9yJeVmzB3dsBe8RtSv0Tgqq/P2dG/TLiiumu8yVCIQ0OcK/3HBUb25KRM8ImYe6OiIvOJpKC3jLNbbTZkL4OnAVb0oO3vFPIAYytsW4+dUCXfKdJQAl3gZDIYM+TFOMaun6Ip4WlFpsb2UJyb76+PxELbekqgXAiEOYwPVYECgYA6PjjNtWqa/H4ACMskQt5q1e8LMdnd99tHWqmAtDP8wlBxbgfjQR84TSp6zICOkJQ5fg/CVGVgPrXqsNIrfeErRqkFsif1fAcui3+Yk94etrvlCqIgC3jE8FWtZl2Z2AHb+VcCbwVnBqADzNHuBI3gqVVo49KwGA6m3idk6wh/7QKBgEibvQoG7UVMURc/vTKIonojSrvGGRe2blyjWqRA7D9viMV0TuMbdX886mgs0MpruiJbKL635PPFQzUJya/bsK9lHwErSuXi9jLD13HiNUcY18F/DbQU7uDwCpddlF1RJcHLpnE305MprcqL79re6aUhIsYasyly+KGAW9GyokkBAoGAeTP32ER/N5k7U6ZbEK8fV7Ovp0Kc6lcoHP6TFrAyXLLO9j4CFlpMJiuejrIoZqZ4Z+mWg9eq7puZ8hLCBgVGMH5rTzdmb4hKGuHg52G5eVrP00SRrYyVXbqEzUPkR4GFyhN01EtzkAQyQlqd2b0lel2GmNo6Ffoq9YxvPAuLV6E=',
+    }
+    XPay.wxPay(params,(res)=> {
+    })
+    return;
     try {
       if (payType === 'wx') {
         //设置微信ID
-        XPay.setWxId('2016082201783549')
-        //微信支付
-        //这些参数都是由后台生成的
-        let params = {
-          partnerId:'partnerId',
-          prepayId: 'prepayId',
-          packageValue:'packageValue',
-          nonceStr: 'nonceStr',
-          timeStamp: 'timeStamp',
-          sign: 'sign',
-        }
-        XPay.wxPay(params,(res)=> {
-        })
+
       }
       if (payType === 'ali') {
         //设置    支付宝URL Schemes
@@ -106,7 +117,7 @@ class Home extends React.Component<IProps, IState> {
     } catch (e) {
       alert(e)
     }
-    this.postData()
+
   }
 
   renderForm() {
@@ -114,6 +125,7 @@ class Home extends React.Component<IProps, IState> {
     const { navigation, user } = this.props;
     const { params = {} } = navigation.state;
     const doctorInfo:DOCTOR_ITEM = params.doctorInfo || {};
+    const time = params.time;
     return <View>
       <Card noShadow style={styles.formCard}>
         <CardItem style={styles.formItem}>
@@ -146,7 +158,7 @@ class Home extends React.Component<IProps, IState> {
         <CardItem style={styles.formItem}>
           <Text style={styles.formItemLabel}>就诊时间</Text>
           <Text style={styles.ipt}>
-            2010.1.23 上午
+            {time}
           </Text>
         </CardItem>
       </Card>

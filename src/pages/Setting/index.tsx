@@ -64,6 +64,7 @@ class Home extends React.Component<IProps, IState> {
                             dispatch({
                                 type: 'auth/logout'
                             });
+                            this.props.openLoginModal()
                         }}
                     >
                         <Title>推出登陆</Title>

@@ -122,10 +122,10 @@ class Home extends React.Component<IProps, IState> {
   }
 
   goBack() {
-    return;
+
     const { dispatch } = this.props;
     dispatch(NavigationActions.back());
-    SDKLeaveRoom();
+    // SDKLeaveRoom();
   }
 
   async initSDK() {
@@ -159,67 +159,67 @@ class Home extends React.Component<IProps, IState> {
 
   render() {
     return (
-      <Container style={styles.container}>
-        <NavigationEvents
-          onWillFocus={async payload => {
+        <Container style={styles.container}>
+          <NavigationEvents
+            onWillFocus={async payload => {
 
-          }}
-          onDidFocus={async payload => {
-            await this.componentDidMount();
-          }}
-          onWillBlur={payload => {
+            }}
+            onDidFocus={async payload => {
+              await this.componentDidMount();
+            }}
+            onWillBlur={payload => {
 
-          }}
-          onDidBlur={payload => {
+            }}
+            onDidBlur={payload => {
 
-          }}
-        />
-        <Header transparent>
-          <Left>
-            <Button
-              transparent
-              onPress={() => {
-                const { dispatch } = this.props;
-                dispatch(NavigationActions.back());
-              }}
-            >
-              <Icon style={{ paddingHorizontal: 12, color: '#fff', fontSize: 26 }} name='arrow-back' />
-            </Button>
-          </Left>
-          <Body>
+            }}
+          />
+            <Header transparent>
+                <Left>
+                    <Button
+                        transparent
+                        onPress={() => {
+                            const { dispatch } = this.props;
+                            dispatch(NavigationActions.back());
+                        }}
+                    >
+                        <Icon style={{ paddingHorizontal: 12, color: '#fff', fontSize: 26 }} name='arrow-back' />
+                    </Button>
+                </Left>
+                <Body>
 
-          </Body>
-          <Right />
-        </Header>
-        <View style={{ flex: 1, flexGrow: 1, paddingHorizontal: 12, justifyContent: 'center', alignItems: 'center' }}>
-          <Animated.View style={[
-            styles.loadingWrap,
-          ]}>
-            <Animated.View style={[
-              {
-                transform: [{ // 动画属性
-                  rotate: this.state.rotateVal.interpolate({
-                    inputRange: [0, 360],
-                    outputRange: ['0deg', '360deg'],
-                  })
-                }]
-              }
-            ]}>
-              <FastImage
-                style={{
-                  width: 48,
-                  height: 48,
-                  alignContent: 'center',
-                  justifyContent: 'center',
-                }}
-                source={loading}
-                resizeMode={FastImage.resizeMode.contain}
-              />
-            </Animated.View>
-            <Text style={styles.loadingText}>正在进入，请稍后</Text>
-          </Animated.View>
-        </View>
-      </Container>
+                </Body>
+                <Right />
+            </Header>
+            <View style={{ flex: 1, flexGrow: 1, paddingHorizontal: 12, justifyContent: 'center', alignItems: 'center' }}>
+                <Animated.View style={[
+                  styles.loadingWrap,
+                ]}>
+                  <Animated.View style={[
+                    {
+                      transform: [{ // 动画属性
+                        rotate: this.state.rotateVal.interpolate({
+                          inputRange: [0, 360],
+                          outputRange: ['0deg', '360deg'],
+                        })
+                      }]
+                    }
+                  ]}>
+                    <FastImage
+                      style={{
+                        width: 48,
+                        height: 48,
+                        alignContent: 'center',
+                        justifyContent: 'center',
+                      }}
+                      source={loading}
+                      resizeMode={FastImage.resizeMode.contain}
+                    />
+                  </Animated.View>
+                  <Text style={styles.loadingText}>正在进入，请稍后</Text>
+                </Animated.View>
+            </View>
+        </Container>
     );
   }
 }

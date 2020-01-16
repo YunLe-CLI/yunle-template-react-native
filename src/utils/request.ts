@@ -7,18 +7,11 @@ import { store } from '@/index';
 // 添加响应拦截器
 axios.interceptors.response.use(function (response) {
   // 对响应数据做点什么
-  console.log('response: ', response)
-// 退出登录
+  // 退出登录
   if (_.get(response, 'data.code') === -1 && store.dispatch) {
     store.dispatch({
       type: 'auth/logout'
     });
-    // 退出登录
-    if (_.get(response, 'data.code') === -1 && store.dispatch) {
-      store.dispatch({
-        type: 'auth/logout'
-      });
-    }
   }
   return response.data || {};
 }, function (error) {

@@ -30,6 +30,7 @@ import icon_zfb from './assets/icon_zfb_slices/icon_zfb.png';
 import icon_check_active from './assets/icon_check_active_slices/icon_check_active.png';
 import icon_check_default from './assets/icon_check_default_slices/icon_check_default.png';
 import pic_sce from './assets/pic_sce_slices/pic_sce.png';
+import {DOCTOR_ITEM} from '@/services/api';
 
 export interface IProps {}
 
@@ -37,7 +38,11 @@ export interface IState {
   orientationType: OrientationType,
 }
 
-@(connect() as any)
+@(connect(({ user }) => {
+  return {
+    user
+  }
+}) as any)
 class Home extends React.Component<IProps, IState> {
 
   state = {
@@ -52,7 +57,10 @@ class Home extends React.Component<IProps, IState> {
   };
 
   renderForm() {
-    const { payType } = this.state;
+    const { navigation, user } = this.props;
+    const { params = {} } = navigation.state;
+    const doctorInfo: DOCTOR_ITEM = params.doctorInfo || {};
+    const time = params.time;
     return <View>
       <Card noShadow style={styles.formCard}>
         <CardItem style={styles.formItem}>
@@ -61,31 +69,25 @@ class Home extends React.Component<IProps, IState> {
         <CardItem style={styles.formItem}>
           <Text style={styles.formItemLabel}>医生姓名</Text>
           <Text style={styles.ipt}>
-            扁鹊
+            {doctorInfo.name}
           </Text>
         </CardItem>
         <CardItem style={styles.formItem}>
           <Text style={styles.formItemLabel}>医生职称</Text>
           <Text style={styles.ipt}>
-            主任医师
+            {doctorInfo.professionalTitle}
           </Text>
         </CardItem>
         <CardItem style={styles.formItem}>
           <Text style={styles.formItemLabel}>所在医院</Text>
           <Text style={styles.ipt}>
-            成都市第二人民医院
+            {doctorInfo.hospitalName}
           </Text>
         </CardItem>
         <CardItem style={styles.formItem}>
           <Text style={styles.formItemLabel}>就诊科室</Text>
           <Text style={styles.ipt}>
-            小儿科
-          </Text>
-        </CardItem>
-        <CardItem style={styles.formItem}>
-          <Text style={styles.formItemLabel}>就诊时间</Text>
-          <Text style={styles.ipt}>
-            2010.1.23 上午
+            {doctorInfo.medicalDepartment}
           </Text>
         </CardItem>
       </Card>
@@ -98,25 +100,25 @@ class Home extends React.Component<IProps, IState> {
         <CardItem style={styles.formItem}>
           <Text style={styles.formItemLabel}>就诊人</Text>
           <Text style={styles.ipt}>
-            张三
+            {user.name}
           </Text>
         </CardItem>
         <CardItem style={styles.formItem}>
           <Text style={styles.formItemLabel}>身份证号</Text>
           <Text style={styles.ipt}>
-            123456789098765432
+            {user.idCard}
           </Text>
         </CardItem>
         <CardItem style={styles.formItem}>
           <Text style={styles.formItemLabel}>手机号码</Text>
           <Text style={styles.ipt}>
-            1831387789
+            {user.mobile}
           </Text>
         </CardItem>
         <CardItem style={styles.formItem}>
           <Text style={styles.formItemLabel}>就诊时间</Text>
           <Text style={styles.ipt}>
-            2010.1.23 上午
+            {time}
           </Text>
         </CardItem>
       </Card>
