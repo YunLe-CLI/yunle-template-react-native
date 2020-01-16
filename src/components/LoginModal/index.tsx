@@ -99,7 +99,7 @@ class LoginProvider extends React.Component<IProps, IState> {
     dispatch({
       type: 'auth/login',
       payload: {
-        visible: true,
+        token: '123',
       }
     });
     this.closeLogin();

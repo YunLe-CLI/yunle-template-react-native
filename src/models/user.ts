@@ -1,7 +1,5 @@
 import { Reducer } from 'redux';
 import { Model, Effect, EffectWithType } from 'dva';
-import { bindPhone, bindWx, postFeedback, getUserInfo } from '@/services/api';
-import { getToken } from "@/utils/utils";
 import _ from 'lodash';
 import {touristsAccount} from '@/utils/config';
 
@@ -15,10 +13,7 @@ export interface IModelType extends Model{
     state: IModelState;
     effects: {
       clearCache: Effect | EffectWithType;
-      getUser: Effect | EffectWithType;
-      postFeedback: Effect | EffectWithType;
-      bindWx: Effect | EffectWithType;
-      bindPhone: Effect | EffectWithType;
+      setUserAsync: Effect | EffectWithType;
     };
     reducers: {
       clearCacheHandle: Reducer<IModelState>;
@@ -51,6 +46,10 @@ const userModel: IModelType = {
     effects: {
       *clearCache({ payload = {} }, { put }) {
         yield put({ type: 'clearCacheHandle' });
+      },
+      *setUserAsync({ payload = {} }, { put, select }) {
+        yield put({ type: 'user', payload: { user: payload.user } });
+        return yield select(({ user }) => user.info);
       },
     },
 }
