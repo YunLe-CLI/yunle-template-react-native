@@ -3,12 +3,27 @@ import {Platform} from 'react-native';
 import _ from 'lodash';
 import DeviceInfo from 'react-native-device-info';
 import { store } from '@/index';
+import { LOGINMODAL_THIS } from '@/components/LoginModal';
 
 // 添加响应拦截器
 axios.interceptors.response.use(function (response) {
   // 对响应数据做点什么
   console.log('response: ', response)
-
+// 退出登录
+  if (_.get(response, 'data.code') === -1 && store.dispatch) {
+    store.dispatch({
+      type: 'auth/logout'
+    });
+    // 退出登录
+    if (_.get(response, 'data.code') === -1 && store.dispatch) {
+      store.dispatch({
+        type: 'auth/logout'
+      });
+      if (_.isFunction(LOGINMODAL_THIS.openLogin)) {
+        LOGINMODAL_THIS.openLogin();
+      }
+    }
+  }
   return response.data || {};
 }, function (error) {
   // 对响应错误做点什么

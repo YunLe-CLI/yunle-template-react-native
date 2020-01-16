@@ -26,7 +26,7 @@ export interface IModelType extends Model{
 }
 
 const initState: IModelState = {
-  token: '',
+  token: undefined,
 }
 
 const authModel: IModelType = {

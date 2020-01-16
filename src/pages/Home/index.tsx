@@ -146,7 +146,6 @@ class Home extends React.Component<IProps, IState> {
 
   renderItem(data: MAKE_ITEM) {
     let type = data.status;
-    console.log('type: sss', type)
     let icon = icon_live_slices_0;
     let iconText = styles.itemIconText00;
     let typeText = '未开始';
