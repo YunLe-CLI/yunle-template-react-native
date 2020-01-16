@@ -13,8 +13,8 @@ import FastImage from 'react-native-fast-image';
 
 import loading from './assets/loading_slices/loading.png';
 
-const { MainViewManager = {}, MainViewController = {} } = NativeModules;
-const { SDKAuth, SDKLogin, SDKGoToRoom, SDKLeaveRoom } = MainViewController;
+const { MainViewManager = {}, MainViewController = {} } = NativeModules || {};
+const { SDKAuth, SDKLogin, SDKGoToRoom } = MainViewController || {};
 
 export interface IProps {}
 
@@ -41,9 +41,15 @@ class Home extends React.Component<IProps, IState> {
     this.componentDidMount = _.debounce(this.componentDidMount, 800);
   }
 
+  animationLoading: any;
+
   componentDidMount() {
     this.addEventBind();
     this.initSDK();
+    if (this.animationLoading) {
+      Animated.loop(this.animationLoading).stop()
+      this.animationLoading = null;
+    }
     this.animationLoading = Animated.timing(
       this.state.rotateVal, // 初始值
       {
@@ -61,64 +67,71 @@ class Home extends React.Component<IProps, IState> {
       this.subscription.remove();
       this.subscription = null;
     }
-    Animated.loop(this.animationLoading).stop()
+    if (this.animationLoading) {
+      Animated.loop(this.animationLoading).stop()
+      this.animationLoading = null;
+    }
   }
 
   subscription: any;
 
   addEventBind = () => {
-    const AppEmitter = new NativeEventEmitter(MainViewManager);
-    if (this.subscription) {
-      this.subscription.remove();
-      this.subscription = null;
-    }
-    this.subscription = AppEmitter.addListener(
-      'onYSXSDKChange',
-      (reminder = {}) => {
-        console.log(reminder)
-        const { type, data } = reminder;
-        try {
-          switch (type) {
-            case 'SDK_AUTH': {
-              this.setState({
-                SDK_AUTH: !!data,
-              }, () => {
-                const { token } = this.props;
-                if (token && !!data) {
-                  SDKLogin(token)
-                }
-              })
-              break;
-            }
-            case 'SDK_LOGIN': {
-              this.setState({
-                SDK_LOGIN: !!data,
-              }, () => {
-                if (!!data) {
-                  this.goToRoom()
-                }
-              })
-              break;
-            }
-            case 'SDK_LOGOUT': {
-              this.setState({
-                SDK_LOGIN: !!!data,
-              })
-              break;
-            }
-            case 'SDK_ERROR': {
-              break;
-            }
-            default: {
+    try {
+      const AppEmitter = new NativeEventEmitter(MainViewManager);
+      if (this.subscription) {
+        this.subscription.remove();
+        this.subscription = null;
+      }
+      this.subscription = AppEmitter.addListener(
+        'onYSXSDKChange',
+        (reminder = {}) => {
+          console.log(reminder)
+          const { type, data } = reminder;
+          try {
+            switch (type) {
+              case 'SDK_AUTH': {
+                this.setState({
+                  SDK_AUTH: !!data,
+                }, () => {
+                  const { token } = this.props;
+                  if (token && !!data) {
+                    SDKLogin(token)
+                  }
+                })
+                break;
+              }
+              case 'SDK_LOGIN': {
+                this.setState({
+                  SDK_LOGIN: !!data,
+                }, () => {
+                  if (!!data) {
+                    this.goToRoom()
+                  }
+                })
+                break;
+              }
+              case 'SDK_LOGOUT': {
+                this.setState({
+                  SDK_LOGIN: !!!data,
+                })
+                break;
+              }
+              case 'SDK_ERROR': {
+                break;
+              }
+              default: {
 
+              }
             }
+          } catch (e) {
+
           }
-        } catch (e) {
 
         }
-
-      }
-    );
+      );
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   goBack() {
@@ -132,7 +145,7 @@ class Home extends React.Component<IProps, IState> {
     try {
       await SDKAuth('Iratlr8ZCaVgyPJ5O8xcaNzSUYcEMFd9y1nm', 'ft7jnlQj28pqasbbBqTlRdR1LdbzUaqabgIv');
     } catch (e) {
-      alert(e)
+      console.log(e)
     }
   }
 

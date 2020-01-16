@@ -48,8 +48,8 @@ import { withSelectLevelModal } from '@/components/SelectLevelModal';
 
 import { MAKE_LIST, MAKE_ITEM, ROOM_MESSAGE } from '@/services/api';
 
-const { MainViewController = {} } = NativeModules;
-const { SDKLeaveRoom } = MainViewController;
+const { MainViewController = {} } = NativeModules || {};
+const { SDKLeaveRoom } = MainViewController || {};
 
 export interface IProps {}
 
@@ -140,7 +140,7 @@ class Home extends React.Component<IProps, IState> {
       if (res.code === 0) {
         const { nextId, kickId } = res.data;
         if (id === nextId) {
-          this.props.handleShowGoToRoomModal(isOpenInfo)
+          this.props.handleShowGoToRoomModal(item)
         }
         if (kickId === id) {
           // 离开房间
