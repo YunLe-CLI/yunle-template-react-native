@@ -15,7 +15,7 @@ import * as models from '@/models';
 import {UrlProcessUtil, getEnv} from '@/utils/utils';
 import LoadingSpinnerProvider from '@/components/LoadingSpinner';
 import DropdownAlertProvider from '@/components/DropdownAlert';
-import LoginProvider from '@/components/LoginModal';
+import LoginProvider, {LOGINMODAL_THIS} from '@/components/LoginModal';
 import IsTester from '@/components/isTester';
 import Loading from '@/components/Loading';
 import CheckAppUpdateProvider from '@/components/CheckAppUpdate';
@@ -155,6 +155,11 @@ class Main extends Component<IMProps> {
       //   this.forceUpdateNum += 1;
       //   console.log("forceUpdate: ", this.forceUpdateNum)
       // })
+      if (!this.props.token) {
+        if (_.isFunction(LOGINMODAL_THIS.openLogin)) {
+          LOGINMODAL_THIS.openLogin();
+        }
+      }
       this.forceUpdateNum += 1;
       this.setState({
         forceUpdate: true,
