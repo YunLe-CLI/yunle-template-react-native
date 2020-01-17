@@ -78,6 +78,7 @@ function createApp(config: ICreateApp) {
     return {
       appReload: _.get(state, 'app.appReload', false),
       ENV: _.get(state, 'app.ENV', {}),
+      appProps: state,
     }
   }) as any)
   class Main extends Component<IMProps> {
@@ -206,7 +207,7 @@ function createApp(config: ICreateApp) {
     }
 
     render() {
-      const { ENV } = this.props;
+      const { ENV, appProps } = this.props;
       const { initLoading, forceUpdate, isError, errorInfo } = this.state;
       console.log(this.props)
       return (
@@ -214,7 +215,7 @@ function createApp(config: ICreateApp) {
           <View style={{ flexGrow: 1, }}>
             {
               isError ? (<ErrorView errorInfo={errorInfo} />) : (
-                !initLoading && !forceUpdate ? <router.Router /> : <Text>加载中</Text>
+                !initLoading && !forceUpdate ? <router.Router {...appProps} /> : <Text>加载中</Text>
               )
             }
           </View>

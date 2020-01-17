@@ -114,21 +114,17 @@ class LoginProvider extends React.Component<IProps, IState> {
       this.setState({
         isVisible: true,
       }, () => {
-        // this.props.dispatch({
-        //   type:"app/appReloadAsync",
-        // });
+
       });
     }
   }
 
-  closeLogin = () => {
+  closeLogin = async () => {
     if (this.state.isVisible) {
       this.setState({
         isVisible: false,
       }, () => {
-        this.props.dispatch({
-          type:"app/appReloadAsync",
-        });
+
       });
     }
   }
@@ -178,8 +174,8 @@ class LoginProvider extends React.Component<IProps, IState> {
         //   title: '登陆成功',
         //   message: '登陆成功',
         // })
-        // this.goToMain(!!userInfo.idCard);
         this.closeLogin();
+        this.goToMain(!!userInfo.idCard);
       }
     } catch (e) {
       alert('登录失败'+e)

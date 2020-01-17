@@ -3,6 +3,7 @@ import {Platform, BackHandler, ToastAndroid, View} from 'react-native';
 import {
   NavigationActions,
 } from 'react-navigation';
+import _ from 'lodash';
 import createAnimatedSwitchNavigator from 'react-navigation-animated-switch';
 import { Transition } from 'react-native-reanimated';
 
@@ -17,12 +18,12 @@ import { connect } from 'react-redux';
 import Splash from '../pages/Splash';
 import BottomTab from '../router/BottomTab.router';
 
-import LoginProvider from '@/theme/Theme_Hospital/components/LoginModal';
-import GoToRoomModalProvider from '@/theme/Theme_Hospital/components/GoToRoomModal';
-import CancelModalProvider from '@/theme/Theme_Hospital/components/CancelModal';
-import SelectDepartmentModalProvider from '@/theme/Theme_Hospital/components/SelectDepartmentModal';
-import SelectDoctorModalProvider from '@/theme/Theme_Hospital/components/SelectDoctorModal';
-import SelectLevelModalProvider from '@/theme/Theme_Hospital/components/SelectLevelModal';
+import LoginProvider from '../components/LoginModal';
+import GoToRoomModalProvider from '../components/GoToRoomModal';
+import CancelModalProvider from '../components/CancelModal';
+import SelectDepartmentModalProvider from '../components/SelectDepartmentModal';
+import SelectDoctorModalProvider from '../components/SelectDoctorModal';
+import SelectLevelModalProvider from '../components/SelectLevelModal';
 
 import { getActiveRoute } from '@/utils/utils';
 
@@ -89,6 +90,29 @@ export default function createRouter() {
       }
     }
 
+    state = {
+      forceUpdate: false,
+    }
+
+    componentDidUpdate(prevProps: Readonly<IMProps>, prevState: Readonly<{}>): void {
+      // // todo: 暂时 当token改变强置刷新
+      try {
+        console.log('token this', this.props.token)
+        console.log('token prevProps', prevProps.token)
+        if (this.props.token !== prevProps.token) {
+          this.setState({
+            forceUpdate: true,
+          }, () => {
+            this.setState({
+              forceUpdate: false,
+            })
+          })
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    }
+
     componentWillUnmount() {
       if (!isIos) {
         BackHandler.removeEventListener('hardwareBackPress', this.onBackButtonPressAndroid);
@@ -113,6 +137,7 @@ export default function createRouter() {
     };
 
     render() {
+      const { forceUpdate } = this.state;
       const { dispatch, router } = this.props;
       return <LoginProvider>
         <GoToRoomModalProvider>
@@ -121,10 +146,10 @@ export default function createRouter() {
               <SelectDoctorModalProvider>
                 <SelectLevelModalProvider>
                   {
-                    <App
+                    !forceUpdate ? <App
                       dispatch={dispatch}
                       state={router}
-                    />
+                    /> : undefined
                   }
                 </SelectLevelModalProvider>
               </SelectDoctorModalProvider>
@@ -141,7 +166,13 @@ export default function createRouter() {
   return {
     routerReducer,
     routerMiddleware,
-    Router: connect((state: IConnectProps) => ({ router: state.router }))(Router),
+    Router: connect((state: IConnectProps) => {
+      console.log('TEST_NNN', state)
+      return {
+        router: state.router,
+        token: _.get(state, 'auth.token'),
+      }
+    })(Router),
   }
 }
 
