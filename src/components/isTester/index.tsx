@@ -6,7 +6,6 @@ import { Button, Icon, Fab } from 'native-base';
 import CodePush from 'react-native-code-push';
 // @ts-ignore
 import Draggable from 'react-native-draggable';
-import {withLoginModal} from "@/components/LoginModal";
 
 
 interface IProps {}
@@ -78,7 +77,6 @@ class IsTester extends React.PureComponent<IProps, IState> {
           dispatch({
             type: 'auth/logout'
           });
-          this.props.openLoginModal();
         }}
       >
         <Icon name="log-out" />
@@ -87,4 +85,4 @@ class IsTester extends React.PureComponent<IProps, IState> {
   }
 }
 
-export default withLoginModal(IsTester);
+export default IsTester;

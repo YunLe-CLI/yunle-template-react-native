@@ -5,6 +5,7 @@ import { ENVIRONMENT, BUILD_TYPE } from '@/utils/env';
 export interface IModelState {
   orientation: string;
   appState: string;
+  appReloadNum: boolean;
 };
 
 export interface IModelType extends Model{
@@ -12,28 +13,21 @@ export interface IModelType extends Model{
     state: IModelState;
     effects: {
       clearCache: Effect | EffectWithType;
-      changeENV: Effect | EffectWithType;
-      changeTheme: Effect | EffectWithType;
-      getCodePushKey: Effect | EffectWithType;
+      appReloadAsync: Effect | EffectWithType;
     };
     reducers: {
       clearCacheHandle: Reducer<any>;
-      setENV: Reducer<any>;
-      updateState: Reducer<any>;
-      saveTheme: Reducer<any>;
-      changeShareStatus: Reducer<any>;
+      appReload: Reducer<any>;
       orientationChange: Reducer<any>;
       appStateChange: Reducer<any>;
-      loading: Reducer<any>;
-      changeTrafficMessage: Reducer<any>;
-      setCodePushKey: Reducer<any>;
-      setSkipBindWeChat: Reducer<any>;
+      setENV: Reducer<any>;
     };
 };
 
 const initState: IModelState = {
   appState: 'active',
   orientation: 'PORTRAIT',
+  appReloadNum: false,
 };
 
 const AppModel: IModelType = {
@@ -51,18 +45,22 @@ const AppModel: IModelType = {
         }
       },
       orientationChange(state, { orientation }) {
-          return { ...state, orientation }
+        return { ...state, orientation }
       },
       appStateChange(state, { appState }) {
-          return { ...state, appState }
+        return { ...state, appState }
       },
+      appReload(state, { appReload }) {
+        return { ...state, appReload: !!appReload }
+      }
     },
     effects: {
         *clearCache({ payload = {} }, { put }) {
-          yield put({ type: 'auth/clearCache' });
-          yield put({ type: 'courses/clearCache' });
-          yield put({ type: 'home/clearCache' });
-          yield put({ type: 'user/clearCache' });
+          yield put({ type: 'clearCacheHandle' });
+        },
+        *appReloadAsync({ payload = {} }, { put, select }) {
+          yield put({ type: 'appReload', appReload: payload.appReload || true });
+          return yield put(({ app }) => app.appReload);
         },
     },
 };
