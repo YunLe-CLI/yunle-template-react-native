@@ -23,10 +23,8 @@ import BottomTab from '../router/BottomTab.router';
 import LoginProvider from '../components/LoginModal';
 import GoToRoomModalProvider from '../components/GoToRoomModal';
 import CancelModalProvider from '../components/CancelModal';
-import SelectDepartmentModalProvider from '../components/SelectDepartmentModal';
-import SelectDoctorModalProvider from '../components/SelectDoctorModal';
-import SelectLevelModalProvider from '../components/SelectLevelModal';
-
+import AddressListModalProvider from '../components/AddressListModal';
+import SelectDateTimeModalProvider from '../components/SelectTimeModal';
 import { getActiveRoute } from '@/utils/utils';
 
 
@@ -145,18 +143,16 @@ export default function createRouter() {
         <LoginProvider>
           <GoToRoomModalProvider>
             <CancelModalProvider>
-              <SelectDepartmentModalProvider>
-                <SelectDoctorModalProvider>
-                  <SelectLevelModalProvider>
-                    {
-                      !forceUpdate ? <App
-                        dispatch={dispatch}
-                        state={router}
-                      /> : undefined
-                    }
-                  </SelectLevelModalProvider>
-                </SelectDoctorModalProvider>
-              </SelectDepartmentModalProvider>
+              <AddressListModalProvider>
+                <SelectDateTimeModalProvider>
+                  {
+                    !forceUpdate ? <App
+                      dispatch={dispatch}
+                      state={router}
+                    /> : undefined
+                  }
+                </SelectDateTimeModalProvider>
+              </AddressListModalProvider>
             </CancelModalProvider>
           </GoToRoomModalProvider>
         </LoginProvider>

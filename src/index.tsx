@@ -44,7 +44,6 @@ export interface ICreateApp {
 function createApp(config: ICreateApp) {
   let APP_NODE = undefined;
   try {
-    console.log('PERSIST_KEY', config)
     const PERSIST_KEY = config.id;
     const router = config.router;
     const models = createModels(config.models);

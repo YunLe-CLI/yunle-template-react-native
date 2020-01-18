@@ -39,9 +39,6 @@ import LinearGradient from "react-native-linear-gradient";
 
 import { withCancelModal } from '../../components/CancelModal';
 import { withGoToRoomModal } from '../../components/GoToRoomModal';
-import { withSelectDepartmentModal } from '../../components/SelectDepartmentModal';
-import { withSelectDoctorModal } from '../../components/SelectDoctorModal';
-import { withSelectLevelModal } from '../../components/SelectLevelModal';
 
 import { MAKE_LIST, MAKE_ITEM, ROOM_MESSAGE } from '../../services/api';
 
@@ -63,13 +60,12 @@ export interface IState {
 
 let TEST_NNN = 0;
 
-@(connect(({ user }) => {
+@(connect(({ user = {} }) => {
   return {
-    user: user.info,
+    user: user.info || {},
   }
 }) as any)
 class Home extends React.Component<IProps, IState> {
-
   constructor(props: IProps) {
     super(props);
     this.componentDidMount = _.debounce(this.componentDidMount, 800);
@@ -269,7 +265,7 @@ class Home extends React.Component<IProps, IState> {
                       color: '#fff'
                     }}
                   >
-                    <Title style={[styles.btnText, { color: '#000000' }]}>结束会议</Title>
+                    <Title style={[styles.btnText, { color: 'rgba(0,0,0,0.85)' }]}>结束会议</Title>
                   </Button>
                 </LinearGradient> : undefined
               }
@@ -388,12 +384,31 @@ class Home extends React.Component<IProps, IState> {
             }}>{user.name || '未知'}</Text>
           </View>
           <View style={styles.headerBtns}>
-            <Button style={[styles.headerBtn, { backgroundColor: '#fff' }]}>
+            <Button
+              style={[styles.headerBtn, { backgroundColor: '#fff' }]}
+              onPress={() => {
+                this.props.dispatch(NavigationActions.navigate({
+                  routeName: 'MakeMeeting',
+                  params: {
+                    type: "预约会议"
+                  },
+                }))
+              }}
+            >
               <Title style={styles.headerBtnText}>
                 预约会议
               </Title>
             </Button>
-            <Button style={styles.headerBtn}>
+            <Button
+              onPress={() => {
+                this.props.dispatch(NavigationActions.navigate({
+                  routeName: 'MakeMeeting',
+                  params: {
+                    type: "发起会议"
+                  },
+                }))
+              }}
+              style={styles.headerBtn}>
               <Title style={[styles.headerBtnText, { color: '#fff' }]}>
                 发起会议
               </Title>
@@ -553,4 +568,4 @@ class Home extends React.Component<IProps, IState> {
     );
   }
 }
-export default withSelectLevelModal(withSelectDoctorModal(withSelectDepartmentModal(withGoToRoomModal(withCancelModal(Home)))));
+export default withGoToRoomModal(withCancelModal(Home));

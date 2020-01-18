@@ -64,9 +64,9 @@ export interface IState {
 
 let TEST_NNN = 0;
 
-@(connect(({ user }) => {
+@(connect(({ user = {} }) => {
   return {
-    user: user.info,
+    user: user.info || {},
   }
 }) as any)
 class Home extends React.Component<IProps, IState> {

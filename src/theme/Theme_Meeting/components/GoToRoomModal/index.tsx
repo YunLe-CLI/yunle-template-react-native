@@ -6,7 +6,7 @@ import _ from "lodash";
 import FastImage from 'react-native-fast-image';
 
 import {Button, Text, Content} from 'native-base';
-import icon from './assets/icon_lineup_slices/icon_lineup.png';
+import icon from './assets/pic_sky_slices/pic_sky.png';
 import LinearGradient from "react-native-linear-gradient";
 import {NavigationActions} from "react-navigation";
 import {connect} from 'react-redux';
@@ -104,31 +104,31 @@ class GoToRoomModalProvider extends React.Component<{}, IState> {
                 <View style={styles.header}>
                   <FastImage
                     style={{
-                      marginRight: 6,
-                      width: 22,
-                      height: 22,
+                      marginVertical: 10,
+                      width: 82,
+                      height: 80,
                       alignContent: 'center',
                       justifyContent: 'center',
                     }}
                     source={icon}
                     resizeMode={FastImage.resizeMode.contain}
                   />
-                  <Text style={styles.title}>
-                    已排到您，请尽快进入诊室
-                  </Text>
                 </View>
+                <Text style={styles.title}>
+                  会议已开始，请尽快进入会议
+                </Text>
                 <View style={styles.body}>
                   <Text style={styles.infoText}>
-                    医生姓名：{room.name}
+                    会议姓名：{room.name}
                   </Text>
                   <Text style={styles.infoText}>
-                    所在科室：{room.medicalDepartment}
+                    会议时间：{room.medicalDepartment}
                   </Text>
                   <Text style={styles.infoText}>
-                    医生职称：{room.professionalTitle}
+                    发起人：{room.professionalTitle}
                   </Text>
                   <Text style={styles.infoText}>
-                    所在医院：{room.hospitalName}
+                    参会人：{room.hospitalName}
                   </Text>
                 </View>
                 <View style={styles.btnWrap}>
@@ -144,7 +144,7 @@ class GoToRoomModalProvider extends React.Component<{}, IState> {
                       }}
                       style={styles.btn}
                   >
-                    <Text style={[styles.btnText, styles.okText]}>取消</Text>
+                    <Text style={[styles.btnText, styles.okText]}>稍后进入</Text>
                   </Button>
                   <View style={{ width: 15, height: 40 }} />
                   <LinearGradient
@@ -169,7 +169,7 @@ class GoToRoomModalProvider extends React.Component<{}, IState> {
                         }}
                         style={styles.btn}
                     >
-                      <Text style={[styles.btnText]}>确定</Text>
+                      <Text style={[styles.btnText]}>进入会议</Text>
                     </Button>
                   </LinearGradient>
                 </View>

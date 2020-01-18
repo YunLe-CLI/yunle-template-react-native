@@ -98,7 +98,8 @@ class CancelModalProvider extends React.Component<{}, IState> {
                     提醒
                   </Text>
                   <Text style={styles.infoText}>
-                    是否取消2010年1月3日下午的就诊？取消后挂号费会原路退回
+                    是否确认取消
+                    2020年1月3日14:00-15:00的会议？
                   </Text>
                 </View>
                 <View style={styles.btnWrap}>

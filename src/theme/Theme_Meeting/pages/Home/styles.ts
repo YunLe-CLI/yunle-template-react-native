@@ -145,6 +145,7 @@ export default StyleSheet.create({
     color: '#FC492E',
   },
   itemBoxFooter: {
+    marginTop: 16,
     marginRight: -8,
     flex: 1,
     flexGrow: 1,
@@ -154,7 +155,7 @@ export default StyleSheet.create({
     flexWrap: 'wrap'
   },
   itemBodyBtnWrap: {
-    marginTop: 10,
+    marginLeft: -8,
     flexGrow: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -178,7 +179,7 @@ export default StyleSheet.create({
   },
   btnText: {
     color: '#fff',
-    fontSize: 12,
+    fontSize: 16,
     lineHeight: 20,
     fontWeight: '400',
     textAlign: 'justify'

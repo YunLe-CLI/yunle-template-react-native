@@ -1,6 +1,6 @@
 {
   "name": "dgz",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "private": true,
   "codepush_des": "更新说明~",
   "codepush_app_name_ios": "iosRN2Temp",
@@ -65,6 +65,7 @@
     "react-native-camera": "^3.15.1",
     "react-native-code-push": "^6.0.0",
     "react-native-collapsible": "^1.5.1",
+    "react-native-date-picker": "^2.7.3",
     "react-native-device-info": "^5.4.1",
     "react-native-draggable": "^3.0.0",
     "react-native-dropdownalert": "^4.2.0",

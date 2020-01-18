@@ -32,8 +32,12 @@ class Me extends React.PureComponent<IProps, IState> {
             <Button
               transparent
               onPress={() => {
-                const { dispatch } = this.props;
-                dispatch(NavigationActions.back());
+                if (this.props.onClose && typeof this.props.onClose === 'function') {
+                  this.props.onClose()
+                } else {
+                  const { dispatch } = this.props;
+                  dispatch(NavigationActions.back());
+                }
               }}
             >
               <Icon style={{ paddingHorizontal: 12, color: '#333333', fontSize: 26 }} name='arrow-back' />

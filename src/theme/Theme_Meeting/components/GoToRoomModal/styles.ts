@@ -8,12 +8,9 @@ export default StyleSheet.create({
     paddingHorizontal: 24,
   },
   header: {
-    height: 72,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    borderBottomWidth: 1,
-    borderBottomColor: '#DCE3EE',
   },
   title: {
     fontSize: 18,
@@ -87,7 +84,7 @@ export default StyleSheet.create({
   },
   btn: {
     flexGrow: 1,
-    borderRadius: 20,
+    borderRadius: 2,
     height: 40,
     justifyContent: 'center',
     alignItems: 'center',
@@ -99,7 +96,7 @@ export default StyleSheet.create({
     fontWeight: '400',
   },
   okText: {
-    color: '#11CD8F',
+    color: '#118DF0',
   },
   buttonStyle: {
     flexGrow: 1,
