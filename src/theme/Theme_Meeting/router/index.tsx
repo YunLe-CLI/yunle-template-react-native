@@ -25,6 +25,7 @@ import GoToRoomModalProvider from '../components/GoToRoomModal';
 import CancelModalProvider from '../components/CancelModal';
 import AddressListModalProvider from '../components/AddressListModal';
 import SelectDateTimeModalProvider from '../components/SelectTimeModal';
+import AlertModalProvider from '../components/AlertModal';
 import { getActiveRoute } from '@/utils/utils';
 
 
@@ -140,22 +141,24 @@ export default function createRouter() {
       const { forceUpdate } = this.state;
       const { dispatch, router } = this.props;
       return <StyleProvider style={getTheme(platform)}>
-        <LoginProvider>
-          <GoToRoomModalProvider>
-            <CancelModalProvider>
-              <AddressListModalProvider>
-                <SelectDateTimeModalProvider>
-                  {
-                    !forceUpdate ? <App
-                      dispatch={dispatch}
-                      state={router}
-                    /> : undefined
-                  }
-                </SelectDateTimeModalProvider>
-              </AddressListModalProvider>
-            </CancelModalProvider>
-          </GoToRoomModalProvider>
-        </LoginProvider>
+        <AlertModalProvider>
+          <LoginProvider>
+            <GoToRoomModalProvider>
+              <CancelModalProvider>
+                <AddressListModalProvider>
+                  <SelectDateTimeModalProvider>
+                    {
+                      !forceUpdate ? <App
+                        dispatch={dispatch}
+                        state={router}
+                      /> : undefined
+                    }
+                  </SelectDateTimeModalProvider>
+                </AddressListModalProvider>
+              </CancelModalProvider>
+            </GoToRoomModalProvider>
+          </LoginProvider>
+        </AlertModalProvider>
       </StyleProvider>
     }
   }

@@ -27,7 +27,7 @@ export async function getOnlineAppVersion(): Promise<any> {
  * @param params
  */
 export interface LOGIN_REQ {
-  "mobile": string;
+  "loginName": string;
   "password": string;
 }
 export interface LOGIN_RES {
@@ -54,7 +54,7 @@ export interface LOGIN_RES {
   }
 }
 export async function LOGIN(query: LOGIN_REQ): Promise<LOGIN_RES> {
-  const url = `https://treatment-api.dev.class100.com/api/v1/patient-login`;
+  const url = `https://meeting-api.dev.class100.com/api/v1/user-login`;
   return request({
     url: url,
     method: 'POST',

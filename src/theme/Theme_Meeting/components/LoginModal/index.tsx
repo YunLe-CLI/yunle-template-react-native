@@ -79,7 +79,7 @@ class LoginProvider extends React.Component<IProps, IState> {
 
   state: IState = {
     isVisible: false,
-    mobile: '18200000001',
+    loginName: '18200000001',
     password: '123456',
   }
 
@@ -132,30 +132,20 @@ class LoginProvider extends React.Component<IProps, IState> {
     }
   }
 
-  goToMain = (type: boolean) => {
-    // type 是否填写个人信息
-    if (type) {
-      this.props.dispatch(NavigationActions.navigate({
-        routeName: 'Main',
-        params: {},
-      }))
-    } else {
-      setTimeout(() => {
-        this.props.dispatch(NavigationActions.navigate({
-          routeName: 'PersonalDetails',
-          params: {},
-        }))
-      }, 1000)
-    }
+  goToMain = () => {
+    this.props.dispatch(NavigationActions.navigate({
+      routeName: 'Main',
+      params: {},
+    }))
   };
 
   handleLogin = async () => {
     try {
       const { dispatch } = this.props;
-      const { mobile, password } = this.state;
+      const { loginName, password } = this.state;
       this.props.showLoading()
       const res = await LOGIN({
-        mobile,
+        loginName,
         password,
       })
       if (res.code === 0) {
@@ -165,11 +155,10 @@ class LoginProvider extends React.Component<IProps, IState> {
             token: res.data.token,
           }
         });
-        const userRes = await PATIENTS_DETAILS({});
         const userInfo = await dispatch({
           type: 'user/setUserAsync',
           payload: {
-            user: userRes.data,
+            user: res.data,
           }
         });
         // this.props.showAlert({
@@ -178,7 +167,7 @@ class LoginProvider extends React.Component<IProps, IState> {
         //   message: '登陆成功',
         // })
         this.closeLogin();
-        this.goToMain(!!userInfo.idCard);
+        this.goToMain();
       }
     } catch (e) {
       alert('登录失败'+e)
@@ -256,10 +245,10 @@ class LoginProvider extends React.Component<IProps, IState> {
                         <View style={styles.formWrap}>
                           <Form>
                             <Item rounded style={styles.iptItem}>
-                              <Input rounded value={this.state.mobile} style={styles.ipt} placeholder="输入用户名" placeholderTextColor={"#FFFFFF"}
+                              <Input rounded value={this.state.loginName} style={styles.ipt} placeholder="输入用户名" placeholderTextColor={"#FFFFFF"}
                                      onChangeText={(value) => {
                                        this.setState({
-                                         mobile: value,
+                                         loginName: value,
                                        })
                                      }}
                               />
@@ -282,7 +271,7 @@ class LoginProvider extends React.Component<IProps, IState> {
                             style={[
                               styles.linearGradientBtn,
                               {
-                                opacity: this.state.password && this.state.mobile ? 1 : 0.4
+                                opacity: this.state.password && this.state.loginName ? 1 : 0.4
                               }
                             ]}
                           >
