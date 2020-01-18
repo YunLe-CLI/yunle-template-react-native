@@ -6,6 +6,9 @@ import { Button, Icon, Fab } from 'native-base';
 import CodePush from 'react-native-code-push';
 // @ts-ignore
 import Draggable from 'react-native-draggable';
+import _ from 'lodash';
+import AsyncStorage from "@react-native-community/async-storage";
+import {withSelectThemeModal} from '@/components/SelectThemeModal';
 
 
 interface IProps {}
@@ -58,18 +61,11 @@ class IsTester extends React.PureComponent<IProps, IState> {
         <Icon name="refresh" />
       </Button>
       <Button style={{ backgroundColor: '#34A34F' }}
-              onPress={() => {
-                CodePush.restartApp();
+              onPress={async () => {
+                this.props.handleShowSelectThemeModal()
               }}
       >
         <Icon name="color-palette" />
-      </Button>
-      <Button style={{ backgroundColor: '#D32929' }}
-              onPress={() => {
-                throw new Error('12')
-              }}
-      >
-        <Icon name="bug" />
       </Button>
       <Button
         onPress={() => {
@@ -85,4 +81,4 @@ class IsTester extends React.PureComponent<IProps, IState> {
   }
 }
 
-export default IsTester;
+export default withSelectThemeModal(IsTester);

@@ -1,10 +1,9 @@
 import * as models from './models';
 import createRouter from './router';
 
-export const PERSIST_KEY = 'Theme_Hospital';
-
 export default {
-  PERSIST_KEY,
+  id: 'hospital_000',
+  name: '医院',
   router: createRouter(),
   models: Object.values(models),
 }

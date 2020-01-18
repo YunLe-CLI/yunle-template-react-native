@@ -1,18 +1,18 @@
-export { default as Setting } from '@/theme/Theme_Hospital/pages/Setting';
-export { default as Splash } from '@/theme/Theme_Hospital/pages/Splash';
+export { default as Setting } from './Setting';
+export { default as Splash } from './Splash';
 
-export { default as Home } from '@/theme/Theme_Hospital/pages/Home';
-export { default as Me } from '@/theme/Theme_Hospital/pages/Me';
-export { default as VideoPlayer } from '@/theme/Theme_Hospital/pages/VideoPlayer';
+export { default as Home } from './Home';
+export { default as Me } from './Me';
+export { default as VideoPlayer } from './VideoPlayer';
 // 完善个人信息
-export { default as PersonalDetails } from '@/theme/Theme_Hospital/pages/PersonalDetails';
+export { default as PersonalDetails } from './PersonalDetails';
 // 预约详情
-export { default as AppointmentDetails } from '@/theme/Theme_Hospital/pages/AppointmentDetails';
+export { default as AppointmentDetails } from './AppointmentDetails';
 // 预约成功
-export { default as AppointmentSuccess } from '@/theme/Theme_Hospital/pages/AppointmentSuccess';
+export { default as AppointmentSuccess } from './AppointmentSuccess';
 // 医生列表
-export { default as DoctorList } from '@/theme/Theme_Hospital/pages/DoctorList';
+export { default as DoctorList } from './DoctorList';
 // 医生详情
-export { default as DoctorDetails } from '@/theme/Theme_Hospital/pages/DoctorDetails';
+export { default as DoctorDetails } from './DoctorDetails';
 // 视频详情
-export { default as Room } from '@/theme/Theme_Hospital/pages/Room';
+export { default as Room } from './Room';
