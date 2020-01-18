@@ -40,7 +40,7 @@ import LinearGradient from "react-native-linear-gradient";
 import { withCancelModal } from '../../components/CancelModal';
 import { withGoToRoomModal } from '../../components/GoToRoomModal';
 
-import { MAKE_LIST, MAKE_ITEM, ROOM_MESSAGE } from '../../services/api';
+import { MEETING_TODAY, MEETING_ALL, MEETING_ITEM, MAKE_ITEM, ROOM_MESSAGE } from '../../services/api';
 
 const { MainViewController = {} } = NativeModules || {};
 const { SDKLeaveRoom } = MainViewController || {};
@@ -54,8 +54,8 @@ export interface IState {
   segmentActive: number;
   department: undefined | string,
   level: undefined | string,
-  today: Array<MAKE_ITEM>;
-  registrations: Array<MAKE_ITEM>,
+  today: Array<MEETING_ITEM>;
+  registrations: Array<MEETING_ITEM>,
 }
 
 let TEST_NNN = 0;
@@ -105,18 +105,17 @@ class Home extends React.Component<IProps, IState> {
 
   async getMakeList() {
     try {
-      const res = await MAKE_LIST({});
-      console.log(1111, res);
+      const res = await MEETING_TODAY({});
       if (res.code === 0) {
         const { data = {} } = res;
         this.setState({
-          today: data.today,
-          registrations: data.registrations,
+          today: data,
+          // registrations: data.registrations,
         })
         if (data.today) {
           let isOpenInfo: MAKE_ITEM | undefined = undefined;
-          data.today.map((item: MAKE_ITEM) => {
-            if (item.status === 3) {
+          data.today.map((item: MEETING_ITEM) => {
+            if (item.status === 1) {
               isOpenInfo = item;
             }
             isOpenInfo = item;
@@ -132,7 +131,22 @@ class Home extends React.Component<IProps, IState> {
     }
   }
 
-  async getIsMe(item: MAKE_ITEM) {
+  async getMeetingAll() {
+    try {
+      const res = await MEETING_ALL({ isClient: true });
+      if (res.code === 0) {
+        const { data = {} } = res;
+        this.setState({
+          registrations: data,
+        })
+      }
+
+    } catch (e) {
+      alert(e)
+    }
+  }
+
+  async getIsMe(item: MEETING_ITEM) {
     try {
       const { id } = this.props.user;
       const res = await ROOM_MESSAGE({ mettingNo: item.metaData.MeetingNo  })
@@ -160,6 +174,7 @@ class Home extends React.Component<IProps, IState> {
     });
     try {
       await this.getMakeList();
+      await this.getMeetingAll();
     } catch (e) {
 
     } finally {
@@ -169,50 +184,45 @@ class Home extends React.Component<IProps, IState> {
     }
   }
 
-  renderItem(data: MAKE_ITEM) {
+  renderItem(data: MEETING_ITEM) {
     let type = data.status;
     console.log('type: sss', type)
     let icon = icon_live_slices_0;
     let iconText = styles.itemIconText00;
     let typeText = '未开始';
-    // 就诊状态（1-开启 2-关闭 3-进行 4-过期）
+    // 会议状态（-1取消 1-进行中 2-未开始 3-结束）
     switch (type) {
-      case 4: {
+      case -1: {
         icon = icon_live_slices_2;
         iconText = styles.itemIconText02;
-        typeText = '已结束';
+        typeText = '取消';
        break;
       }
       case 1: {
         icon = icon_live_slices_0;
         iconText = styles.itemIconText00;
-        typeText = '已预约';
-        break;
-      }
-      case 3: {
-        icon = icon_live_slices_1;
-        iconText = styles.itemIconText01;
         typeText = '进行中';
         break;
       }
       case 2: {
-        icon = icon_live_slices_2;
-        iconText = styles.itemIconText02;
-        typeText = '已结束';
+        icon = icon_live_slices_1;
+        iconText = styles.itemIconText01;
+        typeText = '未开始';
         break;
       }
-      case 4: {
+      case 3: {
         icon = icon_live_slices_2;
         iconText = styles.itemIconText02;
-        typeText = '已结束';
+        typeText = '结束';
         break;
       }
       default: {
         icon = icon_live_slices_2;
         iconText = styles.itemIconText02;
-        typeText = '已结束';
+        typeText = '结束';
       }
     }
+    const participants:Array[USER_INFO] = data.participants || [];
     return <Card style={styles.itemBox}>
       <CardItem button onPress={() => {
         // this.props.dispatch(NavigationActions.navigate({
@@ -227,19 +237,21 @@ class Home extends React.Component<IProps, IState> {
             </Text>
           </View>
           <Title style={styles.itemBodyTitle}>
-            {moment().format('YYYY.MM.DD HH:mm')}
-            -{moment().format('HH:mm')}
+            {moment(data.startTime).format('YYYY.MM.DD HH:mm')}
+            -{moment(data.endTime).format('HH:mm')}
           </Title>
           <Text style={[styles.itemBodyText, styles.itemBodyText001]}>
             发起人：{data.name}
           </Text>
           <Text style={[styles.itemBodyText, styles.itemBodyText001]}>
-            参会人：小张 小阳 小光 小明 小丑 小吸 等
+            参会人：{(participants).map((u: USER_INFO) => {
+              return `${u.name}, `;
+          })}
           </Text>
           <View style={[styles.itemBoxFooter]}>
             <View style={styles.itemBodyBtnWrap}>
               {
-                (type) ? <LinearGradient
+                (type === 1 || type === 2) ? <LinearGradient
                   start={{x: 0, y: 0}} end={{x: 1, y: 1}}
                   colors={['#fff', '#fff']}
                   style={[
@@ -270,7 +282,7 @@ class Home extends React.Component<IProps, IState> {
                 </LinearGradient> : undefined
               }
               {
-                (type === 3) ? <LinearGradient
+                (type === 1) ? <LinearGradient
                   start={{x: 0, y: 0}} end={{x: 1, y: 1}}
                   colors={['#118DF0', '#118DF0']}
                   style={[
@@ -302,7 +314,7 @@ class Home extends React.Component<IProps, IState> {
                 </LinearGradient> : undefined
               }
               {
-                (type === 1) ? <LinearGradient
+                (type === 2) ? <LinearGradient
                   start={{x: 0, y: 0}} end={{x: 1, y: 1}}
                   colors={['#FF3B0E', '#FF3B0E']}
                   style={[
@@ -439,7 +451,7 @@ class Home extends React.Component<IProps, IState> {
         renderSectionHeader={({ section: { title } }) => {
           return <Text style={styles.itemTitle}>{title}</Text>
         }}
-        sections={list}
+        sections={list || []}
         ItemSeparatorComponent={() => <View style={{ height: 12 }} />}
         ListEmptyComponent={() => {
           return <View />

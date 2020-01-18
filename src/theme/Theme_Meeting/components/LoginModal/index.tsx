@@ -79,7 +79,7 @@ class LoginProvider extends React.Component<IProps, IState> {
 
   state: IState = {
     isVisible: false,
-    loginName: '18200000001',
+    loginName: 'user01',
     password: '123456',
   }
 

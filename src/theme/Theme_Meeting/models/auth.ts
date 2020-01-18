@@ -69,13 +69,11 @@ const authModel: IModelType = {
         return res
       },
       *logout({ payload = {} }, { put, select }) {
-        const token = yield select(({ auth }: { auth: IModelState }) => auth.token);
         yield put({
           type: 'clearCache',
         });
         try {
           const { openLogin } = LOGIN_MODAL_THIS;
-          console.log(LOGIN_MODAL_THIS)
           openLogin();
         } catch (e) {
           console.log(e)

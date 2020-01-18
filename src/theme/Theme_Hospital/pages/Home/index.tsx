@@ -399,7 +399,7 @@ class Home extends React.Component<IProps, IState> {
       renderSectionHeader={({ section: { title } }) => {
         return <Text style={styles.itemTitle}>{title}</Text>
       }}
-      sections={list}
+      sections={list || []}
       ItemSeparatorComponent={() => <View style={{ height: 12 }} />}
       ListEmptyComponent={() => {
         return <View />

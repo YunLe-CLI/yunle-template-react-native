@@ -22,7 +22,7 @@ export async function getOnlineAppVersion(): Promise<any> {
 }
 
 /**
- * 患者登录
+ * 登录
  * api doc url: http://eolinker.class100.com/#/home/project/inside/api/detail?groupID=-1&apiID=1084&projectName=%E5%8C%BB%E7%96%97demo&projectID=77
  * @param params
  */
@@ -63,282 +63,110 @@ export async function LOGIN(query: LOGIN_REQ): Promise<LOGIN_RES> {
 }
 
 /**
- * 患者app端预约
- * api doc url: http://eolinker.class100.com/#/home/project/inside/api/detail?groupID=-1&apiID=1095&projectName=%E5%8C%BB%E7%96%97demo&projectID=77
- * @param params
+ * 今日会议
+ * api doc url: http://eolinker.class100.com/#/home/project/inside/api/detail?groupID=-1&apiID=1084&projectName=%E5%8C%BB%E7%96%97demo&projectID=77
+ * @param query
+ * @constructor
  */
-export interface MAKE_LIST_REQ {
+export interface MEETING_TODAY_REQ {
 
-};
+}
 export interface META_DATA {
-  "Id": "dkgzquiqSGK5oFlizWuqgQ==",
-  "Topic": "五官科-医生A",
-  "MeetingNo": 207309770,
-  "StartTime": "2020-01-18 09:00:00",
-  "UTCStartTime": "2020-01-18 01:00:00",
-  "OpenHostVideo": true,
-  "Duration": 360,
-  "Status": 0,
-  "MeetingType": 0
+  "Id": string;
+  "Topic": string;
+  "MeetingNo": number;
+  "StartTime": string;
+  "UTCStartTime": string;
+  "OpenHostVideo": boolean;
+  "Duration": number;
+  "Status": number;
+  "MeetingType": number;
 }
-export interface MAKE_ITEM {
-  "id": string;
-  "timeslot": number;// 时间段(1-上午 2-下午)
-  "date": number;
-  "startTime": string;
-  "endTime": string;
-  "registrationFee": number;
-  "name": string;
-  "medicalDepartment": string;
-  "hospitalName": string;
-  "professionalTitle": string;
-  "status": number;// 就诊状态（ -1.取消 1.已预约 2-进行中 3-已诊 4-未到）
-  "metaData": META_DATA;
-}
-export interface MAKE_LIST_RES {
-  "code": number;
-  "success": boolean;
-  "data":{
-    "today":Array<MAKE_ITEM>,
-    "registrations": Array<MAKE_ITEM>
-  }
-};
-export async function MAKE_LIST(query: MAKE_LIST_REQ): Promise<MAKE_LIST_RES> {
-  const url = `https://treatment-api.dev.class100.com/api/v1/patients/appointment`;
-  return request({
-    url: url,
-    method: 'GET',
-  });
-}
-
-/**
- * 医生列表
- * api doc url: http://eolinker.class100.com/#/home/project/inside/api/detail?groupID=-1&apiID=1086&projectName=%E5%8C%BB%E7%96%97demo&projectID=77
- * @param params
- */
-export interface DOCTORS_LIST_REQ {
-  
-}
-export interface DOCTOR_ITEM {
-  "registrationFee": number;// 预设挂号费
-  "name": string;// 名字
+export interface USER_INFO {
   "loginName": string;
   "mobile": string;
-  "virtualMobile": string;
-  "userId": string;
-  "createTime": number;
-  "avatar":string; // 头像
-  "hospitalName":string;// 医院
-  "medicalDepartment":string;// 科室
-  "professionalTitle":string;// 职称
-  "personalIntro":string;// 个人介绍
-  "skillsIntro":string;// 技能介绍
+  "name": string;
+  "departmentId":string;
+  "password":string;
+  "virtualMobile":string;
+  "userId":string;
+  "createTime":number;
   "id":string;
 }
-export interface DOCTORS_LIST_RES {
-  "code":0,
-  "success":true,
-  "data": Array<DOCTOR_ITEM>
-}
-export async function DOCTORS_LIST(query: DOCTORS_LIST_REQ): Promise<MAKE_LIST_RES> {
-  const url = `https://treatment-api.dev.class100.com/api/v1/doctors`;
-  return request({
-    url: url,
-    method: 'GET',
-  });
-}
-
-/**
- * 医生app端预约列表
- * api doc url: http://eolinker.class100.com/#/home/project/inside/api/detail?groupID=-1&apiID=1111&projectName=%E5%8C%BB%E7%96%97demo&projectID=77
- * @param params
- */
-
-export interface APPOINTMENT_REQ {
-  doctorId: string;
-}
-export interface REGISTRATIONS_ITEM_INFO {
-  "id": string,
-  "timeslot": number;// 时间段（1-上午 2-下午）
-  "maxNum":  number;// 最大人数
-  "registrationFee":  number;// 挂号费=
-  "status":  number;// 状态（1-未开启 2-开启 ）
-  "readyCount":  number;// 已挂号数
-  "remainCount": number;// 剩余挂号数
-  "playbackURL": string; // 回放地址
-}
-export interface REGISTRATIONS_ITEM {
-  "date": string;
-  "week": number;
-  "data": Array<REGISTRATIONS_ITEM_INFO>
-}
-export interface APPOINTMENT_RES {
-  "code": number;
-  "success": boolean;
-  "data":{
-    "registrationCount": number;// 总预约数
-    "registrations": Array<REGISTRATIONS_ITEM>
-  }
-}
-
-export async function APPOINTMENT(query:APPOINTMENT_REQ): Promise<APPOINTMENT_RES> {
-  const url = `https://treatment-api.dev.class100.com/api/v1/doctors/appointment`;
-  return request({
-    url: url,
-    method: 'GET',
-    params: query
-  });
-}
-
-/**
- * 患者预约
- * api doc url: http://eolinker.class100.com/#/home/project/inside/api/detail?groupID=-1&apiID=1091&projectName=%E5%8C%BB%E7%96%97demo&projectID=77
- * @param params
- */
-export interface MAKE_POST_REQ {
-  registration_id: string;
-  remark: string;
-  patientId: string;
-}
-export interface MAKE_POST_RES {
-  "code": number;
-  "success": boolean;
-  "data": number;
-}
-export async function MAKE_POST(query: MAKE_POST_REQ): Promise<MAKE_POST_RES> {
-  const url = `https://treatment-api.dev.class100.com/api/v1/registrations/${query.registration_id}/patient`;
-  return request({
-    url: url,
-    method: 'POST',
-    data: query,
-  });
-}
-
-/**
- * 获取医生信息
- * api doc url: http://eolinker.class100.com/#/home/project/inside/api/detail?groupID=-1&apiID=1109&projectName=%E5%8C%BB%E7%96%97demo&projectID=77
- * @param params
- */
-export interface DOCTORS_DETAILS_REQ {
-  doctors_id: string;
-}
-export interface DOCTORS_INFO {
-  "registrationFee": number;
-  "name": string;
-  "loginName": string;
-  "password": string;
-  "mobile": string;
-  "virtualMobile": string;
-  "userId": string;
-  "createTime": undefined;
-  "avatar": string;
-  "hospitalName": string;
-  "medicalDepartment": string;
-  "professionalTitle": string;
-  "id": string;
-}
-export interface DOCTORS_DETAILS_RES {
-  "code": number;
-  "success": boolean;
-  "data": DOCTORS_INFO;
-}
-export async function DOCTORS_DETAILS(query: DOCTORS_DETAILS_REQ): Promise<DOCTORS_DETAILS_RES> {
-  const url = `https://treatment-api.dev.class100.com/api/v1/doctors/info`;
-  return request({
-    url: url,
-    method: 'GET',
-    data: query,
-  });
-}
-
-/**
- * 获取患者信息
- * api doc url: http://eolinker.class100.com/#/home/project/inside/api/detail?groupID=-1&apiID=1109&projectName=%E5%8C%BB%E7%96%97demo&projectID=77
- * @param params
- */
-export interface PATIENTS_DETAILS_REQ {
-}
-export interface PATIENTS_INFO {
-  "name": string;
-  "mobile": string;
-  "virtualMobile": string;
-  "userId": string;
+export interface MEETING_ITEM {
+  "participantIds": string[];
+  "status": number;// 会议状态（-1取消 1-进行中 2-未开始 3-结束）
+  "name": string;// 会议名称
+  "startTime": number;// 开始时间
+  "endTime": number;// 结束时间
+  "presenterId": string;// 发起人id
+  "metaData": META_DATA,
   "createTime": number;
-  "age": number;
-  "gender": number;
-  "birthdate": number;
-  "idCard": string;
+  "presenter": USER_INFO,
+  "participants": Array<USER_INFO>,
   "id": string;
 }
-export interface PATIENTS_DETAILS_RES {
+export interface MEETING_TODAY_RES {
   "code": number;
   "success": boolean;
-  "data": PATIENTS_INFO;
+  "data": Array<MEETING_ITEM>;
 }
-export async function PATIENTS_DETAILS(query: PATIENTS_DETAILS_REQ): Promise<PATIENTS_DETAILS_RES> {
-  const url = `https://treatment-api.dev.class100.com/api/v1/patients/info`;
+export async function MEETING_TODAY(query: MEETING_TODAY_REQ): Promise<MEETING_TODAY_RES> {
+  const url = `https://meeting-api.dev.class100.com/api/v1/meeting/today`;
   return request({
     url: url,
     method: 'GET',
   });
 }
 /**
- * 请求房间消息（当前诊断人id）
- * api doc url: http://eolinker.class100.com/#/home/project/inside/api/detail?groupID=-1&apiID=1109&projectName=%E5%8C%BB%E7%96%97demo&projectID=77
- * @param params
+ * 全部会议
+ * api doc url: http://eolinker.class100.com/#/home/project/inside/api/detail?groupID=-1&apiID=1084&projectName=%E5%8C%BB%E7%96%97demo&projectID=77
+ * @param query
+ * @constructor
  */
-export interface ROOM_MESSAGE_REQ {
-  mettingNo: string;
+export interface MEETING_ALL_REQ {
+  isClient: boolean;
 }
-export interface ROOM_MESSAGE_RES {
+export interface MEETING_ALL_RES {
   "code": number;
   "success": boolean;
-  "data":{
-    "kickId": string;// 被踢id，云视讯会议中的userid
-    "nextId": string;// 下一个id，业务服务那边传过来的userid
-    "mettingNuber": string;// 云视讯房间号
-  }
+  "data": Array<MEETING_ITEM>;
 }
-export async function ROOM_MESSAGE(query: ROOM_MESSAGE_REQ): Promise<ROOM_MESSAGE_RES> {
-  const url = `https://treatment-api.dev.class100.com/api/v1/meeting/${query.mettingNo}/message`;
+export async function MEETING_ALL(query: MEETING_ALL_REQ): Promise<MEETING_ALL_RES> {
+  const url = `https://meeting-api.dev.class100.com/api/v1/meeting`;
   return request({
     url: url,
     method: 'GET',
+    params: query,
   });
 }
 /**
- * 请求房间消息（当前诊断人id）
- * api doc url: http://eolinker.class100.com/#/home/project/inside/api/detail?groupID=-1&apiID=1109&projectName=%E5%8C%BB%E7%96%97demo&projectID=77
- * @param params
+ * 部门列表
+ * api doc url: http://eolinker.class100.com/#/home/project/inside/api/detail?groupID=-1&apiID=1084&projectName=%E5%8C%BB%E7%96%97demo&projectID=77
+ * @param query
+ * @constructor
  */
-export interface PATIENTS_INFO_PUTREQ {
-  "id": string;// 修改必传
-  "name":string;// 【必须】
-  "mobile":string;
-  "idCard":string;// 身份证
-  "birthdate":number;// 生日
-  "gender":number;// 性别（1-男 2-女）
-  "age":number;// 年龄
-  "medicalHistory":string;// 病史
-}
-export interface PATIENTS_INFO_PUTRES {
-  "code": number;
-  "success": boolean;
-  "data":{
-    "name": string;
-    "mobile": string;
-    "virtualMobile": string;
-    "userId": string;
-    "createTime": number;
-    "id": string;
-  }
-}
-export async function PATIENTS_INFO_PUT(query: PATIENTS_INFO_PUTREQ): Promise<PATIENTS_INFO_PUTRES> {
-  const url = `https://treatment-api.dev.class100.com/api/v1/patients`;
-  return request({
-    url: url,
-    method: 'POST',
-    data: query
-  });
-}
+export interface DEPARTMENTS_REQ {
 
+}
+export interface DEPARTMENTS_ITEM {
+  "name": string;
+  "desc": string;
+  "createTime": 1579314647460,
+  "id": string;
+  "pid": string | undefined;
+  "children": Array<DEPARTMENTS_ITEM>;
+}
+export interface DEPARTMENTS_RES {
+  "code": number;
+  "success": boolean;
+  "data": Array<DEPARTMENTS_ITEM>;
+}
+export async function DEPARTMENTS(query: DEPARTMENTS_REQ): Promise<DEPARTMENTS_RES> {
+  const url = `https://meeting-api.dev.class100.com/api/v1/departments`;
+  return request({
+    url: url,
+    method: 'GET',
+    params: query,
+  });
+}
