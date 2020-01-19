@@ -152,7 +152,7 @@ export interface DEPARTMENTS_REQ {
 export interface DEPARTMENTS_ITEM {
   "name": string;
   "desc": string;
-  "createTime": 1579314647460,
+  "createTime": number;
   "id": string;
   "pid": string | undefined;
   "children": Array<DEPARTMENTS_ITEM>;
@@ -168,5 +168,59 @@ export async function DEPARTMENTS(query: DEPARTMENTS_REQ): Promise<DEPARTMENTS_R
     url: url,
     method: 'GET',
     params: query,
+  });
+}
+/**
+ * 发起会议
+ * api doc url: http://eolinker.class100.com/#/home/project/inside/api/detail?groupID=-1&apiID=1084&projectName=%E5%8C%BB%E7%96%97demo&projectID=77
+ * @param query
+ * @constructor
+ */
+export interface SPONSOR_MEETING_REQ {
+  "id"?: string; // 会议id（修改时）
+  "name": string;// 会议名
+  "duration": number;// 时长
+  "presenterId": string;// 主持人
+  "participantIds": string[]; // 参与人
+}
+export interface SPONSOR_MEETING_RES {
+  "code": number;
+  "success": boolean;
+  "data": Array<MEETING_ITEM>;
+}
+export async function SPONSOR_MEETING(query: SPONSOR_MEETING_REQ): Promise<SPONSOR_MEETING_RES> {
+  const url = `https://meeting-api.dev.class100.com/api/v1/meeting/sponsor`;
+  return request({
+    url: url,
+    method: 'POST',
+    data: query,
+  });
+}
+/**
+ * 预约会议
+ * api doc url: http://eolinker.class100.com/#/home/project/inside/api/detail?groupID=-1&apiID=1084&projectName=%E5%8C%BB%E7%96%97demo&projectID=77
+ * @param query
+ * @constructor
+ */
+export interface SCHEDULE_MEETING_REQ {
+  "id"?: string; // 会议id（修改时）
+  "name": string;// 会议名
+  "duration": number;// 时长
+  "presenterId": string;// 主持人
+  "startTime":1579287790692;// 开始时间
+  "endTime":1579257990692;// 结束时间
+  "participantIds": string[]; // 参与人
+}
+export interface SCHEDULE_MEETING_RES {
+  "code": number;
+  "success": boolean;
+  "data": Array<MEETING_ITEM>;
+}
+export async function SCHEDULE_MEETING(query: SCHEDULE_MEETING_REQ): Promise<SCHEDULE_MEETING_RES> {
+  const url = `https://meeting-api.dev.class100.com/api/v1/meeting/schedule`;
+  return request({
+    url: url,
+    method: 'POST',
+    data: query,
   });
 }

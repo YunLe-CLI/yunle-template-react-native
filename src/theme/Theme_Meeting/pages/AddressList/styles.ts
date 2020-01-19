@@ -34,5 +34,9 @@ export default StyleSheet.create({
   listWrap: {
     paddingHorizontal: 12,
     backgroundColor: '#fff',
+  },
+  nameWrap: {
+    flexDirection: 'row',
+    alignItems: 'center'
   }
 });

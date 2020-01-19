@@ -108,7 +108,12 @@ class AddressListModalProvider extends React.Component<{}, IState> {
             margin: 0,
           }}
         >
-          <AddressList type={'add'} onClose={this.closeModel} />
+          <AddressList type={'add'} onClose={this.closeModel} onOk={(data) => {
+            if (this.onCallBack) {
+              this.onCallBack(data)
+            }
+            this.closeModel()
+          }} />
         </Modal>
       </AddressListModalContext.Provider>
     );

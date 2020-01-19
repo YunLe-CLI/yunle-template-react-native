@@ -23,6 +23,9 @@ import {withSelectDateTimeModal} from '../../components/SelectTimeModal';
 import {withAddressListModal} from '../../components/AddressListModal';
 import moment from 'moment';
 
+import { SPONSOR_MEETING, SCHEDULE_MEETING } from '@/theme/Theme_Meeting/services/api';
+
+
 export interface IProps {
 
 }
@@ -30,7 +33,11 @@ export interface IState {
 
 }
 
-@(connect() as any)
+@(connect(({ user = {} }) => {
+  return {
+    user: user.info,
+  }
+}) as any)
 class Me extends React.PureComponent<IProps, IState> {
   constructor(props: IProps) {
     super(props);
@@ -38,10 +45,62 @@ class Me extends React.PureComponent<IProps, IState> {
 
   state = {
     name: '',
+    startTime: undefined,
+    endTime: undefined,
+    participantIds: [],
   }
 
   componentDidMount(): void {
     console.log('me componentDidMount')
+  }
+
+  async postSponsorMeeting() {
+    try {
+      const { user = {} } = this.props;
+      const { name, duration, participantIds  } = this.state;
+      const res = await SPONSOR_MEETING({
+        name,
+        duration: duration - 0,
+        presenterId: undefined,
+        participantIds: participantIds.map((item) => {
+          return item.pid;
+        })
+      });
+      if (res.code === 0) {
+        alert('发起会议 成功！');
+        this.props.dispatch(NavigationActions.navigate({
+          routeName: 'Home',
+          params: {},
+        }))
+      }
+    } catch (e) {
+      alert(e)
+    }
+  }
+
+  async postScheduleMeeting() {
+    try {
+      const { user = {} } = this.props;
+      const { name, startTime, endTime, participantIds  } = this.state;
+      const res = await SCHEDULE_MEETING({
+        name,
+        startTime: moment(startTime).format('x') - 0,
+        endTime: moment(endTime).format('x') - 0,
+        presenterId: undefined,
+        participantIds: participantIds.map((item) => {
+          return item.pid;
+        })
+      });
+      if (res.code === 0) {
+        alert('预约会议 成功！');
+        this.props.dispatch(NavigationActions.navigate({
+          routeName: 'Home',
+          params: {},
+        }))
+      }
+    } catch (e) {
+      alert(e)
+    }
   }
 
   render() {
@@ -136,10 +195,10 @@ class Me extends React.PureComponent<IProps, IState> {
                   }}
                   style={styles.formItem}>
                   <Text style={styles.formItemLabel}>开始时间</Text>
-                  <Input value={this.state.会议时长} style={styles.ipt} placeholder="请输入" placeholderTextColor={"#9C9EB9"}
+                  <Input value={this.state.duration} style={styles.ipt} placeholder="请输入" placeholderTextColor={"#9C9EB9"}
                          onChangeText={(value) => {
                            this.setState({
-                             name: value,
+                             duration: value,
                            })
                          }}
                   />
@@ -157,15 +216,18 @@ class Me extends React.PureComponent<IProps, IState> {
               button
               onPress={() => {
                 this.props.handleShowAddressListModal((data) => {
+                  console.log(data)
                   this.setState({
-                    person: data
+                    participantIds: data
                   })
                 })
               }}
               style={styles.formItem}>
               <Text style={styles.formItemLabel}>选择参会人</Text>
-              <Text style={[styles.ipt, this.state.person ? {}: {color: "#9C9EB9"}]}>
-                {this.state.person ? person.join(',') : '请选择'}
+              <Text style={[styles.ipt, this.state.participantIds.length ? {}: {color: "#9C9EB9"}]}>
+                {this.state.participantIds ? this.state.participantIds.map((i) => {
+                  return `${i.name}, `
+                }) : '请选择'}
               </Text>
               <Right>
                 <Icon name="arrow-forward" />
@@ -183,9 +245,15 @@ class Me extends React.PureComponent<IProps, IState> {
                 this.setState({
                   active: 0,
                 })
+                if (type === '预约会议') {
+                  this.postScheduleMeeting()
+                }
+                if (type === '发起会议') {
+                  this.postSponsorMeeting()
+                }
               }}
               full style={[styles.btnTab]}>
-              <Text style={[styles.btnTabText]}>预约会议</Text>
+              <Text style={[styles.btnTabText]}>{type}</Text>
             </Button>
           </FooterTab>
         </Footer>

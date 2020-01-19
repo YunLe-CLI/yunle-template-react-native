@@ -1,6 +1,20 @@
 import React from 'react';
 import {SectionList, View} from 'react-native';
-import {Container, Header, Content, List, ListItem, Text, Left, Body, Title, Right, Icon, Button} from 'native-base';
+import {
+  Container,
+  Header,
+  Content,
+  List,
+  ListItem,
+  Text,
+  Left,
+  Body,
+  Title,
+  Right,
+  Icon,
+  Button,
+  FooterTab, Footer,
+} from 'native-base';
 import { connect } from 'react-redux';
 import styles from './styles';
 import {NavigationActions, NavigationEvents} from 'react-navigation';
@@ -8,6 +22,13 @@ import {withCheckAppUpdate} from "@/components/CheckAppUpdate";
 import {StatusBar} from 'react-native';
 import {DEPARTMENTS, DEPARTMENTS_ITEM, MEETING_TODAY} from '../../services/api';
 import _ from 'lodash';
+
+import check_in from './assets/check_in_slices/check_in.png';
+import check_out from './assets/check_out_slices/check_out.png';
+import userImg from '@/theme/Theme_Meeting/pages/Home/assets/user_slices/user.png';
+import FastImage from 'react-native-fast-image';
+
+
 export interface IProps {
 
 }
@@ -16,7 +37,7 @@ export interface IState {
 }
 
 @(connect() as any)
-class Me extends React.PureComponent<IProps, IState> {
+class Me extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
     this.componentDidMount = _.debounce(this.componentDidMount, 800);
@@ -27,6 +48,7 @@ class Me extends React.PureComponent<IProps, IState> {
   state = {
     list: [],
     index: [],
+    selectList: []
   }
 
   async componentDidMount(): void {
@@ -64,7 +86,7 @@ class Me extends React.PureComponent<IProps, IState> {
   }
 
   render() {
-    const { p, index, list } = this.state;
+    const { p, index, list, selectList } = this.state;
     let name = '';
     let current = [...list];
     console.log(index, 99999999)
@@ -145,10 +167,24 @@ class Me extends React.PureComponent<IProps, IState> {
           <List style={styles.listWrap}>
             {
               current.map((item: DEPARTMENTS_ITEM, i: number) => {
+                const isSelectIndex = selectList.findIndex((selectI: DEPARTMENTS_ITEM) => {
+                  return selectI.id === item.id
+                });
+                console.log(isSelectIndex, 'isSelect')
                 return <ListItem
                   key={item.id}
                   onPress={() => {
                   if (!item.children || !item.children.length) {
+                    if (isSelectIndex >= 0) {
+                      selectList.splice(0, isSelectIndex)
+                    } else {
+                      selectList.push(item)
+                    }
+                    this.setState({
+                      selectList,
+                    }, () => {
+                      console.log(this.state.selectList)
+                    })
                     return;
                   }
                   const index = [...this.state.index, i]
@@ -159,7 +195,20 @@ class Me extends React.PureComponent<IProps, IState> {
                   })
                 }}>
                   <Content>
-                    <Text>{item.name}</Text>
+                    <View style={styles.nameWrap}>
+                      <FastImage
+                        style={{
+                          marginRight: 8,
+                          width: 20,
+                          height: 20,
+                          alignContent: 'center',
+                          justifyContent: 'center',
+                        }}
+                        source={isSelectIndex >= 0 ? check_in : check_out}
+                        resizeMode={FastImage.resizeMode.contain}
+                      />
+                      <Text>{item.name}</Text>
+                    </View>
                   </Content>
                   <Right>
                     <Icon name="arrow-forward" />
@@ -169,6 +218,41 @@ class Me extends React.PureComponent<IProps, IState> {
             }
           </List>
         </Content>
+        {
+          this.props.onOk ? (
+            <Footer style={styles.footerWrap}>
+              <FooterTab style={{
+                justifyContent: 'center',
+                alignItems: 'center'
+              }}>
+                <Button
+                  full style={[styles.btnTab]}>
+                  <Text style={[styles.btnTabText]}>
+                    已选择
+                    <Text style={{
+                      color: '#118DF0',
+                    }}>{selectList.length}</Text>
+                    人
+                  </Text>
+                </Button>
+                <View style={styles.line} />
+                <Button
+                  onPress={() => {
+                    if (typeof this.props.onOk === 'function') {
+                      this.props.onOk(this.state.selectList)
+                    }
+                  }}
+                  full style={[styles.btnTab, {
+                  backgroundColor:'#118DF0',
+                }]}>
+                  <Text style={[styles.btnTabText, {
+                    color: '#fff'
+                  }]}>选择完成</Text>
+                </Button>
+              </FooterTab>
+            </Footer>
+          ) : undefined
+        }
       </Container>
     );
   }
