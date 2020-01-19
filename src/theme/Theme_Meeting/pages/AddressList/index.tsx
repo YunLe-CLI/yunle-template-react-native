@@ -196,17 +196,21 @@ class Me extends React.Component<IProps, IState> {
                 }}>
                   <Content>
                     <View style={styles.nameWrap}>
-                      <FastImage
-                        style={{
-                          marginRight: 8,
-                          width: 20,
-                          height: 20,
-                          alignContent: 'center',
-                          justifyContent: 'center',
-                        }}
-                        source={isSelectIndex >= 0 ? check_in : check_out}
-                        resizeMode={FastImage.resizeMode.contain}
-                      />
+                      {
+                        this.props.onOk ? (
+                          <FastImage
+                            style={{
+                              marginRight: 8,
+                              width: 20,
+                              height: 20,
+                              alignContent: 'center',
+                              justifyContent: 'center',
+                            }}
+                            source={isSelectIndex >= 0 ? check_in : check_out}
+                            resizeMode={FastImage.resizeMode.contain}
+                          />
+                        ) : undefined
+                      }
                       <Text>{item.name}</Text>
                     </View>
                   </Content>
