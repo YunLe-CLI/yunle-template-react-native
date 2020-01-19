@@ -52,6 +52,7 @@ export default StyleSheet.create({
     color: '#fff'
   },
   formItem: {
+    flex: 1,
   },
   formItemLabel: {
 
@@ -71,6 +72,6 @@ export default StyleSheet.create({
     fontWeight: '400',
     lineHeight: 22,
     minWidth: 104,
-    color: 'rgba(0,0,0,0.85)'
+    color: 'rgba(0,0,0,0.85)',
   },
 });

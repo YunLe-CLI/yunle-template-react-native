@@ -48,7 +48,3 @@
 >
 > [支付(微信&支付宝) `react-native-puti-pay`](https://github.com/puti94/react-native-puti-pay)
 >
-医疗Demo账号(密码均为123456)：
-管理员：admin
-医生：doctorA  doctorB doctorC
-患者：18200000001 18200000002 18200000003 18200000004 18200000005 18200000006 18200000007 18200000008

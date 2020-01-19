@@ -243,7 +243,7 @@ class Me extends React.PureComponent<IProps, IState> {
               }}
               style={styles.formItem}>
               <Text style={styles.formItemLabel}>选择参会人</Text>
-              <Text style={[styles.ipt, this.state.participantIds.length ? {}: {color: "#9C9EB9"}]}>
+              <Text numberOfLines={3} style={[styles.ipt, this.state.participantIds.length ? {}: {color: "#9C9EB9"}]}>
                 {this.state.participantIds ? this.state.participantIds.map((i) => {
                   return `${i.name}, `
                 }) : '请选择'}

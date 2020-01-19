@@ -10,11 +10,16 @@ import {META_DATA} from '../../services/api';
 
 import _ from 'lodash';
 import FastImage from 'react-native-fast-image';
+console.log('NativeModules', NativeModules)
+console.log('NativeModules RNVideoViewManager', NativeModules.RNVideoViewManager)
+// import YSXVideo from '@/theme/Theme_Meeting/components/YSXVideo';
 
 import loading from './assets/loading_slices/loading.png';
 
 const { MainViewManager = {}, MainViewController = {} } = NativeModules || {};
 const { SDKAuth, SDKLogin, SDKGoToRoom } = MainViewController || {};
+
+
 
 export interface IProps {}
 
@@ -158,9 +163,9 @@ class Home extends React.Component<IProps, IState> {
         setTimeout(() => {
           SDKGoToRoom(`${metaData.MeetingNo}`, "", `${metaData.Id}`, `${metaData.MeetingType}`)
         }, 2000)
-        setTimeout(() => {
-          this.goBack()
-        }, 1000 * 10)
+        // setTimeout(() => {
+        //   this.goBack()
+        // }, 1000 * 10)
       } else {
         throw '房间信息有误'
       }

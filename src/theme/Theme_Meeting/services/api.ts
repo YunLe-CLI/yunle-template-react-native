@@ -224,3 +224,35 @@ export async function SCHEDULE_MEETING(query: SCHEDULE_MEETING_REQ): Promise<SCH
     data: query,
   });
 }
+
+/**
+ * 用户列表
+ * api doc url: http://eolinker.class100.com/#/home/project/inside/api/detail?groupID=-1&apiID=1084&projectName=%E5%8C%BB%E7%96%97demo&projectID=77
+ * @param query
+ * @constructor
+ */
+export interface USER_LIST_REQ {
+  "departmentId": string; // 部门id
+}
+export interface USER_INFO {
+  "loginName": string;
+  "mobile":string;
+  "name":string;
+  "departmentId":string;
+  "virtualMobile":string;
+  "createTime":number;
+  "id":string;
+}
+export interface SCHEDULE_MEETING_RES {
+  "code": number;
+  "success": boolean;
+  "data": Array<USER_INFO>;
+}
+export async function USER_LIST(query: USER_LIST_REQ): Promise<USER_LIST_RES> {
+  const url = `https://meeting-api.dev.class100.com/api/v1/users`;
+  return request({
+    url: url,
+    method: 'GET',
+    params: query,
+  });
+}

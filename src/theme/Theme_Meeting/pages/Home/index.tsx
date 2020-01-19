@@ -40,6 +40,9 @@ import LinearGradient from "react-native-linear-gradient";
 import { withCancelModal } from '../../components/CancelModal';
 import { withGoToRoomModal } from '../../components/GoToRoomModal';
 
+import YSXVideo from '@/theme/Theme_Meeting/components/YSXVideo';
+
+
 import { MEETING_TODAY, MEETING_ALL, MEETING_ITEM, MAKE_ITEM, ROOM_MESSAGE } from '../../services/api';
 
 const { MainViewController = {} } = NativeModules || {};
@@ -474,6 +477,13 @@ class Home extends React.Component<IProps, IState> {
     const { user = {} } = this.props;
     return (
       <Container style={styles.container}>
+        {/*<View>*/}
+        {/*  <YSXVideo style={{*/}
+        {/*    width: 200,*/}
+        {/*    height: 200,*/}
+        {/*  }} />*/}
+        {/*</View>*/}
+
         <NavigationEvents
             onWillFocus={async payload => {
               try {

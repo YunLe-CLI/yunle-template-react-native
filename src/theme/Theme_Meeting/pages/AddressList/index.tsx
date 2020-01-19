@@ -20,7 +20,7 @@ import styles from './styles';
 import {NavigationActions, NavigationEvents} from 'react-navigation';
 import {withCheckAppUpdate} from "@/components/CheckAppUpdate";
 import {StatusBar} from 'react-native';
-import {DEPARTMENTS, DEPARTMENTS_ITEM, MEETING_TODAY} from '../../services/api';
+import {USER_LIST, USER_INFO, DEPARTMENTS, DEPARTMENTS_ITEM, MEETING_TODAY} from '../../services/api';
 import _ from 'lodash';
 
 import check_in from './assets/check_in_slices/check_in.png';
@@ -85,23 +85,43 @@ class Me extends React.Component<IProps, IState> {
     }
   }
 
+  async getUserList(id: string) {
+    try {
+      const res = await USER_LIST({departmentId: id});
+      if (res.code === 0) {
+        const { data = {} } = res;
+        this.setState({
+          userList: data,
+          // registrations: data.registrations,
+        })
+      }
+
+    } catch (e) {
+      alert(e)
+    }
+  }
+
   render() {
-    const { p, index, list, selectList } = this.state;
+    const { p, index, list, selectList, userList } = this.state;
     let name = '';
     let current = [...list];
-    console.log(index, 99999999)
     if (index && index.length) {
       index.forEach((item, index) => {
-        if (current[item] && current[item].name) {
-          const _name =  current[item].name;
+        const newCurrent = current[item] || {};
+        if (newCurrent && newCurrent.name) {
+          const _name =  newCurrent.name;
           if (index + 1 >= index.length) {
             name += `${_name}`
           } else {
             name += `${_name} > `
           }
         }
-        current = current[item].children;
+        current = newCurrent.children || [];
       })
+    }
+
+    if (userList && userList.length) {
+      current = userList;
     }
 
     return (
@@ -137,6 +157,7 @@ class Me extends React.Component<IProps, IState> {
                     console.log(index, 99999999, 333)
                     this.setState({
                       index: [...index],
+                      userList: undefined,
                     })
                   }
                 }}
@@ -174,25 +195,32 @@ class Me extends React.Component<IProps, IState> {
                 return <ListItem
                   key={item.id}
                   onPress={() => {
-                  if (!item.children || !item.children.length) {
-                    if (isSelectIndex >= 0) {
-                      selectList.splice(0, isSelectIndex)
-                    } else {
-                      selectList.push(item)
+                    if (userList && userList.length) {
+                      if (isSelectIndex >= 0) {
+                        selectList.splice(0, isSelectIndex)
+                      } else {
+                        selectList.push(item)
+                      }
+                      this.setState({
+                        selectList,
+                      }, () => {
+                        console.log(this.state.selectList)
+                      })
+                      return;
+                    }
+                    const index = [...this.state.index, i];
+                    if (!item.children || !item.children.length) {
+                      this.getUserList();
+                      this.setState({
+                        index,
+                      })
+                      return;
                     }
                     this.setState({
-                      selectList,
-                    }, () => {
-                      console.log(this.state.selectList)
+                      index,
+                      p: item,
+                      current: item.children || [],
                     })
-                    return;
-                  }
-                  const index = [...this.state.index, i]
-                  this.setState({
-                    index,
-                    p: item,
-                    current: item.children || [],
-                  })
                 }}>
                   <Content>
                     <View style={styles.nameWrap}>
