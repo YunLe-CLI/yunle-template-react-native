@@ -264,10 +264,13 @@ class Home extends React.Component<IProps, IState> {
                     transparent
                     rounded
                     onPress={async () => {
-                      // this.props.dispatch(NavigationActions.navigate({
-                      //   routeName: 'Room',
-                      //   params: {},
-                      // }))
+                      this.props.dispatch(NavigationActions.navigate({
+                        routeName: 'MakeMeeting',
+                        params: {
+                          type: "预约会议",
+                          dataInfo: data
+                        },
+                      }))
                     }}
                     style={[
                       styles.btnDefault,
@@ -277,7 +280,7 @@ class Home extends React.Component<IProps, IState> {
                       color: '#fff'
                     }}
                   >
-                    <Title style={[styles.btnText, { color: 'rgba(0,0,0,0.85)' }]}>结束会议</Title>
+                    <Title style={[styles.btnText, { color: 'rgba(0,0,0,0.85)' }]}>修改会议</Title>
                   </Button>
                 </LinearGradient> : undefined
               }

@@ -17,7 +17,7 @@ import {
 } from 'native-base';
 import { connect } from 'react-redux';
 import styles from './styles';
-import {NavigationActions} from "react-navigation";
+import {NavigationActions, StackActions} from 'react-navigation';
 import {StatusBar} from 'react-native';
 import {withSelectDateTimeModal} from '../../components/SelectTimeModal';
 import {withAddressListModal} from '../../components/AddressListModal';
@@ -51,7 +51,19 @@ class Me extends React.PureComponent<IProps, IState> {
   }
 
   componentDidMount(): void {
-    console.log('me componentDidMount')
+    const { navigation, exams } = this.props;
+    const { params = {} } = navigation.state;
+    const { dataInfo } = params;
+    if (dataInfo && dataInfo.id) {
+      this.setState({
+        name: dataInfo.name,
+        id: dataInfo.id,
+        startTime: moment(dataInfo.startTime).toDate(),
+        endTime: moment(dataInfo.endTime).toDate(),
+        participantIds: dataInfo.participants,
+      })
+    }
+
   }
 
   async postSponsorMeeting() {
@@ -63,15 +75,19 @@ class Me extends React.PureComponent<IProps, IState> {
         duration: duration - 0,
         presenterId: undefined,
         participantIds: participantIds.map((item) => {
-          return item.pid;
+          return item.id;
         })
       });
       if (res.code === 0) {
-        alert('发起会议 成功！');
-        this.props.dispatch(NavigationActions.navigate({
-          routeName: 'Home',
-          params: {},
+        // alert('发起会议 成功！');
+        this.props.dispatch(StackActions.replace({
+          routeName: 'Room',
+          params: {
+            metaData: data.metaData,
+          },
         }))
+      } else {
+        throw res.msg
       }
     } catch (e) {
       alert(e)
@@ -81,22 +97,25 @@ class Me extends React.PureComponent<IProps, IState> {
   async postScheduleMeeting() {
     try {
       const { user = {} } = this.props;
-      const { name, startTime, endTime, participantIds  } = this.state;
+      const { id, name, startTime, endTime, participantIds  } = this.state;
       const res = await SCHEDULE_MEETING({
+        id,
         name,
         startTime: moment(startTime).format('x') - 0,
         endTime: moment(endTime).format('x') - 0,
         presenterId: undefined,
         participantIds: participantIds.map((item) => {
-          return item.pid;
+          return item.id;
         })
       });
       if (res.code === 0) {
-        alert('预约会议 成功！');
+        // alert('操作成功！');
         this.props.dispatch(NavigationActions.navigate({
           routeName: 'Home',
           params: {},
         }))
+      } else {
+        throw res.msg
       }
     } catch (e) {
       alert(e)
@@ -253,7 +272,7 @@ class Me extends React.PureComponent<IProps, IState> {
                 }
               }}
               full style={[styles.btnTab]}>
-              <Text style={[styles.btnTabText]}>{type}</Text>
+              <Text style={[styles.btnTabText]}>{this.state.id ? '修改会议' : type}</Text>
             </Button>
           </FooterTab>
         </Footer>
