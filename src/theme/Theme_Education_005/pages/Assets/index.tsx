@@ -7,6 +7,7 @@ import styles from './styles';
 
 import open from '@/theme/Theme_Education_001/components/OpenFileViewer';
 import LinearGradient from "react-native-linear-gradient";
+import FastImage from 'react-native-fast-image';
 
 export interface IProps {}
 
@@ -48,17 +49,31 @@ class Home extends React.Component<IProps, IState> {
         const width = Dimensions.get('window').width/2
         return <View key={JSON.stringify(item)} style={[
             styles.itemBox,
-            style,
             {
-                width: width - 2,
-                height: width - 2,
+                marginLeft: 16,
+                marginTop: 16,
+                width: width - 2 - 32,
+                height: width - 2 - 32,
+                borderWidth: 1,
+                borderColor: '#DBDBDB',
             }
         ]}>
+            <FastImage
+              style={{
+                  marginRight: 8,
+                  width: 39,
+                  height: 43,
+                  alignContent: 'center',
+                  justifyContent: 'center',
+              }}
+              source={require('./assets/file_icon_slices/file.png')}
+              resizeMode={FastImage.resizeMode.contain}
+            />
             <Text style={styles.itemText}>{item.title}</Text>
             <View style={[styles.btnWrap]}>
                 <LinearGradient
                   start={{x: 0, y: 0}} end={{x: 1, y: 1}}
-                  colors={['#5652E7', '#4A48FF']}
+                  colors={['#fff', '#fff']}
                   style={[
                       styles.linearGradientBtn,
                   ]}
@@ -70,7 +85,7 @@ class Home extends React.Component<IProps, IState> {
                           await open(item.url, item.title)
                       }}
                     >
-                        <Text style={[styles.btnText, { color: '#fff' }]}>查看资料</Text>
+                        <Text style={[styles.btnText, { color: '#FE3D00' }]}>下载文件</Text>
                     </Button>
                 </LinearGradient>
             </View>
@@ -81,43 +96,43 @@ class Home extends React.Component<IProps, IState> {
         const { navigation } = this.props;
         const { playbackURL = '', title = '' } = navigation.state.params;
         return (
-            <Container style={styles.container}>
-                <Header transparent
-                        iosBarStyle={"light-content"}
-                >
-                    <Left>
-                        <Button transparent
-                                style={{
-                                    marginLeft: 10,
-                                }}
-                                onPress={() => {
-                                    const { dispatch } = this.props;
-                                    dispatch(NavigationActions.back());
-                                }}
-                        >
-                            <Icon style={{ color: '#fff', fontSize: 25, }} color={'#333333'} name='arrow-back' />
-                        </Button>
-                    </Left>
-                    <Body>
-                        <Title style={{
-                            color: '#fff'
-                        }}>{title}</Title>
-                    </Body>
-                    <Right />
-                </Header>
-                <Content>
-                    <View style={{
-                        flexDirection: 'row',
-                        flexWrap: 'wrap'
-                    }}>
-                    {
-                        (this.state.list).map((item: fileType, index) => {
-                            return this.renderItem(item, index, this.state.list.length)
-                        })
-                    }
-                    </View>
-                </Content>
-            </Container>
+          <Container style={styles.container}>
+              <Header transparent
+                      iosBarStyle={"dark-content"}
+              >
+                  <Left>
+                      <Button transparent
+                              style={{
+                                  marginLeft: 10,
+                              }}
+                              onPress={() => {
+                                  const { dispatch } = this.props;
+                                  dispatch(NavigationActions.back());
+                              }}
+                      >
+                          <Icon style={{ color: '#333333', fontSize: 25, }} color={'#333333'} name='arrow-back' />
+                      </Button>
+                  </Left>
+                  <Body>
+                      <Title style={{
+                          color: '#333333'
+                      }}>{title}</Title>
+                  </Body>
+                  <Right />
+              </Header>
+              <Content>
+                  <View style={{
+                      flexDirection: 'row',
+                      flexWrap: 'wrap',
+                  }}>
+                      {
+                          (this.state.list).map((item: fileType, index) => {
+                              return this.renderItem(item, index, this.state.list.length)
+                          })
+                      }
+                  </View>
+              </Content>
+          </Container>
         );
     }
 }
