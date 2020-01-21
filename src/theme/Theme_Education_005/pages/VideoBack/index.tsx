@@ -1,5 +1,5 @@
 import React from 'react';
-import { StatusBar, ScrollView, Dimensions, View} from 'react-native';
+import {StatusBar, ScrollView, Dimensions, View, SafeAreaView} from 'react-native';
 import { connect } from 'react-redux';
 import {
   Drawer,
@@ -61,30 +61,90 @@ class Home extends React.Component<IProps, IState> {
 
     renderD() {
       return <Drawer
-        content={<View>
+        styles={{
+          width: 160,
+        }}
+        content={<SafeAreaView style={{
+          flex: 1,
+          flexGrow: 1,
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: 'rgba(0,0,0,.5)'
+        }}>
           <View>
-            <Text style={styles.title}>回放列表</Text>
+            <Text style={styles.title}>播放片段</Text>
           </View>
-          <View style={{ paddingHorizontal: 16, }}>
-            <List style={{  backgroundColor: '#fff', marginTop: 12, borderRadius: 5 }}
+          <View style={{
+            flexGrow: 1,
+            width: 300,
+          }}>
+          <Content style={{ flex: 1, width: '100%', paddingHorizontal: 16, flexGrow: 1, }}>
+            <List style={{ marginTop: 12, borderRadius: 5, flexGrow: 1, }}
                   listNoteColor={'#E3E7EF'}
             >
-              <ListItem noIndent onPress={async () => {
-                this.setState({
-                  videoUrl: playbackURL
-                })
+              <ListItem
+                style={{
+                  flexGrow: 1,
+
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+                noIndent onPress={async () => {
+                  // alert(12)
+
+                  this.setState({
+                    open: false,
+                    videoUrl: 'playbackURL'
+                  }, () => {
+                    this.drawer._root.close()
+                  })
               }}>
-                <Left>
-                  <Text style={styles.itemText}>片段1</Text>
+                <Left style={{
+                  flexGrow: 0,
+                  width: 0,
+                }}>
+
                 </Left>
-                <Right>
-                  <Icon name="arrow-forward" />
+                <Body style={{
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                  <Text style={styles.title}>片段1</Text>
+                </Body>
+                <Right style={{
+                  flexGrow: 0,
+                  width: 0,
+                }}>
+
                 </Right>
               </ListItem>
             </List>
+          </Content>
           </View>
-        </View>}
-        ref={(ref) => { this.drawer = ref; }} onClose={() => this.closeDrawer()}>
+          <View style={{
+            justifyContent: 'flex-start',
+            alignItems: 'flex-start'
+          }}>
+            <Button
+              onPress={() => {
+                this.setState({
+                  open: false,
+                }, () => {
+                  this.drawer._root.close()
+                })
+              }}
+            >
+              <Text>收起侧边</Text>
+            </Button>
+          </View>
+        </SafeAreaView>}
+        ref={(ref) => { this.drawer = ref; }} onClose={() => {
+          this.setState({
+            open: false,
+          }, () => {
+            this.drawer._root.close()
+          })
+      }}>
       </Drawer>
     }
 
@@ -99,50 +159,51 @@ class Home extends React.Component<IProps, IState> {
               top: 0,
               left: 0,
               right: 0,
+              bottom: 0,
               zIndex: 9999,
               elevation: 9999,
             }}>
               {this.renderD()}
             </View>
-              <View style={{
-                  position:'absolute',
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  zIndex: 9999,
-                  elevation: 9999,
-              }}>
-                  <Header transparent
-                          iosBarStyle={"light-content"}
-                  >
-                      <Left>
-                          <Button
-                            transparent
-                            onPress={() => {
-                                const { dispatch } = this.props;
-                                Orientation.getOrientation((orientationType) => {
-                                    if (orientationType === 'PORTRAIT') {
-                                        dispatch(NavigationActions.back());
-                                    } else {
-                                        Orientation.lockToPortrait();
-                                    }
-                                    this.setState({
-                                        orientationType,
-                                    })
-                                })
-                            }}
-                          >
-                              <Icon style={{ paddingHorizontal: 12, color: '#fff', fontSize: 26 }} name='arrow-back' />
-                          </Button>
-                      </Left>
-                      <Body >
-                          <Title style={{
-                              color: '#fff'
-                          }}>{title}</Title>
-                      </Body>
-                      <Right />
-                  </Header>
-              </View>
+              {/*<View style={{*/}
+              {/*    position:'absolute',*/}
+              {/*    top: 0,*/}
+              {/*    left: 0,*/}
+              {/*    right: 0,*/}
+              {/*    zIndex: 9999,*/}
+              {/*    elevation: 9999,*/}
+              {/*}}>*/}
+              {/*    <Header transparent*/}
+              {/*            iosBarStyle={"light-content"}*/}
+              {/*    >*/}
+              {/*        <Left>*/}
+              {/*            <Button*/}
+              {/*              transparent*/}
+              {/*              onPress={() => {*/}
+              {/*                  const { dispatch } = this.props;*/}
+              {/*                  Orientation.getOrientation((orientationType) => {*/}
+              {/*                      if (orientationType === 'PORTRAIT') {*/}
+              {/*                          dispatch(NavigationActions.back());*/}
+              {/*                      } else {*/}
+              {/*                          Orientation.lockToPortrait();*/}
+              {/*                      }*/}
+              {/*                      this.setState({*/}
+              {/*                          orientationType,*/}
+              {/*                      })*/}
+              {/*                  })*/}
+              {/*              }}*/}
+              {/*            >*/}
+              {/*                <Icon style={{ paddingHorizontal: 12, color: '#fff', fontSize: 26 }} name='arrow-back' />*/}
+              {/*            </Button>*/}
+              {/*        </Left>*/}
+              {/*        <Body >*/}
+              {/*            <Title style={{*/}
+              {/*                color: '#fff'*/}
+              {/*            }}>{title}</Title>*/}
+              {/*        </Body>*/}
+              {/*        <Right />*/}
+              {/*    </Header>*/}
+              {/*</View>*/}
               <View
                 ref={e => this.videoRef = e}
                 style={{
@@ -198,15 +259,29 @@ class Home extends React.Component<IProps, IState> {
               </View>
             <View style={{
               position:'absolute',
-              bottom: 0,
-              left: 0,
+              bottom: 60,
+              left: 30,
               right: 0,
-              zIndex: 9999,
+              zIndex: 9999999,
               elevation: 9999,
+              justifyContent: 'flex-start',
+              alignItems: 'flex-start'
             }}>
-              <Button>
-                <Text>多段回放</Text>
-              </Button>
+              {
+                this.state.open ? undefined : (
+                  <Button
+                    onPress={() => {
+                      this.setState({
+                        open: true,
+                      }, () => {
+                        this.drawer._root.open()
+                      })
+                    }}
+                  >
+                    <Text>多段回放</Text>
+                  </Button>
+                )
+              }
             </View>
           </Container>
         );

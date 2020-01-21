@@ -43,16 +43,18 @@ export default StyleSheet.create({
   },
   itemText: {
     fontSize: 15,
-    color: '#303133',
+    color: '#fff',
     fontWeight: '400',
     lineHeight: 21,
+    textAlign: 'center'
   },
   title: {
-    fontSize: 20,
-    color: '#353B50',
+    fontSize: 16,
+    color: '#fff',
     fontWeight: '500',
     lineHeight: 23,
     paddingHorizontal: 16,
-    paddingVertical: 16,
+    paddingVertical: 10,
+    textAlign: 'center'
   }
 });
