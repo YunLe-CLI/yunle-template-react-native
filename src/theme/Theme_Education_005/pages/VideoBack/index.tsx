@@ -154,7 +154,7 @@ class Home extends React.Component<IProps, IState> {
         const { playbackURL = '', title = '' } = navigation.state.params;
         return (
           <Container style={styles.container}>
-            <View style={{
+            <View style={[this.state.open ? {
               position:'absolute',
               top: 0,
               left: 0,
@@ -162,7 +162,7 @@ class Home extends React.Component<IProps, IState> {
               bottom: 0,
               zIndex: 9999,
               elevation: 9999,
-            }}>
+            }: {}]}>
               {this.renderD()}
             </View>
               {/*<View style={{*/}
@@ -255,6 +255,7 @@ class Home extends React.Component<IProps, IState> {
 
                         })
                     }}
+                    disableFullscreen
                   />
               </View>
             <View style={{
