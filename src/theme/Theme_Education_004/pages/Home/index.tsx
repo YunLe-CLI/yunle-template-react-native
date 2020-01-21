@@ -1,5 +1,5 @@
 import React from 'react';
-import {Dimensions, ImageBackground, NativeModules, SectionList, View} from 'react-native';
+import {Dimensions, ImageBackground, NativeModules, SectionList, StatusBar, View} from 'react-native';
 import { connect } from 'react-redux';
 import {
   Card,
@@ -26,8 +26,7 @@ import _ from 'lodash';
 import moment from 'moment';
 import styles from './styles';
 import {NavigationActions, NavigationEvents} from 'react-navigation';
-import home_bg_slices from './assets/home_bg_slices/home_bg.png'
-import userImg from './assets/Oval_slices/Oval.png'
+import Oval from './assets/Oval_slices/Oval.png'
 import icon_myorder_default_slices from './assets/icon_myorder_default_slices/icon_jrkc_active.png';
 import icon_myorder_active_slices from './assets/icon_myorder_active_slices/icon_jrkc_active.png';
 import icon_register_default_slices from './assets/icon_register_default_slices/icon_qbkc_default.png';
@@ -165,119 +164,73 @@ class Home extends React.Component<IProps, IState> {
 
 
   renderItem = (data: Courses) => {
-    const { coursewares = {}, teacher = {}, status, signin, playbackURL } = data;
+    const { coursewares = {}, teacher = {}, status, signin } = data;
     const type = status; // (-1-取消 1-进行 2-未开始 3-结束)
     const check = signin ? 1 : 0;
-    // {type === -1 ? '未开始' : ''}
-    // {type === 1 ? '进行中' : ''}
-    // {type === 2 ? '未开始' : ''}
-    // {type === 3 ? '已结束' : ''}
-    let typeImg = icon_yjs_slices;
-    if (type === -1) {
-      typeImg = icon_yjs_slices;
-    }
-    if (type === 1) {
-      typeImg = icon_jxz_slices;
-    }
-    if (type === 2) {
-      typeImg = icon_wks_slices;
-    }
-    if (type === 3) {
-      typeImg = icon_yjs_slices;
-    }
     return (
-      <View key={JSON.stringify(data)} style={styles.itemBox}>
-        <View style={styles.itemBox_1}>
-          <View style={{
-            position: 'absolute',
-            right: 8,
-            top: -16,
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'flex-end',
-          }}>
-            <ImageBackground
-              style={{
-                alignSelf: 'flex-end',
-                width: 48,
-                height: 35,
-                justifyContent: 'center',
-              }}
-              source={typeImg}
-            >
-
-              {/*<Text style={[styles.type,*/}
-              {/*  type === -1 ? styles.type_0 : {},*/}
-              {/*  type === 1 ? styles.type_1 : {},*/}
-              {/*  type === 2 ? styles.type_2 : {},*/}
-              {/*  type === 3 ? styles.type_3 : {},*/}
-              {/*]}>*/}
-              {/*  {type === -1 ? '未开始' : ''}*/}
-              {/*  {type === 1 ? '进行中' : ''}*/}
-              {/*  {type === 2 ? '未开始' : ''}*/}
-              {/*  {type === 3 ? '已结束' : ''}*/}
-              {/*</Text>*/}
-            </ImageBackground>
+      <LinearGradient
+        start={{x: 1, y: 0}} end={{x: 1, y: 1}}
+        colors={['#151641', '#151641']}
+        key={JSON.stringify(data)}
+        style={[
+          styles.itemBox,
+        ]}
+      >
+        <View style={styles.itemBox_2}>
+          <View style={{ flex: 1, flexDirection: 'row' }}>
+            <Text numberOfLines={1} style={styles.timeText}>{moment(data.startTime).format('YYYY-MM-DD')} </Text>
+            <Text numberOfLines={1} style={styles.timeText}>
+              {moment(data.startTime).format('HH:mm')}
+              -
+              {moment(data.endTime).format('HH:mm')}
+            </Text>
+          </View>
+          <View style={[styles.typeWrap,
+            {
+              // justifyContent: 'center',
+              alignItems: 'center',
+            }
+          ]}>
+            <Text style={[styles.checkText,
+              check === 1 ? styles.checkEndText : {}]}>
+              { check === 1 ? '已签到' : undefined }
+              { check !== 1 ? '未签到' : undefined }
+            </Text>
+            <Text style={[styles.type,
+              type === -1 ? styles.typeWrap_0 : {},
+              type === 1 ? styles.typeWrap_1 : {},
+              type === 2 ? styles.typeWrap_2 : {},
+              type === 3 ? styles.typeWrap_3 : {},
+            ]}>
+              /{type === -1 ? '课程未开始' : ''}
+              {type === 1 ? '课程正在进行' : ''}
+              {type === 2 ? '课程未开始' : ''}
+              {type === 3 ? '课程已结束' : ''}
+            </Text>
           </View>
         </View>
         <View style={styles.itemBox_3}>
           <View style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}>
-            <View style={{
-            }}>
-              <Text  numberOfLines={1} style={[
-                styles.titleText,
-              ]}>
-                {data.title}
-              </Text>
-            </View>
-
-          </View>
-        </View>
-        <View style={styles.itemBox_2}>
-          <View style={{
             flex: 1, flexGrow: 1,
-            justifyContent: 'center',
-            // flexDirection: 'row',
+            flexDirection: 'row',
           }}>
-            <View style={{ flex: 1, flexGrow: 1, flexDirection: 'row' }}>
-              <Text numberOfLines={1} style={styles.timeText}>
-                {moment(data.startTime).format('YYYY-MM-DD')}
-                <Text> </Text>
-                {moment(data.startTime).format('HH:mm')}
-                -
-                {moment(data.endTime).format('HH:mm')}
+            <View style={{ flex: 1, flexDirection: 'row', }}>
+              <Text numberOfLines={1} style={styles.titleText}>
+                {data.title}
+                <Text style={styles.nameText}>  {teacher.userName}</Text>
               </Text>
-              <View style={{
-                marginHorizontal: 8,
-                width: 1,
-                height: 14,
-                backgroundColor: '#192038',
-              }}></View>
-              <View>
-                <Text numberOfLines={1} style={styles.nameText}>{teacher.userName}</Text>
-              </View>
+
             </View>
           </View>
         </View>
-
         <View style={styles.itemBox_4}>
-          <Text style={[styles.checkText,
-            check === 1 ? styles.checkEndText : {}]}>
-            { check === 1 ? '已签到' : undefined }
-            { check !== 1 ? '未签到' : undefined }
-          </Text>
           <View style={{
             flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
             flexGrow: 1,
-            justifyContent: 'flex-end',
-          }}>
-            <View style={[styles.btnWrap, {
-              borderWidth: 1,
-              borderColor: '#DEDEDE'
-            }]}>
+          }} >
+            <View style={styles.btnWrap}>
               <Button
                 transparent
                 style={styles.btnContent}
@@ -291,16 +244,16 @@ class Home extends React.Component<IProps, IState> {
                   }))
                 }}
               >
-                <Text style={styles.btnText}>查看资源</Text>
+                <Text style={styles.btnText}>课程文件</Text>
               </Button>
             </View>
-            <View style={{ width: 10 }} />
+            <View style={{ width: 16 }} />
             {
               type !== 3 ? (
                 <View style={[styles.btnWrap]}>
                   <LinearGradient
                     start={{x: 0, y: 0}} end={{x: 1, y: 1}}
-                    colors={['#FFE304', '#FFE304' ]}
+                    colors={['#5652E7', '#4A48FF']}
                     style={[
                       styles.linearGradientBtn,
                       {
@@ -310,17 +263,10 @@ class Home extends React.Component<IProps, IState> {
                   >
                     <Button
                       style={[styles.btnContent, { borderWidth: 0, }]}
-                      transparent
-                      onPress={() => {
-                        this.props.dispatch(NavigationActions.navigate({
-                          routeName: 'Room',
-                          params: {
-                            metaData: data.metaData,
-                          },
-                        }))
-                      }}
+                      rounded transparent
+                      onPress={() => this.goToRoom(data)}
                     >
-                      <Text style={[styles.btnText, { color: '#030600' }]}>进入课堂</Text>
+                      <Text style={[styles.btnText, { color: '#fff' }]}>进入直播间</Text>
                     </Button>
                   </LinearGradient>
                 </View>
@@ -331,25 +277,25 @@ class Home extends React.Component<IProps, IState> {
                 <View style={[styles.btnWrap]}>
                   <LinearGradient
                     start={{x: 0, y: 0}} end={{x: 1, y: 1}}
-                    colors={['#FFE304', '#FFE304' ]}
+                    colors={['#5652E7', '#4A48FF']}
                     style={[
                       styles.linearGradientBtn,
                     ]}
                   >
                     <Button
                       style={[styles.btnContent, { borderWidth: 0, }]}
-                      transparent
+                      rounded transparent
                       onPress={async () => {
                         this.props.dispatch(NavigationActions.navigate({
                           routeName: 'VideoBack',
                           params: {
                             title: data.title,
-                            playbackURL: playbackURL
+                            playbackURL: data.playbackURL
                           },
                         }))
                       }}
                     >
-                      <Text style={[styles.btnText, { color: '#030600' }]}>观看课程回放</Text>
+                      <Text style={[styles.btnText, { color: '#fff' }]}>回放视频</Text>
                     </Button>
                   </LinearGradient>
                 </View>
@@ -357,30 +303,40 @@ class Home extends React.Component<IProps, IState> {
             }
           </View>
         </View>
-      </View>
+      </LinearGradient>
     )
   }
 
   allInfo = () => {
     const { siginInfo } = this.state;
-    return <View style={styles.allInfoWrap}>
+    return <LinearGradient
+      start={{x: 1, y: 0}} end={{x: 1, y: 1}}
+      colors={['#151641', '#151641']}
+      style={styles.allInfoWrap}
+    >
       <View style={styles.allInfoItem}>
         <View>
-          <Text numberOfLines={1} style={styles.allInfoTitle}>已上课程数: </Text>
+          <Text numberOfLines={1} style={styles.allInfoTitle}>累计上课数量: </Text>
         </View>
         <View>
-          <Text numberOfLines={1} style={styles.allInfoNum}>{siginInfo.finishedCount || 0}</Text>
+          <Text numberOfLines={1} style={styles.allInfoNum}>{siginInfo.courseCount || 0}</Text>
         </View>
+
       </View>
+      <View style={{
+        width: 1,
+        height: 20,
+        backgroundColor:'#fff'
+      }}></View>
       <View style={styles.allInfoItem}>
         <View>
-          <Text numberOfLines={1} style={styles.allInfoTitle}>出勤率: </Text>
+          <Text numberOfLines={1} style={styles.allInfoTitle}>累计出勤率: </Text>
         </View>
         <View>
-          <Text numberOfLines={1} style={styles.allInfoNum}>{siginInfo.signinRate || 0}%</Text>
+          <Text numberOfLines={1} style={styles.allInfoNum}>{siginInfo.finishedCount || 0}%</Text>
         </View>
       </View>
-    </View>
+    </LinearGradient>
   }
 
   renderTabList(type) {
@@ -408,7 +364,7 @@ class Home extends React.Component<IProps, IState> {
     return <SectionList
       style={{
         flexGrow: 1,
-        backgroundColor: '#F9F9F9'
+        backgroundColor: 'transparent',
       }}
       contentContainerStyle={{
         // paddingHorizontal: 16,
@@ -446,6 +402,7 @@ class Home extends React.Component<IProps, IState> {
     const { user = {} } = this.props;
     return (
       <Container style={styles.container}>
+        <StatusBar barStyle="light-content" />
         <NavigationEvents
             onWillFocus={async payload => {
               try {
@@ -471,53 +428,90 @@ class Home extends React.Component<IProps, IState> {
 
             }}
         />
-        <ImageBackground
-          source={home_bg_slices}
-          style={{
-            width: '100%',
-            height: 176,
-          }}
-        >
-          <Content
-            scrollEnabled={false}
-            contentContainerStyle={{
-              flexGrow: 1,
+        <View style={[
+          styles.header,
+          {
+            width: Dimensions.get('window').width,
+          },
+        ]}>
+          <ImageBackground
+            style={{
+              width: Dimensions.get('window').width,
+              height: 200,
+              alignContent: 'center',
               justifyContent: 'center',
-              alignItems: 'center',
             }}
-          >
-            <View>
-              <FastImage
-                style={{
-                  width: 52,
-                  height: 52,
-                  alignContent: 'center',
-                  justifyContent: 'center',
-                }}
-                source={userImg}
-                resizeMode={FastImage.resizeMode.contain}
-              />
+            source={require('./assets/header_bg/bg.png')}>
+            <View style={styles.headerContent}>
+              <View style={[styles.userWrap, { width: Dimensions.get('window').width }]}>
+                <FastImage
+                  style={{
+                    width: 86,
+                    height: 86,
+                    alignContent: 'center',
+                    justifyContent: 'center',
+                  }}
+                  source={require('./assets/avatar_slices/avatar.png')}
+                  resizeMode={FastImage.resizeMode.contain}
+                />
+                <Text style={styles.userName}>
+                  {user.username || '游客'}
+                </Text>
+              </View>
             </View>
-            <Text style={{
-              marginTop: 16,
-              color: '#404E66',
-              fontSize: 20,
-              lineHeight: 28,
-              fontWeight: '500',
-            }}>{user.name || '未知'}</Text>
-          </Content>
-        </ImageBackground>
+          </ImageBackground>
+
+        </View>
+        <Segment style={styles.segment}>
+          <LinearGradient
+            start={{x: 0, y: 0}} end={{x: 1, y: 1}}
+            colors={['#5652E7', '#4A48FF']}
+            style={[
+              styles.segmentBtn,
+              {
+                opacity: this.state.active === 0 ? 1 : 0.4
+              }
+            ]}
+          >
+            <Button
+              onPress={() => {
+                this.setState({
+                  active: 0,
+                })
+              }}
+              style={styles.segmentBtn} full first><Text style={styles.segmentBtnText}>今日课程</Text></Button>
+          </LinearGradient>
+          <LinearGradient
+            start={{x: 0, y: 0}} end={{x: 1, y: 1}}
+            colors={['#5652E7', '#4A48FF']}
+            style={[
+              styles.segmentBtn,
+              {
+                opacity: this.state.active === 1 ? 1 : 0.4
+              }
+            ]}
+          >
+            <Button
+              onPress={() => {
+                this.setState({
+                  active: 1,
+                })
+              }}
+              style={styles.segmentBtn} full last><Text  style={styles.segmentBtnText}>全部课程</Text></Button>
+          </LinearGradient>
+        </Segment>
         <View
           style={{
             flex: 1,
             flexGrow: 1,
             overflow: 'hidden',
-            backgroundColor: '#F9FBFF',
+            backgroundColor: 'transparent',
           }}
         >
           <Tabs
             style={{
               flexGrow: 1,
+              backgroundColor: 'transparent',
             }}
             page={active}
             renderTabBar={() => <View />}
@@ -529,63 +523,20 @@ class Home extends React.Component<IProps, IState> {
           >
             <Tab
               style={{
+                backgroundColor: 'transparent',
               }}
               heading="1">
               {this.renderTabList("今日课程")}
             </Tab>
             <Tab
               style={{
+                backgroundColor: 'transparent',
               }}
               heading="2">
               {this.renderTabList("全部课程")}
             </Tab>
           </Tabs>
         </View>
-        <Footer style={styles.footerWrap}>
-          <FooterTab style={{
-            justifyContent: 'center',
-            alignItems: 'center'
-          }}>
-            <Button
-              onPress={() => {
-                this.setState({
-                  active: 0,
-                })
-              }}
-              full style={styles.btnTab}>
-              <FastImage
-                style={{
-                  width: 24,
-                  height: 24,
-                  alignContent: 'center',
-                  justifyContent: 'center',
-                }}
-                source={active === 0 ? icon_myorder_active_slices : icon_myorder_default_slices}
-                resizeMode={FastImage.resizeMode.contain}
-              />
-              <Text style={[styles.btnTabText, active === 0 ? styles.activeBtnTabText : {}]}>今日课程</Text>
-            </Button>
-            <Button
-              onPress={() => {
-                this.setState({
-                  active: 1,
-                })
-              }}
-              full style={styles.btnTab}>
-              <FastImage
-                style={{
-                  width: 24,
-                  height: 24,
-                  alignContent: 'center',
-                  justifyContent: 'center',
-                }}
-                source={active === 1 ? icon_register_active_slices : icon_register_default_slices }
-                resizeMode={FastImage.resizeMode.contain}
-              />
-              <Text style={[styles.btnTabText, active === 1 ? styles.activeBtnTabText : {}]}>全部课程</Text>
-            </Button>
-          </FooterTab>
-        </Footer>
       </Container>
     );
   }
