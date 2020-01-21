@@ -6,6 +6,8 @@ import { connect } from 'react-redux';
 import styles from './styles';
 
 import open from '@/theme/Theme_Education_001/components/OpenFileViewer';
+import homeIcon from '@/theme/Theme_Education_003/pages/Home/assets/home_icon_slices/icon.png';
+import FastImage from 'react-native-fast-image';
 
 export interface IProps {}
 
@@ -67,14 +69,30 @@ class Home extends React.Component<IProps, IState> {
                     >
                         {
                             (this.state.list).map((item: fileType) => {
-                                return <ListItem noIndent onPress={async () => {
+                                return <ListItem noIndent noBorder onPress={async () => {
                                     await open(item.url, item.title)
                                 }}>
-                                    <Left>
-                                        <Text style={styles.itemText}>{item.title}</Text>
+                                    <Left style={{
+                                        // justifyContent: 'center',
+                                        alignItems: 'center'
+                                    }}>
+                                        <FastImage
+                                          style={{
+                                              marginRight: 14,
+                                              width: 40,
+                                              height: 40,
+                                              alignContent: 'center',
+                                              justifyContent: 'center',
+                                          }}
+                                          source={require('./assets/ppt_slices/ppt.png')}
+                                          resizeMode={FastImage.resizeMode.contain}
+                                        />
+                                        <Text style={styles.itemText}>{item.title}12312312</Text>
                                     </Left>
                                     <Right>
-                                        <Icon name="arrow-forward" />
+                                        <Text style={[styles.itemText, {
+                                            color: '#FF6633'
+                                        }]}>查看</Text>
                                     </Right>
                                 </ListItem>
                             })

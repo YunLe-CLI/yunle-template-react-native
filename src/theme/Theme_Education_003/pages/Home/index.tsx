@@ -26,7 +26,7 @@ import _ from 'lodash';
 import moment from 'moment';
 import styles from './styles';
 import {NavigationActions, NavigationEvents} from 'react-navigation';
-import home_bg_slices from './assets/home_bg_slices/home_bg.png'
+import home_bg_slices from './assets/home_bg_slices/banner.png'
 import userImg from './assets/Oval_slices/Oval.png'
 import icon_myorder_default_slices from './assets/icon_myorder_default_slices/icon_jrkc_active.png';
 import icon_myorder_active_slices from './assets/icon_myorder_active_slices/icon_jrkc_active.png';
@@ -35,6 +35,7 @@ import icon_register_active_slices from './assets/icon_register_active_slices/ic
 import icon_jxz_slices from './assets/icon_jxz_slices/icon_jxz.png';
 import icon_wks_slices from './assets/icon_wks_slices/icon_wks.png';
 import icon_yjs_slices from './assets/icon_yjs_slices/icon_yjs.png';
+import homeIcon from './assets/home_icon_slices/icon.png';
 
 import LinearGradient from "react-native-linear-gradient";
 
@@ -187,174 +188,168 @@ class Home extends React.Component<IProps, IState> {
     }
     return (
       <View key={JSON.stringify(data)} style={styles.itemBox}>
-        <View style={styles.itemBox_1}>
-          <View style={{
-            position: 'absolute',
-            right: 8,
-            top: -16,
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'flex-end',
-          }}>
-            <ImageBackground
-              style={{
-                alignSelf: 'flex-end',
-                width: 48,
-                height: 35,
-                justifyContent: 'center',
-              }}
-              source={typeImg}
-            >
-
-              {/*<Text style={[styles.type,*/}
-              {/*  type === -1 ? styles.type_0 : {},*/}
-              {/*  type === 1 ? styles.type_1 : {},*/}
-              {/*  type === 2 ? styles.type_2 : {},*/}
-              {/*  type === 3 ? styles.type_3 : {},*/}
-              {/*]}>*/}
-              {/*  {type === -1 ? '未开始' : ''}*/}
-              {/*  {type === 1 ? '进行中' : ''}*/}
-              {/*  {type === 2 ? '未开始' : ''}*/}
-              {/*  {type === 3 ? '已结束' : ''}*/}
-              {/*</Text>*/}
-            </ImageBackground>
+        <ImageBackground
+          style={{
+            marginRight: 16,
+            width: 115,
+            height: 132,
+            padding: 6,
+            // alignContent: 'center',
+            // justifyContent: 'center',
+          }}
+          source={require('./assets/item_img_slices/img.png')}
+        >
+          <View  style={[styles.type,
+            type === -1 ? styles.type_0 : {},
+            type === 1 ? styles.type_1 : {},
+            type === 2 ? styles.type_2 : {},
+            type === 3 ? styles.type_3 : {},
+          ]}>
+          <Text style={styles.typeText}>
+            {type === -1 ? '未开始' : ''}
+            {type === 1 ? '进行中' : ''}
+            {type === 2 ? '未开始' : ''}
+            {type === 3 ? '已结束' : ''}
+          </Text>
           </View>
-        </View>
-        <View style={styles.itemBox_3}>
-          <View style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}>
+        </ImageBackground>
+        <View style={{
+          flex: 1,
+          flexGrow: 1,
+        }}>
+          <View style={styles.itemBox_3}>
             <View style={{
+              flexDirection: 'row',
+              alignItems: 'center',
             }}>
-              <Text  numberOfLines={1} style={[
-                styles.titleText,
-              ]}>
-                {data.title}
-              </Text>
-            </View>
-
-          </View>
-        </View>
-        <View style={styles.itemBox_2}>
-          <View style={{
-            flex: 1, flexGrow: 1,
-            justifyContent: 'center',
-            // flexDirection: 'row',
-          }}>
-            <View style={{ flex: 1, flexGrow: 1, flexDirection: 'row' }}>
-              <Text numberOfLines={1} style={styles.timeText}>
-                {moment(data.startTime).format('YYYY-MM-DD')}
-                <Text> </Text>
-                {moment(data.startTime).format('HH:mm')}
-                -
-                {moment(data.endTime).format('HH:mm')}
-              </Text>
               <View style={{
-                marginHorizontal: 8,
-                width: 1,
-                height: 14,
-                backgroundColor: '#192038',
-              }}></View>
-              <View>
-                <Text numberOfLines={1} style={styles.nameText}>{teacher.userName}</Text>
+              }}>
+                <Text  numberOfLines={1} style={[
+                  styles.titleText,
+                ]}>
+                  {data.title}
+                </Text>
+              </View>
+
+            </View>
+          </View>
+          <View style={styles.itemBox_2}>
+            <View style={{
+              flex: 1, flexGrow: 1,
+              justifyContent: 'center',
+              // flexDirection: 'row',
+            }}>
+              <View style={{ flex: 1, flexGrow: 1, flexDirection: 'row' }}>
+                <Text numberOfLines={1} style={styles.timeText}>
+                  {moment(data.startTime).format('YYYY-MM-DD')}
+                  <Text> </Text>
+                  {moment(data.startTime).format('HH:mm')}
+                  -
+                  {moment(data.endTime).format('HH:mm')}
+                </Text>
               </View>
             </View>
           </View>
-        </View>
-
-        <View style={styles.itemBox_4}>
-          <Text style={[styles.checkText,
-            check === 1 ? styles.checkEndText : {}]}>
-            { check === 1 ? '已签到' : undefined }
-            { check !== 1 ? '未签到' : undefined }
-          </Text>
-          <View style={{
-            flexDirection: 'row',
-            flexGrow: 1,
-            justifyContent: 'flex-end',
-          }}>
-            <View style={[styles.btnWrap, {
-              borderWidth: 1,
-              borderColor: '#DEDEDE'
-            }]}>
-              <Button
-                transparent
-                style={styles.btnContent}
-                onPress={() => {
-                  this.props.dispatch(NavigationActions.navigate({
-                    routeName: 'Assets',
-                    params: {
-                      title: data.title,
-                      coursewares
-                    },
-                  }))
-                }}
-              >
-                <Text style={styles.btnText}>查看资源</Text>
-              </Button>
+          <View style={styles.itemBox_4}>
+            <Text style={[styles.checkText,
+              check === 1 ? styles.checkEndText : {}]}>
+              { check === 1 ? '已签到' : undefined }
+              { check !== 1 ? '未签到' : undefined }
+            </Text>
+            <View style={{
+              marginHorizontal: 8,
+              width: 1,
+              height: 14,
+              backgroundColor: '#192038',
+            }}></View>
+            <View>
+              <Text numberOfLines={1} style={styles.nameText}>{teacher.userName}</Text>
             </View>
-            <View style={{ width: 10 }} />
-            {
-              type !== 3 ? (
-                <View style={[styles.btnWrap]}>
-                  <LinearGradient
-                    start={{x: 0, y: 0}} end={{x: 1, y: 1}}
-                    colors={['#FFE304', '#FFE304' ]}
-                    style={[
-                      styles.linearGradientBtn,
-                      {
-                        opacity: type === 1 ? 1 : 0.4
-                      }
-                    ]}
-                  >
-                    <Button
-                      style={[styles.btnContent, { borderWidth: 0, }]}
-                      transparent
-                      onPress={() => {
-                        this.props.dispatch(NavigationActions.navigate({
-                          routeName: 'Room',
-                          params: {
-                            metaData: data.metaData,
-                          },
-                        }))
-                      }}
+          </View>
+          <View style={styles.itemBox_4}>
+            <View style={{
+              flex: 1,
+              flexDirection: 'row',
+              // flexGrow: 1,
+              justifyContent: 'flex-end',
+            }}>
+              <View style={[styles.btnWrap, {
+                borderWidth: 1,
+                borderColor: '#DEDEDE'
+              }]}>
+                <Button
+                  transparent
+                  style={styles.btnContent}
+                  onPress={() => {
+                    this.props.dispatch(NavigationActions.navigate({
+                      routeName: 'Assets',
+                      params: {
+                        title: data.title,
+                        coursewares
+                      },
+                    }))
+                  }}
+                >
+                  <Text style={styles.btnText}>查看课堂资源</Text>
+                </Button>
+              </View>
+              <View style={{ width: 10 }} />
+              {
+                type !== 3 ? (
+                  <View style={[styles.btnWrap]}>
+                    <LinearGradient
+                      start={{x: 0, y: 0}} end={{x: 1, y: 1}}
+                      colors={['#FF6633', '#FF6633' ]}
+                      style={[
+                        styles.linearGradientBtn,
+                        {
+                          opacity: type === 1 ? 1 : 0.4
+                        }
+                      ]}
                     >
-                      <Text style={[styles.btnText, { color: '#030600' }]}>进入课堂</Text>
-                    </Button>
-                  </LinearGradient>
-                </View>
-              ) : undefined
-            }
-            {
-              type === 3 ? (
-                <View style={[styles.btnWrap]}>
-                  <LinearGradient
-                    start={{x: 0, y: 0}} end={{x: 1, y: 1}}
-                    colors={['#FFE304', '#FFE304' ]}
-                    style={[
-                      styles.linearGradientBtn,
-                    ]}
-                  >
+                      <Button
+                        style={[styles.btnContent, { borderWidth: 0, }]}
+                        transparent
+                        onPress={() => {
+                          this.props.dispatch(NavigationActions.navigate({
+                            routeName: 'Room',
+                            params: {
+                              metaData: data.metaData,
+                            },
+                          }))
+                        }}
+                      >
+                        <Text style={[styles.btnText, { color: '#fff' }]}>进入课堂</Text>
+                      </Button>
+                    </LinearGradient>
+                  </View>
+                ) : undefined
+              }
+              {
+                type === 3 ? (
+                  <View style={[styles.btnWrap, {
+                    borderWidth: 1,
+                    borderColor: '#FF6633'
+                  }]}>
                     <Button
-                      style={[styles.btnContent, { borderWidth: 0, }]}
                       transparent
-                      onPress={async () => {
+                      style={styles.btnContent}
+                      onPress={() => {
                         this.props.dispatch(NavigationActions.navigate({
                           routeName: 'VideoBack',
                           params: {
                             title: data.title,
-                            playbackURL: playbackURL
+                            playbackURL: playbackURL,
                           },
                         }))
                       }}
                     >
-                      <Text style={[styles.btnText, { color: '#030600' }]}>观看课程回放</Text>
+                      <Text style={[styles.btnText, { color: '#FF6633' }]}>查看课堂视频</Text>
                     </Button>
-                  </LinearGradient>
-                </View>
-              ) : undefined
-            }
+                  </View>
+                ) : undefined
+              }
+            </View>
           </View>
         </View>
       </View>
@@ -383,28 +378,12 @@ class Home extends React.Component<IProps, IState> {
     </View>
   }
 
-  renderTabList(type) {
-    const { todayCourses, allCourses } = this.state;
-
-    const todayList = {
-      title: "今日预约",
-      data: todayCourses,
-    };
-    const registrationsList = {
-      title: "全部预约",
-      data: allCourses,
-    };
+  renderTabList() {
     let list = []
-    if (type === '今日课程') {
-      list = [
-        todayList,
-      ]
+    if (this.state.todayCourses && this.state.todayCourses.length) {
+      list = list.concat({ title: "今日课程", data: this.state.todayCourses })
     }
-    if (type === '全部课程') {
-      list = [
-        registrationsList,
-      ]
-    }
+    list = list.concat({ title: "全部课程", data: [...this.state.allCourses] })
     return <SectionList
       style={{
         flexGrow: 1,
@@ -413,7 +392,7 @@ class Home extends React.Component<IProps, IState> {
       contentContainerStyle={{
         // paddingHorizontal: 16,
       }}
-      stickySectionHeadersEnabled
+      stickySectionHeadersEnabled={false}
       onEndReachedThreshold={0.3}
       refreshing={this.state.refreshing}
       onRefresh={this._onRefresh}
@@ -427,12 +406,14 @@ class Home extends React.Component<IProps, IState> {
         </View>
       }}
       renderSectionHeader={({ section: { title } }) => {
-        return <View style={{ marginBottom: 25, }}>
-          {type === '全部课程' ? this.allInfo() : undefined}
+        return <View style={styles.titleWrap}>
+          <View style={styles.dItem} />
+          <Text style={styles.title}>{title}</Text>
+          <View style={styles.dItem} />
         </View>
       }}
       sections={list || []}
-      ItemSeparatorComponent={() => <View style={{ height: 12 }} />}
+      ItemSeparatorComponent={() => <View style={{ height: 0 }} />}
       ListEmptyComponent={() => {
         return <View />
       }}
@@ -442,7 +423,7 @@ class Home extends React.Component<IProps, IState> {
   }
 
   render() {
-    const { active } = this.state;
+    const { active, siginInfo = {} } = this.state;
     const { user = {} } = this.props;
     return (
       <Container style={styles.container}>
@@ -471,11 +452,9 @@ class Home extends React.Component<IProps, IState> {
 
             }}
         />
-        <ImageBackground
-          source={home_bg_slices}
+        <View
           style={{
-            width: '100%',
-            height: 176,
+            backgroundColor: '#FD8925'
           }}
         >
           <Content
@@ -486,27 +465,15 @@ class Home extends React.Component<IProps, IState> {
               alignItems: 'center',
             }}
           >
-            <View>
-              <FastImage
-                style={{
-                  width: 52,
-                  height: 52,
-                  alignContent: 'center',
-                  justifyContent: 'center',
-                }}
-                source={userImg}
-                resizeMode={FastImage.resizeMode.contain}
-              />
-            </View>
-            <Text style={{
-              marginTop: 16,
-              color: '#404E66',
-              fontSize: 20,
-              lineHeight: 28,
-              fontWeight: '500',
-            }}>{user.name || '未知'}</Text>
           </Content>
-        </ImageBackground>
+          <ImageBackground
+            source={home_bg_slices}
+            style={{
+              width: '100%',
+              height: 210,
+            }}
+          />
+        </View>
         <View
           style={{
             flex: 1,
@@ -515,75 +482,31 @@ class Home extends React.Component<IProps, IState> {
             backgroundColor: '#F9FBFF',
           }}
         >
-          <Tabs
-            style={{
-              flexGrow: 1,
-            }}
-            page={active}
-            renderTabBar={() => <View />}
-            onChangeTab={({i}) => {
-              this.setState({
-                active: i
-              })
-            }}
-          >
-            <Tab
-              style={{
-              }}
-              heading="1">
-              {this.renderTabList("今日课程")}
-            </Tab>
-            <Tab
-              style={{
-              }}
-              heading="2">
-              {this.renderTabList("全部课程")}
-            </Tab>
-          </Tabs>
+          {this.renderTabList()}
         </View>
         <Footer style={styles.footerWrap}>
           <FooterTab style={{
-            justifyContent: 'center',
+            paddingHorizontal: 16,
+            justifyContent: 'flex-start',
             alignItems: 'center'
           }}>
-            <Button
-              onPress={() => {
-                this.setState({
-                  active: 0,
-                })
+            <FastImage
+              style={{
+                marginRight: 14,
+                width: 32,
+                height: 32,
+                alignContent: 'center',
+                justifyContent: 'center',
               }}
-              full style={styles.btnTab}>
-              <FastImage
-                style={{
-                  width: 24,
-                  height: 24,
-                  alignContent: 'center',
-                  justifyContent: 'center',
-                }}
-                source={active === 0 ? icon_myorder_active_slices : icon_myorder_default_slices}
-                resizeMode={FastImage.resizeMode.contain}
-              />
-              <Text style={[styles.btnTabText, active === 0 ? styles.activeBtnTabText : {}]}>今日课程</Text>
-            </Button>
-            <Button
-              onPress={() => {
-                this.setState({
-                  active: 1,
-                })
-              }}
-              full style={styles.btnTab}>
-              <FastImage
-                style={{
-                  width: 24,
-                  height: 24,
-                  alignContent: 'center',
-                  justifyContent: 'center',
-                }}
-                source={active === 1 ? icon_register_active_slices : icon_register_default_slices }
-                resizeMode={FastImage.resizeMode.contain}
-              />
-              <Text style={[styles.btnTabText, active === 1 ? styles.activeBtnTabText : {}]}>全部课程</Text>
-            </Button>
+              source={homeIcon}
+              resizeMode={FastImage.resizeMode.contain}
+            />
+            <Text style={{
+              color: '#FF6633',
+              fontSize: 14,
+              lineHeight: 23,
+              fontWeight: '400',
+            }}>累计出勤率：{siginInfo.signinRate || 0}%</Text>
           </FooterTab>
         </Footer>
       </Container>

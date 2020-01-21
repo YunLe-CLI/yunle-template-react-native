@@ -27,6 +27,7 @@ export default StyleSheet.create({
     borderBottomWidth: 0,
     overflow: 'hidden',
     padding: 16,
+    flexDirection: 'row',
   },
   typeLineDefault: {
     width: 16,
@@ -248,17 +249,19 @@ export default StyleSheet.create({
   },
   checkText: {
     fontWeight: '400',
-    color: '#8F9BB3',
+    color: '#11CD8F',
     fontSize: 16,
     lineHeight: 16,
   },
   checkEndText: {
     fontWeight: '400',
-    color: '#24CCB8',
+    color: '#FF6633',
     fontSize: 16,
     lineHeight: 16,
   },
   itemBox_4: {
+    flex: 1,
+    flexGrow: 1,
     marginTop: 16,
     alignItems: 'center',
     flexDirection: 'row',
@@ -274,17 +277,18 @@ export default StyleSheet.create({
   },
   timeText: {
     fontWeight: '400',
-    color: '#192038',
+    color: '#999999',
     fontSize: 16,
     lineHeight: 20,
   },
   nameText: {
     fontWeight: '400',
-    color: '#192038',
+    color: '#999999',
     fontSize: 16,
     lineHeight: 20,
   },
   btnWrap: {
+    flexGrow: 1,
     borderRadius: 3,
     overflow: 'hidden'
   },
@@ -292,5 +296,51 @@ export default StyleSheet.create({
     paddingTop: 0,
     paddingBottom: 0,
     height: 28,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  type: {
+    width: 52,
+    height: 20,
+    backgroundColor: '#3E4F63',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 3,
+  },
+  type_0: {
+    backgroundColor: '#FEC66C',
+  },
+  type_1: {
+    backgroundColor: '#FD673D',
+  },
+  type_2: {
+    backgroundColor: '#FEC66C',
+  },
+  type_3: {
+    backgroundColor: '#3E4F63',
+  },
+  typeText: {
+    color: '#fff',
+    fontSize: 12,
+    fontWeight: '500',
+  },
+  titleWrap: {
+    paddingVertical: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    backgroundColor: '#fff',
+  },
+  title: {
+    color: '#030303',
+    fontSize: 18,
+    fontWeight: '500',
+  },
+  dItem: {
+    marginHorizontal: 10,
+    width: 4,
+    height: 4,
+    borderRadius: 2,
+    backgroundColor: '#FF753E',
   }
 });
