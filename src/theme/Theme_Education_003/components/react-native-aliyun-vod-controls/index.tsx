@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Image, ImageBackground, Platform, StyleSheet, TouchableOpacity, View, ViewPropTypes} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import Video from 'react-native-aliyun-vod'; // eslint-disable-line
+import Video from 'react-native-aliyun-vod';
+import homeIcon from '@/theme/Theme_Education_003/pages/Home/assets/home_icon_slices/icon.png';
+import FastImage from 'react-native-fast-image'; // eslint-disable-line
 
 const BackgroundImage = ImageBackground || Image; // fall back to Image if RN < 0.46
 
@@ -360,7 +362,17 @@ export default class VideoPlayer extends Component {
                 style={[styles.playButton, customStyles.playButton]}
                 onPress={this.onStartPress}
             >
-                <Icon style={[styles.playArrow, customStyles.playArrow]} name="play-arrow" size={42} />
+                <FastImage
+                  style={{
+                      width: 55,
+                      height: 55,
+                      alignContent: 'center',
+                      justifyContent: 'center',
+                  }}
+                  source={require('./assets/play_slices/index.png')}
+                  resizeMode={FastImage.resizeMode.contain}
+                />
+                {/*<Icon style={[styles.playArrow, customStyles.playArrow]} name="play-arrow" size={42} />*/}
             </TouchableOpacity>
         );
     }

@@ -36,40 +36,41 @@ class Home extends React.Component<IProps, IState> {
         const { playbackURL = '', title = '' } = navigation.state.params;
         return (
             <Container style={styles.container}>
-                <Header
-                  transparent
-                  iosBarStyle={"dark-content"}
-                >
-                    <Left>
-                        <Button transparent
-                                style={{
-                                    marginLeft: 10,
-                                }}
-                                onPress={() => {
-                                    const { dispatch } = this.props;
-                                    dispatch(NavigationActions.back());
-                                }}
-                        >
-                            <Icon style={{ color: '#333333', fontSize: 25, }} color={'#333333'} name='arrow-back' />
-                        </Button>
-                    </Left>
-                    <Body>
-                        <Title style={{
-                            color: '#333333'
-                        }}>{title}</Title>
-                    </Body>
-                    <Right />
-                </Header>
+                {/*<Header*/}
+                {/*  transparent*/}
+                {/*  iosBarStyle={"dark-content"}*/}
+                {/*>*/}
+                {/*    <Left>*/}
+                {/*        <Button transparent*/}
+                {/*                style={{*/}
+                {/*                    marginLeft: 10,*/}
+                {/*                }}*/}
+                {/*                onPress={() => {*/}
+                {/*                    const { dispatch } = this.props;*/}
+                {/*                    dispatch(NavigationActions.back());*/}
+                {/*                }}*/}
+                {/*        >*/}
+                {/*            <Icon style={{ color: '#333333', fontSize: 25, }} color={'#333333'} name='arrow-back' />*/}
+                {/*        </Button>*/}
+                {/*    </Left>*/}
+                {/*    <Body>*/}
+                {/*        <Title style={{*/}
+                {/*            color: '#333333'*/}
+                {/*        }}>{title}</Title>*/}
+                {/*    </Body>*/}
+                {/*    <Right />*/}
+                {/*</Header>*/}
+                <VideoPlayer
+                  video={{ uri: playbackURL }}
+                  videoWidth={video.width}
+                  videoHeight={video.height}
+                  duration={this.state.video.duration}
+                  ref={r => this.player = r}
+                  disableFullscreen
+                />
                 <Content style={{ backgroundColor: '#F4F6FA' }}>
                     <View>
-                        <VideoPlayer
-                            video={{ uri: playbackURL }}
-                            videoWidth={video.width}
-                            videoHeight={video.height}
-                            duration={this.state.video.duration}
-                            ref={r => this.player = r}
-                            disableFullscreen
-                        />
+
                     </View>
                     {/*<View>*/}
                     {/*    <Text style={styles.title}>回放列表</Text>*/}

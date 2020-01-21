@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Image, ImageBackground, Platform, StyleSheet, TouchableOpacity, View, ViewPropTypes} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import Video from 'react-native-aliyun-vod'; // eslint-disable-line
+import Video from 'react-native-aliyun-vod';
+import FastImage from 'react-native-fast-image'; // eslint-disable-line
 
 const BackgroundImage = ImageBackground || Image; // fall back to Image if RN < 0.46
 
@@ -72,7 +73,7 @@ const styles = StyleSheet.create({
     },
     seekBarProgress: {
         height: 3,
-        backgroundColor: '#F00',
+        backgroundColor: '#FFE304',
     },
     seekBarKnob: {
         width: 20,
@@ -80,7 +81,7 @@ const styles = StyleSheet.create({
         marginHorizontal: -8,
         marginVertical: -10,
         borderRadius: 10,
-        backgroundColor: '#F00',
+        backgroundColor: '#FFE304',
         transform: [{ scale: 0.8 }],
         zIndex: 1,
     },
@@ -360,7 +361,17 @@ export default class VideoPlayer extends Component {
                 style={[styles.playButton, customStyles.playButton]}
                 onPress={this.onStartPress}
             >
-                <Icon style={[styles.playArrow, customStyles.playArrow]} name="play-arrow" size={42} />
+                <FastImage
+                  style={{
+                      width: 48,
+                      height: 48,
+                      alignContent: 'center',
+                      justifyContent: 'center',
+                  }}
+                  source={require('./assets/icon_play_slices/index.png')}
+                  resizeMode={FastImage.resizeMode.contain}
+                />
+                {/*<Icon style={[styles.playArrow, customStyles.playArrow]} name="play-arrow" size={42} />*/}
             </TouchableOpacity>
         );
     }

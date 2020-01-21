@@ -123,7 +123,7 @@ export default {
   checkboxTickColor: '#fff',
 
   // Color
-  brandPrimary: '#6AE27C',
+  brandPrimary: '#FF6633',
   brandInfo: '#62B1F6',
   brandSuccess: '#5cb85c',
   brandDanger: '#d9534f',
@@ -157,27 +157,27 @@ export default {
 
   // Footer
   footerHeight: 55,
-  footerDefaultBg: '#6AE27C',
+  footerDefaultBg: '#FF6633',
   footerPaddingBottom: 0,
 
   // FooterTab
   tabBarTextColor: '#bfc6ea',
   tabBarTextSize: 11,
   activeTab: '#fff',
-  sTabBarActiveTextColor: '#11CD8F',
+  sTabBarActiveTextColor: '#FF6633',
   tabBarActiveTextColor: '#fff',
-  tabActiveBgColor: '#6AE27C',
+  tabActiveBgColor: '#FF6633',
 
   // Header
   toolbarBtnColor: '#fff',
-  toolbarDefaultBg: '#6AE27C',
+  toolbarDefaultBg: '#FF6633',
   toolbarHeight: 56,
   toolbarSearchIconSize: 23,
   toolbarInputColor: '#fff',
   searchBarHeight: platform === PLATFORM.IOS ? 30 : 40,
   searchBarInputHeight: platform === PLATFORM.IOS ? 40 : 50,
   toolbarBtnTextColor: '#fff',
-  toolbarDefaultBorder: '#6AE27C',
+  toolbarDefaultBorder: '#FF6633',
   iosStatusbar: 'light-content',
   get statusBarColor() {
     return color(this.toolbarDefaultBg)
@@ -223,7 +223,7 @@ export default {
   listItemPadding: 12,
   listNoteColor: '#808080',
   listNoteSize: 13,
-  listItemSelected: '#6AE27C',
+  listItemSelected: '#FF6633',
 
   // Progress Bar
   defaultProgressColor: '#E4202D',
@@ -231,26 +231,26 @@ export default {
 
   // Radio Button
   radioBtnSize: 23,
-  radioSelectedColorAndroid: '#6AE27C',
+  radioSelectedColorAndroid: '#FF6633',
   radioBtnLineHeight: 24,
   get radioColor() {
     return this.brandPrimary;
   },
 
   // Segment
-  segmentBackgroundColor: '#6AE27C',
+  segmentBackgroundColor: '#FF6633',
   segmentActiveBackgroundColor: '#fff',
   segmentTextColor: '#fff',
-  segmentActiveTextColor: '#6AE27C',
+  segmentActiveTextColor: '#FF6633',
   segmentBorderColor: '#fff',
-  segmentBorderColorMain: '#6AE27C',
+  segmentBorderColorMain: '#FF6633',
 
   // Spinner
   defaultSpinnerColor: '#45D56E',
   inverseSpinnerColor: '#1A191B',
 
   // Tab
-  tabDefaultBg: '#6AE27C',
+  tabDefaultBg: '#FF6633',
   topTabBarTextColor: '#b3c7f9',
   topTabBarActiveTextColor: '#fff',
   topTabBarBorderColor: '#fff',

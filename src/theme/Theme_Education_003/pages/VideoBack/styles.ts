@@ -51,6 +51,18 @@ export default StyleSheet.create({
     fontWeight: '500',
     lineHeight: 23,
     paddingHorizontal: 16,
-    paddingVertical: 16,
+    marginTop: 16,
+  },
+  btn: {
+    marginLeft: 17,
+    marginBottom: 17,
+    width: 103,
+    height: 66,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderColor: '#D3D3D3',
+  },
+  btnText: {
+    color: '#000000'
   }
 });
