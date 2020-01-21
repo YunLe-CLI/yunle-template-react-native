@@ -123,7 +123,8 @@ class Home extends React.Component<IProps, IState> {
           </View>
           <View style={{
             justifyContent: 'flex-start',
-            alignItems: 'flex-start'
+            alignItems: 'flex-start',
+            marginBottom: 60,
           }}>
             <Button
               onPress={() => {
