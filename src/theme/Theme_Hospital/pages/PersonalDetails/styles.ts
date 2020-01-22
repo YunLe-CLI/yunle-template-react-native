@@ -58,10 +58,12 @@ export default StyleSheet.create({
     lineHeight: 21,
   },
   ipt: {
+    paddingHorizontal: 5,
     fontSize: 15,
     fontWeight: '400',
     color: '#404E66',
     lineHeight: 21,
+    flexGrow: 1,
   },
   iptMultiline: {
     // minHeight: 112,

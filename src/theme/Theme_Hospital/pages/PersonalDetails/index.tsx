@@ -23,7 +23,10 @@ import {NavigationActions, NavigationEvents} from 'react-navigation';
 import {OrientationType} from "react-native-orientation-locker";
 import LinearGradient from "react-native-linear-gradient";
 import {PATIENTS_DETAILS, PATIENTS_INFO_PUT} from '../../services/api';
-
+import { withSelectDateTimeModal } from '@/theme/Theme_Hospital/components/SelectTimeModal';
+import { withSelectGenderModal } from '@/theme/Theme_Hospital/components/SelectGenderModal';
+import moment from 'moment';
+import _ from 'lodash';
 export interface IProps {}
 
 export interface IState {
@@ -35,6 +38,11 @@ export interface IState {
 }) as any)
 class Home extends React.Component<IProps, IState> {
 
+  constructor(props: IProps) {
+    super(props);
+    this.componentDidMount = _.debounce(this.componentDidMount, 800);
+  }
+
   state = {
     orientationType: 'PORTRAIT',
     video: {
@@ -45,6 +53,10 @@ class Home extends React.Component<IProps, IState> {
     }
   };
 
+  componentDidMount(): void {
+    this.getUserInfo();
+  }
+
   async postData() {
     try {
       const { user } = this.props;
@@ -52,9 +64,9 @@ class Home extends React.Component<IProps, IState> {
         id: user.id,
         "name": this.state.name,// 【必须】
         "idCard":this.state.idCard,// 身份证
-        "birthdate":this.state.birthdate,// 生日
-        "gender":this.state.gender,// 性别（1-男 2-女）
-        "age":this.state.age,// 年龄
+        "birthdate":moment(this.state.birthdate).format('X') - 0,// 生日
+        "gender":this.state.gender - 0,// 性别（1-男 2-女）
+        "age":this.state.age - 0,// 年龄
         "medicalHistory":this.state.medicalHistory,// 病史
       })
       if (res.code === 0) {
@@ -62,6 +74,8 @@ class Home extends React.Component<IProps, IState> {
           routeName: 'Home',
           params: {},
         }))
+      } else {
+        throw res.msg
       }
     } catch (e) {
       alert(e)
@@ -73,14 +87,28 @@ class Home extends React.Component<IProps, IState> {
   async getUserInfo() {
     try {
       const userRes = await PATIENTS_DETAILS({});
-      const userInfo = await dispatch({
-        type: 'user/setUserAsync',
-        payload: {
-          user: userRes.data,
-        }
-      });
-    } catch (e) {
+      if (userRes.code === 0) {
+        const userInfo = await this.props.dispatch({
+          type: 'user/setUserAsync',
+          payload: {
+            user: userRes.data,
+          }
+        });
+        const { data = {} } = userRes;
+        this.setState({
+          "name": data.name,// 【必须】
+          "idCard":data.idCard,// 身份证
+          "birthdate":data.birthdate,// 生日
+          "gender":data.gender - 0,// 性别（1-男 2-女）
+          "age": data.age + '',// 年龄
+          "medicalHistory": data.medicalHistory,// 病史
+        })
+      } else {
+        throw userRes.msg
+      }
 
+    } catch (e) {
+      alert(e)
     }
   }
 
@@ -113,28 +141,39 @@ class Home extends React.Component<IProps, IState> {
 
           </Right>
         </CardItem>
-        <CardItem style={styles.formItem}>
+        <CardItem
+          button
+          onPress={() => {
+            this.props.handleShowSelectGenderModal((data) => {
+              this.setState({
+                gender: data
+              })
+            })
+          }}
+          style={styles.formItem}>
           <Text style={styles.formItemLabel}>性别</Text>
-          <Input value={this.state.gender} style={styles.ipt} placeholder="请选择性别" placeholderTextColor={"#9C9EB9"}
-                 onChangeText={(value) => {
-                   this.setState({
-                     gender: value,
-                   })
-                 }}
-          />
+          {this.state.gender ? <Text style={styles.ipt}>{this.state.gender === 1 ? '男' : '女'}</Text> : <Text style={[styles.ipt, {
+            color: '#9C9EB9'
+          }]}>请选择性别</Text>}
           <Right>
             <Icon name="arrow-forward" />
           </Right>
         </CardItem>
-        <CardItem style={styles.formItem}>
+        <CardItem
+          button
+          style={styles.formItem}
+          onPress={() => {
+            this.props.handleShowSelectDateTimeModal((data) => {
+              this.setState({
+                birthdate: data
+              })
+            })
+          }}
+        >
           <Text style={styles.formItemLabel}>出生日期</Text>
-          <Input value={this.state.birthdate} style={styles.ipt} placeholder="请选择出生日期" placeholderTextColor={"#9C9EB9"}
-                 onChangeText={(value) => {
-                   this.setState({
-                     birthdate: value,
-                   })
-                 }}
-          />
+          {this.state.birthdate ? <Text style={styles.ipt}>{moment(this.state.birthdate).format('YYYY-MM-DD')}</Text> : <Text style={[styles.ipt, {
+            color: '#9C9EB9'
+          }]}>{'请选择出生日期'}</Text>}
           <Right>
             <Icon name="arrow-forward" />
           </Right>
@@ -165,6 +204,9 @@ class Home extends React.Component<IProps, IState> {
                           medicalHistory: value,
                         })
                       }}
+                      style={{
+                        color: '#404E66'
+                      }}
                       rowSpan={5} placeholderTextColor={'#CCD5E3'} placeholder="请输入您的既往病史/过敏" />
           </View>
         </CardItem>
@@ -177,13 +219,22 @@ class Home extends React.Component<IProps, IState> {
     return (
       <Container style={styles.container}>
         <NavigationEvents
-          onWillFocus={payload => {
+          onWillFocus={async payload => {
+            try {
+              this.componentDidMount()
+            } catch (e) {
+
+            }
+            await this.componentDidMount();
           }}
-          onDidFocus={payload => {
+          onDidFocus={async payload => {
+
           }}
           onWillBlur={payload => {
+
           }}
           onDidBlur={payload => {
+
           }}
         />
         <Header
@@ -245,4 +296,4 @@ class Home extends React.Component<IProps, IState> {
     );
   }
 }
-export default Home;
+export default withSelectGenderModal(withSelectDateTimeModal(Home));

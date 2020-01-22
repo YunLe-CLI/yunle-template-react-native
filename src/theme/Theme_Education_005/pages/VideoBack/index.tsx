@@ -256,7 +256,7 @@ class Home extends React.Component<IProps, IState> {
 
                         })
                     }}
-                    disableFullscreen
+                    // disableFullscreen
                   />
               </View>
             <View style={{

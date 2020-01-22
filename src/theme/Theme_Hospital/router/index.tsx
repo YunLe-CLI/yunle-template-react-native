@@ -26,8 +26,10 @@ import CancelModalProvider from '../components/CancelModal';
 import SelectDepartmentModalProvider from '../components/SelectDepartmentModal';
 import SelectDoctorModalProvider from '../components/SelectDoctorModal';
 import SelectLevelModalProvider from '../components/SelectLevelModal';
+import SelectDateTimeModalProvider from '../components/SelectTimeModal';
 
 import { getActiveRoute } from '@/utils/utils';
+import SelectGenderModalProvider from '@/theme/Theme_Hospital/components/SelectGenderModal';
 
 
 const MainRouter = createAnimatedSwitchNavigator(
@@ -148,12 +150,16 @@ export default function createRouter() {
               <SelectDepartmentModalProvider>
                 <SelectDoctorModalProvider>
                   <SelectLevelModalProvider>
-                    {
-                      !forceUpdate ? <App
-                        dispatch={dispatch}
-                        state={router}
-                      /> : undefined
-                    }
+                    <SelectDateTimeModalProvider>
+                      <SelectGenderModalProvider>
+                      {
+                        !forceUpdate ? <App
+                          dispatch={dispatch}
+                          state={router}
+                        /> : undefined
+                      }
+                      </SelectGenderModalProvider>
+                    </SelectDateTimeModalProvider>
                   </SelectLevelModalProvider>
                 </SelectDoctorModalProvider>
               </SelectDepartmentModalProvider>
