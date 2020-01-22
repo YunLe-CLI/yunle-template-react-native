@@ -95,102 +95,117 @@ class SelectThemeModalProvider extends React.Component<{}, IState> {
 
   renderItem(item) {
     const { selected } = this.state;
-    return  <Card key={JSON.stringify(item.id)}>
-      <CardItem>
-        <Left>
-          <FastImage
-            style={{
-              width: 50,
-              height: 50,
-              alignContent: 'center',
-              justifyContent: 'center',
-              borderRadius: 10,
-            }}
-            source={{uri: 'https://dagouzhi.oss-cn-qingdao.aliyuncs.com/com.dagouzhi.app.temp/App%20Store.jpg'}}
-            resizeMode={FastImage.resizeMode.contain}
-          />
-          <Body>
-            <Text>{item.name}</Text>
-            <Text note>{item.author}</Text>
-          </Body>
-        </Left>
-        <Right>
-          <View style={{
-            marginRight: 10,
-          }}>
-            <CheckBox onPress={() => {
-              this.setState({
-                selectedID: item.id,
-              }, () => {
-                this.onSelect(item)
-                this.closeModel();
-              })
-            }} checked={JSON.stringify(item.id) === JSON.stringify(selected)} />
-          </View>
-        </Right>
-      </CardItem>
-      <CardItem
-        button
+    return  <TouchableOpacity
+        key={JSON.stringify(item.id)}
         onPress={() => {
-          if (typeof item.preview === 'string') {
-            Image.getSize(item.preview, (width, height) => {
-              this.setState({
-                isImageViewVisible: true,
-                images: [
-                  {
-                    source: item.preview,
-                    title: item.name,
-                    width: width,
-                    height: height,
-                  },
-                ]
-              })
-            });
-          } else {
-            const { width, height }  = Image.resolveAssetSource(item.preview)
-            this.setState({
-              isImageViewVisible: true,
-              images: [
-                {
-                  source: item.preview,
-                  title: item.name,
-                  width: width,
-                  height: height,
-                },
-              ]
-            })
-          }
+          this.setState({
+            selectedID: item.id,
+          }, () => {
+            this.onSelect(item)
+            this.closeModel();
+          })
         }}
-        cardBody>
-        <FastImage
-          style={{
-            width: '100%',
-            height: 200,
-            alignContent: 'center',
-            justifyContent: 'center',
-          }}
-          source={item.preview ? item.preview : null}
-          resizeMode={FastImage.resizeMode.contain}
-        />
-      </CardItem>
-      <CardItem>
-        <Left>
-          <Button transparent>
-            <Icon active name="thumbs-up" />
-            <Text>12 喜欢</Text>
-          </Button>
-        </Left>
-        <Body>
-          <Button transparent>
-            <Icon active name="chatbubbles" />
-            <Text>4 评论</Text>
-          </Button>
-        </Body>
-        <Right>
-          <Text numberOfLines={1}>{moment().format('YYYY-MM-DD HH:mm:ss')}</Text>
-        </Right>
-      </CardItem>
-    </Card>
+    >
+        <Card>
+          <CardItem>
+            <Left>
+              <FastImage
+                style={{
+                  width: 50,
+                  height: 50,
+                  alignContent: 'center',
+                  justifyContent: 'center',
+                  borderRadius: 10,
+                }}
+                source={{uri: 'https://dagouzhi.oss-cn-qingdao.aliyuncs.com/com.dagouzhi.app.temp/App%20Store.jpg'}}
+                resizeMode={FastImage.resizeMode.contain}
+              />
+              <Body>
+                <Text>{item.name}</Text>
+                <Text note>{item.author}</Text>
+              </Body>
+            </Left>
+            <Right>
+              <View style={{
+                marginRight: 10,
+              }}>
+                <CheckBox checked={JSON.stringify(item.id) === JSON.stringify(selected)} />
+              </View>
+            </Right>
+          </CardItem>
+          <CardItem
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+            cardBody>
+            <TouchableOpacity
+              style={{
+                width: 200,
+                height: 200,
+              }}
+              onPress={() => {
+                if (typeof item.preview === 'string') {
+                  Image.getSize(item.preview, (width, height) => {
+                    this.setState({
+                      isImageViewVisible: true,
+                      images: [
+                        {
+                          source: item.preview,
+                          title: item.name,
+                          width: width,
+                          height: height,
+                        },
+                      ]
+                    })
+                  });
+                } else {
+                  const { width, height }  = Image.resolveAssetSource(item.preview)
+                  this.setState({
+                    isImageViewVisible: true,
+                    images: [
+                      {
+                        source: item.preview,
+                        title: item.name,
+                        width: width,
+                        height: height,
+                      },
+                    ]
+                  })
+                }
+              }}
+            >
+              <FastImage
+                style={{
+                  width: '100%',
+                  height: 200,
+                  alignContent: 'center',
+                  justifyContent: 'center',
+                }}
+                source={item.preview ? item.preview : null}
+                resizeMode={FastImage.resizeMode.contain}
+              />
+            </TouchableOpacity>
+          </CardItem>
+          <CardItem>
+            <Left>
+              <Button transparent>
+                <Icon active name="thumbs-up" />
+                <Text>12 喜欢</Text>
+              </Button>
+            </Left>
+            <Body>
+              <Button transparent>
+                <Icon active name="chatbubbles" />
+                <Text>4 评论</Text>
+              </Button>
+            </Body>
+            <Right>
+              <Text numberOfLines={1}>{moment().format('YYYY-MM-DD HH:mm:ss')}</Text>
+            </Right>
+          </CardItem>
+        </Card>
+      </TouchableOpacity>
   }
 
   render() {
