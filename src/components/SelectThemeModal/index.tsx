@@ -129,7 +129,16 @@ class SelectThemeModalProvider extends React.Component<{}, IState> {
               <View style={{
                 marginRight: 10,
               }}>
-                <CheckBox checked={JSON.stringify(item.id) === JSON.stringify(selected)} />
+                <CheckBox
+                  onPress={() => {
+                    this.setState({
+                      selectedID: item.id,
+                    }, () => {
+                      this.onSelect(item)
+                      this.closeModel();
+                    })
+                  }}
+                  checked={JSON.stringify(item.id) === JSON.stringify(selected)} />
               </View>
             </Right>
           </CardItem>

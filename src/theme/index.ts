@@ -1,3 +1,4 @@
+export { default as Theme_Default } from './Theme_Default';
 export { default as Theme_Hospital } from './Theme_Hospital';
 export { default as Theme_Meeting } from './Theme_Meeting';
 export { default as Theme_Education000 } from './Theme_Education_000';

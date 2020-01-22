@@ -53,7 +53,6 @@ function createApp(config: ICreateApp) {
       storage: AsyncStorage,
       blacklist: [
         'router',
-        'cache',
       ],
     };
 
