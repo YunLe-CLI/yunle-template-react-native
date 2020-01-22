@@ -233,7 +233,7 @@ export default StyleSheet.create({
     flex: 1,
     marginHorizontal: 16,
     backgroundColor: '#fff',
-    borderRadius: 10,
+    // borderRadius: 10,
     overflow: 'hidden',
   },
   allInfoItem: {
