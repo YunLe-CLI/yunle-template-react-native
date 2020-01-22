@@ -328,7 +328,10 @@ class Home extends React.Component<IProps, IState> {
             flex: 1,
             flexGrow: 1,
             overflow: 'hidden',
-            paddingHorizontal: 16,
+            paddingHorizontal: 20,
+          }}
+          contentContainerStyle={{
+            paddingTop: 20,
           }}
         >
           <LinearGradient
