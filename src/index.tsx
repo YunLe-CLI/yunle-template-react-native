@@ -276,7 +276,7 @@ let codePushOptions = {
 export default class RootView extends PureComponent {
 
   state = {
-    themeID: 'hospital_000',
+    themeID: 'Theme_Default',
   }
 
   componentDidMount() {
