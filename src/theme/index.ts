@@ -5,3 +5,4 @@ export { default as Theme_Education002 } from './Theme_Education_002';
 export { default as Theme_Education003 } from './Theme_Education_003';
 export { default as Theme_Education004 } from './Theme_Education_004';
 export { default as Theme_Education005 } from './Theme_Education_005';
+export { default as Theme_Education006 } from './Theme_Education_006';
