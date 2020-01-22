@@ -76,6 +76,7 @@
     "react-native-fs": "^2.16.2",
     "react-native-gesture-handler": "^1.5.3",
     "react-native-image-header-scroll-view": "^0.10.3",
+    "react-native-image-view": "^2.1.9",
     "react-native-linear-gradient": "^2.5.6",
     "react-native-loading-spinner-overlay": "^1.0.1",
     "react-native-media-controls": "^1.1.1",
