@@ -49,7 +49,7 @@ class SelectThemeModalProvider extends React.Component<{}, IState> {
   onCallBack: (select: any) => void = () => {};
 
   state: IState = {
-    isModalVisible: true,
+    isModalVisible: false,
     selected: undefined,
     images: [],
     isImageViewVisible: false,
