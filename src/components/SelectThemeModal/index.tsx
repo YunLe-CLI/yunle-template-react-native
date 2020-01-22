@@ -1,16 +1,17 @@
 import React, { createContext } from 'react';
-import {StatusBar} from 'react-native';
+import {TouchableOpacity, StatusBar, View} from 'react-native';
 import styles from './styles';
 import Modal from "react-native-modal";
 import _ from "lodash";
 import FastImage from 'react-native-fast-image';
 
-import {Button, Text, Content, Header, Left, Icon, Body, Title, Right, List, ListItem, Container} from 'native-base';
+import {CheckBox, Card,CardItem, Thumbnail, Button, Text, Content, Header, Left, Icon, Body, Title, Right, List, ListItem, Container} from 'native-base';
 
 import iconLeft from './assets/icon_left_slices/icon_left.png';
 import AsyncStorage from "@react-native-community/async-storage";
 
 import * as themes from '@/theme';
+import moment from 'moment';
 
 export const SelectThemeModalContext = createContext({
   handleShowSelectThemeModal: () => {}
@@ -48,11 +49,12 @@ class SelectThemeModalProvider extends React.Component<{}, IState> {
   onCallBack: (select: any) => void = () => {};
 
   state: IState = {
-    isModalVisible: false,
+    isModalVisible: true,
     selected: undefined,
   };
 
   showModel = () => {
+    this.componentDidMount();
     this.setState({
       isModalVisible: true,
     });
@@ -87,6 +89,79 @@ class SelectThemeModalProvider extends React.Component<{}, IState> {
       }
     } catch (e) {
     }
+  }
+
+  renderItem(item) {
+    const { selected } = this.state;
+    return <TouchableOpacity
+      key={JSON.stringify(item.id)}
+      onPress={async () => {
+        this.setState({
+          selectedID: item.id,
+        }, () => {
+          this.onSelect(item)
+          this.closeModel();
+        })
+      }}
+    >
+      <Card>
+        <CardItem>
+          <Left>
+            <FastImage
+              style={{
+                width: 50,
+                height: 50,
+                alignContent: 'center',
+                justifyContent: 'center',
+                borderRadius: 10,
+              }}
+              source={{uri: 'https://dagouzhi.oss-cn-qingdao.aliyuncs.com/com.dagouzhi.app.temp/App%20Store.jpg'}}
+              resizeMode={FastImage.resizeMode.contain}
+            />
+            <Body>
+              <Text>{item.name}</Text>
+              <Text note>{item.author}</Text>
+            </Body>
+          </Left>
+          <Right>
+            <View style={{
+              marginRight: 10,
+            }}>
+              <CheckBox checked={JSON.stringify(item.id) === JSON.stringify(selected)} />
+            </View>
+          </Right>
+        </CardItem>
+        <CardItem cardBody>
+          <FastImage
+            style={{
+              width: '100%',
+              height: 200,
+              alignContent: 'center',
+              justifyContent: 'center',
+            }}
+            source={item.preview ? item.preview : null}
+            resizeMode={FastImage.resizeMode.contain}
+          />
+        </CardItem>
+        <CardItem>
+          <Left>
+            <Button transparent>
+              <Icon active name="thumbs-up" />
+              <Text>12 喜欢</Text>
+            </Button>
+          </Left>
+          <Body>
+            <Button transparent>
+              <Icon active name="chatbubbles" />
+              <Text>4 评论</Text>
+            </Button>
+          </Body>
+          <Right>
+            <Text numberOfLines={1}>{moment().format('YYYY-MM-DD HH:mm:ss')}</Text>
+          </Right>
+        </CardItem>
+      </Card>
+    </TouchableOpacity>
   }
 
   render() {
@@ -149,26 +224,18 @@ class SelectThemeModalProvider extends React.Component<{}, IState> {
               <Right />
             </Header>
             <StatusBar barStyle="dark-content" />
-            <Content style={{ backgroundColor: '#F9FBFF' }}>
+            <Content
+              style={{ backgroundColor: '#F9FBFF' }}
+              contentContainerStyle={{
+                padding: 16,
+              }}
+            >
               <List style={styles.listWrap}>
                 {
                   list.map((item) => {
                     const { selected } = this.state;
                     const isSelect = JSON.stringify(item.id) === JSON.stringify(selected)
-                    return <ListItem
-                      selected={isSelect}
-                      key={JSON.stringify(item.id)}
-                      style={[styles.listItem]}
-                      onPress={async () => {
-                        this.setState({
-                          selectedID: item.id,
-                        }, () => {
-                          this.onSelect(item)
-                          this.closeModel();
-                        })
-                    }}>
-                      <Text style={styles.listText}>{item.name}</Text>
-                    </ListItem>
+                    return this.renderItem(item);
                   })
                 }
               </List>
