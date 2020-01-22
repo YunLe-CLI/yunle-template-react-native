@@ -253,7 +253,6 @@ class Home extends React.Component<IProps, IState> {
               marginHorizontal: 8,
               width: 1,
               height: 14,
-              backgroundColor: '#192038',
             }}></View>
             <View>
               <FastImage
@@ -392,7 +391,6 @@ class Home extends React.Component<IProps, IState> {
       style={{
         flex:1,
         flexGrow: 1,
-        backgroundColor: '#F4F6FA'
       }}
       contentContainerStyle={{
         // paddingHorizontal: 16,
@@ -460,6 +458,7 @@ class Home extends React.Component<IProps, IState> {
           }}
           scrollEnabled={false}
           contentContainerStyle={{
+            backgroundColor: '#F4F6FA',
             flexGrow: 1,
             flex: 1,
           }}
