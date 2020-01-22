@@ -165,197 +165,138 @@ class Home extends React.Component<IProps, IState> {
 
 
   renderItem = (data: Courses) => {
-    const { coursewares = {}, teacher = {}, status, signin, playbackURL } = data;
+    const { coursewares = {}, teacher = {}, status, signin } = data;
     const type = status; // (-1-取消 1-进行 2-未开始 3-结束)
     const check = signin ? 1 : 0;
-    // {type === -1 ? '未开始' : ''}
-    // {type === 1 ? '进行中' : ''}
-    // {type === 2 ? '未开始' : ''}
-    // {type === 3 ? '已结束' : ''}
-    let typeImg = icon_yjs_slices;
-    if (type === -1) {
-      typeImg = icon_yjs_slices;
-    }
-    if (type === 1) {
-      typeImg = icon_jxz_slices;
-    }
-    if (type === 2) {
-      typeImg = icon_wks_slices;
-    }
-    if (type === 3) {
-      typeImg = icon_yjs_slices;
-    }
     return (
       <View key={JSON.stringify(data)} style={styles.itemBox}>
         <View style={styles.itemBox_1}>
-          <View style={{
-            position: 'absolute',
-            right: 8,
-            top: -16,
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'flex-end',
-          }}>
-            <ImageBackground
-              style={{
-                alignSelf: 'flex-end',
-                width: 48,
-                height: 35,
-                justifyContent: 'center',
-              }}
-              source={typeImg}
-            >
-
-              {/*<Text style={[styles.type,*/}
-              {/*  type === -1 ? styles.type_0 : {},*/}
-              {/*  type === 1 ? styles.type_1 : {},*/}
-              {/*  type === 2 ? styles.type_2 : {},*/}
-              {/*  type === 3 ? styles.type_3 : {},*/}
-              {/*]}>*/}
-              {/*  {type === -1 ? '未开始' : ''}*/}
-              {/*  {type === 1 ? '进行中' : ''}*/}
-              {/*  {type === 2 ? '未开始' : ''}*/}
-              {/*  {type === 3 ? '已结束' : ''}*/}
-              {/*</Text>*/}
-            </ImageBackground>
-          </View>
-        </View>
-        <View style={styles.itemBox_3}>
-          <View style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}>
-            <View style={{
-            }}>
-              <Text  numberOfLines={1} style={[
-                styles.titleText,
-              ]}>
-                {data.title}
-              </Text>
-            </View>
-
+          <View style={[styles.typeWrap,
+            type === -1 ? styles.typeWrap_0 : {},
+            type === 1 ? styles.typeWrap_1 : {},
+            type === 2 ? styles.typeWrap_2 : {},
+            type === 3 ? styles.typeWrap_3 : {},
+          ]}>
+            <Text style={styles.type}>
+              {type === -1 ? '未开始' : ''}
+              {type === 1 ? '进行' : ''}
+              {type === 2 ? '未开始' : ''}
+              {type === 3 ? '结束' : ''}
+            </Text>
           </View>
         </View>
         <View style={styles.itemBox_2}>
+          <View
+            transparent
+            style={[styles.checkWrap,
+              check === 1 ? styles.checkEndWrap : {}]}
+          >
+            <Text style={[styles.checkText,
+              check === 1 ? styles.checkEndText : {}]}>
+              { check === 1 ? '已签到' : undefined }
+              { check !== 1 ? '未签到' : undefined }
+            </Text>
+          </View>
           <View style={{
             flex: 1, flexGrow: 1,
-            justifyContent: 'center',
-            // flexDirection: 'row',
+            flexDirection: 'row',
           }}>
-            <View style={{ flex: 1, flexGrow: 1, flexDirection: 'row' }}>
+            <View style={{ flex: 1, flexGrow: 1, }}>
               <Text numberOfLines={1} style={styles.timeText}>
                 {moment(data.startTime).format('YYYY-MM-DD')}
-                <Text> </Text>
                 {moment(data.startTime).format('HH:mm')}
                 -
                 {moment(data.endTime).format('HH:mm')}
               </Text>
-              <View style={{
-                marginHorizontal: 8,
-                width: 1,
-                height: 14,
-                backgroundColor: '#192038',
-              }}></View>
-              <View>
-                <Text numberOfLines={1} style={styles.nameText}>{teacher.userName}</Text>
-              </View>
             </View>
           </View>
         </View>
-
-        <View style={styles.itemBox_4}>
-          <Text style={[styles.checkText,
-            check === 1 ? styles.checkEndText : {}]}>
-            { check === 1 ? '已签到' : undefined }
-            { check !== 1 ? '未签到' : undefined }
-          </Text>
-          <View style={{
-            flexDirection: 'row',
-            flexGrow: 1,
-            justifyContent: 'flex-end',
-          }}>
-            <View style={[styles.btnWrap, {
-              borderWidth: 1,
-              borderColor: '#DEDEDE'
-            }]}>
-              <Button
-                transparent
-                style={styles.btnContent}
-                onPress={() => {
-                  this.props.dispatch(NavigationActions.navigate({
-                    routeName: 'Assets',
-                    params: {
-                      title: data.title,
-                      coursewares
-                    },
-                  }))
-                }}
-              >
-                <Text style={styles.btnText}>查看资源</Text>
-              </Button>
-            </View>
-            <View style={{ width: 10 }} />
-            {
-              type !== 3 ? (
-                <View style={[styles.btnWrap]}>
-                  <LinearGradient
-                    start={{x: 0, y: 0}} end={{x: 1, y: 1}}
-                    colors={['#FFE304', '#FFE304' ]}
-                    style={[
-                      styles.linearGradientBtn,
-                      {
-                        opacity: type === 1 ? 1 : 0.4
-                      }
-                    ]}
-                  >
-                    <Button
-                      style={[styles.btnContent, { borderWidth: 0, }]}
-                      transparent
-                      onPress={() => {
-                        this.props.dispatch(NavigationActions.navigate({
-                          routeName: 'Room',
-                          params: {
-                            metaData: data.metaData,
-                          },
-                        }))
-                      }}
-                    >
-                      <Text style={[styles.btnText, { color: '#030600' }]}>进入课堂</Text>
-                    </Button>
-                  </LinearGradient>
-                </View>
-              ) : undefined
-            }
-            {
-              type === 3 ? (
-                <View style={[styles.btnWrap]}>
-                  <LinearGradient
-                    start={{x: 0, y: 0}} end={{x: 1, y: 1}}
-                    colors={['#FFE304', '#FFE304' ]}
-                    style={[
-                      styles.linearGradientBtn,
-                    ]}
-                  >
-                    <Button
-                      style={[styles.btnContent, { borderWidth: 0, }]}
-                      transparent
-                      onPress={async () => {
-                        this.props.dispatch(NavigationActions.navigate({
-                          routeName: 'VideoBack',
-                          params: {
-                            title: data.title,
-                            playbackURL: playbackURL
-                          },
-                        }))
-                      }}
-                    >
-                      <Text style={[styles.btnText, { color: '#030600' }]}>观看课程回放</Text>
-                    </Button>
-                  </LinearGradient>
-                </View>
-              ) : undefined
-            }
+        <View style={[styles.itemBox_3, {
+          marginTop: 11,
+          marginBottom: 15,
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }]}>
+          <View style={{ flex: 1, flexGrow: 1, }}>
+            <Text numberOfLines={1} style={styles.titleText}>
+              {data.title}
+            </Text>
           </View>
+          <Text style={styles.nameText}>{teacher.userName}</Text>
+        </View>
+        <View style={styles.itemBox_4}>
+          <View style={styles.btnWrap}>
+            <Button
+              rounded transparent
+              style={styles.btnContent}
+              onPress={() => {
+                this.props.dispatch(NavigationActions.navigate({
+                  routeName: 'Assets',
+                  params: {
+                    title: data.title,
+                    coursewares
+                  },
+                }))
+              }}
+            >
+              <Text style={styles.btnText}>查看资源</Text>
+            </Button>
+          </View>
+          <View style={{ width: 16 }} />
+          {
+            type !== 3 ? (
+              <View style={[styles.btnWrap]}>
+                <LinearGradient
+                  start={{x: 0, y: 0}} end={{x: 1, y: 1}}
+                  colors={['#45A4FF', '#7BD1FF']}
+                  style={[
+                    styles.linearGradientBtn,
+                    {
+                      opacity: type === 1 ? 1 : 0.4
+                    }
+                  ]}
+                >
+                  <Button
+                    style={[styles.btnContent, { borderWidth: 0, }]}
+                    rounded transparent
+                    onPress={() => this.goToRoom(data)}
+                  >
+                    <Text style={[styles.btnText, { color: '#fff' }]}>进入教室</Text>
+                  </Button>
+                </LinearGradient>
+              </View>
+            ) : undefined
+          }
+          {
+            type === 3 ? (
+              <View style={[styles.btnWrap]}>
+                <LinearGradient
+                  start={{x: 0, y: 0}} end={{x: 1, y: 1}}
+                  colors={['#45A4FF', '#7BD1FF']}
+                  style={[
+                    styles.linearGradientBtn,
+                  ]}
+                >
+                  <Button
+                    style={[styles.btnContent, { borderWidth: 0, }]}
+                    rounded transparent
+                    onPress={async () => {
+                      this.props.dispatch(NavigationActions.navigate({
+                        routeName: 'VideoBack',
+                        params: {
+                          title: data.title,
+                          playbackURL: data.playbackURL
+                        },
+                      }))
+                    }}
+                  >
+                    <Text style={[styles.btnText, { color: '#fff' }]}>观看课程回放</Text>
+                  </Button>
+                </LinearGradient>
+              </View>
+            ) : undefined
+          }
         </View>
       </View>
     )
@@ -412,6 +353,7 @@ class Home extends React.Component<IProps, IState> {
       }}
       contentContainerStyle={{
         // paddingHorizontal: 16,
+        paddingTop: 20,
       }}
       stickySectionHeadersEnabled
       onEndReachedThreshold={0.3}
@@ -427,9 +369,7 @@ class Home extends React.Component<IProps, IState> {
         </View>
       }}
       renderSectionHeader={({ section: { title } }) => {
-        return <View style={{ marginBottom: 25, }}>
-          {type === '全部课程' ? this.allInfo() : undefined}
-        </View>
+        return <View />
       }}
       sections={list || []}
       ItemSeparatorComponent={() => <View style={{ height: 12 }} />}
@@ -443,7 +383,8 @@ class Home extends React.Component<IProps, IState> {
 
   render() {
     const { active } = this.state;
-    const { user = {} } = this.props;
+    const { user = {}, navigation } = this.props;
+    const { playbackURL = '', title = '' } = navigation.state.params;
     return (
       <Container style={styles.container}>
         <NavigationEvents
@@ -471,42 +412,35 @@ class Home extends React.Component<IProps, IState> {
 
             }}
         />
-        <ImageBackground
-          source={home_bg_slices}
+        <Header
+          transparent
+          iosBarStyle="dark-content"
           style={{
-            width: '100%',
-            height: 176,
+            backgroundColor: '#fff'
           }}
         >
-          <Content
-            scrollEnabled={false}
-            contentContainerStyle={{
-              flexGrow: 1,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            <View>
-              <FastImage
-                style={{
-                  width: 52,
-                  height: 52,
-                  alignContent: 'center',
-                  justifyContent: 'center',
-                }}
-                source={userImg}
-                resizeMode={FastImage.resizeMode.contain}
-              />
-            </View>
-            <Text style={{
-              marginTop: 16,
-              color: '#404E66',
-              fontSize: 20,
-              lineHeight: 28,
+          <Left>
+            <Button
+              transparent
+              onPress={() => {
+                const { dispatch } = this.props;
+                dispatch(NavigationActions.back());
+              }}
+            >
+              <Icon style={{ paddingHorizontal: 12, color: '#333333', fontSize: 26 }} name='arrow-back' />
+            </Button>
+          </Left>
+          <Body>
+            <Text sytle={{
               fontWeight: '500',
-            }}>{user.name || '未知'}</Text>
-          </Content>
-        </ImageBackground>
+              fontSize: 18,
+              color: '#333333'
+            }}>
+              {title}
+            </Text>
+          </Body>
+          <Right />
+        </Header>
         <View
           style={{
             flex: 1,
@@ -515,77 +449,14 @@ class Home extends React.Component<IProps, IState> {
             backgroundColor: '#F9FBFF',
           }}
         >
-          <Tabs
+          <View
             style={{
               flexGrow: 1,
             }}
-            page={active}
-            renderTabBar={() => <View />}
-            onChangeTab={({i}) => {
-              this.setState({
-                active: i
-              })
-            }}
           >
-            <Tab
-              style={{
-              }}
-              heading="1">
-              {this.renderTabList("今日课程")}
-            </Tab>
-            <Tab
-              style={{
-              }}
-              heading="2">
-              {this.renderTabList("全部课程")}
-            </Tab>
-          </Tabs>
+            {this.renderTabList(title === "今日课程" ? '今日课程' : '全部课程')}
+          </View>
         </View>
-        <Footer style={styles.footerWrap}>
-          <FooterTab style={{
-            justifyContent: 'center',
-            alignItems: 'center'
-          }}>
-            <Button
-              onPress={() => {
-                this.setState({
-                  active: 0,
-                })
-              }}
-              full style={styles.btnTab}>
-              <FastImage
-                style={{
-                  width: 24,
-                  height: 24,
-                  alignContent: 'center',
-                  justifyContent: 'center',
-                }}
-                source={active === 0 ? icon_myorder_active_slices : icon_myorder_default_slices}
-                resizeMode={FastImage.resizeMode.contain}
-              />
-              <Text style={[styles.btnTabText, active === 0 ? styles.activeBtnTabText : {}]}>今日课程</Text>
-            </Button>
-            <Button
-              onPress={() => {
-                this.setState({
-                  active: 1,
-                })
-              }}
-              full style={styles.btnTab}>
-              <FastImage
-                style={{
-                  width: 24,
-                  height: 24,
-                  alignContent: 'center',
-                  justifyContent: 'center',
-                }}
-                source={active === 1 ? icon_register_active_slices : icon_register_default_slices }
-                resizeMode={FastImage.resizeMode.contain}
-              />
-              <Text style={[styles.btnTabText, active === 1 ? styles.activeBtnTabText : {}]}>全部课程</Text>
-            </Button>
-          </FooterTab>
-        </Footer>
       </Container>
     );
   }

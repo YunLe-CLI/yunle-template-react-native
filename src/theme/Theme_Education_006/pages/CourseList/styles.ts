@@ -270,7 +270,7 @@ export default StyleSheet.create({
     fontWeight: '400',
     color: '#192038',
     fontSize: 16,
-    lineHeight: 20,
+    // lineHeight: 20,
   },
   timeText: {
     fontWeight: '400',
@@ -292,5 +292,137 @@ export default StyleSheet.create({
     paddingTop: 0,
     paddingBottom: 0,
     height: 28,
-  }
+  },
+  itemBox: {
+    marginHorizontal: 16,
+    minHeight: 185,
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    overflow: 'hidden',
+  },
+  itemBox_1: {
+    flex: 1,
+  },
+  typeWrap: {
+    width: 64,
+    height: 24,
+    borderBottomRightRadius: 10,
+    backgroundColor: '#FFB068',
+    overflow: 'hidden',
+  },
+  typeWrap_0: {
+    backgroundColor: '#21DE98',
+  },
+  typeWrap_1: {
+    backgroundColor: '#21DE98',
+  },
+  typeWrap_2: {
+    backgroundColor: '#FFB068',
+  },
+  typeWrap_3: {
+    backgroundColor: '#9C9EB9',
+  },
+  type: {
+    lineHeight: 24,
+    textAlign: 'center',
+    fontSize: 12,
+    color: '#fff',
+  },
+  itemBox_2: {
+    flex: 1,
+    flexGrow: 1,
+    // overflow: 'hidden',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    marginHorizontal: 14,
+  },
+  itemBox_3: {
+    paddingHorizontal: 14,
+  },
+  itemBox_4: {
+    paddingTop: 15,
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginHorizontal: 14,
+    marginBottom: 16,
+    borderTopWidth: 1,
+    borderColor: '#E3E7EF'
+  },
+  checkWrap: {
+    borderWidth: 1,
+    borderColor: '#FFAA35',
+    borderRadius: 4,
+    paddingHorizontal: 5,
+    paddingVertical: 0,
+    marginRight: 16,
+    height: 20,
+    paddingBottom: 0,
+    paddingTop: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  checkEndWrap: {
+    borderColor: '#45A4FF'
+  },
+  checkText: {
+    fontWeight: '400',
+    color: '#FFAA35',
+    fontSize: 12,
+  },
+  checkEndText: {
+    color: '#45A4FF'
+  },
+  timeText: {
+    fontWeight: '400',
+    color: '#353B50',
+    fontSize: 18,
+    lineHeight: 25,
+    paddingRight: 19,
+  },
+  titleText: {
+    flexGrow: 1,
+    fontWeight: '400',
+    color: '#353B50',
+    fontSize: 18,
+    lineHeight: 25,
+  },
+  nameText: {
+    fontWeight: '400',
+    color: '#9C9EB9',
+    fontSize: 16,
+    // lineHeight: 45,
+    flexWrap: 'wrap'
+  },
+  btnWrap: {
+    flex: 1,
+    flexGrow: 1,
+    height: 36,
+    borderRadius: 18,
+    overflow: 'hidden',
+  },
+  btnContent: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: 0,
+    paddingRight: 0,
+    paddingBottom: 0,
+    paddingLeft: 0,
+    flexGrow: 1,
+    height: 36,
+    borderWidth: 1,
+    borderColor: '#45A4FF',
+  },
+  btnText: {
+    fontWeight: '400',
+    color: '#45A4FF',
+    fontSize: 14,
+  },
+  linearGradientBtn: {
+    flex: 1,
+    flexGrow: 1,
+  },
 });

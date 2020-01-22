@@ -28,6 +28,7 @@ import styles from './styles';
 import {NavigationActions, NavigationEvents} from 'react-navigation';
 import home_bg_slices from './assets/home_bg_slices/home_bg.png'
 import Oval from './assets/Oval_slices/Oval.png'
+import rightIcon from './assets/right_slices/right.png'
 
 import LinearGradient from "react-native-linear-gradient";
 
@@ -351,7 +352,14 @@ class Home extends React.Component<IProps, IState> {
             }}>
               <CardItem
                 header button
-                onPress={() => alert("This is Card Header")}
+                onPress={() => {
+                  this.props.dispatch(NavigationActions.navigate({
+                    routeName: 'CourseList',
+                    params: {
+                      title: "今日课程"
+                    },
+                  }))
+                }}
                 style={{
                   paddingTop: 0,
                   paddingRight: 0,
@@ -377,7 +385,7 @@ class Home extends React.Component<IProps, IState> {
                         alignContent: 'center',
                         justifyContent: 'center',
                       }}
-                      source={require('./assets/icon_today_slices/index.png')}
+                      source={rightIcon}
                       resizeMode={FastImage.resizeMode.contain}
                     />
                   </View>
@@ -415,7 +423,14 @@ class Home extends React.Component<IProps, IState> {
             }}>
               <CardItem
                 header button
-                onPress={() => alert("This is Card Header")}
+                onPress={() => {
+                  this.props.dispatch(NavigationActions.navigate({
+                    routeName: 'CourseList',
+                    params: {
+                      title: "我的课程"
+                    },
+                  }))
+                }}
                 style={{
                   paddingTop: 0,
                   paddingRight: 0,
@@ -441,7 +456,7 @@ class Home extends React.Component<IProps, IState> {
                         alignContent: 'center',
                         justifyContent: 'center',
                       }}
-                      source={require('./assets/icon_today_slices/index.png')}
+                      source={rightIcon}
                       resizeMode={FastImage.resizeMode.contain}
                     />
                   </View>
@@ -454,7 +469,7 @@ class Home extends React.Component<IProps, IState> {
                       alignContent: 'center',
                       justifyContent: 'center',
                     }}
-                    source={require('./assets/icon_today_slices/index.png')}
+                    source={require('./assets/icon_me_slices/index.png')}
                     resizeMode={FastImage.resizeMode.contain}
                   />
                 </Right>

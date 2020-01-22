@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
   container: {
-    backgroundColor: '#fff',
+    backgroundColor: '#F4F6FA',
     flex: 1,
   },
   boxWithShadow: {
@@ -40,9 +40,81 @@ export default StyleSheet.create({
     color: '#fff',
   },
   itemText: {
+    marginTop: 20,
     fontSize: 15,
-    color: '#303133',
+    color: '#192038',
     fontWeight: '400',
     lineHeight: 21,
-  }
+    paddingHorizontal: 7,
+  },
+  itemBox: {
+    backgroundColor: '#fff',
+    borderRadius: 3,
+    overflow: 'hidden'
+    // justifyContent: 'center',
+    // alignItems: 'center',
+  },
+  itemBox_1: {
+    borderTopWidth: 1,
+    borderTopColor: 'transparent',
+    borderRightWidth: 1,
+    borderRightColor: '#fff',
+    borderBottomWidth: 1,
+    borderBottomColor: '#fff',
+    borderLeftWidth: 1,
+    borderLeftColor: 'transparent',
+  },
+  itemBox_2: {
+    borderTopWidth: 1,
+    borderTopColor: 'transparent',
+    borderRightWidth: 1,
+    borderRightColor: 'transparent',
+    borderBottomWidth: 1,
+    borderBottomColor: '#fff',
+    borderLeftWidth: 1,
+    borderLeftColor: 'transparent',
+  },
+  itemBox_3: {
+    borderTopWidth: 1,
+    borderTopColor: 'transparent',
+    borderRightWidth: 1,
+    borderRightColor: 'transparent',
+    borderBottomWidth: 1,
+    borderBottomColor: 'transparent',
+    borderLeftWidth: 1,
+    borderLeftColor: 'transparent',
+  },
+
+  btnContent: {
+    width: 119,
+    paddingTop: 0,
+    paddingBottom: 0,
+    height: 29,
+    paddingHorizontal: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  btnWrap: {
+    marginHorizontal: 20,
+    marginTop: 24,
+    borderRadius: 15,
+    overflow: 'hidden',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 29,
+  },
+  linearGradientBtn: {
+    borderRadius: 15,
+  },
+  header: {
+    height: 64,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  headerText: {
+    fontSize: 20,
+    color: '#fff',
+    fontWeight: '800',
+    lineHeight: 21,
+  },
 });
