@@ -437,9 +437,13 @@ class Home extends React.Component<IProps, IState> {
             }}
             source={require('./assets/bg/bg.png')}
           >
-            <View style={[styles.userWrap, { width: Dimensions.get('window').width }]}>
+            <View style={[styles.userWrap, {
+              width: Dimensions.get('window').width,
+              height: 119 + getStatusBarHeight(true),
+            }]}>
               <FastImage
                 style={{
+                  marginTop: getStatusBarHeight(true),
                   width: 40,
                   height: 40,
                   alignContent: 'center',

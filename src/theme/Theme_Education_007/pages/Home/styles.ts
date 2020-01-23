@@ -16,7 +16,6 @@ export default StyleSheet.create({
   },
   userWrap: {
     paddingHorizontal: 15,
-    height: 45,
     flexGrow: 1,
     backgroundColor: 'transparent',
     alignItems: 'center',
