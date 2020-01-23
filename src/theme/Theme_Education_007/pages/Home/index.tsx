@@ -443,7 +443,7 @@ class Home extends React.Component<IProps, IState> {
             }]}>
               <FastImage
                 style={{
-                  marginTop: getStatusBarHeight(true),
+                  marginTop: getStatusBarHeight(true)/2,
                   width: 40,
                   height: 40,
                   alignContent: 'center',

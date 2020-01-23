@@ -105,7 +105,7 @@
     "react-navigation": "^4.0.10",
     "react-navigation-animated-switch": "^0.4.1",
     "react-navigation-redux-helpers": "^4.0.1",
-    "react-navigation-stack": "^2.0.15",
+    "react-navigation-stack": "^2.0.16",
     "react-navigation-tabs": "2.7.0",
     "react-navigation-transitions": "^1.0.12",
     "react-redux": "^7.1.2",
