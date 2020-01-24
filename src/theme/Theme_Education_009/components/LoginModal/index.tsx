@@ -217,24 +217,22 @@ class LoginProvider extends React.Component<IProps, IState> {
                   <View style={styles.logoWrap}>
                     <FastImage
                       style={{
-                        width: 199,
-                        height: 39,
+                        width: 335,
+                        height: 246,
                         alignContent: 'center',
                         justifyContent: 'center',
                       }}
-                      source={logoImg}
+                      source={require('./assets/bg_slices/index.png')}
                       resizeMode={FastImage.resizeMode.contain}
                     />
                   </View>
                   <View>
                     <Form style={{
-                      backgroundColor: '#fff',
-                      paddingVertical: 40,
-                      paddingHorizontal: 20,
+                      paddingTop: 102,
+                      paddingHorizontal: 0,
                       borderRadius: 8,
                       marginBottom: 20,
                     }}>
-                      <Text style={styles.labelText}>用户名</Text>
                       <Item style={styles.iptItem}>
                         <Input value={this.state.loginName} style={styles.ipt} placeholder="请输入用户名" placeholderTextColor={"#9C9EB9"}
                                onChangeText={(value) => {
@@ -244,7 +242,6 @@ class LoginProvider extends React.Component<IProps, IState> {
                                }}
                         />
                       </Item>
-                      <Text style={styles.labelText}>密码</Text>
                       <Item style={[styles.iptItem, {
                         marginBottom: 0,
                       }]}>
@@ -261,7 +258,7 @@ class LoginProvider extends React.Component<IProps, IState> {
                   <View style={styles.btnWrap}>
                     <LinearGradient
                       start={{x: 0, y: 0}} end={{x: 1, y: 1}}
-                      colors={['#03EEF6', '#00BCCA']}
+                      colors={['#51549A', '#51549A']}
                       style={[
                         styles.linearGradientBtn,
                         {

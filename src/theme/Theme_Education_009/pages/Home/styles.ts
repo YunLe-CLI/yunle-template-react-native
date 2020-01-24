@@ -46,6 +46,7 @@ export default StyleSheet.create({
     backgroundColor: '#F4F6FA'
   },
   itemBox: {
+    flexGrow: 1,
     // paddingVertical: 14,
     backgroundColor: '#fff',
     borderRadius: 10,
@@ -57,6 +58,7 @@ export default StyleSheet.create({
     flex: 1,
   },
   typeWrap: {
+    position: 'absolute',
     height: 24,
     paddingLeft: 10,
     paddingRight: 10,
@@ -96,11 +98,10 @@ export default StyleSheet.create({
   itemBox_4: {
     flex: 1,
     flexGrow: 1,
-    flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center',
+    // alignItems: 'center',
     marginHorizontal: 14,
-    marginTop: 13,
+    marginTop: 8,
     marginBottom: 20,
   },
   checkWrap: {
@@ -128,28 +129,31 @@ export default StyleSheet.create({
   },
   timeText: {
     fontWeight: '400',
-    color: '#000000',
+    color: '#B2B1B4',
     fontSize: 14,
     lineHeight: 20,
     paddingRight: 19,
   },
   titleText: {
+    paddingHorizontal: 16,
     flexGrow: 1,
     fontWeight: '500',
     color: '#000000',
     fontSize: 18,
     lineHeight: 25,
+    marginTop: 8,
     marginBottom: 8,
   },
   nameText: {
     fontWeight: '400',
-    color: '#000000',
+    color: '#B2B1B4',
     fontSize: 14,
     lineHeight: 20,
     flexWrap: 'wrap'
   },
   btnWrap: {
-    // width: 88,
+    flex: 1,
+    marginTop: 13,
     flexGrow: 1,
     height: 36,
     borderRadius: 3,
@@ -352,7 +356,7 @@ export default StyleSheet.create({
     // flexDirection: 'row'
   },
   btnTabText: {
-    position: 'absolute',
+    // position: 'absolute',
     color: 'rgba(0,0,0,0.5)',
     fontSize: 16,
     lineHeight: 22,
@@ -360,7 +364,7 @@ export default StyleSheet.create({
     textAlign: 'justify'
   },
   activeBtnTabText: {
-    color: '#000000',
+    color: '#51549A',
   },
   line: {
     width: 1,
@@ -419,5 +423,10 @@ export default StyleSheet.create({
     fontWeight: '400',
     lineHeight: 20,
   },
-
+  iWrap: {
+    marginTop: 4,
+    width: 6,
+    height: 6,
+    borderRadius: 3,
+  }
 });

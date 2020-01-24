@@ -1,5 +1,5 @@
 import React from 'react';
-import {Dimensions, ImageBackground, NativeModules, SectionList, View} from 'react-native';
+import {FlatList, Dimensions, ImageBackground, NativeModules, SectionList, View} from 'react-native';
 import { connect } from 'react-redux';
 import {
   Card,
@@ -73,7 +73,7 @@ class Home extends React.Component<IProps, IState> {
 
   state = {
     refreshing: false,
-    active: 0,
+    active: 1,
     segmentActive: 0,
     department: undefined,
     level: undefined,
@@ -191,58 +191,30 @@ class Home extends React.Component<IProps, IState> {
     }
     return (
       <View key={JSON.stringify(data)} style={styles.itemBox}>
-        <View
-          style={{
-            flex: 1,
-            flexDirection: 'row',
-            justifyContent: 'flex-end',
-            alignItems: 'flex-end',
-          }}
-        >
-          <View
-            style={[
-              {
-                minWidth: 128,
-                flexDirection: 'row',
-                justifyContent: 'flex-end',
-                alignItems: 'center',
-                backgroundColor: 'rgba(109,212,0,0.1)',
-                borderBottomLeftRadius: 8,
-              },
-              check === 1 ? {
-                backgroundColor: 'rgba(109,212,0,0.1)',
-              } : {
-                backgroundColor: 'rgba(50,197,255,0.1)',
-              }
-            ]}
-          >
-            <FastImage
-              style={{
-                width: 12,
-                height: 12,
-                marginLeft: 10,
-                marginRight: 4,
-                alignContent: 'center',
-                justifyContent: 'center',
-              }}
-              source={check === 1 ? require('./assets/icon-succeed/icon-succeed.png') : require('./assets/icon-wait/icon-wait.png')}
-              resizeMode={FastImage.resizeMode.contain}
-            />
-            <Text style={[styles.checkText,
-              check === 1 ? {
-                color: '#6DD400'
-              } : {
-                color: '#7F8694'
-              }]}>
-              { check === 1 ? '已签到' : undefined }
-              { check !== 1 ? '未签到' : undefined }
-            </Text>
-            <View style={styles.itemBox_1}>
+        <View style={{
+          flexDirection: 'row',
+        }}>
+          <View style={{
+            flexGrow: 1,
+          }}>
+            <View style={{
+
+            }}>
+              <FastImage
+                style={{
+                  width: '100%',
+                  height: 81,
+                  alignContent: 'center',
+                  justifyContent: 'center',
+                }}
+                source={require('./assets/item_bg_slices/index.png')}
+                resizeMode={FastImage.resizeMode.cover}
+              />
               <View style={[styles.typeWrap,
-                type === -1 ? { backgroundColor: '#32C5FF' } : {},
-                type === 1 ? { backgroundColor: '#6DD400' } : {},
-                type === 2 ? { backgroundColor: '#32C5FF' } : {},
-                type === 3 ? { backgroundColor: '#7F8694' } : {},
+                type === -1 ? { backgroundColor: '#FF2D2D' } : {},
+                type === 1 ? { backgroundColor: '#2A9DFE' } : {},
+                type === 2 ? { backgroundColor: '#FF2D2D' } : {},
+                type === 3 ? { backgroundColor: '#51549A' } : {},
               ]}>
                 <Text style={styles.type}>
                   {type === -1 ? '未开始' : ''}
@@ -254,113 +226,49 @@ class Home extends React.Component<IProps, IState> {
             </View>
           </View>
         </View>
-        <View style={{
-          flexDirection: 'row',
-          paddingHorizontal: 16,
-          marginTop: 10,
-        }}>
-          <View style={{
-            flexGrow: 1,
-          }}>
+        <View>
+          <View style={styles.itemBox_2}>
+
             <View style={{
+              flex: 1, flexGrow: 1,
               flexDirection: 'row',
             }}>
-              <FastImage
-                style={{
-                  marginRight: 13,
-                  width: 74,
-                  height: 84,
-                  alignContent: 'center',
-                  justifyContent: 'center',
-                }}
-                source={require('./assets/image_slices/image_slices.png')}
-                resizeMode={FastImage.resizeMode.contain}
-              />
-              <View>
-                <View style={styles.itemBox_2}>
-
-                  <View style={{
-                    flex: 1, flexGrow: 1,
-                    flexDirection: 'row',
-                  }}>
-                    <View style={{ flex: 1, flexGrow: 1, }}>
-                      <Text numberOfLines={1} style={styles.titleText}>
-                        {data.title}
-                      </Text>
-                    </View>
-                  </View>
-                </View>
-                <View style={styles.itemBox_3}>
-                  <View style={{ flex: 1, flexGrow: 1, flexDirection: 'row', alignItems: 'center' }}>
-                    <FastImage
-                      style={{
-                        width: 16,
-                        height: 16,
-                        marginRight: 8,
-                        alignContent: 'center',
-                        justifyContent: 'center',
-                      }}
-                      source={require('./assets/icon-time/icon-time.png')}
-                      resizeMode={FastImage.resizeMode.contain}
-                    />
-                    <Text numberOfLines={1} style={styles.timeText}>
-                      <Text numberOfLines={1} style={styles.timeText}>{moment(data.startTime).format('YYYY-MM-DD')} </Text>
-                      {moment(data.startTime).format('HH:mm')}
-                      -
-                      {moment(data.endTime).format('HH:mm')}
-                    </Text>
-                  </View>
-                </View>
-                <View style={[styles.itemBox_3, {
-                  flexDirection: 'row',
-                  marginTop: 8,
-                  alignItems: 'center',
-                }]}>
-                  <FastImage
-                    style={{
-                      marginRight: 8,
-                      width: 20,
-                      height: 20,
-                      alignContent: 'center',
-                      justifyContent: 'center',
-                    }}
-                    source={require('./assets/u_slices/u.png')}
-                    resizeMode={FastImage.resizeMode.contain}
-                  />
-                  <Text style={styles.nameText}>{teacher.userName}</Text>
-                </View>
+              <View style={{ flex: 1, flexGrow: 1, }}>
+                <Text numberOfLines={1} style={styles.titleText}>
+                  {data.title}
+                </Text>
               </View>
             </View>
           </View>
+          <View style={styles.itemBox_3}>
+            <View style={{ flex: 1, flexGrow: 1,
+              flexDirection: 'row', alignItems: 'center',
+              paddingHorizontal: 16,
+            }}>
+              <Text numberOfLines={1} style={styles.timeText}>
+                <Text numberOfLines={1} style={styles.timeText}>{moment(data.startTime).format('YYYY-MM-DD')} </Text>
+                {moment(data.startTime).format('HH:mm')}
+                -
+                {moment(data.endTime).format('HH:mm')}
+              </Text>
+            </View>
+          </View>
+          <View style={[styles.itemBox_3, {
+            flexDirection: 'row',
+            marginTop: 8,
+            paddingHorizontal: 16,
+            alignItems: 'center',
+          }]}>
+            <Text style={styles.nameText}>{teacher.userName}</Text>
+          </View>
         </View>
         <View style={styles.itemBox_4}>
-          <View style={styles.btnWrap}>
-            <Button
-              transparent
-              style={[styles.btnContent, {
-                borderColor: '#F6F9FB',
-                backgroundColor: '#F6F9FB'
-              }]}
-              onPress={() => {
-                this.props.dispatch(NavigationActions.navigate({
-                  routeName: 'Assets',
-                  params: {
-                    title: data.title,
-                    coursewares
-                  },
-                }))
-              }}
-            >
-              <Text style={[styles.btnText, { color: '#00BCCA' }]}>查看课件</Text>
-            </Button>
-          </View>
-          <View style={{ width: 16 }} />
           {
             type !== 3 ? (
               <View style={[styles.btnWrap]}>
                 <LinearGradient
                   start={{x: 0, y: 0}} end={{x: 1, y: 1}}
-                  colors={type === 1 ? ['#00BCCA', '#00BCCA'] : ['#D0D5D8', '#D0D5D8']}
+                  colors={type === 1 ? ['#51549A', '#51549A'] : ['#51549A', '#51549A']}
                   style={[
                     styles.linearGradientBtn,
                     {
@@ -380,7 +288,7 @@ class Home extends React.Component<IProps, IState> {
                       }))
                     }}
                   >
-                    <Text style={[styles.btnText, { color: '#fff' }]}>进入教室</Text>
+                    <Text style={[styles.btnText, { color: '#fff' }]}>进入学习</Text>
                   </Button>
                 </LinearGradient>
               </View>
@@ -391,7 +299,7 @@ class Home extends React.Component<IProps, IState> {
               <View style={[styles.btnWrap]}>
                 <LinearGradient
                   start={{x: 0, y: 0}} end={{x: 1, y: 1}}
-                  colors={['#03EEF6', '#00BCCA']}
+                  colors={['#51549A', '#51549A']}
                   style={[
                     styles.linearGradientBtn,
                   ]}
@@ -409,61 +317,85 @@ class Home extends React.Component<IProps, IState> {
                       }))
                     }}
                   >
-                    <Text style={[styles.btnText, { color: '#fff' }]}>课程回放</Text>
+                    <Text style={[styles.btnText, { color: '#fff' }]}>进入回放</Text>
                   </Button>
                 </LinearGradient>
               </View>
             ) : undefined
           }
+          <View style={{ width: 16 }} />
+          <View style={styles.btnWrap}>
+            <Button
+              transparent
+              style={[styles.btnContent, {
+                borderColor: '#F6F9FB',
+                backgroundColor: '#F6F9FB'
+              }]}
+              onPress={() => {
+                this.props.dispatch(NavigationActions.navigate({
+                  routeName: 'Assets',
+                  params: {
+                    title: data.title,
+                    coursewares,
+                    courses: data,
+                  },
+                }))
+              }}
+            >
+              <Text style={[styles.btnText, { color: '#51549A' }]}>查看资料</Text>
+            </Button>
+          </View>
         </View>
       </View>
     )
   }
 
-  renderTabList(type) {
-    const { todayCourses, allCourses } = this.state;
+  renderTabList(type: string) {
+    const { allCourses } = this.state;
 
-    const todayList = {
-      title: "今日预约",
-      data: todayCourses,
-    };
-    const registrationsList = {
-      title: "全部预约",
-      data: allCourses,
-    };
-    let list = []
-    if (type === '今日课程') {
-      list = [
-        todayList,
-      ]
-    }
-    if (type === '全部课程') {
-      list = [
-        registrationsList,
-      ]
-    }
-    return <SectionList
+    let list = [];
+    allCourses.forEach((item) => {
+      console.log(item.signin)
+      if (type === '已签到' && item.signin) {
+        list.push(item)
+      }
+      if (type === '未签到' && !item.signin) {
+        list.push(item)
+      }
+    })
+
+    return <FlatList
+      horizontal={false}
       style={{
+        flex: 1,
+        overflow: 'hidden',
         flexGrow: 1,
+        marginLeft: -9,
         backgroundColor: '#F9F9F9'
       }}
       contentContainerStyle={{
+        paddingTop: 16,
+        //
         paddingHorizontal: 16,
       }}
-      stickySectionHeadersEnabled
+      columnWrapperStyle={{
+
+      }}
+      numColumns={2}
       onEndReachedThreshold={0.3}
       refreshing={this.state.refreshing}
       onRefresh={this._onRefresh}
       showsVerticalScrollIndicator={false}
       renderItem={({ item, index, section }) => {
-        return <View key={JSON.stringify(item)}>
+        return <View style={{
+          flex: 1,
+          marginLeft: 9,
+          overflow: 'hidden'
+        }} key={JSON.stringify(item)}>
           {this.renderItem(item)}
         </View>
       }}
-      renderSectionHeader={({ section: { title } }) => {
-        return <Text />
-      }}
-      sections={list || []}
+      data={list || []}
       ItemSeparatorComponent={() => <View style={{ height: 12 }} />}
       ListEmptyComponent={() => {
         return <View />
@@ -503,35 +435,20 @@ class Home extends React.Component<IProps, IState> {
 
             }}
         />
-        <View style={[
-          styles.header,
-          {
-            marginTop: 32,
-          }
-        ]}>
-          <View style={[styles.userWrap]}>
-            <FastImage
-              style={{
-                width: 24,
-                height: 24,
-                marginRight: 8,
-                alignContent: 'center',
-                justifyContent: 'center',
-              }}
-              source={Oval}
-              resizeMode={FastImage.resizeMode.contain}
-            />
-            <Text style={styles.userName}>
-              {user.username || '游客'}
-            </Text>
-            <Text style={[styles.userName, {
-              flexGrow: 1,
-              textAlign: 'right',
-            }]}>
-              学生上课数：{siginInfo.finishedCount || 0}
-            </Text>
-          </View>
-        </View>
+        <Header
+          transparent
+          iosBarStyle="dark-content"
+          style={{
+          backgroundColor: '#fff'
+        }}>
+          <Left>
+
+          </Left>
+          <Body>
+            <Title style={{ color: '#333333' }}>学习中心</Title>
+          </Body>
+          <Right />
+        </Header>
         <View style={styles.footerWrap}>
           <FooterTab style={{
             justifyContent: 'center',
@@ -544,22 +461,12 @@ class Home extends React.Component<IProps, IState> {
                 })
               }}
               full style={styles.btnTab}>
-              {
-                active === 0 ? (
-                  <FastImage
-                    style={{
-                      marginLeft: -53,
-                      width: 29,
-                      height: 29,
-                      alignContent: 'center',
-                      justifyContent: 'center',
-                    }}
-                    source={active === 0 ? activeImg : activeImg}
-                    resizeMode={FastImage.resizeMode.contain}
-                  />
-                ) : undefined
-              }
-              <Text style={[styles.btnTabText, active === 0 ? styles.activeBtnTabText : {}]}>今日课程</Text>
+              <View>
+                <Text style={[styles.btnTabText, active === 0 ? styles.activeBtnTabText : {}]}>已签到</Text>
+              </View>
+              <View style={[styles.iWrap,  active === 0 ? {
+                backgroundColor: '#51549A'
+              } : {}]}></View>
             </Button>
             <Button
               onPress={() => {
@@ -568,22 +475,12 @@ class Home extends React.Component<IProps, IState> {
                 })
               }}
               full style={styles.btnTab}>
-              {
-                active === 1 ? (
-                  <FastImage
-                    style={{
-                      marginLeft: -53,
-                      width: 29,
-                      height: 29,
-                      alignContent: 'center',
-                      justifyContent: 'center',
-                    }}
-                    source={active === 0 ? activeImg : activeImg}
-                    resizeMode={FastImage.resizeMode.contain}
-                  />
-                ) : undefined
-              }
-              <Text style={[styles.btnTabText, active === 1 ? styles.activeBtnTabText : {}]}>全部课程</Text>
+              <View>
+                <Text style={[styles.btnTabText, active === 1 ? styles.activeBtnTabText : {}]}>未签到</Text>
+              </View>
+              <View style={[styles.iWrap,  active === 1 ? {
+                backgroundColor: '#51549A'
+              } : {}]}></View>
             </Button>
           </FooterTab>
         </View>
@@ -611,13 +508,13 @@ class Home extends React.Component<IProps, IState> {
               style={{
               }}
               heading="1">
-              {this.renderTabList("今日课程")}
+              {this.renderTabList("已签到")}
             </Tab>
             <Tab
               style={{
               }}
               heading="2">
-              {this.renderTabList("全部课程")}
+              {this.renderTabList("未签到")}
             </Tab>
           </Tabs>
         </View>

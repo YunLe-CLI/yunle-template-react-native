@@ -2,7 +2,7 @@ import { Dimensions, StyleSheet, Platform } from "react-native";
 
 export default StyleSheet.create({
   container: {
-    backgroundColor: '#F6F9FB',
+    backgroundColor: '#fff',
     justifyContent: 'space-between',
     flexGrow: 1,
   },

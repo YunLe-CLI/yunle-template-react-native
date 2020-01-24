@@ -46,11 +46,28 @@ export default StyleSheet.create({
     lineHeight: 21,
   },
   title: {
-    fontSize: 20,
-    color: '#353B50',
+    height: 45,
+    backgroundColor: '#EEF1F4',
+    fontSize: 14,
+    color: '#1D262C',
     fontWeight: '500',
-    lineHeight: 23,
     paddingHorizontal: 16,
-    paddingVertical: 16,
+    marginTop: 16,
+    lineHeight: 45,
+    marginHorizontal: 16,
+    borderRadius: 4,
+  },
+  btn: {
+    marginLeft: 17,
+    marginBottom: 17,
+    width: 80,
+    height: 80,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderColor: '#D3D3D3',
+    backgroundColor: '#EEF1F4',
+  },
+  btnText: {
+    color: '#51549A'
   }
 });

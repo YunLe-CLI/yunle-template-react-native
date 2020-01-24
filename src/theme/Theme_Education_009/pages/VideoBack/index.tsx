@@ -10,7 +10,6 @@ import nativeAutoUpdate from '@/utils/native-auto-update';
 import { checkAppVersion } from '@/utils/utils'
 import FastImage from "react-native-fast-image";
 import bg from "./assets/b.png";
-import WebView from 'react-native-webview';
 
 export interface IProps {}
 
@@ -37,80 +36,82 @@ class Home extends React.Component<IProps, IState> {
         const { playbackURL = '', title = '' } = navigation.state.params;
         return (
             <Container style={styles.container}>
-                <Header
-                  transparent
-                  style={{
-                      backgroundColor: '#fff'
-                  }}
-                  iosBarStyle={"dark-content"}
-                >
-                    <Left>
-                        <Button transparent
-                                style={{
-                                    marginLeft: 10,
-                                }}
-                                onPress={() => {
-                                    const { dispatch } = this.props;
-                                    dispatch(NavigationActions.back());
-                                }}
-                        >
-                            <Icon style={{ color: '#333333', fontSize: 25, }} color={'#333333'} name='arrow-back' />
-                        </Button>
-                    </Left>
-                    <Body>
-                        <Title style={{
-                            color: '#333333'
-                        }}>{title}</Title>
-                    </Body>
-                    <Right />
-                </Header>
+                {/*<Header*/}
+                {/*  transparent*/}
+                {/*  iosBarStyle={"dark-content"}*/}
+                {/*>*/}
+                {/*    <Left>*/}
+                {/*        <Button transparent*/}
+                {/*                style={{*/}
+                {/*                    marginLeft: 10,*/}
+                {/*                }}*/}
+                {/*                onPress={() => {*/}
+                {/*                    const { dispatch } = this.props;*/}
+                {/*                    dispatch(NavigationActions.back());*/}
+                {/*                }}*/}
+                {/*        >*/}
+                {/*            <Icon style={{ color: '#333333', fontSize: 25, }} color={'#333333'} name='arrow-back' />*/}
+                {/*        </Button>*/}
+                {/*    </Left>*/}
+                {/*    <Body>*/}
+                {/*        <Title style={{*/}
+                {/*            color: '#333333'*/}
+                {/*        }}>{title}</Title>*/}
+                {/*    </Body>*/}
+                {/*    <Right />*/}
+                {/*</Header>*/}
+                <View>
+                    <VideoPlayer
+                      video={{ uri: playbackURL }}
+                      videoWidth={video.width}
+                      videoHeight={video.height}
+                      duration={this.state.video.duration}
+                      ref={r => this.player = r}
+                      disableFullscreen
+                    />
+                </View>
                 <Content style={{ backgroundColor: '#F4F6FA' }}>
-                    {/*<View>*/}
-                    {/*    <VideoPlayer*/}
-                    {/*        video={{ uri: playbackURL }}*/}
-                    {/*        videoWidth={video.width}*/}
-                    {/*        videoHeight={video.height}*/}
-                    {/*        duration={this.state.video.duration}*/}
-                    {/*        ref={r => this.player = r}*/}
-                    {/*        disableFullscreen*/}
-                    {/*    />*/}
-                    {/*</View>*/}
-                    {/*<View>*/}
-                    {/*    <Text style={styles.title}>回放列表</Text>*/}
-                    {/*</View>*/}
-                    <View style={{}}>
-                        <List style={{  backgroundColor: '#fff' }}
-                              listNoteColor={'#E3E7EF'}
-                        >
-                            <ListItem
-                              style={{
-                                  height: 60,
-                              }}
-                              noIndent onPress={async () => {
-                                this.setState({
-                                    videoUrl: ''
-                                }, () => {
-                                    this.setState({
-                                        videoUrl: 'https://player.alicdn.com/video/aliyunmedia.mp4',
-                                    })
-                                })
-                            }}>
-                                <Left>
-                                    <Text style={styles.itemText}>片段1</Text>
-                                </Left>
-                                <Right>
-                                    <Icon name="arrow-forward" />
-                                </Right>
-                            </ListItem>
-                        </List>
+                    <View>
+                        <Text style={styles.title}>{title}</Text>
                     </View>
-                    <View style={{
-                        width: 0,
-                        height: 0,
-                    }}>
-                        {
-                            this.state.videoUrl ? <WebView ref={e => this.webView = e} source={{ uri: this.state.videoUrl }} /> : undefined
-                        }
+                    <View style={{ marginTop: 24, paddingHorizontal: 16, }}>
+                        <View style={{
+                            marginLeft: -17,
+                            flex: 1,
+                            flexGrow: 1,
+                            flexDirection: 'row',
+                            flexWrap: 'wrap',
+                        }}>
+                            {
+                                [1,2,4,5].map((item) => {
+                                    const width = (Dimensions.get('window').width - 16*2 - 17*2 )/3;
+                                    return <Button
+                                      key={item}
+                                      bordered={this.state.videoUrl !== item}
+                                      transparent={this.state.videoUrl !== item}
+                                      style={[
+                                          styles.btn,
+                                          {
+                                              width,
+                                              height: width,
+                                          }
+                                      ]}
+                                      textStyle={styles.btnText}
+                                      onPress={() => {
+                                          this.setState({
+                                              // videoUrl: playbackURL
+                                              videoUrl: item
+                                          })
+                                      }}>
+                                        <Text style={[this.state.videoUrl !== item ? styles.btnText : {}]}>
+                                            第一段
+                                        </Text>
+                                    </Button>
+
+                                })
+                            }
+
+                        </View>
                     </View>
                 </Content>
             </Container>
