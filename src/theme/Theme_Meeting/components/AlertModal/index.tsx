@@ -5,10 +5,8 @@ import Modal from "react-native-modal";
 import _ from "lodash";
 import {Button, Text} from 'native-base';
 
-import nativeAutoUpdate, { handleDownload } from "@/utils/native-auto-update";
-
 export const AlertModalContext = createContext({
-  handleAlertModalModal: () => {}
+  handleShowAlertModal: () => {}
 })
 export const  AlertModalConsumer = AlertModalContext.Consumer
 
@@ -45,7 +43,15 @@ class  AlertModalProvider extends React.Component<{}, IState> {
     text: '',
   };
 
-  showModel = (text: string) => {
+  showModel = (text: string, onOk, onClear) => {
+    this.onOkCallback = undefined;
+    this.onClearCallback = undefined;
+    if (onOk) {
+      this.onOkCallback = onOk;
+    }
+    if (onClear) {
+      this.onClearCallback = onClear;
+    }
     this.setState({
       isModalVisible: true,
       text,
@@ -55,9 +61,10 @@ class  AlertModalProvider extends React.Component<{}, IState> {
   closeModel = () => {
     this.setState({
       isModalVisible: false,
+    }, () => {
+      this.onOkCallback = undefined;
+      this.onClearCallback = undefined;
     })
-    this.onOkCallback = undefined;
-    this.onClearCallback = undefined;
   };
 
 
@@ -74,13 +81,7 @@ class  AlertModalProvider extends React.Component<{}, IState> {
     return (
       <AlertModalContext.Provider value={{
         handleShowAlertModal: async (config: {text: string, onOk: () => {}, onClear: () => {}}) => {
-          this.showModel(config.text)
-          if (config.onOk) {
-            this.onOkCallback = config.onOk;
-          }
-          if (config.onOk) {
-            this.onClearCallback = config.onClear;
-          }
+          this.showModel(config.text, config.onOk, config.onClear)
         }
       }}>
         {this.props.children}
@@ -90,7 +91,7 @@ class  AlertModalProvider extends React.Component<{}, IState> {
           propagateSwipe
           isVisible={isModalVisible}
           onBackButtonPress={() => {
-            this.closeModel(undefined)
+            this.closeModel()
           }}
           onBackdropPress={() => {
 
@@ -121,10 +122,10 @@ class  AlertModalProvider extends React.Component<{}, IState> {
                         this.setState({
                           isNotRemind: true,
                         }, () => {
-                          this.closeModel();
                           if (typeof this.onClearCallback === 'function') {
                             this.onClearCallback()
                           }
+                          this.closeModel();
                         })
                       }}
                       style={styles.btn}
@@ -137,10 +138,10 @@ class  AlertModalProvider extends React.Component<{}, IState> {
                       full
                       bordered
                       onPress={async () => {
-                        this.closeModel();
                         if (typeof this.onOkCallback === 'function') {
                           this.onOkCallback()
                         }
+                        this.closeModel();
                       }}
                       style={styles.btn}
                   >

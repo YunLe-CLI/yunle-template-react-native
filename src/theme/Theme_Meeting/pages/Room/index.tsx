@@ -27,7 +27,7 @@ import {
 } from 'native-base';
 import { connect } from 'react-redux';
 import styles from './styles';
-import { withCheckAppUpdate } from '@/components/CheckAppUpdate'
+import { withAlertModal } from '@/theme/Theme_Meeting/components/AlertModal'
 import { withLoginModal } from '../../components/LoginModal'
 import {META_DATA} from '../../services/api';
 
@@ -203,7 +203,16 @@ class Home extends React.Component<IProps, IState> {
                                             this.getUsers()
                                         }, 1000 * 10 * 1);
                                     })
-                                } else {
+                                }
+                                // 会议已结束
+                                if (data === 6) {
+                                    this.showAlert('会议已结束', () => {
+                                        this.goBack();
+                                    }, () => {
+                                        this.goBack();
+                                    })
+                                }
+                                else {
                                     this.goBack();
                                     console.log(`错误code: ${data}`)
                                 }
@@ -278,6 +287,16 @@ class Home extends React.Component<IProps, IState> {
         }
     }
 
+    showAlert(text, onOk, onClear) {
+        if (this.props.handleShowAlertModal) {
+            this.props.handleShowAlertModal({
+                text,
+                onOk,
+                onClear,
+            })
+        }
+    }
+
     goToRoom() {
         try {
             const { navigation, exams } = this.props;
@@ -285,7 +304,7 @@ class Home extends React.Component<IProps, IState> {
             if (_.isObject(params.metaData)) {
                 const metaData: META_DATA = params.metaData
                 setTimeout(() => {
-                    SDKGoToRoom(`${metaData.MeetingNo}`, "", `${metaData.Id}`, `${metaData.MeetingType}`)
+                    SDKGoToRoom(`${metaData.MeetingNo}`, "", `${metaData.Id}`, `${metaData.MeetingType}`, true);
                 }, 2000)
 
             } else {
@@ -487,8 +506,11 @@ class Home extends React.Component<IProps, IState> {
                                             bigVideoUserID: undefined,
                                         })
                                     } else {
-                                        const { dispatch } = this.props;
-                                        dispatch(NavigationActions.back());
+                                        this.showAlert('是否确认离开\n' +
+                                          '离开后还可加入该会议', () => {
+                                            const { dispatch } = this.props;
+                                            dispatch(NavigationActions.back());
+                                        })
                                     }
                                 }}
                             >
@@ -508,8 +530,10 @@ class Home extends React.Component<IProps, IState> {
                                 style={styles.btnWrap}
                                 transparent
                                 onPress={() => {
-                                    const { dispatch } = this.props;
-                                    dispatch(NavigationActions.back());
+                                    this.showAlert('是否结束会议？', () => {
+                                        const { dispatch } = this.props;
+                                        dispatch(NavigationActions.back());
+                                    })
                                 }}
                             >
                                 <FastImage
@@ -575,4 +599,4 @@ class Home extends React.Component<IProps, IState> {
         );
     }
 }
-export default withCheckAppUpdate(withLoginModal(Home));
+export default withAlertModal(withLoginModal(Home));
