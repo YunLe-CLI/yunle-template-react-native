@@ -83,7 +83,7 @@ class Me extends React.PureComponent<IProps, IState> {
         this.props.dispatch(StackActions.replace({
           routeName: 'Room',
           params: {
-            metaData: data.metaData,
+            metaData: res.data.metaData,
           },
         }))
       } else {
