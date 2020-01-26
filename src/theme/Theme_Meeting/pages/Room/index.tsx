@@ -50,7 +50,7 @@ import video_2 from './assets/icon_video_ac_slices/icon_video_ac.png';
 
 const { MainViewManager = {}, MainViewController = {} } = NativeModules || {};
 const { SDKAuth, SDKLogin, SDKGoToRoom, SDKGetUsers, SDKGetUserInfo, SDKSetVideo, SDKSetAudio } = MainViewController || {};
-const { SDKLeaveRoom } = MainViewController || {};
+const { SDKLeaveRoom, SDKEndRoom } = MainViewController || {};
 
 export interface IProps {}
 
@@ -58,6 +58,26 @@ export interface IState {
     SDK_AUTH: boolean;
     SDK_LOGIN: boolean;
     inRoom: boolean;
+    userList: number[];
+    usersInfo: Array<USER_INO>;
+}
+
+export interface USER_INO {
+    "accountID": string,
+    "emailAddress": string,
+    "isHostUser": boolean,
+    "isMyself": boolean,
+    "userID": number,
+    "userName": string,
+    "audioStatus": {
+        "audioType": number,
+        "isMuted": boolean,
+        "isTalking": boolean
+    },
+    "videoStatus": {
+        "isReceiving": boolean,
+        "isSending": boolean, "isSource": boolean
+    }
 }
 
 @(connect(({ auth }) => {
@@ -189,32 +209,36 @@ class Home extends React.Component<IProps, IState> {
                             }
                             case 'SDK_ERROR': {
                                 this.getUsers();
-                                // 启会／加入成功
-                                if (data === 0) {
-                                    this.setState({
-                                        inRoom: true,
-                                    }, () => {
-                                        if (this.setIntervalGetUsers) {
-                                            clearInterval(this.setIntervalGetUsers)
-                                            this.setIntervalGetUsers = null;
-                                        }
-                                        this.getUsers()
-                                        this.setIntervalGetUsers = setInterval(() => {
+                                switch (data) {
+                                  // 启会／加入成功
+                                    case 0: {
+                                        this.setState({
+                                            inRoom: true,
+                                        }, () => {
+                                            if (this.setIntervalGetUsers) {
+                                                clearInterval(this.setIntervalGetUsers)
+                                                this.setIntervalGetUsers = null;
+                                            }
                                             this.getUsers()
-                                        }, 1000 * 10 * 1);
-                                    })
-                                }
-                                // 会议已结束
-                                if (data === 6) {
-                                    this.showAlert('会议已结束', () => {
-                                        this.goBack();
-                                    }, () => {
-                                        this.goBack();
-                                    })
-                                }
-                                else {
-                                    this.goBack();
-                                    console.log(`错误code: ${data}`)
+                                            this.setIntervalGetUsers = setInterval(() => {
+                                                this.getUsers()
+                                            }, 1000 * 10 * 1);
+                                        })
+                                        break;
+                                    }
+                                  // 会议已结束
+                                    case 6: {
+                                        this.showAlert('会议已结束', () => {
+                                            this.goBack();
+                                        }, () => {
+                                            this.goBack();
+                                        })
+                                    }
+                                    default: {
+                                        this.showAlert(`错误code: ${data}`, () => {
+                                            this.goBack();
+                                        })
+                                    }
                                 }
                                 break;
                             }
@@ -427,6 +451,7 @@ class Home extends React.Component<IProps, IState> {
             </View>
         </TouchableOpacity>
     }
+
     render() {
         const { bigVideoUserID } = this.state;
         return (
@@ -531,6 +556,11 @@ class Home extends React.Component<IProps, IState> {
                                 transparent
                                 onPress={() => {
                                     this.showAlert('是否结束会议？', () => {
+                                        try {
+                                            SDKEndRoom();
+                                        } catch (e) {
+
+                                        }
                                         const { dispatch } = this.props;
                                         dispatch(NavigationActions.back());
                                     })
