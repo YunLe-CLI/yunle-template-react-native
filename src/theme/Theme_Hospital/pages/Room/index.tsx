@@ -498,11 +498,12 @@ class Home extends React.Component<IProps, IState> {
               position: 'absolute',
               right: 16,
               top: 45,
-              width: 100,
-              height: 100,
+              width: 102,
+              height: 102,
               backgroundColor: '#000',
               borderWidth: 1,
               borderColor: '#FFFFFF',
+              overflow: 'hidden'
           }}
         >
             {
@@ -546,17 +547,22 @@ class Home extends React.Component<IProps, IState> {
 
                     }}
                 />
-                <Header
-                  transparent
-                  style={{
-                      position: 'relative',
-                      left: 0,
-                      right: 0,
-                      top: 0,
-                      zIndex: 9999,
-                  }}
+                <Content
+                    style={{
+                        flex: 1,
+                        flexGrow: 1,
+                    }}
+                    contentContainerStyle={{
+                        flex: 1,
+                        flexGrow: 1,
+                    }}
                 >
-                    <Left style={{
+                    <View style={{
+                        position: 'absolute',
+                        left: 0,
+                        right: 0,
+                        top: 36,
+                        zIndex: 99999999999,
                         width: 50,
                         height: 50,
                     }}>
@@ -569,22 +575,7 @@ class Home extends React.Component<IProps, IState> {
                         >
                             <Icon style={{ paddingHorizontal: 12, color: '#fff', fontSize: 26 }} name='arrow-back' />
                         </Button>
-                    </Left>
-                    <Body>
-
-                    </Body>
-                    <Right />
-                </Header>
-                <Content
-                    style={{
-                        flex: 1,
-                        flexGrow: 1,
-                    }}
-                    contentContainerStyle={{
-                        flex: 1,
-                        flexGrow: 1,
-                    }}
-                >
+                    </View>
                     {
                         !this.state.inRoom ? (
                             <View style={{ flex: 1, flexGrow: 1, paddingHorizontal: 12, justifyContent: 'center', alignItems: 'center' }}>
