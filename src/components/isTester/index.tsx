@@ -35,10 +35,13 @@ class IsTester extends React.PureComponent<IProps, IState> {
   render() {
     return <Fab
       active={this.state.active}
-      direction="up"
+      direction="down"
+      style={{
+        bottom: 100,
+      }}
       containerStyle={{ }}
       style={{ backgroundColor: '#D32929' }}
-      position="bottomRight"
+      position="topRight"
       onPress={() => {
         this.setState({
           active: !this.state.active,

@@ -575,6 +575,8 @@ class Home extends React.Component<IProps, IState> {
                         zIndex: 99999999999,
                         width: 50,
                         height: 50,
+                        justifyContent: 'center',
+                        alignItems: 'center',
                     }}>
                         <Button
                           transparent
@@ -583,7 +585,16 @@ class Home extends React.Component<IProps, IState> {
                               dispatch(NavigationActions.back());
                           }}
                         >
-                            <Icon style={{ paddingHorizontal: 12, color: '#fff', fontSize: 26 }} name='arrow-back' />
+                            <FastImage
+                              style={{
+                                  width: 28,
+                                  height: 28,
+                                  alignContent: 'center',
+                                  justifyContent: 'center',
+                              }}
+                              source={require('./assets/ico_arrowleft_slices/ico_arrowleft.png')}
+                              resizeMode={FastImage.resizeMode.contain}
+                            />
                         </Button>
                     </View>
                     {
