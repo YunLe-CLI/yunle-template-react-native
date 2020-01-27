@@ -30,6 +30,7 @@ import SelectDateTimeModalProvider from '../components/SelectTimeModal';
 
 import { getActiveRoute } from '@/utils/utils';
 import SelectGenderModalProvider from '@/theme/Theme_Hospital/components/SelectGenderModal';
+import AlertModalProvider from '@/theme/Theme_Hospital/components/AlertModal';
 
 
 const MainRouter = createAnimatedSwitchNavigator(
@@ -144,6 +145,7 @@ export default function createRouter() {
       const { forceUpdate } = this.state;
       const { dispatch, router } = this.props;
       return <StyleProvider style={getTheme(platform)}>
+        <AlertModalProvider>
         <LoginProvider>
           <GoToRoomModalProvider>
             <CancelModalProvider>
@@ -166,6 +168,7 @@ export default function createRouter() {
             </CancelModalProvider>
           </GoToRoomModalProvider>
         </LoginProvider>
+        </AlertModalProvider>
       </StyleProvider>
     }
   }

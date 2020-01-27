@@ -27,7 +27,7 @@ import {
 } from 'native-base';
 import { connect } from 'react-redux';
 import styles from './styles';
-import { withAlertModal } from '@/theme/Theme_Meeting/components/AlertModal'
+import { withAlertModal } from '@/theme/Theme_Hospital/components/AlertModal'
 import { withLoginModal } from '../../components/LoginModal'
 import {META_DATA} from '../../services/api';
 
@@ -228,11 +228,21 @@ class Home extends React.Component<IProps, IState> {
                                     }
                                   // 会议已结束
                                     case 6: {
-                                        this.showAlert('会议已结束', () => {
+                                        this.showAlert('就诊已结束', () => {
                                             this.goBack();
                                         }, () => {
                                             this.goBack();
                                         })
+                                        break
+                                    }
+                                    // 被主持人移除
+                                    case 61: {
+                                        this.showAlert('就诊已结束，祝您身体健康', () => {
+                                            this.goBack();
+                                        }, () => {
+                                            this.goBack();
+                                        })
+                                        break
                                     }
                                     default: {
                                         this.showAlert(`错误code: ${data}`, () => {

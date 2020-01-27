@@ -148,8 +148,8 @@ class Home extends React.Component<IProps, IState> {
         }
         if (kickId === id) {
           // 离开房间
-          SDKLeaveRoom();
-          alert('已完成')
+          // SDKLeaveRoom();
+          // alert('已完成')
         }
       }
     } catch (e) {
