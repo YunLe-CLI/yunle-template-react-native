@@ -38,7 +38,7 @@ console.log('NativeModules RNVideoViewManager', NativeModules.RNVideoViewManager
 // import YSXVideo from '@/theme/Theme_Meeting/components/YSXVideo';
 
 import loading from './assets/loading_slices/loading.png';
-import YSXVideo from "@/theme/Theme_Meeting/components/YSXVideo";
+import YSXVideo from "@/components/YSXVideo";
 import backIMG from './assets/icon_return_hover_slices/icon_return_hover.png';
 import closeIMG from './assets/icon_poweroff_de_slices/icon_poweroff_de.png';
 
