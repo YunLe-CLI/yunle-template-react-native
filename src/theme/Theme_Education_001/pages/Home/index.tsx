@@ -296,7 +296,7 @@ class Home extends React.Component<IProps, IState> {
             </View>
             <View style={{ width: 10 }} />
             {
-              type || type !== 3 ? (
+              type !== 3 ? (
                 <View style={[styles.btnWrap]}>
                   <LinearGradient
                     start={{x: 0, y: 0}} end={{x: 1, y: 1}}
