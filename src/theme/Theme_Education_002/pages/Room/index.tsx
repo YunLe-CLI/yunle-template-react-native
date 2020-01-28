@@ -29,7 +29,7 @@ import {
 } from 'native-base';
 import { connect } from 'react-redux';
 import styles from './styles';
-import { withAlertModal } from '@/theme/Theme_Education_001/components/AlertModal'
+import { withAlertModal } from '@/theme/Theme_Education_002/components/AlertModal'
 import { withLoginModal } from '../../components/LoginModal'
 import {META_DATA} from '../../services/api';
 
