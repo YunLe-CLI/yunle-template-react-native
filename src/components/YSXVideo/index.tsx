@@ -2,12 +2,12 @@ import React from 'react';
 import {Platform, View, StyleSheet, findNodeHandle, NativeModules} from 'react-native';
 
 var { requireNativeComponent } = require('react-native');
-const { RNYSXVideoManager = {} } = NativeModules || {};
+const { RNYSXVideoManager } = NativeModules || {};
 
 export default class YXSVideoView extends React.Component {
     get _module() {
         return Platform.OS === 'ios'
-            ? NativeModules.RNYSXVideoManager
+            ? (NativeModules.RNYSXVideoManager ? NativeModules.RNYSXVideoManager : {})
             : {};
     }
 
@@ -47,16 +47,30 @@ export default class YXSVideoView extends React.Component {
             <View style={[this.props.style, {
                 overflow: 'hidden'
             }]}>
-                <RNVideoView
-                    uid={this.props.uid}
-                    ref={r => {
-                        this._RNVideoView = r;
-                    }}
-                    style={StyleSheet.absoluteFill}
-                />
+                {
+                    RNVideoView ? (
+                      <RNVideoView
+                        uid={this.props.uid}
+                        ref={r => {
+                            this._RNVideoView = r;
+                        }}
+                        style={StyleSheet.absoluteFill}
+                      />
+                    ) : undefined
+                }
             </View>
         );
     }
 }
 
-const RNVideoView = requireNativeComponent('RNYSXVideo', YXSVideoView);
+const RNVideoView = (() => {
+    let NODE = undefined;
+    try {
+        if (RNYSXVideoManager) {
+            NODE = requireNativeComponent('RNYSXVideo', YXSVideoView);
+        }
+    } catch (e) {
+
+    }
+    return NODE;
+})();
