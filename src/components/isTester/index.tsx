@@ -9,7 +9,7 @@ import Draggable from 'react-native-draggable';
 import _ from 'lodash';
 import AsyncStorage from "@react-native-community/async-storage";
 import {withSelectThemeModal} from '@/components/SelectThemeModal';
-
+import ActionButton from 'react-native-action-button';
 
 interface IProps {}
 
@@ -23,6 +23,8 @@ class IsTester extends React.PureComponent<IProps, IState> {
 
   state = {
     active: false,
+    x: undefined,
+    y: undefined,
     height: undefined,
   };
 
@@ -33,54 +35,115 @@ class IsTester extends React.PureComponent<IProps, IState> {
     }));
   };
   render() {
-    return <Fab
-      active={this.state.active}
-      direction="down"
-      style={{
-        bottom: 100,
-      }}
-      containerStyle={{ }}
-      style={{ backgroundColor: '#D32929' }}
-      position="topRight"
-      onPress={() => {
-        this.setState({
-          active: !this.state.active,
-          // height: this.state.height ? undefined : 1000,
-        })
-      }}>
-      <Icon name="bug" />
-      <Button style={{ backgroundColor: '#34A34F' }}
-              onPress={() => {
-                this.goToSetting()
-              }}
-      >
-        <Icon name="hammer" />
-      </Button>
-      <Button style={{ backgroundColor: '#34A34F' }}
-              onPress={() => {
-                CodePush.restartApp();
-              }}
-      >
-        <Icon name="refresh" />
-      </Button>
-      <Button style={{ backgroundColor: '#34A34F' }}
-              onPress={async () => {
-                this.props.handleShowSelectThemeModal()
-              }}
-      >
-        <Icon name="color-palette" />
-      </Button>
-      <Button
-        onPress={() => {
-          const { dispatch } = this.props;
-          dispatch({
-            type: 'auth/logout'
-          });
+    const { x, y } = this.state;
+    const { width, height } = Dimensions.get('window');
+    const defaultX = width - 50;
+    const defaultY = height - 150;
+    return  <ActionButton
+        size={56}
+        buttonColor="rgba(231,76,60,1)"
+        offsetX={10}
+        offsetY={100}
+        style={{
+          position: 'absolute',
+          zIndex: 999,
         }}
+        renderIcon={() => <Icon style={{ color: '#fff' }} name="bug" />}
       >
-        <Icon name="log-out" />
-      </Button>
-    </Fab>
+        <ActionButton.Item
+          buttonColor='#9b59b6'
+          title="刷新"
+          onPress={() => {
+            CodePush.restartApp();
+          }}
+        >
+          <Icon style={{ color: '#fff' }} name="refresh" />
+        </ActionButton.Item>
+        <ActionButton.Item
+          buttonColor='#3498db'
+          title="主题"
+          onPress={() => {
+            this.props.handleShowSelectThemeModal()
+          }}
+        >
+          <Icon style={{ color: '#fff' }} name="color-palette" />
+        </ActionButton.Item>
+        <ActionButton.Item
+          buttonColor='#1abc9c'
+          title="退出"
+          onPress={() => {
+            const { dispatch } = this.props;
+            dispatch({
+              type: 'auth/logout'
+            });
+          }}
+        >
+          <Icon style={{ color: '#fff' }} name="log-out" />
+        </ActionButton.Item>
+      </ActionButton>
+    return <Draggable
+      x={defaultX}
+      y={defaultY}
+      z={99999999}
+      minX={0}
+      minY={0}
+      maxX={width}
+      maxY={height - 56}
+      renderSize={56}
+      isCircle={true}
+      touchableOpacityProps={0}
+      style={{
+        overflow: 'visible',
+        backgroundColor: 'red'
+      }}
+    >
+      <View style={{
+        width: 56,
+        height: 56,
+        overflow: 'visible',
+        zIndex: 9999,
+      }}>
+        <ActionButton
+          size={56}
+          buttonColor="rgba(231,76,60,1)"
+          offsetX={0}
+          offsetY={0}
+          renderIcon={() => <Icon style={{ color: '#fff' }} name="bug" />}
+        >
+          <ActionButton.Item
+            buttonColor='#9b59b6'
+            title="刷新"
+            onPress={() => {
+              CodePush.restartApp();
+            }}
+          >
+            <Icon style={{ color: '#fff' }} name="refresh" />
+          </ActionButton.Item>
+          <ActionButton.Item
+            buttonColor='#3498db'
+            title="主题"
+            onPress={() => {
+              this.props.handleShowSelectThemeModal()
+            }}
+          >
+            <Icon style={{ color: '#fff' }} name="color-palette" />
+          </ActionButton.Item>
+          <ActionButton.Item
+            buttonColor='#1abc9c'
+            title="退出"
+            onPress={() => {
+              const { dispatch } = this.props;
+              dispatch({
+                type: 'auth/logout'
+              });
+            }}
+          >
+            <Icon style={{ color: '#fff' }} name="log-out" />
+          </ActionButton.Item>
+        </ActionButton>
+      </View>
+
+    </Draggable>
   }
 }
 
