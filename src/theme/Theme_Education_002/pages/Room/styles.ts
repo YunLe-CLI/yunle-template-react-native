@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
   container: {
-    backgroundColor: '#2E323F',
+    backgroundColor: '#2B313D',
     flex: 1,
   },
   boxWithShadow: {
@@ -54,12 +54,8 @@ export default StyleSheet.create({
   },
   footerWrap: {
     borderTopWidth: 0,
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    bottom: 45,
-    height: 100,
-    backgroundColor: 'transparent'
+    // height: 50,
+    backgroundColor: '#2B313D',
   },
   btnWrap: {
     marginLeft: 16,
@@ -71,8 +67,21 @@ export default StyleSheet.create({
     paddingLeft: 0,
     width: 48,
     height: 48,
-    backgroundColor: '#000000',
+    backgroundColor: 'transparent',
     borderRadius: 24,
+  },
+  btnWrap2: {
+    marginLeft: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: 0,
+    paddingBottom: 0,
+    paddingRight: 0,
+    paddingLeft: 0,
+    width: 88,
+    height: 28,
+    backgroundColor: '#FFE304',
+    borderRadius: 3,
   },
   userNameWrap: {
     position: 'absolute',
