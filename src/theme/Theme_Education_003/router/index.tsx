@@ -24,6 +24,7 @@ import LoginProvider from '../components/LoginModal';
 import GoToRoomModalProvider from '../components/GoToRoomModal';
 
 import { getActiveRoute } from '@/utils/utils';
+import AlertModalProvider from '@/theme/Theme_Education_003/components/AlertModal';
 
 
 const MainRouter = createAnimatedSwitchNavigator(
@@ -138,16 +139,18 @@ export default function createRouter() {
       const { forceUpdate } = this.state;
       const { dispatch, router } = this.props;
       return <StyleProvider style={getTheme(platform)}>
-        <LoginProvider>
-          <GoToRoomModalProvider>
+        <AlertModalProvider>
+          <LoginProvider>
+            <GoToRoomModalProvider>
               {
                 !forceUpdate ? <App
                   dispatch={dispatch}
                   state={router}
                 /> : undefined
               }
-          </GoToRoomModalProvider>
-        </LoginProvider>
+            </GoToRoomModalProvider>
+          </LoginProvider>
+        </AlertModalProvider>
       </StyleProvider>
     }
   }
