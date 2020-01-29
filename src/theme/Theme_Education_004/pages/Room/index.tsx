@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-    FlatList,
     StatusBar,
     Dimensions,
     View,
@@ -10,7 +9,6 @@ import {
     Animated,
     Easing,
     TouchableOpacity,
-    SafeAreaView,
 } from 'react-native';
 import {NavigationActions, NavigationEvents} from 'react-navigation';
 import {
@@ -29,7 +27,7 @@ import {
 } from 'native-base';
 import { connect } from 'react-redux';
 import styles from './styles';
-import { withAlertModal } from '@/theme/Theme_Education_000/components/AlertModal'
+import { withAlertModal } from '@/theme/Theme_Education_004/components/AlertModal'
 import { withLoginModal } from '../../components/LoginModal'
 import {META_DATA} from '../../services/api';
 
@@ -49,10 +47,6 @@ import audio_IMG_2 from './assets/icon_audio_ac_slices/icon_audio_ac.png';
 
 import video_1 from './assets/icon_video_de_slices2/icon_video_de.png';
 import video_2 from './assets/icon_video_ac_slices/icon_video_ac.png';
-
-import share_1 from './assets/ico_share_slices/ico_share.png';
-import share_2 from './assets/icon_share_active_slices/icon_share_active.png';
-import Modal from 'react-native-modal';
 
 const { MainViewManager = {}, MainViewController = {} } = NativeModules || {};
 const { SDKAuth, SDKLogin, SDKGoToRoom, SDKGetUsers, SDKGetUserInfo, SDKSetVideo, SDKSetAudio } = MainViewController || {};
@@ -102,8 +96,6 @@ class Home extends React.Component<IProps, IState> {
         usersInfo: {},
         audioType: true,
         videoType: true,
-        shareType: false,
-        up: false,
     };
 
     constructor(props: IProps) {
@@ -124,13 +116,13 @@ class Home extends React.Component<IProps, IState> {
                 this.animationLoading = null;
             }
             this.animationLoading = Animated.timing(
-                this.state.rotateVal, // 初始值
-                {
-                    duration: 3000,
-                    toValue: 360, // 终点值
-                    easing: Easing.linear, // 这里使用匀速曲线，详见RN-api-Easing
-                    useNativeDriver: true,
-                }
+              this.state.rotateVal, // 初始值
+              {
+                  duration: 3000,
+                  toValue: 360, // 终点值
+                  easing: Easing.linear, // 这里使用匀速曲线，详见RN-api-Easing
+                  useNativeDriver: true,
+              }
             );
             Animated.loop(this.animationLoading).start();
         } catch (e) {
@@ -169,115 +161,105 @@ class Home extends React.Component<IProps, IState> {
                 this.subscription = null;
             }
             this.subscription = AppEmitter.addListener(
-                'onYSXSDKChange',
-                (reminder = {}) => {
-                    console.log(reminder)
-                    const { type, data } = reminder;
-                    try {
-                        switch (type) {
-                            case 'SDK_AUTH': {
-                                if (data === 0) {
-                                    this.setState({
-                                        SDK_AUTH: true,
-                                    }, () => {
-                                        const { token } = this.props;
-                                        if (token) {
-                                            SDKLogin(token)
-                                        }
-                                    })
-                                } else {
-                                    console.log(`sdk认证失败code：${data}`);
-                                    this.goBack();
-                                }
-                                break;
-                            }
-                            case 'SDK_LOGIN': {
-                                if (data === 0) {
-                                    this.setState({
-                                        SDK_LOGIN: true,
-                                    }, () => {
-                                        this.goToRoom()
-                                    })
-                                } else {
-                                    console.log(`sdk登陆失败code：${data}`);
-                                    this.goBack();
-                                }
-                                break;
-                            }
-                            case 'SDK_LOGOUT': {
-                                if (data === 0) {
-                                    this.setState({
-                                        SDK_LOGIN: false,
-                                    })
-                                } else {
-                                    console.log(`sdk退出失败code：${data}`);
-                                    this.goBack();
-                                }
-                                break;
-                            }
-                            case 'SDK_ERROR': {
-                                this.getUsers();
-                                switch (data) {
-                                  // 启会／加入成功
-                                    case 0: {
-                                        this.setState({
-                                            inRoom: true,
-                                        }, () => {
-                                            if (this.setIntervalGetUsers) {
-                                                clearInterval(this.setIntervalGetUsers)
-                                                this.setIntervalGetUsers = null;
-                                            }
-                                            this.getUsers()
-                                            this.setIntervalGetUsers = setInterval(() => {
-                                                this.getUsers()
-                                            }, 1000 * 10 * 1);
-                                        })
-                                        break;
-                                    }
-                                  // 会议已结束
-                                    case 6: {
-                                        this.showAlert('就诊已结束', () => {
-                                            this.goBack();
-                                        }, () => {
-                                            this.goBack();
-                                        })
-                                        break
-                                    }
-                                    // 被主持人移除
-                                    case 61: {
-                                        this.showAlert('就诊已结束，祝您身体健康', () => {
-                                            this.goBack();
-                                        }, () => {
-                                            this.goBack();
-                                        })
-                                        break
-                                    }
-                                    default: {
-                                        this.showAlert(`错误code: ${data}`, () => {
-                                            this.goBack();
-                                        })
-                                    }
-                                }
-                                break;
-                            }
-                            case "SDK_JOIN_MEETING": {
-                                this.getUsers();
-                                console.log(`添加${data}`)
-                                break;
-                            }
-                            case "SDK_LEAVE_MEETING": {
-                                this.getUsers();
-                                console.log(`离开${data}`)
-                                break;
-                            }
-                            default: {
+              'onYSXSDKChange',
+              (reminder = {}) => {
+                  console.log(reminder)
+                  const { type, data } = reminder;
+                  try {
+                      switch (type) {
+                          case 'SDK_AUTH': {
+                              if (data === 0) {
+                                  this.setState({
+                                      SDK_AUTH: true,
+                                  }, () => {
+                                      const { token } = this.props;
+                                      if (token) {
+                                          SDKLogin(token)
+                                      }
+                                  })
+                              } else {
+                                  console.log(`sdk认证失败code：${data}`);
+                                  this.goBack();
+                              }
+                              break;
+                          }
+                          case 'SDK_LOGIN': {
+                              if (data === 0) {
+                                  this.setState({
+                                      SDK_LOGIN: true,
+                                  }, () => {
+                                      this.goToRoom()
+                                  })
+                              } else {
+                                  console.log(`sdk登陆失败code：${data}`);
+                                  this.goBack();
+                              }
+                              break;
+                          }
+                          case 'SDK_LOGOUT': {
+                              if (data === 0) {
+                                  this.setState({
+                                      SDK_LOGIN: false,
+                                  })
+                              } else {
+                                  console.log(`sdk退出失败code：${data}`);
+                                  this.goBack();
+                              }
+                              break;
+                          }
+                          case 'SDK_ERROR': {
+                              this.getUsers();
+                              switch (data) {
+                                // 启会／加入成功
+                                  case 0: {
+                                      this.setState({
+                                          inRoom: true,
+                                      }, () => {
+                                          if (this.setIntervalGetUsers) {
+                                              clearInterval(this.setIntervalGetUsers)
+                                              this.setIntervalGetUsers = null;
+                                          }
+                                          this.getUsers()
+                                          this.setIntervalGetUsers = setInterval(() => {
+                                              this.getUsers()
+                                          }, 1000 * 10 * 1);
+                                      })
+                                      break;
+                                  }
+                                // 会议已结束
+                                  case 6: {
+                                      this.showAlert('会议已结束', () => {
+                                          this.goBack();
+                                      }, () => {
+                                          this.goBack();
+                                      })
+                                  }
+                                  default: {
+                                      this.showAlert(`错误code: ${data}`, () => {
+                                          this.goBack();
+                                      })
+                                  }
+                              }
+                              break;
+                          }
+                          case "SDK_JOIN_MEETING": {
+                              this.getUsers();
+                              console.log(`添加${data}`)
+                              break;
+                          }
+                          case "SDK_LEAVE_MEETING": {
+                              this.getUsers();
+                              console.log(`离开${data}`)
+                              break;
+                          }
+                          default: {
 
-                            }
-                        }
-                    } catch (e) {
-                        alert(e)
-                    }
-                }
+                          }
+                      }
+                  } catch (e) {
+                      alert(e)
+                  }
+              }
             );
         } catch (e) {
             console.log(e)
@@ -306,8 +288,8 @@ class Home extends React.Component<IProps, IState> {
             console.log('userInfo: ', userInfo)
             this.setState({
                 usersInfo: {
-                  ...this.state.usersInfo,
-                  [userID]: userInfo,
+                    ...this.state.usersInfo,
+                    [userID]: userInfo,
                 }
             })
         } catch (e) {
@@ -382,43 +364,52 @@ class Home extends React.Component<IProps, IState> {
         }
     }
 
-    renderVideo = ({ item }) => {
+    renderVideo() {
         const { userList = [], usersInfo = {} } = this.state;
         const list = userList;
         const width = Dimensions.get('window').width;
-        const videoWidth = 100;
-        const info = usersInfo[item] || {};
+        const videoWidth = width/2;
         return <View style={{
             flexDirection: 'row',
             flexWrap: 'wrap'
         }}>
-            <TouchableOpacity
-              key={JSON.stringify(item)}
-              onPress={() => {
-                  this.setState({
-                      bigVideoUserID: item,
-                  })
-              }}
-            >
-                <View
-                  style={{
-                      width: videoWidth,
-                      height: videoWidth,
-                      backgroundColor: '#000'
-                  }}
-                >
-                    <YSXVideo
-                      uid={item}
-                      style={{
-                          width: videoWidth,
-                          height: videoWidth,
+            {
+                list.map((item, index) => {
+                    const info = usersInfo[item] || {};
+                    return <TouchableOpacity
+                      key={JSON.stringify(item)}
+                      onPress={() => {
+                          this.setState({
+                              bigVideoUserID: item,
+                          })
                       }}
-                    />
-                    {/*<View style={styles.userNameWrap}>*/}
-                    {/*    <Text style={styles.userNameText}>{info.userName || info.userID || item || '加载中...'}</Text>*/}
-                    {/*</View>*/}
-                </View>
-            </TouchableOpacity>
+                    >
+                        <View
+                          style={{
+                              width: videoWidth,
+                              height: videoWidth,
+                              backgroundColor: '#000'
+                          }}
+                        >
+                            <YSXVideo
+                              uid={item}
+                              style={{
+                                  width: videoWidth,
+                                  height: videoWidth,
+                              }}
+                            />
+                            {
+                                info.isHostUser ? (
+                                  <View style={styles.userNameWrap}>
+                                      <Text style={styles.userNameText}>{info.userName || info.userID || item || '加载中...'}</Text>
+                                  </View>
+                                ) : undefined
+                            }
+                        </View>
+                    </TouchableOpacity>
+                })
+            }
+
         </View>
     }
 
@@ -464,181 +455,113 @@ class Home extends React.Component<IProps, IState> {
             </View>
         </TouchableOpacity>
     }
-    renderHost() {
-        const { bigVideoUserID, userList, usersInfo = {} } = this.state;
-        const hostUser = userList.filter((id) => {
-            return (usersInfo[id] || {}).isHostUser
-        })
-        const userID = hostUser && hostUser.length ? hostUser[0] : undefined;
-        const info = usersInfo[userID] || {};
-        const width = Dimensions.get('window').width;
-        const height = Dimensions.get('window').height;
-        return <View
-          style={{
-              flex: 1,
-              position: 'absolute',
-              width,
-              height,
-              flexGrow: 1,
-              justifyContent: 'center',
-              alignItems: 'center',
-          }}
-        >
-            {
-                userID ? (
-                  <YSXVideo
-                    uid={userID}
-                    style={{
-                        width,
-                        height,
-                    }}
-                  />
-                ) : <View>
-                    <Text style={styles.loadingTText}>老师正在赶来，请稍等…</Text>
-                </View>
-            }
-        </View>
-    }
-    renderMe() {
-        const { bigVideoUserID, userList, usersInfo = {} } = this.state;
-        const meUser = userList.filter((id) => {
-            return (usersInfo[id] || {}).isMyself
-        })
-        const userID = meUser && meUser.length ? meUser[0] : undefined;
-        const info = usersInfo[userID] || {};
-        return <View
-          style={{
-              position: 'absolute',
-              right: 16,
-              top: 45,
-              width: 102,
-              height: 102,
-              backgroundColor: '#000',
-              borderWidth: 1,
-              borderColor: '#FFFFFF',
-              overflow: 'hidden'
-          }}
-        >
-            {
-                userID ? (
-                  <YSXVideo
-                    uid={userID}
-                    style={{
-                        width: 100,
-                        height: 100,
-                    }}
-                  />
-                ) : undefined
-            }
-            {/*<View style={styles.userNameWrap}>*/}
-            {/*    <Text style={styles.userNameText}>{info.userName || info.userID || '加载中...'}</Text>*/}
-            {/*</View>*/}
-        </View>
-    }
+
     render() {
-        const { bigVideoUserID, userList, usersInfo = {} } = this.state;
-        const hostUser = userList.filter((id) => {
-            return (usersInfo[id] || {}).isHostUser
-        })
-        const meUser = userList.filter((id) => {
-            return (usersInfo[id] || {}).isMyself
-        })
-        console.log(meUser, "主持人");
+        const { bigVideoUserID } = this.state;
         return (
-            <Container style={styles.container}>
-                <NavigationEvents
-                    onWillFocus={async payload => {
+          <Container style={styles.container}>
+              <NavigationEvents
+                onWillFocus={async payload => {
 
-                    }}
-                    onDidFocus={async payload => {
-                        await this.componentDidMount();
-                    }}
-                    onWillBlur={payload => {
+                }}
+                onDidFocus={async payload => {
+                    await this.componentDidMount();
+                }}
+                onWillBlur={payload => {
 
-                    }}
-                    onDidBlur={payload => {
+                }}
+                onDidBlur={payload => {
 
-                    }}
-                />
-                <Content
-                    style={{
-                        flex: 1,
-                        flexGrow: 1,
-                    }}
-                    contentContainerStyle={{
-                        flex: 1,
-                        flexGrow: 1,
-                    }}
-                >
-                    <View style={{
-                        position: 'absolute',
-                        left: 0,
-                        right: 0,
-                        top: 36,
-                        zIndex: 99999999999,
-                        width: 50,
-                        height: 50,
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                    }}>
-                        <Button
-                          transparent
-                          onPress={() => {
-                              const { dispatch } = this.props;
-                              dispatch(NavigationActions.back());
-                          }}
-                        >
-                            <FastImage
-                              style={{
-                                  width: 28,
-                                  height: 28,
-                                  alignContent: 'center',
-                                  justifyContent: 'center',
-                              }}
-                              source={require('./assets/ico_arrowleft_slices/ico_arrowleft.png')}
-                              resizeMode={FastImage.resizeMode.contain}
-                            />
-                        </Button>
-                    </View>
-                    {
-                        !this.state.inRoom ? (
-                            <View style={{ flex: 1, flexGrow: 1, paddingHorizontal: 12, justifyContent: 'center', alignItems: 'center' }}>
+                }}
+              />
+              <Content
+                style={{
+                    flex: 1,
+                    flexGrow: 1,
+                }}
+                contentContainerStyle={{
+                    flex: 1,
+                    flexGrow: 1,
+                }}
+              >
+                  {
+                      !this.state.inRoom ? (
+                        <View style={{ flex: 1, flexGrow: 1, paddingHorizontal: 12, justifyContent: 'center', alignItems: 'center' }}>
+                            <Animated.View style={[
+                                styles.loadingWrap,
+                            ]}>
                                 <Animated.View style={[
-                                    styles.loadingWrap,
+                                    {
+                                        transform: [{ // 动画属性
+                                            rotate: this.state.rotateVal.interpolate({
+                                                inputRange: [0, 360],
+                                                outputRange: ['0deg', '360deg'],
+                                            })
+                                        }]
+                                    }
                                 ]}>
-                                    <Animated.View style={[
-                                        {
-                                            transform: [{ // 动画属性
-                                                rotate: this.state.rotateVal.interpolate({
-                                                    inputRange: [0, 360],
-                                                    outputRange: ['0deg', '360deg'],
-                                                })
-                                            }]
-                                        }
-                                    ]}>
-                                        <FastImage
-                                            style={{
-                                                width: 48,
-                                                height: 48,
-                                                alignContent: 'center',
-                                                justifyContent: 'center',
-                                            }}
-                                            source={loading}
-                                            resizeMode={FastImage.resizeMode.contain}
-                                        />
-                                    </Animated.View>
-                                    <Text style={styles.loadingText}>正在进入课堂，请稍后</Text>
+                                    <FastImage
+                                      style={{
+                                          width: 32,
+                                          height: 32,
+                                          alignContent: 'center',
+                                          justifyContent: 'center',
+                                      }}
+                                      source={loading}
+                                      resizeMode={FastImage.resizeMode.contain}
+                                    />
                                 </Animated.View>
-                            </View>
-                        ) : <View>
-                            {this.renderHost()}
+                                <Text style={styles.loadingText}>请等待…</Text>
+                            </Animated.View>
                         </View>
-                    }
-                </Content>
-                {this.state.inRoom ? this.renderMe() : undefined}
-                {
-                    !this.state.up && this.state.inRoom ? <Footer style={styles.footerWrap}>
+                      ) : this.renderVideo()
+                  }
+                  {bigVideoUserID ? <View style={styles.bigView}>
+                      {this.renderBigVideo(bigVideoUserID)}
+                  </View> : undefined}
+              </Content>
+              {
+                  this.state.inRoom ? (
+                    <Footer style={styles.footerWrap}>
                         <Left>
+                            <View style={{
+                                flexDirection: 'row',
+                                justifyContent: 'flex-end'
+                            }}>
+                                <Button
+                                  style={styles.btnWrap}
+                                  transparent
+                                  onPress={() => {
+                                      if (bigVideoUserID) {
+                                          this.setState({
+                                              bigVideoUserID: undefined,
+                                          })
+                                      } else {
+                                          this.showAlert('是否确认离开\n', () => {
+                                              const { dispatch } = this.props;
+                                              dispatch(NavigationActions.back());
+                                          })
+                                      }
+                                  }}
+                                >
+                                    <FastImage
+                                      style={{
+                                          width: 32,
+                                          height: 32,
+                                          alignContent: 'center',
+                                          justifyContent: 'center',
+                                      }}
+                                      source={backIMG}
+                                      resizeMode={FastImage.resizeMode.contain}
+                                    />
+                                </Button>
+                            </View>
+                        </Left>
+                        <Body style={{
+                            flexGrow: 1,
+                            paddingRight: 16,
+                            justifyContent: 'flex-end'
+                        }}>
                             <View style={{
                                 flexGrow: 1,
                                 flexDirection: 'row',
@@ -652,12 +575,12 @@ class Home extends React.Component<IProps, IState> {
                                   }}>
                                     <FastImage
                                       style={{
-                                          width: 28,
-                                          height: 28,
+                                          width: 32,
+                                          height: 32,
                                           alignContent: 'center',
                                           justifyContent: 'center',
                                       }}
-                                      source={this.state.audioType ? audio_IMG_1 : audio_IMG_2}
+                                      source={this.state.audioType ? audio_IMG_1 : audio_IMG_1}
                                       resizeMode={FastImage.resizeMode.contain}
                                     />
                                 </Button>
@@ -668,113 +591,47 @@ class Home extends React.Component<IProps, IState> {
                                   }}>
                                     <FastImage
                                       style={{
-                                          width: 28,
-                                          height: 28,
+                                          width: 32,
+                                          height: 32,
                                           alignContent: 'center',
                                           justifyContent: 'center',
                                       }}
-                                      source={this.state.videoType ? video_1 : video_2}
+                                      source={this.state.videoType ? video_1 : video_1}
                                       resizeMode={FastImage.resizeMode.contain}
                                     />
                                 </Button>
                                 <Button
                                   style={styles.btnWrap}
+                                  transparent
                                   onPress={() => {
-                                      this.handleSDKSetVideo();
-                                  }}>
+                                      // this.showAlert('是否结束会议？', () => {
+                                      //     try {
+                                      //         SDKEndRoom();
+                                      //     } catch (e) {
+                                      //
+                                      //     }
+                                      //     const { dispatch } = this.props;
+                                      //     dispatch(NavigationActions.back());
+                                      // })
+                                  }}
+                                >
                                     <FastImage
                                       style={{
-                                          width: 28,
-                                          height: 28,
+                                          width: 32,
+                                          height: 32,
                                           alignContent: 'center',
                                           justifyContent: 'center',
                                       }}
-                                      source={!this.state.shareType ? share_1 : share_2}
+                                      source={closeIMG}
                                       resizeMode={FastImage.resizeMode.contain}
                                     />
                                 </Button>
                             </View>
-                        </Left>
-                        <Right style={{
-                            flexGrow: 1,
-                            paddingRight: 16,
-                            justifyContent: 'flex-end',
-                        }}>
-                            <View style={{
-                                flexGrow: 1,
-                                flexDirection: 'row',
-                                justifyContent: 'flex-end',
-                                alignItems: 'flex-end',
-                            }}>
-                                <Button
-                                  style={styles.btnWrap}
-                                  onPress={() => {
-                                      this.setState({
-                                          up: true,
-                                      })
-                                  }}>
-                                    <FastImage
-                                      style={{
-                                          width: 28,
-                                          height: 28,
-                                          alignContent: 'center',
-                                          justifyContent: 'center',
-                                      }}
-                                      source={require('./assets/up_slices/up.png')}
-                                      resizeMode={FastImage.resizeMode.contain}
-                                    />
-                                </Button>
-                            </View>
-                        </Right>
-                    </Footer> : undefined
-                }
-                <Modal
-                  backdropColor={'transparent'}
-                  coverScreen={false}
-                  useNativeDriver
-                  propagateSwipe
-                  isVisible={this.state.up}
-                  onBackButtonPress={() => {
-                     this.setState({
-                         up: false,
-                     })
-                  }}
-                  onBackdropPress={() => {
-                      this.setState({
-                          up: false,
-                      })
-                  }}
-                  style={{
-                      marginLeft: 0,
-                      marginRight: 0,
-                      marginBottom: 0,
-                      justifyContent: 'flex-end',
-                  }}
-                >
-                    <View style={{
-                        // alignSelf: 'flex-end',
-                        backgroundColor: 'rgba(0,0,0,.5)'
-                    }}>
-                        {
-                            this.state.up ? (
-                              <FlatList
-                                contentContainerStyle={{
-                                    paddingHorizontal: 16,
-                                    paddingVertical: 20,
-                                }}
-                                data={this.state.userList}
-                                keyExtractor={(item, index) => item}
-                                ItemSeparatorComponent={() => <View style={{ width: 16, }} />}
-                                renderItem={this.renderVideo}
-                                horizontal={true}
-                                showsHorizontalScrollIndicator={false}
-                              />
-                            ) : undefined
-                        }
-                        <SafeAreaView />
-                    </View>
-                </Modal>
-            </Container>
+                        </Body>
+                    </Footer>
+                  ) : undefined
+              }
+          </Container>
         );
     }
 }
