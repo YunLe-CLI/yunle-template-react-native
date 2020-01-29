@@ -57,12 +57,10 @@ export default StyleSheet.create({
     position: 'absolute',
     left: 0,
     right: 0,
-    bottom: 45,
-    height: 100,
+    bottom: 0,
     backgroundColor: 'transparent'
   },
   btnWrap: {
-    marginLeft: 16,
     justifyContent: 'center',
     alignItems: 'center',
     paddingTop: 0,

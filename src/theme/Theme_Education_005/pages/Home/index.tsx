@@ -287,7 +287,14 @@ class Home extends React.Component<IProps, IState> {
                       <Button
                         style={[styles.btnContent, { borderWidth: 0, }]}
                         rounded transparent
-                        onPress={() => this.goToRoom(data)}
+                        onPress={() => {
+                          this.props.dispatch(NavigationActions.navigate({
+                            routeName: 'Room',
+                            params: {
+                              metaData: data.metaData,
+                            },
+                          }))
+                        }}
                       >
                         <Text style={[styles.btnText, { color: '#fff' }]}>开始上课</Text>
                       </Button>
