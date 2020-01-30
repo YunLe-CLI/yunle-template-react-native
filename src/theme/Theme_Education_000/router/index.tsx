@@ -8,9 +8,9 @@ import createAnimatedSwitchNavigator from 'react-navigation-animated-switch';
 import { Transition } from 'react-native-reanimated';
 import { StyleProvider } from 'native-base';
 import {
-    createReduxContainer,
-    createReactNavigationReduxMiddleware,
-    createNavigationReducer,
+  createReduxContainer,
+  createReactNavigationReduxMiddleware,
+  createNavigationReducer,
 } from 'react-navigation-redux-helpers';
 
 import { connect } from 'react-redux';
@@ -25,6 +25,7 @@ import GoToRoomModalProvider from '../components/GoToRoomModal';
 
 import { getActiveRoute } from '@/utils/utils';
 import AlertModalProvider from '@/theme/Theme_Education_000/components/AlertModal';
+import YSXRemoteShareModalProvider from '@/components/YSXRemoteShareModal';
 
 
 const MainRouter = createAnimatedSwitchNavigator(
@@ -35,29 +36,29 @@ const MainRouter = createAnimatedSwitchNavigator(
     initialRouteName: 'Main',
     // headerMode: 'none',
     // mode: 'modal',
-      transition: (
+    transition: (
       <Transition.Together>
-          <Transition.Out type="slide-bottom" durationMs={300} interpolation="easeInOut" />
-          <Transition.In type="fade" durationMs={300} interpolation="easeInOut" />
+        <Transition.Out type="slide-bottom" durationMs={300} interpolation="easeInOut" />
+        <Transition.In type="fade" durationMs={300} interpolation="easeInOut" />
       </Transition.Together>
     ),
   }
 );
 
 const AppNavigator = createAnimatedSwitchNavigator(
-    {
-        Splash: Splash,
-        MainRouter: MainRouter,
-    },
-    {
-      initialRouteName: 'Splash',
-      transition: (
-        <Transition.Together>
-          <Transition.Out type="fade" durationMs={400} interpolation="easeInOut" />
-          <Transition.In type="fade" durationMs={300} interpolation="easeInOut"  />
-        </Transition.Together>
-      ),
-    }
+  {
+    Splash: Splash,
+    MainRouter: MainRouter,
+  },
+  {
+    initialRouteName: 'Splash',
+    transition: (
+      <Transition.Together>
+        <Transition.Out type="fade" durationMs={400} interpolation="easeInOut" />
+        <Transition.In type="fade" durationMs={300} interpolation="easeInOut"  />
+      </Transition.Together>
+    ),
+  }
 );
 
 export default function createRouter() {
@@ -140,16 +141,18 @@ export default function createRouter() {
       const { dispatch, router } = this.props;
       return <StyleProvider style={getTheme(platform)}>
         <AlertModalProvider>
-        <LoginProvider>
-          <GoToRoomModalProvider>
-              {
-                !forceUpdate ? <App
-                  dispatch={dispatch}
-                  state={router}
-                /> : undefined
-              }
-          </GoToRoomModalProvider>
-        </LoginProvider>
+          <LoginProvider>
+            <GoToRoomModalProvider>
+              <YSXRemoteShareModalProvider>
+                {
+                  !forceUpdate ? <App
+                    dispatch={dispatch}
+                    state={router}
+                  /> : undefined
+                }
+              </YSXRemoteShareModalProvider>
+            </GoToRoomModalProvider>
+          </LoginProvider>
         </AlertModalProvider>
       </StyleProvider>
     }

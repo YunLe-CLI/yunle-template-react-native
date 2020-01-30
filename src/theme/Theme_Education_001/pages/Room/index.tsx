@@ -30,6 +30,7 @@ import {
 import { connect } from 'react-redux';
 import styles from './styles';
 import { withAlertModal } from '@/theme/Theme_Education_001/components/AlertModal'
+import { withYSXRemoteShareModal } from '@/components/YSXRemoteShareModal'
 import { withLoginModal } from '../../components/LoginModal'
 import {META_DATA} from '../../services/api';
 
@@ -716,4 +717,4 @@ class Home extends React.Component<IProps, IState> {
         );
     }
 }
-export default withAlertModal(withLoginModal(Home));
+export default withYSXRemoteShareModal(withAlertModal(withLoginModal(Home)));

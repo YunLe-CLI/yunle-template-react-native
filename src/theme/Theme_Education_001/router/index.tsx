@@ -25,6 +25,7 @@ import GoToRoomModalProvider from '../components/GoToRoomModal';
 
 import { getActiveRoute } from '@/utils/utils';
 import AlertModalProvider from '@/theme/Theme_Education_001/components/AlertModal';
+import YSXRemoteShareModalProvider from '@/components/YSXRemoteShareModal';
 
 
 const MainRouter = createAnimatedSwitchNavigator(
@@ -142,12 +143,14 @@ export default function createRouter() {
         <AlertModalProvider>
         <LoginProvider>
           <GoToRoomModalProvider>
+            <YSXRemoteShareModalProvider>
               {
                 !forceUpdate ? <App
                   dispatch={dispatch}
                   state={router}
                 /> : undefined
               }
+            </YSXRemoteShareModalProvider>
           </GoToRoomModalProvider>
         </LoginProvider>
         </AlertModalProvider>
