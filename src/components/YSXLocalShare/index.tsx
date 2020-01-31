@@ -2,14 +2,14 @@ import React from 'react';
 import {Platform, View, StyleSheet, findNodeHandle, NativeModules} from 'react-native';
 
 var { requireNativeComponent } = require('react-native');
-const { RNYSXRemoteShareManager } = NativeModules || {};
-console.log(RNYSXRemoteShareManager, 12132312)
+const { RNYSXLocalShareManager } = NativeModules || {};
+console.log(RNYSXLocalShareManager, 12132312)
 
-const RNYSXRemoteShare = (() => {
+const RNYSXLocalShare = (() => {
     let NODE = undefined;
     try {
-        if (RNYSXRemoteShareManager) {
-            NODE = requireNativeComponent('RNYSXRemoteShare', RNYSXRemoteShareView);
+        if (RNYSXLocalShareManager) {
+            NODE = requireNativeComponent('RNYSXLocalShare', RNYSXLocalShareView);
         }
     } catch (e) {
         alert(e)
@@ -18,10 +18,10 @@ const RNYSXRemoteShare = (() => {
 })();
 
 
-export default class RNYSXRemoteShareView extends React.Component {
+export default class RNYSXLocalShareView extends React.Component {
     get _module() {
         return Platform.OS === 'ios'
-            ? (NativeModules.RNYSXRemoteShareManager ? NativeModules.RNYSXRemoteShareManager : {})
+            ? (NativeModules.RNYSXLocalShareManager ? NativeModules.RNYSXLocalShareManager : {})
             : {};
     }
 
@@ -62,8 +62,8 @@ export default class RNYSXRemoteShareView extends React.Component {
                 overflow: 'hidden'
             }]}>
                 {
-                    RNYSXRemoteShare ? (
-                      <RNYSXRemoteShare
+                    RNYSXLocalShare ? (
+                      <RNYSXLocalShare
                         activeShareID={this.props.activeShareID}
                         ref={r => {
                             this._RNVideoView = r;

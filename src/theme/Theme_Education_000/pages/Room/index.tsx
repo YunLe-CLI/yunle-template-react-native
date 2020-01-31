@@ -31,6 +31,7 @@ import { connect } from 'react-redux';
 import styles from './styles';
 import { withAlertModal } from '@/theme/Theme_Education_000/components/AlertModal'
 import { withYSXRemoteShareModal } from '@/components/YSXRemoteShareModal'
+import { withYSXLocalShareModal } from '@/components/YSXLocalShareModal'
 import { withLoginModal } from '../../components/LoginModal'
 import {META_DATA} from '../../services/api';
 
@@ -274,25 +275,61 @@ class Home extends React.Component<IProps, IState> {
                             case "SDK_ACTIVE_SHARE": {
                                 //共享开始时的回调事件。
                                 this.getUsers();
-                                this.props.handleShowYSXRemoteShareModal(data, () => {
-
-                                })
+                                if (data) {
+                                    this.setState({
+                                        shareType: true,
+                                    })
+                                    this.props.handleShowYSXRemoteShareModal(data, () => {
+                                        this.setState({
+                                            shareType: false,
+                                        })
+                                    })
+                                } else {
+                                    this.props.handleHideYSXRemoteShareModal()
+                                    this.setState({
+                                        shareType: false,
+                                    })
+                                }
                                 break;
                             }
                             case "SDK_ACTIVE_SHARE_RECEIVIING": {
                                 //共享内容更改时的回调事件。
                                 this.getUsers();
-                                this.props.handleShowYSXRemoteShareModal(data, () => {
-
-                                })
+                                if (data) {
+                                    this.setState({
+                                        shareType: true,
+                                    })
+                                    this.props.handleShowYSXRemoteShareModal(data, () => {
+                                        this.setState({
+                                            shareType: false,
+                                        })
+                                    })
+                                } else {
+                                    this.props.handleHideYSXRemoteShareModal()
+                                    this.setState({
+                                        shareType: false,
+                                    })
+                                }
                                 break;
                             }
                             case "SDK_ACTIVE_SHARE_SIZE_CHANGE": {
                                 //共享者调整共享内容大小时的回调事件。
                                 this.getUsers();
-                                this.props.handleShowYSXRemoteShareModal(data, () => {
-
-                                })
+                                if (data) {
+                                    this.setState({
+                                        shareType: true,
+                                    })
+                                    this.props.handleShowYSXRemoteShareModal(data, () => {
+                                        this.setState({
+                                            shareType: false,
+                                        })
+                                    })
+                                } else {
+                                    this.props.handleHideYSXRemoteShareModal()
+                                    this.setState({
+                                        shareType: false,
+                                    })
+                                }
                                 break;
                             }
                             default: {
@@ -705,7 +742,22 @@ class Home extends React.Component<IProps, IState> {
                                 <Button
                                   style={styles.btnWrap}
                                   onPress={() => {
-                                      this.handleSDKSetVideo();
+                                      if (this.state.shareType) {
+                                          this.setState({
+                                              shareType: false,
+                                          })
+                                          this.props.handleHideYSXRemoteShareModal()
+                                          this.props.handleHideYSXLocalShareModal()
+                                      } else {
+                                          this.setState({
+                                              shareType: true,
+                                          })
+                                          this.props.handleShowYSXLocalShareModal(data, () => {
+                                              this.setState({
+                                                  shareType: false,
+                                              })
+                                          })
+                                      }
                                   }}>
                                     <FastImage
                                       style={{
@@ -803,4 +855,4 @@ class Home extends React.Component<IProps, IState> {
         );
     }
 }
-export default withYSXRemoteShareModal(withAlertModal(withLoginModal(Home)));
+export default withYSXLocalShareModal(withYSXRemoteShareModal(withAlertModal(withLoginModal(Home))));

@@ -5,27 +5,27 @@ import Modal from "react-native-modal";
 
 import { Button, Text, Container} from 'native-base';
 import AsyncStorage from "@react-native-community/async-storage";
-import YSXRemoteShareView from '@/components/YSXRemoteShare'
-export const YSXRemoteShareModalContext = createContext({
-  handleShowYSXRemoteShareModal: (id: number, onCallBack: () => void) => {},
-  handleHideYSXRemoteShareModal: () => {}
+import YSXLocalShareView from '@/components/YSXLocalShare'
+export const YSXLocalShareModalContext = createContext({
+  handleShowYSXLocalShareModal: (id: number, onCallBack: () => void) => {},
+  handleHideYSXLocalShareModal: () => {}
 })
-export const YSXRemoteShareModalConsumer = YSXRemoteShareModalContext.Consumer
+export const YSXLocalShareModalConsumer = YSXLocalShareModalContext.Consumer
 
-export function withYSXRemoteShareModal(WrappedComponent: React.ReactNode) {
+export function withYSXLocalShareModal(WrappedComponent: React.ReactNode) {
   return class extends React.Component {
     render() {
       return <>
-        <YSXRemoteShareModalConsumer>
+        <YSXLocalShareModalConsumer>
           {
-            ({ handleShowYSXRemoteShareModal, handleHideYSXRemoteShareModal }) => {
+            ({ handleShowYSXLocalShareModal, handleHideYSXLocalShareModal }) => {
               return <WrappedComponent  {...this.props}
-                                        handleShowYSXRemoteShareModal={handleShowYSXRemoteShareModal}
-                                        handleHideYSXRemoteShareModal={handleHideYSXRemoteShareModal}
+                                        handleShowYSXLocalShareModal={handleShowYSXLocalShareModal}
+                                        handleHideYSXLocalShareModal={handleHideYSXLocalShareModal}
               />
             }
           }
-        </YSXRemoteShareModalConsumer>
+        </YSXLocalShareModalConsumer>
       </>
     }
   }
@@ -38,7 +38,7 @@ export interface IState {
   isModalNotVisible: boolean;
   updateURI: undefined | string;
 }
-class YSXRemoteShareModalProvider extends React.Component<{}, IState> {
+class YSXLocalShareModalProvider extends React.Component<{}, IState> {
 
   constructor(props: {}) {
     super(props);
@@ -82,12 +82,12 @@ class YSXRemoteShareModalProvider extends React.Component<{}, IState> {
   render() {
     const { isModalVisible, isModalNotVisible, updateURI } = this.state;
     return (
-      <YSXRemoteShareModalContext.Provider value={{
-        handleShowYSXRemoteShareModal: async (id, onCallBack) => {
+      <YSXLocalShareModalContext.Provider value={{
+        handleShowYSXLocalShareModal: async (id, onCallBack) => {
           this.showModel(id);
           this.onCallBack = onCallBack;
         },
-        handleHideYSXRemoteShareModal: () => {
+        handleHideYSXLocalShareModal: () => {
           this.closeModel()
         }
       }}>
@@ -118,12 +118,12 @@ class YSXRemoteShareModalProvider extends React.Component<{}, IState> {
             <View style={{
               borderRadius: 3,
               overflow: 'hidden',
-              backgroundColor: 'red',
+              backgroundColor: '#fff',
             }}>
-              <YSXRemoteShareView style={{
+              <YSXLocalShareView style={{
                 flexGrow: 1,
-                width: 400,
-                height: 400,
+                minWidth: 400,
+                minHeight: 400,
               }} activeShareID={this.state.id} />
             </View>
             <View style={{
@@ -139,15 +139,15 @@ class YSXRemoteShareModalProvider extends React.Component<{}, IState> {
                 justifyContent: 'center',
                 alignItems: 'center',
               }}>
-                <Text>关闭</Text>
+                <Text>关闭 Local</Text>
               </Button>
             </View>
             <SafeAreaView />
           </View>
         </Modal>
-      </YSXRemoteShareModalContext.Provider>
+      </YSXLocalShareModalContext.Provider>
     );
   }
 }
 
-export default YSXRemoteShareModalProvider
+export default YSXLocalShareModalProvider
