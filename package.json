@@ -68,7 +68,7 @@
     "react-native-code-push": "^6.0.0",
     "react-native-collapsible": "^1.5.1",
     "react-native-date-picker": "^2.7.5",
-    "react-native-device-info": "^5.4.3",
+    "react-native-device-info": "^5.4.4",
     "react-native-draggable": "^3.0.0",
     "react-native-dropdownalert": "^4.2.0",
     "react-native-fast-image": "^7.0.2",

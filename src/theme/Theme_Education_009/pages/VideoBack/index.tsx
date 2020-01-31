@@ -83,7 +83,7 @@ class Home extends React.Component<IProps, IState> {
                             flexWrap: 'wrap',
                         }}>
                             {
-                                [1,2,4,5].map((item) => {
+                                [playbackURL].map((item) => {
                                     const width = (Dimensions.get('window').width - 16*2 - 17*2 )/3;
                                     return <Button
                                       key={item}

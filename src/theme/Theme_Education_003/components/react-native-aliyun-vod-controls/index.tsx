@@ -506,7 +506,8 @@ export default class VideoPlayer extends Component {
                     source={{
                         auth: null,
                         sts: null,
-                        uri: 'https://player.alicdn.com/video/aliyunmedia.mp4',
+                        uri: this.props.video ? this.props.video.uri : null,
+                        // uri: 'https://player.alicdn.com/video/aliyunmedia.mp4',
                         // uri: 'https://up.imgupio.com/demo/birds.m3u8'
                     }}
                 />

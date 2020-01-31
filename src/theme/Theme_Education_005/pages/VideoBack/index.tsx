@@ -230,7 +230,7 @@ class Home extends React.Component<IProps, IState> {
                   />
                   <StatusBar hidden={orientationType !== 'PORTRAIT'} />
                   <VideoPlayer
-                    video={{ uri: this.state.videoUrl }}
+                    video={{ uri: this.state.videoUrl || playbackURL }}
                     videoWidth={orientationType === 'PORTRAIT' ? video.width : video.fullScreenWidth}
                     videoHeight={orientationType === 'PORTRAIT' ? video.height : video.fullScreenHeight}
                     onLayout={(event) => {
