@@ -130,7 +130,7 @@ class Home extends React.Component<IProps, IState> {
                       marginLeft: -16,
                   }}>
                       {
-                          ([1,2,3,4] || this.state.list).map((item: fileType, index) => {
+                          (this.state.list).map((item: fileType, index) => {
                               return this.renderItem(item, index, this.state.list.length)
                           })
                       }
