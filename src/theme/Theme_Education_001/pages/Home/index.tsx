@@ -1,5 +1,5 @@
 import React from 'react';
-import {Dimensions, ImageBackground, NativeModules, SectionList, View} from 'react-native';
+import {TouchableOpacity, Dimensions, ImageBackground, NativeModules, SectionList, View} from 'react-native';
 import { connect } from 'react-redux';
 import {
   Card,
@@ -242,7 +242,16 @@ class Home extends React.Component<IProps, IState> {
             justifyContent: 'center',
             // flexDirection: 'row',
           }}>
-            <View style={{ flex: 1, flexGrow: 1, flexDirection: 'row' }}>
+            <TouchableOpacity
+              onPress={() => {
+                this.props.dispatch(NavigationActions.navigate({
+                  routeName: 'Room',
+                  params: {
+                    metaData: data.metaData,
+                  },
+                }))
+              }}
+              style={{ flex: 1, flexGrow: 1, flexDirection: 'row' }}>
               <Text numberOfLines={1} style={styles.timeText}>
                 {moment(data.startTime).format('YYYY-MM-DD')}
                 <Text> </Text>
@@ -259,7 +268,7 @@ class Home extends React.Component<IProps, IState> {
               <View>
                 <Text numberOfLines={1} style={styles.nameText}>{teacher.userName}</Text>
               </View>
-            </View>
+            </TouchableOpacity>
           </View>
         </View>
 

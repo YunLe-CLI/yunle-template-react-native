@@ -242,14 +242,23 @@ class Home extends React.Component<IProps, IState> {
               </View>
             </View>
             <View style={styles.itemBox_3}>
-              <View style={{ flex: 1, flexGrow: 1, }}>
+              <TouchableOpacity
+                onPress={() => {
+                  this.props.dispatch(NavigationActions.navigate({
+                    routeName: 'Room',
+                    params: {
+                      metaData: data.metaData,
+                    },
+                  }))
+                }}
+                style={{ flex: 1, flexGrow: 1, }}>
                 <Text numberOfLines={1} style={styles.timeText}>
                   <Text numberOfLines={1} style={styles.timeText}>{moment(data.startTime).format('YYYY-MM-DD')} </Text>
                   {moment(data.startTime).format('HH:mm')}
                   -
                   {moment(data.endTime).format('HH:mm')}
                 </Text>
-              </View>
+              </TouchableOpacity>
             </View>
             <View style={[styles.itemBox_3, {
               flexDirection: 'row',

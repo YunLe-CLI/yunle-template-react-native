@@ -1,5 +1,5 @@
 import React from 'react';
-import {Dimensions, ImageBackground, NativeModules, SectionList, View} from 'react-native';
+import {TouchableOpacity, Dimensions, ImageBackground, NativeModules, SectionList, View} from 'react-native';
 import { connect } from 'react-redux';
 import {
   Card,
@@ -242,11 +242,22 @@ class Home extends React.Component<IProps, IState> {
           </Text>
         </View>
         <View style={styles.itemBoxContent}>
-          <Title style={styles.itemBodyTitle}>
-            {data.timeslot === 1 ? '上午' : ''}
-            {data.timeslot === 2 ? '下午' : ''}
-            -小儿科
-          </Title>
+          <TouchableOpacity
+            onPress={() => {
+              this.props.dispatch(NavigationActions.navigate({
+                routeName: 'Room',
+                params: {
+                  metaData: data.metaData,
+                },
+              }))
+            }}
+          >
+            <Title style={styles.itemBodyTitle}>
+              {data.timeslot === 1 ? '上午' : ''}
+              {data.timeslot === 2 ? '下午' : ''}
+              -小儿科
+            </Title>
+          </TouchableOpacity>
           <Text style={[styles.itemBodyText, styles.itemBodyText001]}>
             {data.hospitalName} {data.name} {data.professionalTitle}
           </Text>
