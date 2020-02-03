@@ -45,7 +45,7 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   loadingText: {
-    marginTop: 12.5,
+    marginTop: 30,
     fontSize: 16,
     lineHeight: 22,
     color: '#fff',

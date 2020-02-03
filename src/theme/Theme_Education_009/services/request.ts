@@ -54,6 +54,6 @@ export default async function request(config: AxiosRequestConfig, token?: string
   // 4:xxkt
   // 5:zxkt
   // 6:jykt
-  axios.defaults.headers.common['x-app-name'] = 0;
+  axios.defaults.headers.common['x-app-name'] = 9;
   return axios(config);
 }

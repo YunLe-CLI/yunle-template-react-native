@@ -11,6 +11,7 @@ import {
     TouchableOpacity,
 } from 'react-native';
 import {NavigationActions, NavigationEvents} from 'react-navigation';
+import { getStatusBarHeight } from 'react-native-status-bar-height';
 import {
     Container,
     Header,
@@ -469,15 +470,12 @@ class Home extends React.Component<IProps, IState> {
         const userID = hostUser && hostUser.length ? hostUser[0] : undefined;
         const info = usersInfo[userID] || {};
         const width = Dimensions.get('window').width;
-        const height = Dimensions.get('window').height;
+        const height = Dimensions.get('window').height/2;
         return <View
           style={{
-              flex: 1,
-              position: 'absolute',
               width,
               height,
               flexGrow: 1,
-              justifyContent: 'center',
               alignItems: 'center',
           }}
         >
@@ -490,7 +488,9 @@ class Home extends React.Component<IProps, IState> {
                         height,
                     }}
                   />
-                ) : <View>
+                ) : <View style={{
+                    marginTop: getStatusBarHeight(true) + 20,
+                }}>
                     <Text style={styles.loadingTText}>等待医生进入诊室…</Text>
                 </View>
             }
@@ -503,16 +503,13 @@ class Home extends React.Component<IProps, IState> {
         })
         const userID = meUser && meUser.length ? meUser[0] : undefined;
         const info = usersInfo[userID] || {};
+        const width = Dimensions.get('window').width;
+        const height = Dimensions.get('window').height/2;
         return <View
           style={{
-              position: 'absolute',
-              right: 16,
-              top: 45,
-              width: 102,
-              height: 102,
+              width,
+              height,
               backgroundColor: '#000',
-              borderWidth: 1,
-              borderColor: '#FFFFFF',
               overflow: 'hidden'
           }}
         >
@@ -521,8 +518,8 @@ class Home extends React.Component<IProps, IState> {
                   <YSXVideo
                     uid={userID}
                     style={{
-                        width: 100,
-                        height: 100,
+                        width,
+                        height,
                     }}
                   />
                 ) : undefined
@@ -557,7 +554,7 @@ class Home extends React.Component<IProps, IState> {
 
                     }}
                 />
-                <Content
+                <View
                     style={{
                         flex: 1,
                         flexGrow: 1,
@@ -571,7 +568,7 @@ class Home extends React.Component<IProps, IState> {
                         position: 'absolute',
                         left: 0,
                         right: 0,
-                        top: 36,
+                        top: getStatusBarHeight(true) + 5,
                         zIndex: 99999999999,
                         width: 50,
                         height: 50,
@@ -615,8 +612,8 @@ class Home extends React.Component<IProps, IState> {
                                     ]}>
                                         <FastImage
                                             style={{
-                                                width: 32,
-                                                height: 32,
+                                                width: 100,
+                                                height: 100,
                                                 alignContent: 'center',
                                                 justifyContent: 'center',
                                             }}
@@ -629,10 +626,11 @@ class Home extends React.Component<IProps, IState> {
                             </View>
                         ) : <View>
                             {this.renderHost()}
+                            {this.renderMe()}
                         </View>
                     }
-                </Content>
-                {this.state.inRoom ? this.renderMe() : undefined}
+                </View>
+                {/*{this.state.inRoom ? this.renderMe() : undefined}*/}
                 {
                     this.state.inRoom ? <Footer style={styles.footerWrap}>
                         <Left>
