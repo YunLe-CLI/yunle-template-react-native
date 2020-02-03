@@ -84,7 +84,13 @@ class CancelModalProvider extends React.Component<{}, IState> {
 
           }}
           style={{
-            paddingHorizontal: 20,
+            paddingLeft: 0,
+            paddingRight: 0,
+            marginLeft: 0,
+            marginRight: 0,
+            margin: 0,
+            alignContent: 'flex-end',
+            justifyContent: 'flex-end',
           }}
         >
           <View style={{

@@ -91,7 +91,6 @@ class SelectLevelModalProvider extends React.Component<{}, IState> {
       }}>
         {this.props.children}
         <Modal
-          backdropColor={'transparent'}
           coverScreen={false}
           useNativeDriver
           propagateSwipe
@@ -103,67 +102,87 @@ class SelectLevelModalProvider extends React.Component<{}, IState> {
 
           }}
           style={{
-            margin: 0,
             paddingLeft: 0,
             paddingRight: 0,
             marginLeft: 0,
             marginRight: 0,
             margin: 0,
+            alignContent: 'flex-end',
+            justifyContent: 'flex-end',
           }}
         >
-          <Container style={styles.container}>
-            <Header transparent>
-              <Left>
-                <Button
-                  transparent
-                  onPress={() => {
-                    this.closeModel();
-                  }}
-                >
-                  <FastImage
-                    style={{
-                      marginLeft: 16,
-                      width: 20,
-                      height: 20,
-                      alignContent: 'center',
-                      justifyContent: 'center',
+          <View style={styles.container}>
+            <Container style={styles.container}>
+              <ListItem style={{
+                marginLeft: 0,
+                height: 50,
+              }}>
+                <Left style={{
+                  flexGrow: 1,
+                }}>
+                  <Button
+                    transparent
+                    onPress={() => {
+                      this.closeModel();
                     }}
-                    source={iconLeft}
-                    resizeMode={FastImage.resizeMode.contain}
-                  />
-                </Button>
-              </Left>
-              <Body>
-                <Title style={styles.title}>职称列表</Title>
-              </Body>
-              <Right />
-            </Header>
-            <StatusBar barStyle="dark-content" />
-            <Content style={{ backgroundColor: '#F9FBFF' }}>
-              <List style={styles.listWrap}>
-                {
-                  list.map((item) => {
-                    const { selected } = this.state;
-                    const isSelect = JSON.stringify(item) === JSON.stringify(selected)
-                    return <ListItem selected={isSelect} key={JSON.stringify(item)} style={[styles.listItem, isSelect ? styles.selected : {}]}
-                                     onPress={async () => {
-                        this.setState({
-                          selected: item,
-                        }, () => {
-                          if (this.onCallBack) {
-                            this.onCallBack(item);
-                          }
-                          this.closeModel();
-                        })
-                    }}>
-                      <Text style={styles.listText}>{item}</Text>
-                    </ListItem>
-                  })
-                }
+                  >
+                    <Title style={{
+                      color: '#999999',
+                      fontSize: 15,
+                      fontWeight: '400',
+                    }}>取消</Title>
+                  </Button>
+                </Left>
+                <Body style={{
+                  flex: 1,
+                  flexGrow: 1,
+                }}>
+                  <Title style={styles.title}>职称列表</Title>
+                </Body>
+                <Right style={{
+                  flexGrow: 1,
+                }}>
+                  <Button
+                    transparent
+                    onPress={() => {
+                      this.closeModel();
+                    }}
+                  >
+                    <Title style={{
+                      color: '#F86358',
+                      fontSize: 15,
+                      fontWeight: '400',
+                    }}>确认</Title>
+                  </Button>
+                </Right>
+              </ListItem>
+              <StatusBar barStyle="dark-content" />
+              <Content style={{ backgroundColor: '#F9FBFF' }}>
+                <List style={styles.listWrap}>
+                  {
+                    list.map((item) => {
+                      const { selected } = this.state;
+                      const isSelect = JSON.stringify(item) === JSON.stringify(selected)
+                      return <ListItem selected={isSelect} key={JSON.stringify(item)} style={[styles.listItem, isSelect ? styles.selected : {}]}
+                                       onPress={async () => {
+                          this.setState({
+                            selected: item,
+                          }, () => {
+                            if (this.onCallBack) {
+                              this.onCallBack(item);
+                            }
+                            this.closeModel();
+                          })
+                      }}>
+                        <Text style={styles.listText}>{item}</Text>
+                      </ListItem>
+                    })
+                  }
 
-              </List>
-            </Content>
-          </Container>
+                </List>
+              </Content>
+            </Container>
+          </View>
         </Modal>
       </SelectLevelModalContext.Provider>
     );

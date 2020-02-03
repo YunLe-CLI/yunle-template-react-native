@@ -1,5 +1,5 @@
 import React from 'react';
-import {StatusBar, Text, View} from 'react-native';
+import {FlatList, StatusBar, Text, TouchableOpacity, View} from 'react-native';
 import {NavigationActions, NavigationEvents} from 'react-navigation';
 import {
     Container,
@@ -104,59 +104,91 @@ class Home extends React.Component<IProps, IState> {
                   <Right />
               </Header>
               <StatusBar barStyle="dark-content" />
-              <Content style={{ backgroundColor: '#F9FBFF' }}
-                       contentContainerStyle={{
-                           padding: 16,
-                       }}
-              >
-                  <Card noShadow style={styles.card}>
-                      {
-                          list.map((item: DOCTOR_ITEM) => {
-                              const { selected } = this.state;
-                              const isSelect: boolean = selected && item.id === selected.id
-                              return <CardItem
-                                button
-                                onPress={async () => {
-                                    this.props.dispatch(NavigationActions.navigate({
-                                        routeName: 'DoctorDetails',
-                                        params: {
-                                          doctorInfo: item,
-                                        },
-                                    }))
-                                }}
-                                key={item.id}>
-                                  <Left>
-                                      <FastImage
-                                        style={{
-                                            width: 48,
-                                            height: 48,
-                                            marginRight: 16,
-                                            borderRadius: 24,
-                                            alignContent: 'center',
-                                            justifyContent: 'center',
-                                        }}
-                                        source={{ uri: item.avatar}}
-                                        resizeMode={FastImage.resizeMode.contain}
-                                      />
-                                      <Body>
-                                          <View style={styles.itemHeader}>
-                                              <Text style={styles.nameText}>
-                                                  {item.name}
-                                              </Text>
-                                              <Text style={[styles.note, styles.span]}>
-                                                  {item.professionalTitle}
-                                              </Text>
-                                          </View>
+              <View style={{
+                flex: 1,
+                flexGrow: 1,
+              }}>
+                <FlatList
+                  style={{
+                    flex: 1,
+                    flexGrow: 1,
+                    marginLeft: -18,
+                    backgroundColor: '#F4F4F4'
+                  }}
+                  contentContainerStyle={{
+                    paddingHorizontal: 10,
+                    paddingVertical: 10,
+                  }}
+                  data={list.length%2 === 0 ? list : [].concat(list, 'kong')}
+                  keyExtractor={(item, index) => JSON.stringify(item)}
+                  ItemSeparatorComponent={() => <View style={{ width: 16, height: 16, }} />}
+                  renderItem={({ item }) => {
+                    const { selected } = this.state;
+                    const isSelect: boolean = selected && item.id === selected.id;
+                    if (item === 'kong'){
+                      return <View style={{
+                          flex: 1,
+                          marginLeft: 18,
+                          borderRadius: 4,
+                          paddingHorizontal: 10,
+                          paddingVertical: 18,
+                        }} />
+                    }
+                    return <View style={{
+                      flex: 1,
+                      marginLeft: 18,
+                      borderRadius: 4,
+                      backgroundColor: '#fff',
+                      paddingHorizontal: 10,
+                      paddingVertical: 18,
+                    }}>
+                      <TouchableOpacity
+                        onPress={async () => {
+                          this.props.dispatch(NavigationActions.navigate({
+                            routeName: 'DoctorDetails',
+                            params: {
+                              doctorInfo: item,
+                            },
+                          }))
+                        }}
+                        key={item.id}>
+                        <View style={{
+                          marginTop: 18,
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                        }}>
+                          <FastImage
+                            style={{
+                              width: 64,
+                              height: 64,
+                              marginBottom: 24,
+                              borderRadius: 32,
+                              alignContent: 'center',
+                              justifyContent: 'center',
+                            }}
+                            source={{ uri: item.avatar}}
+                            resizeMode={FastImage.resizeMode.contain}
+                          />
+                        </View>
+                        <View style={styles.itemHeader}>
+                          <Text style={styles.nameText}>
+                            {item.name}
+                          </Text>
+                          <Text style={[styles.note, styles.span]}>
+                            {item.professionalTitle}
+                          </Text>
+                        </View>
 
-                                          <Text style={styles.note}> {item.hospitalName} {item.medicalDepartment}</Text>
-                                          <Text  numberOfLines={2} style={[styles.note, styles.strong]}>擅长：{item.skillsIntro}</Text>
-                                      </Body>
-                                  </Left>
-                              </CardItem>
-                          })
-                      }
-                  </Card>
-              </Content>
+                        <Text style={styles.note}> {item.hospitalName} {item.medicalDepartment}</Text>
+                        <Text  numberOfLines={2} style={[styles.note, styles.strong]}>擅长：{item.skillsIntro}</Text>
+                      </TouchableOpacity>
+                    </View>
+                  }}
+                  horizontal={false}
+                  numColumns={2}
+                  showsHorizontalScrollIndicator={false}
+                />
+              </View>
           </Container>
         );
     }

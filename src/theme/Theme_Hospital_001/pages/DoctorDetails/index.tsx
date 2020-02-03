@@ -75,27 +75,24 @@ class Home extends React.Component<IProps, IState> {
     const { params = {} } = navigation.state;
     const doctorInfo:DOCTOR_ITEM = params.doctorInfo || {};
     return <View>
-      <Card noShadow style={styles.formCard}>
+      <Card noShadow style={[styles.formCard, {
+        marginBottom: 10,
+      }]}>
         <CardItem style={styles.formItem}>
-          <Text style={styles.formItemTitle}>医生介绍</Text>
-        </CardItem>
-        <CardItem style={styles.formItem}>
-          <Text style={styles.formItemLabel}>
-            {doctorInfo.personalIntro}
-          </Text>
-          <Text style={styles.ipt}>
-
-          </Text>
-        </CardItem>
-        <CardItem style={styles.formItem}>
-          <Text style={styles.formItemTitle}>擅长疾病</Text>
-        </CardItem>
-        <CardItem style={styles.formItem}>
+          <Text style={styles.formItemTitle}>擅长疾病: </Text>
           <Text style={styles.formItemLabel}>
             {doctorInfo.skillsIntro}
           </Text>
-          <Text style={styles.ipt}>
-
+        </CardItem>
+        <View style={{
+          marginHorizontal: 20,
+          height: 1,
+          backgroundColor: '#DDDDDD'
+        }}></View>
+        <CardItem style={styles.formItem}>
+          <Text style={styles.formItemTitle}>医生介绍: </Text>
+          <Text style={styles.formItemLabel}>
+            {doctorInfo.personalIntro}
           </Text>
         </CardItem>
       </Card>
@@ -103,11 +100,16 @@ class Home extends React.Component<IProps, IState> {
 
       <Card noShadow style={styles.formCard}>
         <CardItem style={[styles.formItem, styles.spaceBetween]}>
-          <Text style={styles.formItemTitle}>出诊信息</Text>
-          <Text style={[styles.formItemTitle, styles.formItemMoney]}>挂号费：￥{doctorInfo.registrationFee}</Text>
+          <Text style={styles.formItemTitle}>挂号费</Text>
+          <Text style={[styles.formItemTitle, styles.formItemMoney]}>￥{doctorInfo.registrationFee}</Text>
         </CardItem>
-        <CardItem style={styles.formItem}>
-          {this.renderTable()}
+        <View style={{
+          height: 1,
+          backgroundColor: '#DDDDDD'
+        }}></View>
+        <CardItem style={[styles.formItem, styles.spaceBetween]}>
+          <Text style={styles.formItemTitle}>出诊日期</Text>
+          <Text style={[styles.formItemTitle, styles.formItemMoney]}>￥{doctorInfo.registrationFee}</Text>
         </CardItem>
       </Card>
 
@@ -301,20 +303,29 @@ class Home extends React.Component<IProps, IState> {
                 }))
               }}
               >
-              <Left>
-                <FastImage
-                  style={{
-                    width: 48,
-                    height: 48,
-                    marginRight: 16,
-                    borderRadius: 24,
-                    alignContent: 'center',
-                    justifyContent: 'center',
-                  }}
-                  source={{ uri: doctorInfo.avatar }}
-                  resizeMode={FastImage.resizeMode.contain}
-                />
-                <Body>
+              <Left style={{
+                flexDirection: 'column',
+              }}>
+                <View>
+                  <FastImage
+                    style={{
+                      marginBottom: 22,
+                      width: 64,
+                      height: 64,
+                      borderRadius: 32,
+                      alignContent: 'center',
+                      justifyContent: 'center',
+                      borderWidth: 1,
+                      borderColor: '#FAC6C2',
+                    }}
+                    source={{ uri: doctorInfo.avatar }}
+                    resizeMode={FastImage.resizeMode.contain}
+                  />
+                </View>
+                <Body style={{
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
                   <View style={styles.itemHeader}>
                     <Text style={styles.nameText}>
                       {doctorInfo.name}

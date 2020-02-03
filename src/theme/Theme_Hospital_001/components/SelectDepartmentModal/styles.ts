@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 export default StyleSheet.create({
   container: {
     backgroundColor: '#fff',
-    flex: 1,
+    height: 283,
   },
   header: {
     height: 72,
@@ -14,9 +14,9 @@ export default StyleSheet.create({
     borderBottomColor: '#DCE3EE',
   },
   title: {
-    fontSize: 18,
-    lineHeight: 25,
-    color: '#192038',
+    fontSize: 15,
+    lineHeight: 21,
+    color: '#404E66',
     textAlign: 'center',
     fontWeight: '500',
   },
@@ -125,14 +125,19 @@ export default StyleSheet.create({
     marginLeft: 0,
     marginRight: 0,
     height: 44,
-    borderBottomWidth: 0,
+    borderBottomWidth: 1,
+    borderBottomColor: '#EEEEEE',
     backgroundColor: '#fff',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   selected: {
-    backgroundColor: 'rgba(17, 205, 143, .2)',
+    backgroundColor: '#F86358',
   },
   listText: {
     marginLeft: 17,
     marginRight: 17,
+    fontSize: 15,
+    fontWeight: '400',
   },
 });

@@ -80,6 +80,7 @@ class Home extends React.Component<IProps, IState> {
     department: undefined,
     level: undefined,
     today: [],
+    isToday: false,
     registrations: [],
   };
   setIntervalEvent: any = undefined;
@@ -170,6 +171,7 @@ class Home extends React.Component<IProps, IState> {
   }
 
   renderItem(data: MAKE_ITEM) {
+    const { isToday } = this.state;
     let type = data.status;
     console.log('type: sss', type)
     let icon = icon_live_slices_0;
@@ -214,30 +216,18 @@ class Home extends React.Component<IProps, IState> {
       }
     }
     return <Card style={styles.itemBox}>
-      <View style={[styles.typeLineDefault]}></View>
       <CardItem button onPress={() => {
         // this.props.dispatch(NavigationActions.navigate({
         //   routeName: 'AppointmentDetails',
         //   params: {},
         // }));
       }} style={styles.itemBoxBody}>
-        <View style={styles.itemBoxLeft}>
-          <FastImage
-            style={{
-              width: 40,
-              height: 40,
-              alignContent: 'center',
-              justifyContent: 'center',
-            }}
-            source={icon}
-            resizeMode={FastImage.resizeMode.contain}
-          />
-          <Text  style={[styles.itemIconText, iconText]}>
-            {typeText}
-          </Text>
-        </View>
         <View style={styles.itemBoxContent}>
           <TouchableOpacity
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}
             onPress={() => {
               this.props.dispatch(NavigationActions.navigate({
                 routeName: 'Room',
@@ -248,10 +238,17 @@ class Home extends React.Component<IProps, IState> {
             }}
           >
             <Title style={styles.itemBodyTitle}>
-              {data.timeslot === 1 ? '上午' : ''}
+              {
+                !isToday ? (
+                  moment(data.date).format('YYYY.MM.DD日')
+                ) : undefined
+              } {data.timeslot === 1 ? '上午' : ''}
               {data.timeslot === 2 ? '下午' : ''}
               -小儿科
             </Title>
+            <Text  style={[styles.itemIconText, iconText]}>
+              {typeText}
+            </Text>
           </TouchableOpacity>
           <Text style={[styles.itemBodyText, styles.itemBodyText001]}>
             {data.hospitalName} {data.name} {data.professionalTitle}
@@ -260,105 +257,106 @@ class Home extends React.Component<IProps, IState> {
             {
               data.position >= 0 ? (
                 <Text numberOfLines={2} style={[styles.itemBodyText]}>
-                  前面还有
+                  排队情况：第
                   <Text style={[styles.itemBodyText, styles.itemBodyText002]}>{data.position}</Text>
-                  人
+                  位
                 </Text>
               ) : undefined
             }
+          </View>
+        </View>
+        <View style={{ }}>
+          <View style={styles.itemBodyBtnWrap}>
+            {
+              (type === 1) ? <LinearGradient
+                start={{x: 0, y: 0}} end={{x: 1, y: 1}}
+                colors={['#F86358', '#F86358']}
+                style={[
+                  styles.linearGradientBtn,
+                ]}
+              >
+                <Button
+                  full
+                  transparent
+                  rounded
+                  onPress={async () => {
+                    // this.props.dispatch(NavigationActions.navigate({
+                    //   routeName: 'Room',
+                    //   params: {},
+                    // }))
+                  }}
+                  style={[
+                    styles.btnDefault,
+                    styles.submitButton
+                  ]}
+                  textStyle={{
+                    color: '#fff'
+                  }}
+                >
+                  <Title style={styles.btnText}>进入诊室</Title>
+                </Button>
+              </LinearGradient> : undefined
+            }
+            {
+              (type === 3) ? <LinearGradient
+                start={{x: 0, y: 0}} end={{x: 1, y: 1}}
+                colors={['#F86358', '#F86358']}
+                style={[
+                  styles.linearGradientBtn,
+                ]}
+              >
+                <Button
+                  full
+                  transparent
+                  rounded
+                  onPress={async () => {
+                    this.props.dispatch(NavigationActions.navigate({
+                      routeName: 'Room',
+                      params: {
+                        metaData: data.metaData,
+                      },
+                    }))
+                  }}
+                  style={[
+                    styles.btnDefault,
+                    styles.submitButton
+                  ]}
+                  textStyle={{
+                    color: '#fff'
+                  }}
+                >
+                  <Title style={styles.btnText}>进入诊室</Title>
+                </Button>
+              </LinearGradient> : undefined
+            }
+            {
+              (type === 1) ? <LinearGradient
+                start={{x: 0, y: 0}} end={{x: 1, y: 1}}
+                colors={['#EEEEEE', '#EEEEEE']}
+                style={[
+                  styles.linearGradientBtn,
+                  styles.clearButton,
+                ]}
+              >
+                <Button
+                  full
+                  transparent
+                  rounded
+                  onPress={async () => {
+                    this.props.handleShowCancelModal();
+                  }}
+                  style={[
+                    styles.btnDefault,
+                  ]}
+                  textStyle={{
+                    color: '#fff'
+                  }}
+                >
+                  <Title style={[styles.btnText, styles.btnClearText]}>取消预约</Title>
+                </Button>
+              </LinearGradient> : undefined
+            }
 
-            <View style={styles.itemBodyBtnWrap}>
-              {
-                (type === 1) ? <LinearGradient
-                  start={{x: 0, y: 0}} end={{x: 1, y: 1}}
-                  colors={['#DCE3EE', '#DCE3EE']}
-                  style={[
-                    styles.linearGradientBtn,
-                  ]}
-                >
-                  <Button
-                    full
-                    transparent
-                    rounded
-                    onPress={async () => {
-                      // this.props.dispatch(NavigationActions.navigate({
-                      //   routeName: 'Room',
-                      //   params: {},
-                      // }))
-                    }}
-                    style={[
-                      styles.btnDefault,
-                      styles.submitButton
-                    ]}
-                    textStyle={{
-                      color: '#fff'
-                    }}
-                  >
-                    <Title style={styles.btnText}>进入诊室</Title>
-                  </Button>
-                </LinearGradient> : undefined
-              }
-              {
-                (type === 3) ? <LinearGradient
-                  start={{x: 0, y: 0}} end={{x: 1, y: 1}}
-                  colors={['#6AE27C', '#17D397']}
-                  style={[
-                    styles.linearGradientBtn,
-                  ]}
-                >
-                  <Button
-                    full
-                    transparent
-                    rounded
-                    onPress={async () => {
-                      this.props.dispatch(NavigationActions.navigate({
-                        routeName: 'Room',
-                        params: {
-                          metaData: data.metaData,
-                        },
-                      }))
-                    }}
-                    style={[
-                      styles.btnDefault,
-                      styles.submitButton
-                    ]}
-                    textStyle={{
-                      color: '#fff'
-                    }}
-                  >
-                    <Title style={styles.btnText}>进入诊室</Title>
-                  </Button>
-                </LinearGradient> : undefined
-              }
-              {
-                (type === 1) ? <LinearGradient
-                  start={{x: 0, y: 0}} end={{x: 1, y: 1}}
-                  colors={['transparent', 'transparent']}
-                  style={[
-                    styles.linearGradientBtn,
-                    styles.clearButton,
-                  ]}
-                >
-                  <Button
-                    full
-                    transparent
-                    rounded
-                    onPress={async () => {
-                      this.props.handleShowCancelModal();
-                    }}
-                    style={[
-                      styles.btnDefault,
-                    ]}
-                    textStyle={{
-                      color: '#fff'
-                    }}
-                  >
-                    <Title style={[styles.btnText, styles.btnClearText]}>取消预约</Title>
-                  </Button>
-                </LinearGradient> : undefined
-              }
-
-            </View>
           </View>
         </View>
       </CardItem>
@@ -366,7 +364,7 @@ class Home extends React.Component<IProps, IState> {
   }
 
   renderTabList() {
-    const { today, registrations } = this.state;
+    const { today, registrations, isToday } = this.state;
     const todayList = {
       title: "今日预约",
       data: today,
@@ -379,40 +377,47 @@ class Home extends React.Component<IProps, IState> {
       todayList,
       registrationsList,
     ]
-    if (!today || !today.length) {
+    if (isToday) {
+      list = [todayList]
+    } else {
       list = [registrationsList]
     }
-    return <SectionList
-      style={{
-        flexGrow: 1,
-      }}
-      contentContainerStyle={{
-        paddingHorizontal: 16,
-      }}
-      stickySectionHeadersEnabled
-      onEndReachedThreshold={0.3}
-      refreshing={this.state.refreshing}
-      onRefresh={this._onRefresh}
-      showsVerticalScrollIndicator={false}
-      renderItem={({ item, index, section }) => {
-        if (item === 'MSG') {
-          return this.allInfo()
-        }
-        return <View key={JSON.stringify(item)}>
-          {this.renderItem(item)}
-        </View>
-      }}
-      renderSectionHeader={({ section: { title } }) => {
-        return <Text style={styles.itemTitle}>{title}</Text>
-      }}
-      sections={list || []}
-      ItemSeparatorComponent={() => <View style={{ height: 12 }} />}
-      ListEmptyComponent={() => {
-        return <View />
-      }}
-      keyExtractor={(item, index) => JSON.stringify(item)}
-      renderSectionFooter={() => <View><View style={{ height: 20 }} /></View>}
-    />
+    return <View style={{
+      flex: 1,
+      flexGrow: 1,
+    }}>
+      <SectionList
+        style={{
+          flexGrow: 1,
+        }}
+        contentContainerStyle={{
+          paddingHorizontal: 0,
+        }}
+        stickySectionHeadersEnabled
+        onEndReachedThreshold={0.3}
+        refreshing={this.state.refreshing}
+        onRefresh={this._onRefresh}
+        showsVerticalScrollIndicator={false}
+        renderItem={({ item, index, section }) => {
+          if (item === 'MSG') {
+            return this.allInfo()
+          }
+          return <View key={JSON.stringify(item)}>
+            {this.renderItem(item)}
+          </View>
+        }}
+        renderSectionHeader={({ section: { title } }) => {
+          return <Text></Text>
+        }}
+        sections={list || []}
+        ItemSeparatorComponent={() => <View style={{ height: 7 }} />}
+        ListEmptyComponent={() => {
+          return <View />
+        }}
+        keyExtractor={(item, index) => JSON.stringify(item)}
+        renderSectionFooter={() => <View><View style={{ height: 20 }} /></View>}
+      />
+    </View>
   }
 
   renderTabForm() {
@@ -420,25 +425,6 @@ class Home extends React.Component<IProps, IState> {
     const { handleShowSelectDepartmentModal, handleShowSelectLevelModal } = this.props;
     return <Content contentContainerStyle={styles.formContent}>
       <Card noShadow style={styles.formCard}>
-        <CardItem style={[styles.formItem, styles.center]}>
-          <Segment style={styles.segmentWrap}>
-            <Button
-              onPress={() => {
-                this.setState({
-                  segmentActive: 0,
-                })
-              }}
-              style={styles.segmentBtn} active={segmentActive === 0} first><Text style={styles.segmentBtnText}>挂号当日</Text></Button>
-            <Button
-              onPress={() => {
-                this.setState({
-                  segmentActive: 1,
-                })
-              }}
-              style={styles.segmentBtn} active={segmentActive === 1} last><Text style={styles.segmentBtnText}>预约挂号</Text></Button>
-          </Segment>
-        </CardItem>
-
         <CardItem
           onPress={() => {
             handleShowSelectDepartmentModal((department) => {
@@ -448,7 +434,7 @@ class Home extends React.Component<IProps, IState> {
             })
           }}
           button style={styles.formItem}>
-          <Text style={styles.formItemLabel}>选择科室</Text>
+          <Text style={styles.formItemLabel}>挂号类型</Text>
           <Text style={[styles.ipt, department ? { color: '#404E66' } : {}]}>{department || '请选择科室'}</Text>
           <Right>
             <Icon style={{ fontSize: 16, color: '#404E66' }} name="arrow-forward" />
@@ -463,16 +449,20 @@ class Home extends React.Component<IProps, IState> {
             })
           }}
           button style={styles.formItem}>
-          <Text style={styles.formItemLabel}>医生职称</Text>
+          <Text style={styles.formItemLabel}>挂号科室</Text>
           <Text style={[styles.ipt, level ? { color: '#404E66' } : {}]}>{level || '请选择医生职称'}</Text>
           <Right>
             <Icon style={{ fontSize: 16, color: '#404E66' }} name="arrow-forward" />
           </Right>
         </CardItem>
-        <CardItem style={styles.formItem}>
+        <CardItem style={[styles.formItem, {
+          marginTop: 95,
+          marginBottom: 35,
+          borderBottomWidth: 0,
+        }]}>
           <LinearGradient
             start={{x: 0, y: 0}} end={{x: 1, y: 1}}
-            colors={['#6AE27C', '#17D397']}
+            colors={['#F86358', '#F86358']}
             style={[
               styles.linearGradientBtn2,
               {
@@ -549,29 +539,173 @@ class Home extends React.Component<IProps, IState> {
               paddingHorizontal: 11.5,
               // justifyContent: 'center',
               alignItems: 'center',
-              flexDirection: 'row'
             }}
           >
             <View style={{
-              marginRight: 16,
+              flexGrow: 1,
+              alignItems: 'center',
+              flexDirection: 'row',
+              width: '100%'
             }}>
-              <FastImage
-                style={{
-                  width: 38.5,
-                  height: 38.5,
-                  alignContent: 'center',
-                  justifyContent: 'center',
-                }}
-                source={userImg}
-                resizeMode={FastImage.resizeMode.contain}
-              />
+              <View style={{
+                marginRight: 16,
+              }}>
+                <FastImage
+                  style={{
+                    width: 38.5,
+                    height: 38.5,
+                    alignContent: 'center',
+                    justifyContent: 'center',
+                  }}
+                  source={userImg}
+                  resizeMode={FastImage.resizeMode.contain}
+                />
+              </View>
+              <Text style={{
+                color: '#FFFFFF',
+                fontSize: 15,
+                lineHeight: 22.5,
+                fontWeight: '400',
+              }}>Hi，上午好，{user.name || '未知'}！</Text>
             </View>
-            <Text style={{
-              color: '#FFFFFF',
-              fontSize: 15,
-              lineHeight: 22.5,
-              fontWeight: '400',
-            }}>Hi，上午好，{user.name || '未知'}！</Text>
+            {
+              this.state.active === 0 ? <View style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+                flexDirection: 'row',
+                width: '100%'
+              }}>
+                <Button
+                  full
+                  transparent
+                  onPress={() => {
+                    this.setState({
+                      isToday: true,
+                    })
+                  }}
+                  style={[
+                    {
+                      marginBottom: 4,
+                      borderBottomWidth: 1.5,
+                      borderBottomColor: 'transparent',
+                    },
+                    this.state.isToday ? {
+                      borderBottomColor: '#fff',
+                    } : {
+
+                    }
+                  ]}
+                >
+                  <Text style={[
+                    {
+                      fontSize: 15,
+                      color: '#FFFFFF',
+                    },
+                    this.state.isToday ? {
+                      fontSize: 18,
+                    } : {}
+                  ]}>今日预约</Text>
+                </Button>
+                <Button
+                  full
+                  transparent
+                  style={[
+                    {
+                      marginBottom: 4,
+                      borderBottomWidth: 1.5,
+                      borderBottomColor: 'transparent',
+                    },
+                    this.state.isToday ? {} : {
+                      borderBottomColor: '#fff',
+                    }
+                  ]}
+                  onPress={() => {
+                    this.setState({
+                      isToday: false,
+                    })
+                  }}
+                >
+                  <Text style={[
+                    {
+                      fontSize: 15,
+                      color: '#FFFFFF',
+                    },
+                    this.state.isToday ? {} : {
+                      fontSize: 18,
+                    }
+                  ]}>全部预约</Text>
+                </Button>
+              </View> : undefined
+            }
+            {
+              this.state.active === 1 ? <View style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+                flexDirection: 'row',
+                width: '100%'
+              }}>
+                <Button
+                  full
+                  transparent
+                  onPress={() => {
+                    this.setState({
+                      segmentActive: 0,
+                    })
+                  }}
+                  style={[
+                    {
+                      marginBottom: 4,
+                      borderBottomWidth: 1.5,
+                      borderBottomColor: 'transparent',
+                    },
+                    this.state.segmentActive === 0 ? {
+                      borderBottomColor: '#fff',
+                    } : {
+
+                    }
+                  ]}
+                >
+                  <Text style={[
+                    {
+                      fontSize: 15,
+                      color: '#FFFFFF',
+                    },
+                    this.state.segmentActive === 0 ? {
+                      fontSize: 18,
+                    } : {}
+                  ]}>当日挂号</Text>
+                </Button>
+                <Button
+                  full
+                  transparent
+                  style={[
+                    {
+                      marginBottom: 4,
+                      borderBottomWidth: 1.5,
+                      borderBottomColor: 'transparent',
+                    },
+                    this.state.segmentActive === 0 ? {} : {
+                      borderBottomColor: '#fff',
+                    }
+                  ]}
+                  onPress={() => {
+                    this.setState({
+                      segmentActive: 1,
+                    })
+                  }}
+                >
+                  <Text style={[
+                    {
+                      fontSize: 15,
+                      color: '#FFFFFF',
+                    },
+                    this.state.segmentActive === 0 ? {} : {
+                      fontSize: 18,
+                    }
+                  ]}>预约挂号</Text>
+                </Button>
+              </View> : undefined
+            }
           </Content>
         </LinearGradient>
         <View
@@ -593,14 +727,14 @@ class Home extends React.Component<IProps, IState> {
           >
             <Tab
               style={{
-                backgroundColor: '#F9FBFF',
+                backgroundColor: '#F4F4F4',
               }}
               heading="1">
               {this.renderTabList()}
             </Tab>
             <Tab
               style={{
-                backgroundColor: '#F9FBFF',
+                backgroundColor: '#F4F4F4',
               }}
               heading="2">
               {this.renderTabForm()}

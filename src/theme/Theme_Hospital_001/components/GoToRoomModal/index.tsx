@@ -51,7 +51,7 @@ class GoToRoomModalProvider extends React.Component<{}, IState> {
 
   showModel = (data: MAKE_ITEM) => {
     this.setState({
-      isModalVisible: true,
+      isModalVisible: false,
       room: data,
     });
   };
@@ -92,7 +92,13 @@ class GoToRoomModalProvider extends React.Component<{}, IState> {
 
           }}
           style={{
-            paddingHorizontal: 20,
+            paddingLeft: 0,
+            paddingRight: 0,
+            marginLeft: 0,
+            marginRight: 0,
+            margin: 0,
+            alignContent: 'flex-end',
+            justifyContent: 'flex-end',
           }}
         >
           <View style={{
@@ -102,34 +108,23 @@ class GoToRoomModalProvider extends React.Component<{}, IState> {
           }}>
               <View>
                 <View style={styles.header}>
-                  <FastImage
-                    style={{
-                      marginRight: 6,
-                      width: 22,
-                      height: 22,
-                      alignContent: 'center',
-                      justifyContent: 'center',
-                    }}
-                    source={icon}
-                    resizeMode={FastImage.resizeMode.contain}
-                  />
                   <Text style={styles.title}>
-                    已排到您，请尽快进入诊室
+                    请点击“进入视频直播间”按钮进入诊室
                   </Text>
                 </View>
                 <View style={styles.body}>
                   <Text style={styles.infoText}>
                     医生姓名：{room.name}
                   </Text>
-                  <Text style={styles.infoText}>
-                    所在科室：{room.medicalDepartment}
-                  </Text>
-                  <Text style={styles.infoText}>
-                    医生职称：{room.professionalTitle}
-                  </Text>
-                  <Text style={styles.infoText}>
-                    所在医院：{room.hospitalName}
-                  </Text>
+                  {/*<Text style={styles.infoText}>*/}
+                  {/*  所在科室：{room.medicalDepartment}*/}
+                  {/*</Text>*/}
+                  {/*<Text style={styles.infoText}>*/}
+                  {/*  医生职称：{room.professionalTitle}*/}
+                  {/*</Text>*/}
+                  {/*<Text style={styles.infoText}>*/}
+                  {/*  所在医院：{room.hospitalName}*/}
+                  {/*</Text>*/}
                 </View>
                 <View style={styles.btnWrap}>
                   <Button
@@ -144,9 +139,9 @@ class GoToRoomModalProvider extends React.Component<{}, IState> {
                       }}
                       style={styles.btn}
                   >
-                    <Text style={[styles.btnText, styles.okText]}>取消</Text>
+                    <Text style={[styles.btnText, styles.okText]}>暂不进入</Text>
                   </Button>
-                  <View style={{ width: 15, height: 40 }} />
+                  <View style={{ width: 15, height: 16 }} />
                   <LinearGradient
                     start={{x: 0, y: 0}} end={{x: 1, y: 1}}
                     colors={['#6AE27C', '#17D397']}
@@ -169,7 +164,7 @@ class GoToRoomModalProvider extends React.Component<{}, IState> {
                         }}
                         style={styles.btn}
                     >
-                      <Text style={[styles.btnText]}>确定</Text>
+                      <Text style={[styles.btnText]}>进入视频诊室</Text>
                     </Button>
                   </LinearGradient>
                 </View>

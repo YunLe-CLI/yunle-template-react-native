@@ -140,11 +140,14 @@ export default StyleSheet.create({
     borderRightWidth: 0,
     borderLeftWidth: 0,
     borderBottomWidth: 0,
+    backgroundColor: '#F4F4F4'
   },
   itemHeader: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
   },
   nameText: {
+    paddingRight: 8,
     fontSize: 16,
     lineHeight: 22.5,
     color: '#404E66',
@@ -153,7 +156,7 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   span: {
-    paddingLeft: 8,
+    // paddingLeft: 8,
   },
   note: {
     marginTop: 4,
@@ -163,6 +166,6 @@ export default StyleSheet.create({
     fontWeight: '400',
   },
   strong: {
-    color: '#11CD8F',
+    color: '#F86358',
   },
 });

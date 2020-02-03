@@ -4,7 +4,7 @@ import {StyleSheet} from 'react-native';
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F9FBFF',
+    backgroundColor: '#EEEEEE',
   },
   header: {
     backgroundColor: '#fff',
@@ -14,7 +14,7 @@ export default StyleSheet.create({
     color: '#192038',
   },
   body: {
-    backgroundColor: '#F9FBFF',
+    backgroundColor: '#EEEEEE',
   },
   bodyContent: {
     // paddingHorizontal: 16,
@@ -43,7 +43,7 @@ export default StyleSheet.create({
   formCard: {
     marginTop: 0,
     borderRadius: 6,
-    marginBottom: 12,
+    marginBottom: 0,
     borderLeftWidth: 0,
     borderTopWidth: 0,
     borderRightWidth: 0,
@@ -62,9 +62,9 @@ export default StyleSheet.create({
     justifyContent: 'space-between'
   },
   formItemTitle: {
-    fontSize: 16,
-    fontWeight: '500',
-    color: '#404E66',
+    fontSize: 14,
+    fontWeight: '400',
+    color: '#4A4A4A',
     lineHeight: 22.5,
   },
   formItemMoney: {
@@ -119,7 +119,7 @@ export default StyleSheet.create({
     fontWeight: '400',
   },
   strong: {
-    color: '#11CD8F',
+    color: '#F86358',
   },
   formItemMoney: {
     color: '#FF3B0E',

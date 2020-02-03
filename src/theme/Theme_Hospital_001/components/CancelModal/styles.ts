@@ -88,7 +88,7 @@ export default StyleSheet.create({
     fontWeight: '400',
   },
   okText: {
-    color: '#11CD8F',
+    color: '#F86358',
   },
   buttonStyle: {
     flexGrow: 1,

@@ -12,18 +12,17 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    borderBottomWidth: 1,
-    borderBottomColor: '#DCE3EE',
+    // borderBottomWidth: 1,
+    // borderBottomColor: '#DCE3EE',
   },
   title: {
-    fontSize: 18,
+    fontSize: 15,
     lineHeight: 21,
-    color: '#353B50',
+    color: '#404E66',
     textAlign: 'center',
-    fontWeight: '500',
+    fontWeight: '400',
   },
   body: {
-    paddingTop: 16,
     paddingHorizontal: 20,
   },
   infoText: {
@@ -33,6 +32,7 @@ export default StyleSheet.create({
     lineHeight: 20,
     color: '#404E66',
     fontWeight: '400',
+    textAlign: 'center'
   },
   qrMainWrap: {
     justifyContent: 'center',
@@ -80,9 +80,7 @@ export default StyleSheet.create({
     marginTop: 24,
     marginHorizontal: 24,
     marginBottom: 16,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    // flexDirection: 'row',
     flexGrow: 1,
   },
   btn: {
@@ -99,7 +97,7 @@ export default StyleSheet.create({
     fontWeight: '400',
   },
   okText: {
-    color: '#11CD8F',
+    color: '#F86358',
   },
   buttonStyle: {
     flexGrow: 1,

@@ -18,9 +18,9 @@ export default StyleSheet.create({
     textAlign: 'justify'
   },
   itemBox: {
-    minHeight: 118,
+    // minHeight: 118,
     backgroundColor: '#FFFFFF',
-    borderRadius: 4,
+    borderRadius: 0,
     borderLeftWidth: 0,
     borderTopWidth: 0,
     borderRightWidth: 0,
@@ -41,7 +41,6 @@ export default StyleSheet.create({
   itemBoxBody: {
     flex: 1,
     flexGrow: 1,
-    marginTop: -3,
     paddingTop: 16,
     paddingRight: 16,
     paddingBottom: 16,
@@ -57,30 +56,38 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   itemIconText: {
-    marginTop: 6,
+    marginLeft: 10,
     color: '#13B6FF',
-    fontSize: 12,
-    lineHeight: 15,
+    fontSize: 9,
+    lineHeight: 14,
     fontWeight: '400',
+    borderWidth: 1,
+    borderColor: '#999999',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 14,
+    width: 40,
+    borderRadius: 7.5,
+    paddingHorizontal: 6,
   },
   itemIconText00: {
-    color: '#13B6FF',
+    color: '#F5A623',
+    borderColor: '#F5A623',
   },
   itemIconText01: {
-    color: '#11CD8F',
+    color: '#F86358',
+    borderColor: '#F86358',
   },
   itemIconText02: {
-    color: '#B0BED4',
+    color: '#999999',
+    borderColor: '#999999'
   },
   itemBoxContent: {
     flex: 1,
     flexGrow: 1,
     justifyContent: 'center',
-    alignItems: 'flex-start',
   },
   itemBodyTitle: {
-    flex: 1,
-    flexGrow: 1,
     color: '#404E66',
     fontSize: 16,
     lineHeight: 22.5,
@@ -112,15 +119,12 @@ export default StyleSheet.create({
     flexWrap: 'wrap'
   },
   itemBodyBtnWrap: {
-    marginTop: 11,
     flexGrow: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
     alignItems: 'center',
   },
   btnDefault: {
-    height: 24,
+    height: 35,
     paddingTop: 0,
     paddingBottom: 0,
     paddingLeft: 10,
@@ -130,7 +134,7 @@ export default StyleSheet.create({
   },
   linearGradientBtn: {
     marginLeft: 8,
-    borderRadius: 12,
+    borderRadius: 4,
   },
   btnText: {
     color: '#fff',
@@ -144,7 +148,7 @@ export default StyleSheet.create({
     borderColor: '#11CD8F',
   },
   btnClearText: {
-    color: '#11CD8F',
+    color: '#666666',
   },
   submitButton: {
 
@@ -172,7 +176,7 @@ export default StyleSheet.create({
     height: 53,
   },
   formContent: {
-    paddingHorizontal: 16,
+    // paddingHorizontal: 16,
     paddingVertical: 6,
   },
   formCard: {
@@ -185,6 +189,11 @@ export default StyleSheet.create({
   center: {
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  formItem: {
+    borderBottomWidth: 1,
+    borderColor: '#D8D8D8',
+    height: 74,
   },
   formItemLabel: {
     minWidth: 61.5,
