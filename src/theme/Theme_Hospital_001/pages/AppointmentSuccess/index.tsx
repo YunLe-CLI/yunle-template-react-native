@@ -35,7 +35,8 @@ export interface IState {
 
 @(connect(({ user }) => {
   return {
-    user
+    user,
+    postType: home.postType
   }
 }) as any)
 class Home extends React.Component<IProps, IState> {
@@ -59,30 +60,28 @@ class Home extends React.Component<IProps, IState> {
     return <View>
       <Card noShadow style={styles.formCard}>
         <CardItem style={styles.formItem}>
-          <Text style={styles.formItemTitle}>挂号信息</Text>
+          <Text style={styles.formItemTitle}>{this.props.postType || '挂号'}信息</Text>
         </CardItem>
         <CardItem style={styles.formItem}>
-          <Text style={styles.formItemLabel}>医生姓名</Text>
-          <Text style={styles.ipt}>
-            {doctorInfo.name}
+          <Text style={[styles.ipt, { color: '#404E66', fontWeight: '500' }]}>
+            {time}
+          </Text>
+          <View style={{ width: 12.5, }}></View>
+          <Text style={[styles.ipt, { color: '#F86358', fontWeight: '600' }]}>
+            {doctorInfo.medicalDepartment}
           </Text>
         </CardItem>
         <CardItem style={styles.formItem}>
-          <Text style={styles.formItemLabel}>医生职称</Text>
-          <Text style={styles.ipt}>
-            {doctorInfo.professionalTitle}
-          </Text>
-        </CardItem>
-        <CardItem style={styles.formItem}>
-          <Text style={styles.formItemLabel}>所在医院</Text>
-          <Text style={styles.ipt}>
+          <Text style={[styles.ipt, { color: '#888888' }]}>
             {doctorInfo.hospitalName}
           </Text>
-        </CardItem>
-        <CardItem style={styles.formItem}>
-          <Text style={styles.formItemLabel}>就诊科室</Text>
-          <Text style={styles.ipt}>
-            {doctorInfo.medicalDepartment}
+          <View style={{ width: 12.5, }}></View>
+          <Text style={[styles.ipt, { color: '#888888' }]}>
+            {doctorInfo.professionalTitle}
+          </Text>
+          <View style={{ width: 12.5, }}></View>
+          <Text style={[styles.ipt, { color: '#888888' }]}>
+            {doctorInfo.name}
           </Text>
         </CardItem>
       </Card>
@@ -93,31 +92,26 @@ class Home extends React.Component<IProps, IState> {
           <Text style={styles.formItemTitle}>就诊人信息</Text>
         </CardItem>
         <CardItem style={styles.formItem}>
-          <Text style={styles.formItemLabel}>就诊人</Text>
-          <Text style={styles.ipt}>
+          <Text style={[styles.formItemLabel, { color: '#404E66', fontWeight: '600' }]}>
             {user.name}
+          </Text>
+          <Text style={[styles.ipt, { color: '#404E66', fontWeight: '600' }]}>
+            {user.mobile}
           </Text>
         </CardItem>
         <CardItem style={styles.formItem}>
           <Text style={styles.formItemLabel}>身份证号</Text>
           <Text style={styles.ipt}>
-            {user.idCard}
+            123456789098765432
           </Text>
         </CardItem>
         <CardItem style={styles.formItem}>
-          <Text style={styles.formItemLabel}>手机号码</Text>
+          <Text style={styles.formItemLabel}>看诊疾病</Text>
           <Text style={styles.ipt}>
-            {user.mobile}
-          </Text>
-        </CardItem>
-        <CardItem style={styles.formItem}>
-          <Text style={styles.formItemLabel}>就诊时间</Text>
-          <Text style={styles.ipt}>
-            {time}
+            {params.remark}
           </Text>
         </CardItem>
       </Card>
-
     </View>
   }
 
@@ -162,7 +156,7 @@ class Home extends React.Component<IProps, IState> {
             </Button>
           </Left>
           <Body>
-            <Title style={styles.headerText}>预约成功</Title>
+            <Title style={styles.headerText}>{this.props.postType || '挂号'}成功</Title>
           </Body>
           <Right/>
         </Header>
@@ -178,8 +172,8 @@ class Home extends React.Component<IProps, IState> {
                 style={{
                   marginTop: 24,
                   marginBottom: 16,
-                  width: 98,
-                  height: 98,
+                  width: 78,
+                  height: 78,
                   alignContent: 'center',
                   justifyContent: 'center',
                 }}
@@ -187,7 +181,7 @@ class Home extends React.Component<IProps, IState> {
                 resizeMode={FastImage.resizeMode.contain}
               />
               <Text style={[styles.ipt, styles.successText]}>
-                您已预约成功
+                您已{this.props.postType || '挂号'}成功
               </Text>
             </CardItem>
           </Card>
@@ -197,35 +191,24 @@ class Home extends React.Component<IProps, IState> {
         <Footer
           style={styles.footerWrap}
         >
-          <View style={styles.btnWrap}>
-            <LinearGradient
-              start={{x: 0, y: 0}} end={{x: 1, y: 1}}
-              colors={['#6AE27C', '#17D397']}
-              style={[
-                styles.linearGradientBtn,
-              ]}
-            >
-              <Button
-                full
-                transparent
-                rounded
-                onPress={async () => {
-                  this.props.dispatch(NavigationActions.navigate({
-                    routeName: 'Home',
-                    params: {
-                      active: 0,
-                    },
-                  }))
-                }}
-                style={styles.submitButton}
-                textStyle={{
-                  color: '#fff'
-                }}
-              >
-                <Title>返回首页</Title>
-              </Button>
-            </LinearGradient>
-          </View>
+          <Button
+            full
+            transparent
+            onPress={async () => {
+              this.props.dispatch(NavigationActions.navigate({
+                routeName: 'Home',
+                params: {
+                  active: 0,
+                },
+              }))
+            }}
+            style={styles.submitButton}
+            textStyle={{
+              color: '#F57260'
+            }}
+          >
+            <Title style={{ color: '#F57260' }}>返回首页</Title>
+          </Button>
         </Footer>
       </Container>
     );

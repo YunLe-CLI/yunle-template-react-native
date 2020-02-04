@@ -16,7 +16,7 @@ import {
   Text,
   Item, Input, Form,
   Icon,
-  Textarea,
+  Textarea, FooterTab,
 } from 'native-base';
 import styles from './styles';
 import {NavigationActions, NavigationEvents, StackActions} from 'react-navigation';
@@ -38,9 +38,10 @@ export interface IState {
   payType: string;
 }
 
-@(connect(({ user }) => {
+@(connect(({ user = {}, home }) => {
   return {
     user: user.info,
+    postType: home.postType
   }
 }) as any)
 class Home extends React.Component<IProps, IState> {
@@ -51,9 +52,9 @@ class Home extends React.Component<IProps, IState> {
   };
 
   async postData(time: string) {
+    const { navigation, user = {} }  = this.props;
+    const { params = {} } = navigation.state;
     try {
-      const { navigation, user } = this.props;
-      const { params = {} } = navigation.state;
       const registration_id = params.registration_id || '';
       const doctorInfo = params.doctorInfo || {};
       const time = params.time;
@@ -67,7 +68,8 @@ class Home extends React.Component<IProps, IState> {
           routeName: 'AppointmentSuccess',
           params: {
             doctorInfo,
-            time
+            time,
+            remark: this.state.remark,
           },
         }))
         return;
@@ -120,43 +122,35 @@ class Home extends React.Component<IProps, IState> {
 
   renderForm() {
     const { payType } = this.state;
-    const { navigation, user } = this.props;
+    const { navigation, user = {} } = this.props;
     const { params = {} } = navigation.state;
     const doctorInfo:DOCTOR_ITEM = params.doctorInfo || {};
     const time = params.time;
     return <View>
       <Card noShadow style={styles.formCard}>
         <CardItem style={styles.formItem}>
-          <Text style={styles.formItemTitle}>挂号信息</Text>
+          <Text style={styles.formItemTitle}>{this.props.postType || '挂号'}信息</Text>
         </CardItem>
         <CardItem style={styles.formItem}>
-          <Text style={styles.formItemLabel}>医生姓名</Text>
-          <Text style={styles.ipt}>
-            {doctorInfo.name}
+          <Text style={[styles.ipt, { color: '#404E66', fontWeight: '500' }]}>
+            {time}
           </Text>
-        </CardItem>
-        <CardItem style={styles.formItem}>
-          <Text style={styles.formItemLabel}>医生职称</Text>
-          <Text style={styles.ipt}>
-            {doctorInfo.professionalTitle}
-          </Text>
-        </CardItem>
-        <CardItem style={styles.formItem}>
-          <Text style={styles.formItemLabel}>所在医院</Text>
-          <Text style={styles.ipt}>
-            {doctorInfo.hospitalName}
-          </Text>
-        </CardItem>
-        <CardItem style={styles.formItem}>
-          <Text style={styles.formItemLabel}>就诊科室</Text>
-          <Text style={styles.ipt}>
+          <View style={{ width: 12.5, }}></View>
+          <Text style={[styles.ipt, { color: '#F86358', fontWeight: '600' }]}>
             {doctorInfo.medicalDepartment}
           </Text>
         </CardItem>
         <CardItem style={styles.formItem}>
-          <Text style={styles.formItemLabel}>就诊时间</Text>
-          <Text style={styles.ipt}>
-            {time}
+          <Text style={[styles.ipt, { color: '#888888' }]}>
+            {doctorInfo.hospitalName}
+          </Text>
+          <View style={{ width: 12.5, }}></View>
+          <Text style={[styles.ipt, { color: '#888888' }]}>
+            {doctorInfo.professionalTitle}
+          </Text>
+          <View style={{ width: 12.5, }}></View>
+          <Text style={[styles.ipt, { color: '#888888' }]}>
+            {doctorInfo.name}
           </Text>
         </CardItem>
       </Card>
@@ -167,8 +161,8 @@ class Home extends React.Component<IProps, IState> {
           <Text style={styles.formItemTitle}>就诊人信息</Text>
         </CardItem>
         <CardItem style={styles.formItem}>
-          <Text style={styles.formItemLabel}>就诊人</Text>
-          <Text style={styles.ipt}>
+          <Text style={[styles.formItemLabel, { color: '#404E66', fontWeight: '600' }]}>就诊人</Text>
+          <Text style={[styles.ipt, { color: '#404E66', fontWeight: '600' }]}>
             {user.name}
           </Text>
         </CardItem>
@@ -178,12 +172,12 @@ class Home extends React.Component<IProps, IState> {
             123456789098765432
           </Text>
         </CardItem>
-        <CardItem style={styles.formItem}>
-          <Text style={styles.formItemLabel}>手机号码</Text>
-          <Text style={styles.ipt}>
-            {user.name}
-          </Text>
-        </CardItem>
+        {/*<CardItem style={styles.formItem}>*/}
+        {/*  <Text style={styles.formItemLabel}>手机号码</Text>*/}
+        {/*  <Text style={styles.ipt}>*/}
+        {/*    {user.name}*/}
+        {/*  </Text>*/}
+        {/*</CardItem>*/}
         <CardItem style={styles.formItem}>
           <Text style={[styles.formItemLabel, {
             alignSelf: 'flex-start'
@@ -205,7 +199,7 @@ class Home extends React.Component<IProps, IState> {
       <Card noShadow style={styles.formCard}>
         <CardItem style={[styles.formItem, styles.spaceBetween]}>
           <Text style={styles.formItemTitle}>支付信息</Text>
-          <Text style={[styles.formItemTitle, styles.formItemMoney]}>挂号费：￥{doctorInfo.registrationFee}</Text>
+          {/*<Text style={[styles.formItemTitle, styles.formItemMoney]}>挂号费：￥{doctorInfo.registrationFee}</Text>*/}
         </CardItem>
         <CardItem
           onPress={() => {
@@ -213,7 +207,7 @@ class Home extends React.Component<IProps, IState> {
               payType: 'wx'
             })
           }}
-          button style={[styles.formItem, styles.spaceBetween]}>
+          button style={[styles.formItem, styles.spaceBetween, payType === 'wx' ? { backgroundColor: '#F49790' } : {}]}>
           <View style={styles.row}>
             <FastImage
               style={{
@@ -226,20 +220,9 @@ class Home extends React.Component<IProps, IState> {
               source={icon_wx}
               resizeMode={FastImage.resizeMode.contain}
             />
-            <Text style={styles.formItemLabel}>微信支付</Text>
+            <Text style={[styles.formItemLabel,  payType === 'wx' ? { color: '#fff' } : {}]}>微信支付</Text>
           </View>
 
-          <FastImage
-            style={{
-              marginLeft: 16,
-              width: 16,
-              height: 16,
-              alignContent: 'center',
-              justifyContent: 'center',
-            }}
-            source={payType === 'wx' ? icon_check_active : icon_check_default}
-            resizeMode={FastImage.resizeMode.contain}
-          />
         </CardItem>
         <CardItem
           onPress={() => {
@@ -247,7 +230,7 @@ class Home extends React.Component<IProps, IState> {
               payType: 'ali'
             })
           }}
-          button style={[styles.formItem, styles.spaceBetween]}>
+          button style={[styles.formItem, styles.spaceBetween, payType !== 'wx' ? { backgroundColor: '#F49790' } : {}]}>
           <View style={styles.row}>
             <FastImage
               style={{
@@ -260,19 +243,8 @@ class Home extends React.Component<IProps, IState> {
               source={icon_zfb}
               resizeMode={FastImage.resizeMode.contain}
             />
-            <Text style={styles.formItemLabel}>支付宝支付</Text>
+            <Text style={[styles.formItemLabel,  payType !== 'wx' ? { color: '#fff' } : {}]}>支付宝支付</Text>
           </View>
-          <FastImage
-            style={{
-              marginLeft: 16,
-              width: 16,
-              height: 16,
-              alignContent: 'center',
-              justifyContent: 'center',
-            }}
-            source={payType === 'ali' ? icon_check_active : icon_check_default}
-            resizeMode={FastImage.resizeMode.contain}
-          />
         </CardItem>
       </Card>
     </View>
@@ -280,6 +252,9 @@ class Home extends React.Component<IProps, IState> {
 
   render() {
     const { orientationType } = this.state;
+    const { navigation, user = {} } = this.props;
+    const { params = {} } = navigation.state;
+    const doctorInfo:DOCTOR_ITEM = params.doctorInfo || {};
     return (
       <Container style={styles.container}>
         <NavigationEvents
@@ -319,7 +294,7 @@ class Home extends React.Component<IProps, IState> {
             </Button>
           </Left>
           <Body>
-            <Title style={styles.headerText}>预约详情</Title>
+            <Title style={styles.headerText}>{this.props.postType || '挂号'}详情</Title>
           </Body>
           <Right/>
         </Header>
@@ -334,42 +309,41 @@ class Home extends React.Component<IProps, IState> {
         <Footer
           style={styles.footerWrap}
         >
-          <View style={styles.btnWrap}>
-            <LinearGradient
-              start={{x: 0, y: 0}} end={{x: 1, y: 1}}
-              colors={['#6AE27C', '#17D397']}
-              style={[
-                styles.linearGradientBtn,
-                {
-                  opacity: this.state.remark ? 1 : 0.4
+          <FooterTab style={{
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}>
+            <Button full>
+              <Text style={{
+                color: '#F86358',
+                fontSize: 16,
+                fontWeight: '400',
+              }}>{this.props.postType || '挂号'}费：￥{doctorInfo.registrationFee}</Text>
+            </Button>
+            <Button
+              full
+              style={{
+                flexGrow: 2,
+                backgroundColor: '#F86358'
+              }}
+              onPress={async () => {
+                // this.props.dispatch(StackActions.replace({
+                //   routeName: 'AppointmentSuccess',
+                //   params: {},
+                // }))
+                if (this.state.remark) {
+                  this.handlePay();
+                } else {
+                  alert('请描述下就诊人的疾病/症状')
                 }
-              ]}
-            >
-              <Button
-                full
-                transparent
-                rounded
-                onPress={async () => {
-                  // this.props.dispatch(StackActions.replace({
-                  //   routeName: 'AppointmentSuccess',
-                  //   params: {},
-                  // }))
-                  if (this.state.remark) {
-                    this.handlePay();
-                  } else {
-                    alert('请描述下就诊人的疾病/症状')
-                  }
 
-                }}
-                style={styles.submitButton}
-                textStyle={{
-                  color: '#fff'
-                }}
-              >
-                <Title>去付款</Title>
-              </Button>
-            </LinearGradient>
-          </View>
+              }}
+              textStyle={{
+              }}
+            >
+              <Title>去付款</Title>
+            </Button>
+          </FooterTab>
         </Footer>
       </Container>
     );

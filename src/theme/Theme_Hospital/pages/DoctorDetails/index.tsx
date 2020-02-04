@@ -143,6 +143,7 @@ class Home extends React.Component<IProps, IState> {
                 params: {
                   doctorInfo,
                   registration_id: cItem.id,
+                  segmentActive: params.segmentActive,
                   time: `${moment(item.date).format('YYYY.MM.DD')} ${cItem.remainCount === 1 ? '上午' : '下午'} `
                 },
               }))

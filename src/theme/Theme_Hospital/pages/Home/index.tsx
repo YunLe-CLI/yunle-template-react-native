@@ -490,9 +490,21 @@ class Home extends React.Component<IProps, IState> {
               transparent
               rounded
               onPress={async () => {
+                let postType = '挂号';
+                if (this.state.segmentActive === 0) {
+                  postType = '挂号'
+                }
+                if (this.state.segmentActive === 1) {
+                  postType = '预约'
+                }
+                this.props.dispatch({
+                  type: "home/setPostType",
+                  payload: postType
+                })
                 this.props.dispatch(NavigationActions.navigate({
                   routeName: 'DoctorList',
-                  params: {},
+                  params: {
+                  },
                 }))
               }}
               style={styles.submitButton}

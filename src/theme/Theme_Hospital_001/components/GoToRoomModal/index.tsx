@@ -109,7 +109,7 @@ class GoToRoomModalProvider extends React.Component<{}, IState> {
               <View>
                 <View style={styles.header}>
                   <Text style={styles.title}>
-                    请点击“进入视频直播间”按钮进入诊室
+                    请点击“进入视频诊室”按钮进入诊室
                   </Text>
                 </View>
                 <View style={styles.body}>

@@ -121,6 +121,7 @@ class Home extends React.Component<IProps, IState> {
                                         routeName: 'DoctorDetails',
                                         params: {
                                           doctorInfo: item,
+                                          segmentActive: this.state.segmentActive
                                         },
                                     }))
                                 }}

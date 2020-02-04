@@ -23,8 +23,8 @@ import {NavigationActions, NavigationEvents} from 'react-navigation';
 import {OrientationType} from "react-native-orientation-locker";
 import LinearGradient from "react-native-linear-gradient";
 import {PATIENTS_DETAILS, PATIENTS_INFO_PUT} from '../../services/api';
-import { withSelectDateTimeModal } from '@/theme/Theme_Hospital/components/SelectTimeModal';
-import { withSelectGenderModal } from '@/theme/Theme_Hospital/components/SelectGenderModal';
+import { withSelectDateTimeModal } from '@/theme/Theme_Hospital_001/components/SelectTimeModal';
+import { withSelectGenderModal } from '@/theme/Theme_Hospital_001/components/SelectGenderModal';
 import moment from 'moment';
 import _ from 'lodash';
 export interface IProps {}
@@ -34,7 +34,7 @@ export interface IState {
 }
 
 @(connect(({ user }) => {
-  return { user: user }
+  return { user: user || {} }
 }) as any)
 class Home extends React.Component<IProps, IState> {
 
@@ -59,7 +59,7 @@ class Home extends React.Component<IProps, IState> {
 
   async postData() {
     try {
-      const { user } = this.props;
+      const { user = {} } = this.props;
       const res = await PATIENTS_INFO_PUT({
         id: user.id,
         "name": this.state.name,// 【必须】
@@ -261,7 +261,7 @@ class Home extends React.Component<IProps, IState> {
           <View style={styles.btnWrap}>
             <LinearGradient
               start={{x: 0, y: 0}} end={{x: 1, y: 1}}
-              colors={['#6AE27C', '#17D397']}
+              colors={['#F86358', '#F86358']}
               style={[
                 styles.linearGradientBtn,
                 {

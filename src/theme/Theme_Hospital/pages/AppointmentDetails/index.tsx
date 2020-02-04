@@ -38,8 +38,9 @@ export interface IState {
   payType: string;
 }
 
-@(connect(({ user }) => {
+@(connect(({ user, home }) => {
   return {
+    postType: home.postType,
     user: user.info,
   }
 }) as any)
@@ -120,14 +121,14 @@ class Home extends React.Component<IProps, IState> {
 
   renderForm() {
     const { payType } = this.state;
-    const { navigation, user } = this.props;
+    const { navigation, user, postType } = this.props;
     const { params = {} } = navigation.state;
     const doctorInfo:DOCTOR_ITEM = params.doctorInfo || {};
     const time = params.time;
     return <View>
       <Card noShadow style={styles.formCard}>
         <CardItem style={styles.formItem}>
-          <Text style={styles.formItemTitle}>挂号信息</Text>
+          <Text style={styles.formItemTitle}>{postType || '挂号'}信息</Text>
         </CardItem>
         <CardItem style={styles.formItem}>
           <Text style={styles.formItemLabel}>医生姓名</Text>
@@ -205,7 +206,7 @@ class Home extends React.Component<IProps, IState> {
       <Card noShadow style={styles.formCard}>
         <CardItem style={[styles.formItem, styles.spaceBetween]}>
           <Text style={styles.formItemTitle}>支付信息</Text>
-          <Text style={[styles.formItemTitle, styles.formItemMoney]}>挂号费：￥{doctorInfo.registrationFee}</Text>
+          <Text style={[styles.formItemTitle, styles.formItemMoney]}>{this.props.postType || '挂号'}费：￥{doctorInfo.registrationFee}</Text>
         </CardItem>
         <CardItem
           onPress={() => {
@@ -319,7 +320,7 @@ class Home extends React.Component<IProps, IState> {
             </Button>
           </Left>
           <Body>
-            <Title style={styles.headerText}>预约详情</Title>
+            <Title style={styles.headerText}>{this.props.postType || '挂号'}详情</Title>
           </Body>
           <Right/>
         </Header>

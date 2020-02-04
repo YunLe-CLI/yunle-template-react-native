@@ -178,6 +178,8 @@ class LoginProvider extends React.Component<IProps, IState> {
         // })
         this.closeLogin();
         this.goToMain(!!userInfo.idCard);
+      } else {
+        throw res.msg
       }
     } catch (e) {
       alert('登录失败'+e)

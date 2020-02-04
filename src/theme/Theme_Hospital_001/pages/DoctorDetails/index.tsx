@@ -27,7 +27,8 @@ import icon from './assets/icon_left_slices/icon_left.png';
 import {DOCTOR_ITEM, APPOINTMENT, APPOINTMENT_RES, REGISTRATIONS_ITEM} from '../../services/api';
 import moment from 'moment';
 // 里面的字符可以根据自己的需要进行调整
-moment.locale('zh-cn')
+moment.locale('zh-cn');
+import SelectT from './components/SelectTimeModal'
 
 export interface IProps {}
 
@@ -107,9 +108,13 @@ class Home extends React.Component<IProps, IState> {
           height: 1,
           backgroundColor: '#DDDDDD'
         }}></View>
-        <CardItem style={[styles.formItem, styles.spaceBetween]}>
+        <CardItem button onPress={() => {
+          this.setState({
+            isModalVisible: true,
+          })
+        }} style={[styles.formItem, styles.spaceBetween]}>
           <Text style={styles.formItemTitle}>出诊日期</Text>
-          <Text style={[styles.formItemTitle, styles.formItemMoney]}>￥{doctorInfo.registrationFee}</Text>
+          <Icon style={{ fontSize: 16, color: '#404E66' }} name="arrow-forward" />
         </CardItem>
       </Card>
 
@@ -243,6 +248,7 @@ class Home extends React.Component<IProps, IState> {
     const { navigation } = this.props;
     const { params = {} } = navigation.state;
     const doctorInfo:DOCTOR_ITEM = params.doctorInfo || {};
+
     return (
       <Container style={styles.container}>
         <NavigationEvents
@@ -344,6 +350,29 @@ class Home extends React.Component<IProps, IState> {
 
           {this.renderForm()}
         </Content>
+        <SelectT
+          isModalVisible={this.state.isModalVisible}
+          appointment={this.state.appointment}
+          onClose={() => {
+            this.setState({
+              isModalVisible: false,
+            })
+          }}
+          onOk={(data) => {
+            this.setState({
+              isModalVisible: false,
+            }, () => {
+              this.props.dispatch(NavigationActions.navigate({
+                routeName: 'AppointmentDetails',
+                params: {
+                  doctorInfo,
+                  registration_id: data.id,
+                  time: `${moment(data.date).format('YYYY.MM.DD')} ${data.remainCount === 1 ? '上午' : '下午'} `
+                },
+              }))
+            })
+          }}
+        />
       </Container>
     );
   }

@@ -23,8 +23,8 @@ export default StyleSheet.create({
   },
   footerWrap: {
     borderTopWidth: 0,
-    alignItems: "center",
-    justifyContent: "center",
+    // alignItems: "center",
+    // justifyContent: "center",
     height:60,
   },
   btnWrap: {

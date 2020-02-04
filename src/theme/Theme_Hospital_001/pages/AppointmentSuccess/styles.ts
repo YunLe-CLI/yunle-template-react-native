@@ -35,9 +35,11 @@ export default StyleSheet.create({
     borderRadius: 24,
   },
   submitButton: {
+    width: '100%',
     height: 48,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: '#F5F4F7'
   },
   formCard: {
     marginTop: 0,
