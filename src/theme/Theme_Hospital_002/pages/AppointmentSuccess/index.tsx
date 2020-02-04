@@ -33,8 +33,9 @@ export interface IState {
   orientationType: OrientationType,
 }
 
-@(connect(({ user }) => {
+@(connect(({ user, home }) => {
   return {
+    postType: home.postType,
     user
   }
 }) as any)
@@ -59,7 +60,7 @@ class Home extends React.Component<IProps, IState> {
     return <View>
       <Card noShadow style={styles.formCard}>
         <CardItem style={styles.formItem}>
-          <Text style={styles.formItemTitle}>挂号信息</Text>
+          <Text style={styles.formItemTitle}>{this.props.postType || '挂号'}信息</Text>
         </CardItem>
         <CardItem style={styles.formItem}>
           <Text style={styles.formItemLabel}>医生姓名</Text>
@@ -162,7 +163,7 @@ class Home extends React.Component<IProps, IState> {
             </Button>
           </Left>
           <Body>
-            <Title style={styles.headerText}>预约成功</Title>
+            <Title style={styles.headerText}>{this.props.postType || '挂号'}成功</Title>
           </Body>
           <Right/>
         </Header>
@@ -187,7 +188,7 @@ class Home extends React.Component<IProps, IState> {
                 resizeMode={FastImage.resizeMode.contain}
               />
               <Text style={[styles.ipt, styles.successText]}>
-                您已预约成功
+                您已{this.props.postType || '挂号'}成功
               </Text>
             </CardItem>
           </Card>

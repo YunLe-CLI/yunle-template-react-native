@@ -47,6 +47,8 @@ import { withSelectDoctorModal } from '../../components/SelectDoctorModal';
 import { withSelectLevelModal } from '../../components/SelectLevelModal';
 
 import { MAKE_LIST, MAKE_ITEM, ROOM_MESSAGE } from '../../services/api';
+import bg from '@/theme/Theme_Hospital_002/components/LoginModal/assets/bg/bg.png';
+import {getStatusBarHeight} from "react-native-status-bar-height";
 
 const { MainViewController = {} } = NativeModules || {};
 const { SDKLeaveRoom } = MainViewController || {};
@@ -490,9 +492,21 @@ class Home extends React.Component<IProps, IState> {
               transparent
               rounded
               onPress={async () => {
+                let postType = '挂号';
+                if (this.state.segmentActive === 0) {
+                  postType = '挂号'
+                }
+                if (this.state.segmentActive === 1) {
+                  postType = '预约'
+                }
+                this.props.dispatch({
+                  type: "home/setPostType",
+                  payload: postType
+                })
                 this.props.dispatch(NavigationActions.navigate({
                   routeName: 'DoctorList',
-                  params: {},
+                  params: {
+                  },
                 }))
               }}
               style={styles.submitButton}
@@ -539,119 +553,158 @@ class Home extends React.Component<IProps, IState> {
             }}
         />
         <ImageBackground
-          source={home_bg_slices}
-          style={{
-            width: '100%',
-            height: 188,
-          }}
-        >
-          <Content
-            scrollEnabled={false}
-            contentContainerStyle={{
-              flexGrow: 1,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            <View>
-              <FastImage
-                style={{
-                  width: 78,
-                  height: 86,
-                  alignContent: 'center',
-                  justifyContent: 'center',
-                }}
-                source={userImg}
-                resizeMode={FastImage.resizeMode.contain}
-              />
-            </View>
-            <Text style={{
-              color: '#404E66',
-              fontSize: 16,
-              lineHeight: 22.5,
-              fontWeight: '400',
-            }}>{user.name || '未知'}</Text>
-          </Content>
-        </ImageBackground>
-        <View
+          source={bg}
           style={{
             flex: 1,
             flexGrow: 1,
-            overflow: 'hidden',
-            backgroundColor: '#F9FBFF',
+            width: '100%',
           }}
         >
-          <Tabs
-            page={active}
-            renderTabBar={() => <View />}
-            onChangeTab={({i}) => {
-              this.setState({
-                active: i
-              })
+          <View style={{
+            marginTop: getStatusBarHeight(true),
+            height: 108,
+            paddingBottom: 18,
+            justifyContent: 'center',
+          }}>
+            <View style={{
+              paddingHorizontal: 16,
+            }}>
+              <Text style={{
+                fontSize: 18,
+                fontWeight: '500',
+                color: '#FFFFFF'
+              }}>
+                云诊室demo
+              </Text>
+            </View>
+          </View>
+          <View
+            style={{
+              marginTop: -18,
+              paddingHorizontal: 32.5,
+              flex: 1,
+              borderTopLeftRadius: 18,
+              borderTopRightRadius: 18,
+              overflow: 'hidden',
+              backgroundColor: '#fff'
             }}
           >
-            <Tab
+            <ImageBackground
+              source={home_bg_slices}
               style={{
+                width: '100%',
+                height: 188,
+              }}
+            >
+              <Content
+                scrollEnabled={false}
+                contentContainerStyle={{
+                  flexGrow: 1,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                <View>
+                  <FastImage
+                    style={{
+                      width: 78,
+                      height: 86,
+                      alignContent: 'center',
+                      justifyContent: 'center',
+                    }}
+                    source={userImg}
+                    resizeMode={FastImage.resizeMode.contain}
+                  />
+                </View>
+                <Text style={{
+                  color: '#404E66',
+                  fontSize: 16,
+                  lineHeight: 22.5,
+                  fontWeight: '400',
+                }}>{user.name || '未知'}</Text>
+              </Content>
+            </ImageBackground>
+            <View
+              style={{
+                flex: 1,
+                flexGrow: 1,
+                overflow: 'hidden',
                 backgroundColor: '#F9FBFF',
               }}
-              heading="1">
-              {this.renderTabList()}
-            </Tab>
-            <Tab
-              style={{
-                backgroundColor: '#F9FBFF',
-              }}
-              heading="2">
-              {this.renderTabForm()}
-            </Tab>
-          </Tabs>
-        </View>
-        <Footer style={styles.footerWrap}>
-          <FooterTab style={{
-            justifyContent: 'center',
-            alignItems: 'center'
-          }}>
-            <Button
-              onPress={() => {
-                this.setState({
-                  active: 0,
-                })
-              }}
-              full style={styles.btnTab}>
-              <FastImage
-                style={{
-                  width: 28,
-                  height: 28,
-                  alignContent: 'center',
-                  justifyContent: 'center',
+            >
+              <Tabs
+                page={active}
+                renderTabBar={() => <View />}
+                onChangeTab={({i}) => {
+                  this.setState({
+                    active: i
+                  })
                 }}
-                source={active === 0 ? icon_myorder_active_slices : icon_myorder_default_slices}
-                resizeMode={FastImage.resizeMode.contain}
-              />
-              <Text style={[styles.btnTabText, active === 0 ? styles.activeBtnTabText : {}]}>我的预约</Text>
-            </Button>
-            <View style={styles.line} />
-            <Button
-              onPress={() => {
-                this.setState({
-                  active: 1,
-                })
-              }}
-              full style={styles.btnTab}>
-              <FastImage
-                style={{
-                  width: 28,
-                  height: 28,
-                  alignContent: 'center',
-                  justifyContent: 'center',
-                }}
-                source={active === 1 ? icon_register_active_slices : icon_register_default_slices }
-                resizeMode={FastImage.resizeMode.contain}
-              />
-              <Text style={[styles.btnTabText, active === 1 ? styles.activeBtnTabText : {}]}>挂号预约</Text>
-            </Button>
-          </FooterTab>
-        </Footer>
+              >
+                <Tab
+                  style={{
+                    backgroundColor: '#F9FBFF',
+                  }}
+                  heading="1">
+                  {this.renderTabList()}
+                </Tab>
+                <Tab
+                  style={{
+                    backgroundColor: '#F9FBFF',
+                  }}
+                  heading="2">
+                  {this.renderTabForm()}
+                </Tab>
+              </Tabs>
+            </View>
+            <Footer style={styles.footerWrap}>
+              <FooterTab style={{
+                justifyContent: 'center',
+                alignItems: 'center'
+              }}>
+                <Button
+                  onPress={() => {
+                    this.setState({
+                      active: 0,
+                    })
+                  }}
+                  full style={styles.btnTab}>
+                  <FastImage
+                    style={{
+                      width: 28,
+                      height: 28,
+                      alignContent: 'center',
+                      justifyContent: 'center',
+                    }}
+                    source={active === 0 ? icon_myorder_active_slices : icon_myorder_default_slices}
+                    resizeMode={FastImage.resizeMode.contain}
+                  />
+                  <Text style={[styles.btnTabText, active === 0 ? styles.activeBtnTabText : {}]}>我的预约</Text>
+                </Button>
+                <View style={styles.line} />
+                <Button
+                  onPress={() => {
+                    this.setState({
+                      active: 1,
+                    })
+                  }}
+                  full style={styles.btnTab}>
+                  <FastImage
+                    style={{
+                      width: 28,
+                      height: 28,
+                      alignContent: 'center',
+                      justifyContent: 'center',
+                    }}
+                    source={active === 1 ? icon_register_active_slices : icon_register_default_slices }
+                    resizeMode={FastImage.resizeMode.contain}
+                  />
+                  <Text style={[styles.btnTabText, active === 1 ? styles.activeBtnTabText : {}]}>挂号预约</Text>
+                </Button>
+              </FooterTab>
+            </Footer>
+          </View>
+        </ImageBackground>
       </Container>
     );
   }

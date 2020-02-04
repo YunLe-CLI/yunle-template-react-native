@@ -7,6 +7,7 @@ import { getHome, getHomeItem } from '@/services/api';
 export interface IModelState {
   info: {},
   list: {} | undefined,
+  postType: string;
 };
 
 export interface IModelType extends Model{
@@ -27,6 +28,7 @@ export interface IModelType extends Model{
 const initState: IModelState = {
   info: {},
   list: undefined,
+  postType: '',
 }
 
 const homeModel: IModelType = {
@@ -36,6 +38,9 @@ const homeModel: IModelType = {
       clearCacheHandle() {
         return { ...initState }
       },
+      setPostType(state, { payload }) {
+        return { ...state, postType: payload }
+      }
     },
     effects: {
       *clearCache({ payload = {} }, { put }) {

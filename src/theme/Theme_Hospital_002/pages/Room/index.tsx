@@ -8,7 +8,7 @@ import {
     NativeModules,
     Animated,
     Easing,
-    TouchableOpacity,
+    TouchableOpacity, ImageBackground,
 } from 'react-native';
 import {NavigationActions, NavigationEvents} from 'react-navigation';
 import {
@@ -47,6 +47,8 @@ import audio_IMG_2 from './assets/icon_audio_ac_slices/icon_audio_ac.png';
 
 import video_1 from './assets/icon_video_de_slices2/icon_video_de.png';
 import video_2 from './assets/icon_video_ac_slices/icon_video_ac.png';
+import bg from '@/theme/Theme_Hospital_002/components/LoginModal/assets/bg/bg.png';
+import {getStatusBarHeight} from "react-native-status-bar-height";
 
 const { MainViewManager = {}, MainViewController = {} } = NativeModules || {};
 const { SDKAuth, SDKLogin, SDKGoToRoom, SDKGetUsers, SDKGetUserInfo, SDKSetVideo, SDKSetAudio } = MainViewController || {};
@@ -91,7 +93,7 @@ class Home extends React.Component<IProps, IState> {
         SDK_AUTH: false,
         SDK_LOGIN: false,
         rotateVal: new Animated.Value(0),
-        inRoom: false,
+        inRoom: true,
         userList: [],
         usersInfo: {},
         audioType: true,
@@ -475,7 +477,7 @@ class Home extends React.Component<IProps, IState> {
               flex: 1,
               position: 'absolute',
               width,
-              height,
+              height: height - getStatusBarHeight(true) - 108,
               flexGrow: 1,
               justifyContent: 'center',
               alignItems: 'center',
@@ -487,7 +489,7 @@ class Home extends React.Component<IProps, IState> {
                     uid={userID}
                     style={{
                         width,
-                        height,
+                        height: height - getStatusBarHeight(true) - 108,
                     }}
                   />
                 ) : <View>
@@ -507,9 +509,9 @@ class Home extends React.Component<IProps, IState> {
           style={{
               position: 'absolute',
               right: 16,
-              top: 45,
-              width: 102,
-              height: 102,
+              top: getStatusBarHeight(true) +  108,
+              width: 117,
+              height: 156,
               backgroundColor: '#000',
               borderWidth: 1,
               borderColor: '#FFFFFF',
@@ -557,90 +559,131 @@ class Home extends React.Component<IProps, IState> {
 
                     }}
                 />
-                <Content
-                    style={{
-                        flex: 1,
-                        flexGrow: 1,
-                    }}
-                    contentContainerStyle={{
-                        flex: 1,
-                        flexGrow: 1,
-                    }}
+                <ImageBackground
+                  source={bg}
+                  style={{
+                      flex: 1,
+                      flexGrow: 1,
+                      width: '100%',
+                  }}
                 >
                     <View style={{
-                        position: 'absolute',
-                        left: 0,
-                        right: 0,
-                        top: 36,
-                        zIndex: 99999999999,
-                        width: 50,
-                        height: 50,
+                        marginTop: getStatusBarHeight(true),
+                        height: 108,
+                        paddingBottom: 18,
                         justifyContent: 'center',
-                        alignItems: 'center',
                     }}>
-                        <Button
-                          transparent
-                          onPress={() => {
-                              const { dispatch } = this.props;
-                              dispatch(NavigationActions.back());
-                          }}
-                        >
-                            <FastImage
-                              style={{
-                                  width: 28,
-                                  height: 28,
-                                  alignContent: 'center',
-                                  justifyContent: 'center',
-                              }}
-                              source={require('./assets/ico_arrowleft_slices/ico_arrowleft.png')}
-                              resizeMode={FastImage.resizeMode.contain}
-                            />
-                        </Button>
-                    </View>
-                    {
-                        !this.state.inRoom ? (
-                            <View style={{ flex: 1, flexGrow: 1, paddingHorizontal: 12, justifyContent: 'center', alignItems: 'center' }}>
-                                <Animated.View style={[
-                                    styles.loadingWrap,
-                                ]}>
-                                    <Animated.View style={[
-                                        {
-                                            transform: [{ // 动画属性
-                                                rotate: this.state.rotateVal.interpolate({
-                                                    inputRange: [0, 360],
-                                                    outputRange: ['0deg', '360deg'],
-                                                })
-                                            }]
-                                        }
-                                    ]}>
-                                        <FastImage
-                                            style={{
-                                                width: 32,
-                                                height: 32,
-                                                alignContent: 'center',
-                                                justifyContent: 'center',
-                                            }}
-                                            source={loading}
-                                            resizeMode={FastImage.resizeMode.contain}
-                                        />
-                                    </Animated.View>
-                                    <Text style={styles.loadingText}>正在进入，请稍后</Text>
-                                </Animated.View>
-                            </View>
-                        ) : <View>
-                            {this.renderHost()}
+                        <View style={{
+                            paddingHorizontal: 16,
+                        }}>
+                            <Text style={{
+                                fontSize: 18,
+                                fontWeight: '500',
+                                color: '#FFFFFF'
+                            }}>
+                            </Text>
                         </View>
-                    }
-                </Content>
+                    </View>
+                    <View
+                      style={{
+                          marginTop: -18,
+                          flex: 1,
+                          borderTopLeftRadius: 18,
+                          borderTopRightRadius: 18,
+                          overflow: 'hidden',
+                          backgroundColor: '#fff'
+                      }}
+                    >
+                        <Content
+                            style={{
+                                flex: 1,
+                                flexGrow: 1,
+                            }}
+                            contentContainerStyle={{
+                                flex: 1,
+                                flexGrow: 1,
+                            }}
+                        >
+                            <View style={{
+                                position: 'absolute',
+                                left: 0,
+                                right: 0,
+                                top: 36,
+                                zIndex: 99999999999,
+                                width: 50,
+                                height: 50,
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                            }}>
+                                <Button
+                                  transparent
+                                  onPress={() => {
+                                      const { dispatch } = this.props;
+                                      dispatch(NavigationActions.back());
+                                  }}
+                                >
+                                    <FastImage
+                                      style={{
+                                          width: 28,
+                                          height: 28,
+                                          alignContent: 'center',
+                                          justifyContent: 'center',
+                                      }}
+                                      source={require('./assets/ico_arrowleft_slices/ico_arrowleft.png')}
+                                      resizeMode={FastImage.resizeMode.contain}
+                                    />
+                                </Button>
+                            </View>
+                            {
+                                !this.state.inRoom ? (
+                                    <View style={{ flex: 1, flexGrow: 1, paddingHorizontal: 12, justifyContent: 'center', alignItems: 'center' }}>
+                                        <Animated.View style={[
+                                            styles.loadingWrap,
+                                        ]}>
+                                            <Animated.View style={[
+                                                {
+                                                    transform: [{ // 动画属性
+                                                        rotate: this.state.rotateVal.interpolate({
+                                                            inputRange: [0, 360],
+                                                            outputRange: ['0deg', '360deg'],
+                                                        })
+                                                    }]
+                                                }
+                                            ]}>
+                                                <FastImage
+                                                    style={{
+                                                        width: 32,
+                                                        height: 32,
+                                                        alignContent: 'center',
+                                                        justifyContent: 'center',
+                                                    }}
+                                                    source={loading}
+                                                    resizeMode={FastImage.resizeMode.contain}
+                                                />
+                                            </Animated.View>
+                                            <Text style={styles.loadingText}>正在进入，请稍后</Text>
+                                        </Animated.View>
+                                    </View>
+                                ) : <View>
+                                    {this.renderHost()}
+                                </View>
+                            }
+                        </Content>
+                    </View>
+                </ImageBackground>
                 {this.state.inRoom ? this.renderMe() : undefined}
                 {
                     this.state.inRoom ? <Footer style={styles.footerWrap}>
-                        <Left>
+                        <Body style={{
+                            flexGrow: 1,
+                            paddingRight: 16,
+                            justifyContent: 'center'
+                        }}>
                             <View style={{
                                 flexGrow: 1,
                                 flexDirection: 'row',
-                                justifyContent: 'flex-end',
-                                alignItems: 'flex-end',
+                                justifyContent: 'center',
+                                alignItems: 'center',
                             }}>
                                 <Button
                                   style={styles.btnWrap}
@@ -649,8 +692,8 @@ class Home extends React.Component<IProps, IState> {
                                   }}>
                                     <FastImage
                                       style={{
-                                          width: 28,
-                                          height: 28,
+                                          width: 23,
+                                          height: 23,
                                           alignContent: 'center',
                                           justifyContent: 'center',
                                       }}
@@ -665,8 +708,8 @@ class Home extends React.Component<IProps, IState> {
                                   }}>
                                     <FastImage
                                       style={{
-                                          width: 28,
-                                          height: 28,
+                                          width: 23,
+                                          height: 23,
                                           alignContent: 'center',
                                           justifyContent: 'center',
                                       }}
@@ -675,13 +718,6 @@ class Home extends React.Component<IProps, IState> {
                                     />
                                 </Button>
                             </View>
-                        </Left>
-                        <Body style={{
-                            flexGrow: 1,
-                            paddingRight: 16,
-                            justifyContent: 'flex-end'
-                        }}>
-
                         </Body>
                     </Footer> : undefined
                 }

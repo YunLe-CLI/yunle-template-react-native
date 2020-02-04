@@ -1,11 +1,11 @@
 import React from 'react';
-import {Dimensions, StatusBar, View} from 'react-native';
+import {Dimensions, ImageBackground, StatusBar, View} from 'react-native';
 import { connect } from 'react-redux';
 import {
   Container,
   Header,
   Left,
-  Body,
+  Label,
   Right,
   Title,
   Content,
@@ -23,10 +23,12 @@ import {NavigationActions, NavigationEvents} from 'react-navigation';
 import {OrientationType} from "react-native-orientation-locker";
 import LinearGradient from "react-native-linear-gradient";
 import {PATIENTS_DETAILS, PATIENTS_INFO_PUT} from '../../services/api';
-import { withSelectDateTimeModal } from '@/theme/Theme_Hospital/components/SelectTimeModal';
-import { withSelectGenderModal } from '@/theme/Theme_Hospital/components/SelectGenderModal';
+import { withSelectDateTimeModal } from '@/theme/Theme_Hospital_002/components/SelectTimeModal';
+import { withSelectGenderModal } from '@/theme/Theme_Hospital_002/components/SelectGenderModal';
 import moment from 'moment';
 import _ from 'lodash';
+import bg from '@/theme/Theme_Hospital_002/components/LoginModal/assets/bg/bg.png';
+import {getStatusBarHeight} from "react-native-status-bar-height";
 export interface IProps {}
 
 export interface IState {
@@ -115,101 +117,113 @@ class Home extends React.Component<IProps, IState> {
   renderForm() {
     return <View>
       <Card noShadow style={styles.formCard}>
-        <CardItem style={styles.formItem}>
-          <Text style={styles.formItemLabel}>姓名</Text>
-          <Input value={this.state.name} style={styles.ipt} placeholder="请输入姓名" placeholderTextColor={"#9C9EB9"}
-                 onChangeText={(value) => {
-                   this.setState({
-                     name: value,
-                   })
-                 }}
-          />
-          <Right>
+        <View style={styles.formItem}>
+          <Form>
+            <Item style={styles.formItemContent}  floatingLabel>
+              <Label style={styles.formItemLabel}>姓名</Label>
+              <Input value={this.state.name} style={styles.ipt} placeholder="请输入姓名" placeholderTextColor={"#9C9EB9"}
+                     onChangeText={(value) => {
+                       this.setState({
+                         name: value,
+                       })
+                     }}
+              />
+            </Item>
+          </Form>
+        </View>
+        <View style={styles.formItem}>
+          <Form>
+            <Item style={styles.formItemContent}  floatingLabel>
+              <Label style={styles.formItemLabel}>年龄</Label>
+              <Input value={this.state.age} style={styles.ipt} placeholder="请输入年龄" placeholderTextColor={"#9C9EB9"}
+                     onChangeText={(value) => {
+                       this.setState({
+                         age: value,
+                       })
+                     }}
+              />
+            </Item>
+          </Form>
+        </View>
 
-          </Right>
-        </CardItem>
-        <CardItem style={styles.formItem}>
-          <Text style={styles.formItemLabel}>身份证号</Text>
-          <Input value={this.state.idCard} style={styles.ipt} placeholder="请输入身份证号" placeholderTextColor={"#9C9EB9"}
-                 onChangeText={(value) => {
-                   this.setState({
-                     idCard: value,
-                   })
-                 }}
-          />
-          <Right>
+        <View style={styles.formItem}>
+          <Form>
+            <Item style={styles.formItemContent}  floatingLabel>
+              <Label style={styles.formItemLabel}>身份证号</Label>
+              <Input value={this.state.idCard} style={styles.ipt} placeholder="请输入身份证号" placeholderTextColor={"#9C9EB9"}
+                     onChangeText={(value) => {
+                       this.setState({
+                         idCard: value,
+                       })
+                     }}
+              />
+            </Item>
+          </Form>
+        </View>
 
-          </Right>
-        </CardItem>
-        <CardItem
-          button
-          onPress={() => {
-            this.props.handleShowSelectGenderModal((data) => {
-              this.setState({
-                gender: data
-              })
-            })
-          }}
-          style={styles.formItem}>
-          <Text style={styles.formItemLabel}>性别</Text>
-          {this.state.gender ? <Text style={styles.ipt}>{this.state.gender === 1 ? '男' : '女'}</Text> : <Text style={[styles.ipt, {
-            color: '#9C9EB9'
-          }]}>请选择性别</Text>}
-          <Right>
-            <Icon name="arrow-forward" />
-          </Right>
-        </CardItem>
-        <CardItem
-          button
-          style={styles.formItem}
-          onPress={() => {
-            this.props.handleShowSelectDateTimeModal((data) => {
-              this.setState({
-                birthdate: data
-              })
-            })
-          }}
-        >
-          <Text style={styles.formItemLabel}>出生日期</Text>
-          {this.state.birthdate ? <Text style={styles.ipt}>{moment(this.state.birthdate).format('YYYY-MM-DD')}</Text> : <Text style={[styles.ipt, {
-            color: '#9C9EB9'
-          }]}>{'请选择出生日期'}</Text>}
-          <Right>
-            <Icon name="arrow-forward" />
-          </Right>
-        </CardItem>
-        <CardItem style={styles.formItem}>
-          <Text style={styles.formItemLabel}>年龄</Text>
-          <Input value={this.state.age} style={styles.ipt} placeholder="请输入年龄" placeholderTextColor={"#9C9EB9"}
-                 onChangeText={(value) => {
-                   this.setState({
-                     age: value,
-                   })
-                 }}
-          />
-          <Right>
+        <View style={styles.formItem}>
+          <Form>
+            <Item style={styles.formItemContent}  floatingLabel>
+              <Label style={styles.formItemLabel}>手机号</Label>
+              <Input value={this.state.mobile} style={styles.ipt} placeholder="请输入手机号" placeholderTextColor={"#9C9EB9"}
+                     onChangeText={(value) => {
+                       this.setState({
+                         mobile: value,
+                       })
+                     }}
+              />
+            </Item>
+          </Form>
+        </View>
 
-          </Right>
-        </CardItem>
-      </Card>
-      <Card noShadow style={styles.formCard}>
-        <CardItem style={styles.formItem}>
-          <Text style={styles.formItemLabel}>既往病史/过敏史</Text>
-        </CardItem>
-        <CardItem style={styles.formItem}>
-          <View style={{ flex: 1, flexGrow: 1, }}>
-            <Textarea value={this.state.medicalHistory}
-                      onChangeText={(value) => {
-                        this.setState({
-                          medicalHistory: value,
-                        })
-                      }}
-                      style={{
-                        color: '#404E66'
-                      }}
-                      rowSpan={5} placeholderTextColor={'#CCD5E3'} placeholder="请输入您的既往病史/过敏" />
-          </View>
-        </CardItem>
+        <View style={styles.formItem}>
+          <Form>
+            <Item style={styles.formItemContent} floatingLabel>
+              <Label style={styles.formItemLabel}>病史</Label>
+              <Input value={this.state.medicalHistory} style={styles.ipt} placeholder="请输入病史" placeholderTextColor={"#9C9EB9"}
+                     onChangeText={(value) => {
+                       this.setState({
+                         medicalHistory: value,
+                       })
+                     }}
+              />
+            </Item>
+          </Form>
+        </View>
+
+        <View style={styles.btnWrap}>
+          <LinearGradient
+            start={{x: 0, y: 0}} end={{x: 1, y: 1}}
+            colors={['#6093FB', '#6093FB']}
+            style={[
+              styles.linearGradientBtn,
+              {
+                opacity:
+                  this.state.name &&
+                  this.state.idCard &&
+                  this.state.birthdate &&
+                  this.state.gender &&
+                  this.state.age ?
+                    1 : 0.4
+              }
+            ]}
+          >
+            <Button
+              full
+              transparent
+              rounded
+              onPress={async () => {
+                this.postData()
+              }}
+              style={styles.submitButton}
+              textStyle={{
+                color: '#fff'
+              }}
+            >
+              <Title>完成</Title>
+            </Button>
+          </LinearGradient>
+        </View>
       </Card>
     </View>
   }
@@ -237,61 +251,59 @@ class Home extends React.Component<IProps, IState> {
 
           }}
         />
-        <Header
-          style={styles.header}
-          translucent
+        <ImageBackground
+          source={bg}
+          style={{
+            flex: 1,
+            flexGrow: 1,
+            width: '100%',
+          }}
         >
-          <Left/>
-          <Body>
-            <Title style={styles.headerText}>完善个人信息</Title>
-          </Body>
-          <Right/>
-        </Header>
-        <StatusBar barStyle="dark-content" />
-        <Content
-          disableKBDismissScroll
-          style={styles.body}
-          contentContainerStyle={styles.bodyContent}
-        >
-          {this.renderForm()}
-        </Content>
-        <Footer
-          style={styles.footerWrap}
-        >
-          <View style={styles.btnWrap}>
-            <LinearGradient
-              start={{x: 0, y: 0}} end={{x: 1, y: 1}}
-              colors={['#6AE27C', '#17D397']}
-              style={[
-                styles.linearGradientBtn,
-                {
-                  opacity:
-                    this.state.name &&
-                    this.state.idCard &&
-                    this.state.birthdate &&
-                    this.state.gender &&
-                    this.state.age ?
-                      1 : 0.4
-                }
-              ]}
-            >
-              <Button
-                full
-                transparent
-                rounded
-                onPress={async () => {
-                  this.postData()
-                }}
-                style={styles.submitButton}
-                textStyle={{
-                  color: '#fff'
-                }}
-              >
-                <Title>完成</Title>
-              </Button>
-            </LinearGradient>
+          <View style={{
+            marginTop: getStatusBarHeight(true),
+            height: 108,
+            paddingBottom: 18,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+            <View style={{
+              paddingHorizontal: 16,
+            }}>
+              <Text style={{
+                fontSize: 18,
+                fontWeight: '500',
+                color: '#FFFFFF'
+              }}>
+                修改个人信息
+              </Text>
+            </View>
           </View>
-        </Footer>
+          <View
+            style={{
+              marginTop: -18,
+              // paddingHorizontal: 32.5,
+              flex: 1,
+              borderTopLeftRadius: 18,
+              borderTopRightRadius: 18,
+              overflow: 'hidden',
+              backgroundColor: '#fff'
+            }}
+          >
+            <StatusBar barStyle="dark-content" />
+            <Content
+              disableKBDismissScroll
+              style={styles.body}
+              contentContainerStyle={styles.bodyContent}
+            >
+              {this.renderForm()}
+            </Content>
+            <Footer
+              style={styles.footerWrap}
+            >
+
+            </Footer>
+          </View>
+        </ImageBackground>
       </Container>
     );
   }
