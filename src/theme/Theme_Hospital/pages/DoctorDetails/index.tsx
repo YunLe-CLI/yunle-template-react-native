@@ -28,6 +28,7 @@ import {DOCTOR_ITEM, APPOINTMENT, APPOINTMENT_RES, REGISTRATIONS_ITEM} from '../
 import moment from 'moment';
 // 里面的字符可以根据自己的需要进行调整
 moment.locale('zh-cn')
+import utils from './utils/index';
 
 export interface IProps {}
 
@@ -177,7 +178,7 @@ class Home extends React.Component<IProps, IState> {
                   <View style={[styles.cellWrap, { width: widthArr[cellIndex] }]}>
                     {
                       cellIndex === 0 ? undefined : <>
-                        <Text style={styles.tableHeaderText}>周{moment(cellData).day()}</Text>
+                        <Text style={styles.tableHeaderText}>周{utils[moment(item.date).day()+1]}</Text>
                         <Text style={styles.headerCellSpanText}>{moment(cellData).format('MM-DD')}</Text>
                       </>
                     }

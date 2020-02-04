@@ -11,6 +11,7 @@ import logoImg from '../LoginModal/assets/logo_slices/pic_logo_s.png';
 import {DOCTOR_ITEM, REGISTRATIONS_ITEM} from '@/theme/Theme_Hospital_001/services/api';
 import {NavigationActions} from "react-navigation";
 import moment from 'moment';
+import utils from '../../utils/index';
 
 export interface IState {
   isModalVisible: boolean;
@@ -254,17 +255,18 @@ class SelectDoctorModalProvider extends React.Component<{}, IState> {
                                 ]}>
                                   {`${moment(item.date).format('MM-DD')}`}
                                 </Text>
+                                <View style={{ width: 10, }}></View>
                                 <Text style={[
                                   styles.font,
                                   JSON.stringify(item) === JSON.stringify(select) ? {
                                     color: '#F86358'
                                   } : {}
                                 ]}>
-                                  周三
+                                  周{utils[moment(item.date).day()+1]}
                                 </Text>
                                 <View>
                                   {
-                                    item.remainCount > 0 ? (<Text style={[styles.font, JSON.stringify(item) === JSON.stringify(select) ? {
+                                    item.remainCount > 0 ? (<Text style={[styles.font, styles.end, JSON.stringify(item) === JSON.stringify(select) ? {
                                       color: '#F86358'
                                     } : {}]}>剩余{item.remainCount}</Text>) : undefined
                                   }
@@ -306,17 +308,18 @@ class SelectDoctorModalProvider extends React.Component<{}, IState> {
                               <Text style={[styles.font]}>
                                 {`${moment(item.date).format('MM-DD')}`}
                               </Text>
+                              <View style={{ width: 10, }}></View>
                               <Text style={[
                                 styles.font,
                                 JSON.stringify(item) === JSON.stringify(select) ? {
                                   color: '#F86358'
                                 } : {}
                               ]}>
-                                周三
+                                周{utils[moment(item.date).day()+1]}
                               </Text>
                               <View>
                                 {
-                                  item.remainCount > 0 ? (<Text style={[styles.font, styles.start]}>剩余{item.remainCount}</Text>) : undefined
+                                  item.remainCount > 0 ? (<Text style={[styles.font, styles.end]}>剩余1{item.remainCount}</Text>) : undefined
                                 }
                                 {
                                   item.remainCount=== 0 ? (<Text style={[styles.font, styles.end]}>挂满</Text>) : undefined

@@ -80,7 +80,7 @@ class Home extends React.Component<IProps, IState> {
     department: undefined,
     level: undefined,
     today: [],
-    isToday: false,
+    isToday: true,
     registrations: [],
   };
   setIntervalEvent: any = undefined;
@@ -596,6 +596,8 @@ class Home extends React.Component<IProps, IState> {
                   }}
                   style={[
                     {
+                      paddingLeft: 0,
+                      paddingRight: 0,
                       marginBottom: 4,
                       borderBottomWidth: 1.5,
                       borderBottomColor: 'transparent',
@@ -609,6 +611,8 @@ class Home extends React.Component<IProps, IState> {
                 >
                   <Text style={[
                     {
+                      paddingLeft: 0,
+                      paddingRight: 0,
                       fontSize: 15,
                       color: '#FFFFFF',
                     },
@@ -617,11 +621,15 @@ class Home extends React.Component<IProps, IState> {
                     } : {}
                   ]}>今日预约</Text>
                 </Button>
+                <View style={{ width: 52, }} />
                 <Button
                   full
                   transparent
                   style={[
                     {
+                      paddingHorizontal: 0,
+                      paddingLeft: 0,
+                      paddingRight: 0,
                       marginBottom: 4,
                       borderBottomWidth: 1.5,
                       borderBottomColor: 'transparent',
@@ -638,6 +646,8 @@ class Home extends React.Component<IProps, IState> {
                 >
                   <Text style={[
                     {
+                      paddingLeft: 0,
+                      paddingRight: 0,
                       fontSize: 15,
                       color: '#FFFFFF',
                     },
@@ -665,6 +675,8 @@ class Home extends React.Component<IProps, IState> {
                   }}
                   style={[
                     {
+                      paddingLeft: 0,
+                      paddingRight: 0,
                       marginBottom: 4,
                       borderBottomWidth: 1.5,
                       borderBottomColor: 'transparent',
@@ -678,6 +690,8 @@ class Home extends React.Component<IProps, IState> {
                 >
                   <Text style={[
                     {
+                      paddingLeft: 0,
+                      paddingRight: 0,
                       fontSize: 15,
                       color: '#FFFFFF',
                     },
@@ -686,11 +700,14 @@ class Home extends React.Component<IProps, IState> {
                     } : {}
                   ]}>当日挂号</Text>
                 </Button>
+                <View style={{ width: 52, }} />
                 <Button
                   full
                   transparent
                   style={[
                     {
+                      paddingLeft: 0,
+                      paddingRight: 0,
                       marginBottom: 4,
                       borderBottomWidth: 1.5,
                       borderBottomColor: 'transparent',
@@ -707,6 +724,8 @@ class Home extends React.Component<IProps, IState> {
                 >
                   <Text style={[
                     {
+                      paddingLeft: 0,
+                      paddingRight: 0,
                       fontSize: 15,
                       color: '#FFFFFF',
                     },

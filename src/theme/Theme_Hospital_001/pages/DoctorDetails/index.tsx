@@ -102,7 +102,9 @@ class Home extends React.Component<IProps, IState> {
       <Card noShadow style={styles.formCard}>
         <CardItem style={[styles.formItem, styles.spaceBetween]}>
           <Text style={styles.formItemTitle}>挂号费</Text>
+          <Right>
           <Text style={[styles.formItemTitle, styles.formItemMoney]}>￥{doctorInfo.registrationFee}</Text>
+          </Right>
         </CardItem>
         <View style={{
           height: 1,
@@ -114,7 +116,9 @@ class Home extends React.Component<IProps, IState> {
           })
         }} style={[styles.formItem, styles.spaceBetween]}>
           <Text style={styles.formItemTitle}>出诊日期</Text>
-          <Icon style={{ fontSize: 16, color: '#404E66' }} name="arrow-forward" />
+          <Right>
+            <Icon style={{ fontSize: 16, color: '#404E66' }} name="arrow-forward" />
+          </Right>
         </CardItem>
       </Card>
 
