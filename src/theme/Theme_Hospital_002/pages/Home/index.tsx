@@ -88,6 +88,7 @@ class Home extends React.Component<IProps, IState> {
     level: undefined,
     today: [],
     registrations: [],
+    isNext: false,
   };
   setIntervalEvent: any = undefined;
   async componentDidMount() {
@@ -613,6 +614,93 @@ class Home extends React.Component<IProps, IState> {
                   type: "home/setPostType",
                   payload: postType
                 })
+                this.setState({
+                  isNext: true,
+                })
+                // this.props.dispatch(NavigationActions.navigate({
+                //   routeName: 'DoctorList',
+                //   params: {
+                //   },
+                // }))
+              }}
+              style={styles.submitButton}
+              textStyle={{
+                color: '#fff'
+              }}
+            >
+              <Title>下一步</Title>
+            </Button>
+          </LinearGradient>
+        </CardItem>
+      </Card>
+    </Content>
+  }
+
+  renderTabForm2() {
+    const { segmentActive, department, level } = this.state;
+    const { handleShowSelectDepartmentModal, handleShowSelectLevelModal } = this.props;
+    return <Content contentContainerStyle={styles.formContent}>
+      <Card noShadow style={styles.formCard}>
+        <CardItem style={[styles.formItem]}>
+          <Text>选择科室</Text>
+        </CardItem>
+
+        <CardItem
+          onPress={() => {
+            handleShowSelectDepartmentModal((department) => {
+              this.setState({
+                department,
+              })
+            })
+          }}
+          button style={[styles.formItem, {
+            marginHorizontal: 15,
+            backgroundColor: '#f3f3f3',
+        }]}>
+          <Text style={[styles.ipt, department ? { color: '#404E66' } : {}]}>{department || '请选择科室'}</Text>
+          <Right>
+            <FastImage
+              style={{
+                marginRight: 10,
+                width: 20,
+                height: 22,
+                alignContent: 'center',
+                justifyContent: 'center',
+                backgroundColor: '#F4F4F4',
+              }}
+              source={require('./assets/sj/sj.png')}
+              resizeMode={FastImage.resizeMode.contain}
+            />
+          </Right>
+        </CardItem>
+
+        <CardItem style={styles.formItem}>
+          <LinearGradient
+            start={{x: 0, y: 0}} end={{x: 1, y: 1}}
+            colors={['#6093FB', '#6093FB']}
+            style={[
+              styles.linearGradientBtn2,
+              {
+                opacity: 1
+              }
+            ]}
+          >
+            <Button
+              full
+              transparent
+              rounded
+              onPress={async () => {
+                let postType = '挂号';
+                if (this.state.segmentActive === 0) {
+                  postType = '挂号'
+                }
+                if (this.state.segmentActive === 1) {
+                  postType = '预约'
+                }
+                this.props.dispatch({
+                  type: "home/setPostType",
+                  payload: postType
+                })
                 this.props.dispatch(NavigationActions.navigate({
                   routeName: 'DoctorList',
                   params: {
@@ -624,7 +712,7 @@ class Home extends React.Component<IProps, IState> {
                 color: '#fff'
               }}
             >
-              <Title>下一步</Title>
+              <Title>确定</Title>
             </Button>
           </LinearGradient>
         </CardItem>
@@ -685,7 +773,7 @@ class Home extends React.Component<IProps, IState> {
                 textAlign: 'center',
                 color: '#FFFFFF'
               }}>
-                我的预约
+                {active === 1 ? '挂号预约' : '我的预约'}
               </Text>
             </View>
           </View>
@@ -767,7 +855,7 @@ class Home extends React.Component<IProps, IState> {
                     backgroundColor: '#fff',
                   }}
                   heading="2">
-                  {this.renderTabForm()}
+                  {this.state.isNext ? this.renderTabForm2() : this.renderTabForm()}
                 </Tab>
               </Tabs>
             </View>
@@ -785,7 +873,7 @@ class Home extends React.Component<IProps, IState> {
                   }}
                   full style={[styles.btnTab,
                   {
-                    opacity: this.state.active === 0 ? 1 : 0.5
+                    backgroundColor: this.state.active === 0 ? '#95B8FE' : '#6093FB'
                   },
                 ]}>
                   <Text style={[styles.btnTabText, active === 0 ? styles.activeBtnTabText : {}]}>我的预约</Text>
@@ -799,7 +887,7 @@ class Home extends React.Component<IProps, IState> {
                   }}
                   full style={[styles.btnTab,
                   {
-                    opacity: this.state.active === 1 ? 1 : 0.5
+                    backgroundColor: this.state.active === 1 ? '#95B8FE' : '#6093FB'
                   },
                 ]}>
                   <Text style={[styles.btnTabText, active === 1 ? styles.activeBtnTabText : {}]}>我的挂号</Text>
