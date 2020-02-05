@@ -6,14 +6,13 @@ export default StyleSheet.create({
     flex: 1,
   },
   header: {
-    backgroundColor: '#fff',
     borderBottomWidth: 0,
   },
   headerText: {
-    color: '#192038',
+    color: '#fff',
   },
   body: {
-    backgroundColor: '#F9FBFF',
+    backgroundColor: '#fff',
   },
   bodyContent: {
     // paddingHorizontal: 16,
@@ -28,11 +27,12 @@ export default StyleSheet.create({
     height:60,
   },
   btnWrap: {
+    marginTop: 74,
     flexGrow: 1,
-    marginHorizontal: 16,
+    marginHorizontal: 36,
   },
   linearGradientBtn: {
-    borderRadius: 24,
+    borderRadius: 6,
   },
   submitButton: {
     height: 48,
@@ -49,6 +49,8 @@ export default StyleSheet.create({
     borderBottomWidth: 0,
   },
   formItem: {
+    paddingLeft: 27,
+    paddingRight: 27,
     minHeight: 44,
   },
   row: {
@@ -73,13 +75,13 @@ export default StyleSheet.create({
     marginRight: 16,
     fontSize: 14,
     fontWeight: '400',
-    color: '#8193AE',
+    color: '#212121',
     lineHeight: 22,
   },
   ipt: {
     fontSize: 14,
     fontWeight: '400',
-    color: '#404E66',
+    color: '#212121',
     lineHeight: 22,
   },
   iptMultiline: {
@@ -91,7 +93,7 @@ export default StyleSheet.create({
   successText: {
     fontSize: 16,
     fontWeight: '500',
-    color: '#404E66',
+    color: '#6093FB',
     lineHeight: 22.5,
     marginBottom: 24,
   },

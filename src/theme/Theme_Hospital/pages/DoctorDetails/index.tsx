@@ -145,7 +145,7 @@ class Home extends React.Component<IProps, IState> {
                   doctorInfo,
                   registration_id: cItem.id,
                   segmentActive: params.segmentActive,
-                  time: `${moment(item.date).format('YYYY.MM.DD')} ${cItem.remainCount === 1 ? '上午' : '下午'} `
+                  time: `${moment(item.date).format('YYYY.MM.DD')} ${cItem.timeslot === 1 ? '上午' : '下午'} `
                 },
               }))
             }}>

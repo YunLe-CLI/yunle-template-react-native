@@ -98,43 +98,24 @@ class GoToRoomModalProvider extends React.Component<{}, IState> {
           <View style={{
             justifyContent: 'center',
             backgroundColor: '#fff',
-            borderRadius: 8,
+            borderRadius: 18,
           }}>
               <View>
-                <View style={styles.header}>
-                  <FastImage
-                    style={{
-                      marginRight: 6,
-                      width: 22,
-                      height: 22,
-                      alignContent: 'center',
-                      justifyContent: 'center',
-                    }}
-                    source={icon}
-                    resizeMode={FastImage.resizeMode.contain}
-                  />
+                <View>
                   <Text style={styles.title}>
-                    已排到您，请尽快进入诊室
+                    提醒
                   </Text>
                 </View>
                 <View style={styles.body}>
                   <Text style={styles.infoText}>
-                    医生姓名：{room.name}
-                  </Text>
-                  <Text style={styles.infoText}>
-                    所在科室：{room.medicalDepartment}
-                  </Text>
-                  <Text style={styles.infoText}>
-                    医生职称：{room.professionalTitle}
-                  </Text>
-                  <Text style={styles.infoText}>
-                    所在医院：{room.hospitalName}
+                    已到您就诊，请尽快进入诊室
                   </Text>
                 </View>
                 <View style={styles.btnWrap}>
                   <Button
-                      rounded
-                      bordered
+                    transparent
+                    full
+                    bordered
                       onPress={async () => {
                         this.setState({
                           isNotRemind: true,
@@ -144,34 +125,26 @@ class GoToRoomModalProvider extends React.Component<{}, IState> {
                       }}
                       style={styles.btn}
                   >
-                    <Text style={[styles.btnText, styles.okText]}>取消</Text>
+                    <Text style={[styles.btnText]}>稍后进入</Text>
                   </Button>
                   <View style={{ width: 15, height: 40 }} />
-                  <LinearGradient
-                    start={{x: 0, y: 0}} end={{x: 1, y: 1}}
-                    colors={['#6AE27C', '#17D397']}
-                    style={[
-                      styles.btn,
-                    ]}
+                  <Button
+                    transparent
+                    full
+                    bordered
+                    onPress={async () => {
+                      this.props.dispatch(NavigationActions.navigate({
+                        routeName: 'Room',
+                        params: {
+                          metaData: room.metaData,
+                        },
+                      }))
+                      this.closeModel();
+                    }}
+                    style={styles.btn}
                   >
-                    <Button
-                      full
-                        rounded
-                        bordered={false}
-                        onPress={async () => {
-                          this.props.dispatch(NavigationActions.navigate({
-                            routeName: 'Room',
-                            params: {
-                              metaData: room.metaData,
-                            },
-                          }))
-                          this.closeModel();
-                        }}
-                        style={styles.btn}
-                    >
-                      <Text style={[styles.btnText]}>确定</Text>
-                    </Button>
-                  </LinearGradient>
+                    <Text style={[styles.btnText, styles.okText]}>进入诊室</Text>
+                  </Button>
                 </View>
               </View>
           </View>

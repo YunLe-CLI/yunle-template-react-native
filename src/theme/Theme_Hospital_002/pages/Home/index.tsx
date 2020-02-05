@@ -101,6 +101,10 @@ class Home extends React.Component<IProps, IState> {
     this.setIntervalEvent = setInterval(() => {
       this.componentDidMount()
     }, 1000 * 60)
+    // this.props.dispatch(NavigationActions.navigate({
+    //   routeName: 'Room',
+    //   params: {},
+    // }))
   }
 
   componentWillUnmount(): void {
@@ -176,9 +180,9 @@ class Home extends React.Component<IProps, IState> {
     }
   }
 
-  renderItem(data: MAKE_ITEM) {
+  renderItem(data: MAKE_ITEM, typeTitle: string, itemIndex: number) {
     let type = data.status;
-    console.log('type: sss', type)
+    console.log('type: sss', data)
     let icon = icon_live_slices_0;
     let iconText = styles.itemIconText00;
     let typeText = '未开始';
@@ -193,13 +197,13 @@ class Home extends React.Component<IProps, IState> {
       case 1: {
         icon = icon_live_slices_0;
         iconText = styles.itemIconText00;
-        typeText = '已预约';
+        typeText = '未开始';
         break;
       }
       case 3: {
         icon = icon_live_slices_1;
         iconText = styles.itemIconText01;
-        typeText = '进行中';
+        typeText = '正在进行';
         break;
       }
       case 2: {
@@ -220,28 +224,112 @@ class Home extends React.Component<IProps, IState> {
         typeText = '已结束';
       }
     }
+
     return <Card style={styles.itemBox}>
-      <View style={[styles.typeLineDefault]}></View>
       <CardItem button onPress={() => {
         // this.props.dispatch(NavigationActions.navigate({
         //   routeName: 'AppointmentDetails',
         //   params: {},
         // }));
       }} style={styles.itemBoxBody}>
-        <View style={styles.itemBoxLeft}>
-          <FastImage
-            style={{
-              width: 40,
-              height: 40,
-              alignContent: 'center',
-              justifyContent: 'center',
-            }}
-            source={icon}
-            resizeMode={FastImage.resizeMode.contain}
-          />
-          <Text  style={[styles.itemIconText, iconText]}>
-            {typeText}
-          </Text>
+        <View style={{
+          marginRight: 20,
+        }}>
+          {
+            typeTitle === '今日预约' ? (
+              <>
+                <Text style={{
+                  textAlign: 'center',
+                  color: '#212121',
+                  fontSize: 15,
+                  lineHeight: 15,
+                  fontWeight: '500',
+                }}>
+                  {data.timeslot === 1 ? '上午' : ''}
+                  {data.timeslot === 2 ? '下午' : ''}
+                </Text>
+                {
+                  type || (type === 3) ? <LinearGradient
+                    start={{x: 0, y: 0}} end={{x: 1, y: 1}}
+                    colors={['#7FA8FB', '#7FA8FB']}
+                    style={[
+                      styles.linearGradientBtn,
+                      {
+                        marginLeft: 0,
+                        marginTop: 23,
+                      }
+                    ]}
+                  >
+                    <Button
+                      full
+                      transparent
+                      rounded
+                      onPress={async () => {
+                        this.props.dispatch(NavigationActions.navigate({
+                          routeName: 'Room',
+                          params: {
+                            metaData: data.metaData,
+                          },
+                        }))
+                      }}
+                      style={[
+                        styles.btnDefault,
+                        styles.submitButton
+                      ]}
+                      textStyle={{
+                        color: '#fff'
+                      }}
+                    >
+                      <Title style={styles.btnText}>点击进入</Title>
+                    </Button>
+                  </LinearGradient> : undefined
+                }
+              </>
+            ) : undefined
+          }
+          {
+            typeTitle === '全部预约' && itemIndex === 0 ? (
+              <>
+                <Text style={{
+                  textAlign: 'center',
+                  color: '#212121',
+                  fontSize: 15,
+                  lineHeight: 15,
+                  fontWeight: '500',
+                }}>
+                  全部
+                </Text>
+                <Text style={{
+                  textAlign: 'center',
+                  color: '#212121',
+                  fontSize: 15,
+                  lineHeight: 15,
+                  fontWeight: '500',
+                }}>
+                  预约
+                </Text>
+              </>
+            ) : <>
+              <Text style={{
+                textAlign: 'center',
+                color: '#fff',
+                fontSize: 15,
+                lineHeight: 15,
+                fontWeight: '500',
+              }}>
+                全部
+              </Text>
+              <Text style={{
+                textAlign: 'center',
+                color: '#fff',
+                fontSize: 15,
+                lineHeight: 15,
+                fontWeight: '500',
+              }}>
+                预约
+              </Text>
+            </>
+          }
         </View>
         <View style={styles.itemBoxContent}>
           <TouchableOpacity
@@ -253,15 +341,22 @@ class Home extends React.Component<IProps, IState> {
                 },
               }))
             }}
+            style={{
+              flexDirection: 'row'
+            }}
           >
+            <Text  style={[styles.itemIconText, iconText]}>
+              {typeText}
+            </Text>
             <Title style={styles.itemBodyTitle}>
+              {moment(data.date).format('YYYY年MM月DD日')}
+              <View style={{ width: 20, }}></View>
               {data.timeslot === 1 ? '上午' : ''}
               {data.timeslot === 2 ? '下午' : ''}
-              -小儿科
             </Title>
           </TouchableOpacity>
           <Text style={[styles.itemBodyText, styles.itemBodyText001]}>
-            {data.hospitalName} {data.name} {data.professionalTitle}
+            {data.medicalDepartment} {data.hospitalName} {data.professionalTitle} {data.name}
           </Text>
           <View style={[styles.itemBoxFooter]}>
             {
@@ -278,7 +373,7 @@ class Home extends React.Component<IProps, IState> {
               {
                 (type === 1) ? <LinearGradient
                   start={{x: 0, y: 0}} end={{x: 1, y: 1}}
-                  colors={['#DCE3EE', '#DCE3EE']}
+                  colors={['#909090', '#909090']}
                   style={[
                     styles.linearGradientBtn,
                   ]}
@@ -305,45 +400,13 @@ class Home extends React.Component<IProps, IState> {
                   </Button>
                 </LinearGradient> : undefined
               }
-              {
-                (type === 3) ? <LinearGradient
-                  start={{x: 0, y: 0}} end={{x: 1, y: 1}}
-                  colors={['#6AE27C', '#17D397']}
-                  style={[
-                    styles.linearGradientBtn,
-                  ]}
-                >
-                  <Button
-                    full
-                    transparent
-                    rounded
-                    onPress={async () => {
-                      this.props.dispatch(NavigationActions.navigate({
-                        routeName: 'Room',
-                        params: {
-                          metaData: data.metaData,
-                        },
-                      }))
-                    }}
-                    style={[
-                      styles.btnDefault,
-                      styles.submitButton
-                    ]}
-                    textStyle={{
-                      color: '#fff'
-                    }}
-                  >
-                    <Title style={styles.btnText}>进入诊室</Title>
-                  </Button>
-                </LinearGradient> : undefined
-              }
+
               {
                 (type === 1) ? <LinearGradient
                   start={{x: 0, y: 0}} end={{x: 1, y: 1}}
-                  colors={['transparent', 'transparent']}
+                  colors={['#7FA8FB', '#7FA8FB']}
                   style={[
                     styles.linearGradientBtn,
-                    styles.clearButton,
                   ]}
                 >
                   <Button
@@ -360,7 +423,7 @@ class Home extends React.Component<IProps, IState> {
                       color: '#fff'
                     }}
                   >
-                    <Title style={[styles.btnText, styles.btnClearText]}>取消预约</Title>
+                    <Title style={[styles.btnText]}>取消预约</Title>
                   </Button>
                 </LinearGradient> : undefined
               }
@@ -394,7 +457,7 @@ class Home extends React.Component<IProps, IState> {
         flexGrow: 1,
       }}
       contentContainerStyle={{
-        paddingHorizontal: 16,
+        // paddingHorizontal: 16,
       }}
       stickySectionHeadersEnabled
       onEndReachedThreshold={0.3}
@@ -402,15 +465,16 @@ class Home extends React.Component<IProps, IState> {
       onRefresh={this._onRefresh}
       showsVerticalScrollIndicator={false}
       renderItem={({ item, index, section }) => {
-        if (item === 'MSG') {
-          return this.allInfo()
-        }
         return <View key={JSON.stringify(item)}>
-          {this.renderItem(item)}
+          {this.renderItem(item, section.title, index)}
         </View>
       }}
       renderSectionHeader={({ section: { title } }) => {
-        return <Text style={styles.itemTitle}>{title}</Text>
+        if (title === '今日预约') {
+          return null;
+        }
+
+        return <View style={{ height: 10, backgroundColor: '#F4F4F4' }} />
       }}
       sections={list || []}
       ItemSeparatorComponent={() => <View style={{ height: 12 }} />}
@@ -427,63 +491,109 @@ class Home extends React.Component<IProps, IState> {
     const { handleShowSelectDepartmentModal, handleShowSelectLevelModal } = this.props;
     return <Content contentContainerStyle={styles.formContent}>
       <Card noShadow style={styles.formCard}>
-        <CardItem style={[styles.formItem, styles.center]}>
-          <Segment style={styles.segmentWrap}>
-            <Button
-              onPress={() => {
-                this.setState({
-                  segmentActive: 0,
-                })
-              }}
-              style={styles.segmentBtn} active={segmentActive === 0} first><Text style={styles.segmentBtnText}>挂号当日</Text></Button>
-            <Button
-              onPress={() => {
-                this.setState({
-                  segmentActive: 1,
-                })
-              }}
-              style={styles.segmentBtn} active={segmentActive === 1} last><Text style={styles.segmentBtnText}>预约挂号</Text></Button>
-          </Segment>
+        <CardItem style={[styles.formItem]}>
+          {/*<Segment style={styles.segmentWrap}>*/}
+          {/*  <Button*/}
+          {/*    onPress={() => {*/}
+          {/*      this.setState({*/}
+          {/*        segmentActive: 0,*/}
+          {/*      })*/}
+          {/*    }}*/}
+          {/*    style={styles.segmentBtn} active={segmentActive === 0} first><Text style={styles.segmentBtnText}>挂号当日</Text></Button>*/}
+          {/*  <Button*/}
+          {/*    onPress={() => {*/}
+          {/*      this.setState({*/}
+          {/*        segmentActive: 1,*/}
+          {/*      })*/}
+          {/*    }}*/}
+          {/*    style={styles.segmentBtn} active={segmentActive === 1} last><Text style={styles.segmentBtnText}>预约挂号</Text></Button>*/}
+          {/*</Segment>*/}
+          <Text>挂号类型</Text>
         </CardItem>
 
         <CardItem
-          onPress={() => {
-            handleShowSelectDepartmentModal((department) => {
-              this.setState({
-                department,
-              })
-            })
-          }}
           button style={styles.formItem}>
-          <Text style={styles.formItemLabel}>选择科室</Text>
-          <Text style={[styles.ipt, department ? { color: '#404E66' } : {}]}>{department || '请选择科室'}</Text>
-          <Right>
-            <Icon style={{ fontSize: 16, color: '#404E66' }} name="arrow-forward" />
-          </Right>
-        </CardItem>
-        <CardItem
-          onPress={() => {
-            handleShowSelectLevelModal((level) => {
+          <TouchableOpacity
+            style={{
+              marginLeft: 27,
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center'
+            }}
+            onPress={() => {
               this.setState({
-                level,
+                segmentActive: 0,
               })
-            })
-          }}
-          button style={styles.formItem}>
-          <Text style={styles.formItemLabel}>医生职称</Text>
-          <Text style={[styles.ipt, level ? { color: '#404E66' } : {}]}>{level || '请选择医生职称'}</Text>
-          <Right>
-            <Icon style={{ fontSize: 16, color: '#404E66' }} name="arrow-forward" />
-          </Right>
+            }}
+          >
+            <View style={{
+              marginRight: 10,
+              width: 18,
+              height: 18,
+              borderRadius: 9,
+              backgroundColor: segmentActive === 0 ? '#6093FB' : '#F4F4F4',
+              justifyContent: 'center',
+              alignItems: 'center'
+            }}>
+              {
+                segmentActive === 0 ? ( <View style={{
+                    height: 7,
+                    width: 7,
+                    borderRadius: 4,
+                    backgroundColor: '#fff',
+                  }} />) : null
+              }
+            </View>
+            <Text>
+              挂号
+            </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={{
+              marginLeft: 27,
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center'
+            }}
+            onPress={() => {
+              this.setState({
+                segmentActive: 1,
+              })
+            }}
+          >
+            <View style={{
+              marginRight: 10,
+              width: 18,
+              height: 18,
+              borderRadius: 9,
+              backgroundColor: segmentActive === 1 ? '#6093FB' : '#F4F4F4',
+              justifyContent: 'center',
+              alignItems: 'center'
+            }}>
+              {
+                segmentActive === 1 ? ( <View style={{
+                  height: 7,
+                  width: 7,
+                  borderRadius: 4,
+                  backgroundColor: '#fff',
+                }} />) : null
+              }
+            </View>
+            <Text>
+              预约
+            </Text>
+          </TouchableOpacity>
         </CardItem>
+
         <CardItem style={styles.formItem}>
           <LinearGradient
             start={{x: 0, y: 0}} end={{x: 1, y: 1}}
-            colors={['#6AE27C', '#17D397']}
+            colors={['#6093FB', '#6093FB']}
             style={[
               styles.linearGradientBtn2,
               {
-                opacity: level && department ? 1 : 0.4
+                opacity: 1
               }
             ]}
           >
@@ -514,7 +624,7 @@ class Home extends React.Component<IProps, IState> {
                 color: '#fff'
               }}
             >
-              <Title>确定</Title>
+              <Title>下一步</Title>
             </Button>
           </LinearGradient>
         </CardItem>
@@ -572,16 +682,17 @@ class Home extends React.Component<IProps, IState> {
               <Text style={{
                 fontSize: 18,
                 fontWeight: '500',
+                textAlign: 'center',
                 color: '#FFFFFF'
               }}>
-                云诊室demo
+                我的预约
               </Text>
             </View>
           </View>
           <View
             style={{
               marginTop: -18,
-              paddingHorizontal: 32.5,
+              // paddingHorizontal: 32.5,
               flex: 1,
               borderTopLeftRadius: 18,
               borderTopRightRadius: 18,
@@ -589,41 +700,44 @@ class Home extends React.Component<IProps, IState> {
               backgroundColor: '#fff'
             }}
           >
-            <ImageBackground
-              source={home_bg_slices}
+            <View
               style={{
-                width: '100%',
-                height: 188,
+                flexDirection: 'row',
+                paddingVertical: 20,
+                paddingHorizontal: 20,
+                borderBottomWidth: 1,
+                borderBottomColor: '#F4F4F4',
               }}
             >
-              <Content
-                scrollEnabled={false}
-                contentContainerStyle={{
-                  flexGrow: 1,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-              >
-                <View>
-                  <FastImage
-                    style={{
-                      width: 78,
-                      height: 86,
-                      alignContent: 'center',
-                      justifyContent: 'center',
-                    }}
-                    source={userImg}
-                    resizeMode={FastImage.resizeMode.contain}
-                  />
-                </View>
+              <View>
+                <FastImage
+                  style={{
+                    marginRight: 10,
+                    width: 41,
+                    height: 41,
+                    alignContent: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: '#F4F4F4',
+                  }}
+                  source={userImg}
+                  resizeMode={FastImage.resizeMode.contain}
+                />
+              </View>
+              <View>
                 <Text style={{
-                  color: '#404E66',
-                  fontSize: 16,
-                  lineHeight: 22.5,
+                  color: '#212121',
+                  fontSize: 15,
+                  lineHeight: 20,
                   fontWeight: '400',
                 }}>{user.name || '未知'}</Text>
-              </Content>
-            </ImageBackground>
+                <Text style={{
+                  color: '#BBBABA',
+                  fontSize: 12,
+                  lineHeight: 22.5,
+                  fontWeight: '400',
+                }}>累计就诊次数：10次</Text>
+              </View>
+            </View>
             <View
               style={{
                 flex: 1,
@@ -643,14 +757,14 @@ class Home extends React.Component<IProps, IState> {
               >
                 <Tab
                   style={{
-                    backgroundColor: '#F9FBFF',
+                    backgroundColor: '#fff',
                   }}
                   heading="1">
                   {this.renderTabList()}
                 </Tab>
                 <Tab
                   style={{
-                    backgroundColor: '#F9FBFF',
+                    backgroundColor: '#fff',
                   }}
                   heading="2">
                   {this.renderTabForm()}
@@ -658,7 +772,8 @@ class Home extends React.Component<IProps, IState> {
               </Tabs>
             </View>
             <Footer style={styles.footerWrap}>
-              <FooterTab style={{
+              <View style={{
+                flexDirection: 'row',
                 justifyContent: 'center',
                 alignItems: 'center'
               }}>
@@ -668,17 +783,11 @@ class Home extends React.Component<IProps, IState> {
                       active: 0,
                     })
                   }}
-                  full style={styles.btnTab}>
-                  <FastImage
-                    style={{
-                      width: 28,
-                      height: 28,
-                      alignContent: 'center',
-                      justifyContent: 'center',
-                    }}
-                    source={active === 0 ? icon_myorder_active_slices : icon_myorder_default_slices}
-                    resizeMode={FastImage.resizeMode.contain}
-                  />
+                  full style={[styles.btnTab,
+                  {
+                    opacity: this.state.active === 0 ? 1 : 0.5
+                  },
+                ]}>
                   <Text style={[styles.btnTabText, active === 0 ? styles.activeBtnTabText : {}]}>我的预约</Text>
                 </Button>
                 <View style={styles.line} />
@@ -688,20 +797,14 @@ class Home extends React.Component<IProps, IState> {
                       active: 1,
                     })
                   }}
-                  full style={styles.btnTab}>
-                  <FastImage
-                    style={{
-                      width: 28,
-                      height: 28,
-                      alignContent: 'center',
-                      justifyContent: 'center',
-                    }}
-                    source={active === 1 ? icon_register_active_slices : icon_register_default_slices }
-                    resizeMode={FastImage.resizeMode.contain}
-                  />
-                  <Text style={[styles.btnTabText, active === 1 ? styles.activeBtnTabText : {}]}>挂号预约</Text>
+                  full style={[styles.btnTab,
+                  {
+                    opacity: this.state.active === 1 ? 1 : 0.5
+                  },
+                ]}>
+                  <Text style={[styles.btnTabText, active === 1 ? styles.activeBtnTabText : {}]}>我的挂号</Text>
                 </Button>
-              </FooterTab>
+              </View>
             </Footer>
           </View>
         </ImageBackground>

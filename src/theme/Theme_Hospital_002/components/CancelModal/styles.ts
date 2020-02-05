@@ -8,12 +8,10 @@ export default StyleSheet.create({
     paddingHorizontal: 24,
   },
   title: {
-    marginTop: 21,
     paddingHorizontal: 20,
     fontSize: 18,
     lineHeight: 21,
     color: '#353B50',
-    textAlign: 'center',
     fontWeight: '500',
   },
   infoText: {
@@ -88,7 +86,7 @@ export default StyleSheet.create({
     fontWeight: '400',
   },
   okText: {
-    color: '#11CD8F',
+    color: '#5F95FB',
   },
   buttonStyle: {
     flexGrow: 1,

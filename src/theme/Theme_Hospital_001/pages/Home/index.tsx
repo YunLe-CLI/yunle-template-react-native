@@ -244,7 +244,7 @@ class Home extends React.Component<IProps, IState> {
                 ) : undefined
               } {data.timeslot === 1 ? '上午' : ''}
               {data.timeslot === 2 ? '下午' : ''}
-              -小儿科
+              -{data.medicalDepartment}
             </Title>
             <Text  style={[styles.itemIconText, iconText]}>
               {typeText}

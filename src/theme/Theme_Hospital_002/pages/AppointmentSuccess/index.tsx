@@ -1,5 +1,5 @@
 import React from 'react';
-import {StatusBar, Dimensions, View} from 'react-native';
+import {StatusBar, Dimensions, View, ImageBackground} from 'react-native';
 import { connect } from 'react-redux';
 import {
   Container,
@@ -26,6 +26,8 @@ import FastImage from 'react-native-fast-image';
 import icon from './assets/icon_left_slices/icon_left.png';
 import pic_sce from './assets/pic_sce_slices/pic_sce.png';
 import {DOCTOR_ITEM} from '../../services/api';
+import bg from '@/theme/Theme_Hospital_002/components/LoginModal/assets/bg/bg.png';
+import {getStatusBarHeight} from "react-native-status-bar-height";
 
 export interface IProps {}
 
@@ -33,7 +35,7 @@ export interface IState {
   orientationType: OrientationType,
 }
 
-@(connect(({ user, home }) => {
+@(connect(({ user, home = {} }) => {
   return {
     postType: home.postType,
     user
@@ -53,7 +55,7 @@ class Home extends React.Component<IProps, IState> {
   };
 
   renderForm() {
-    const { navigation, user } = this.props;
+    const { navigation, user = {} } = this.props;
     const { params = {} } = navigation.state;
     const doctorInfo: DOCTOR_ITEM = params.doctorInfo || {};
     const time = params.time;
@@ -63,25 +65,25 @@ class Home extends React.Component<IProps, IState> {
           <Text style={styles.formItemTitle}>{this.props.postType || '挂号'}信息</Text>
         </CardItem>
         <CardItem style={styles.formItem}>
-          <Text style={styles.formItemLabel}>医生姓名</Text>
+          <Text style={styles.formItemLabel}>医生姓名: </Text>
           <Text style={styles.ipt}>
             {doctorInfo.name}
           </Text>
         </CardItem>
         <CardItem style={styles.formItem}>
-          <Text style={styles.formItemLabel}>医生职称</Text>
+          <Text style={styles.formItemLabel}>医生职称: </Text>
           <Text style={styles.ipt}>
             {doctorInfo.professionalTitle}
           </Text>
         </CardItem>
         <CardItem style={styles.formItem}>
-          <Text style={styles.formItemLabel}>所在医院</Text>
+          <Text style={styles.formItemLabel}>所在医院: </Text>
           <Text style={styles.ipt}>
             {doctorInfo.hospitalName}
           </Text>
         </CardItem>
         <CardItem style={styles.formItem}>
-          <Text style={styles.formItemLabel}>就诊科室</Text>
+          <Text style={styles.formItemLabel}>就诊科室: </Text>
           <Text style={styles.ipt}>
             {doctorInfo.medicalDepartment}
           </Text>
@@ -94,31 +96,59 @@ class Home extends React.Component<IProps, IState> {
           <Text style={styles.formItemTitle}>就诊人信息</Text>
         </CardItem>
         <CardItem style={styles.formItem}>
-          <Text style={styles.formItemLabel}>就诊人</Text>
+          <Text style={styles.formItemLabel}>就诊人: </Text>
           <Text style={styles.ipt}>
             {user.name}
           </Text>
         </CardItem>
         <CardItem style={styles.formItem}>
-          <Text style={styles.formItemLabel}>身份证号</Text>
+          <Text style={styles.formItemLabel}>身份证号: </Text>
           <Text style={styles.ipt}>
             {user.idCard}
           </Text>
         </CardItem>
         <CardItem style={styles.formItem}>
-          <Text style={styles.formItemLabel}>手机号码</Text>
+          <Text style={styles.formItemLabel}>手机号: </Text>
           <Text style={styles.ipt}>
             {user.mobile}
           </Text>
         </CardItem>
         <CardItem style={styles.formItem}>
-          <Text style={styles.formItemLabel}>就诊时间</Text>
+          <Text style={styles.formItemLabel}>就诊时间: </Text>
           <Text style={styles.ipt}>
             {time}
           </Text>
         </CardItem>
       </Card>
-
+      <View style={styles.btnWrap}>
+        <LinearGradient
+          start={{x: 0, y: 0}} end={{x: 1, y: 1}}
+          colors={['#6093FB', '#6093FB']}
+          style={[
+            styles.linearGradientBtn,
+          ]}
+        >
+          <Button
+            full
+            transparent
+            rounded
+            onPress={async () => {
+              this.props.dispatch(NavigationActions.navigate({
+                routeName: 'Home',
+                params: {
+                  active: 0,
+                },
+              }))
+            }}
+            style={styles.submitButton}
+            textStyle={{
+              color: '#fff'
+            }}
+          >
+            <Title>返回首页</Title>
+          </Button>
+        </LinearGradient>
+      </View>
     </View>
   }
 
@@ -136,98 +166,82 @@ class Home extends React.Component<IProps, IState> {
           onDidBlur={payload => {
           }}
         />
-        <Header
-          style={styles.header}
-          translucent
+        <ImageBackground
+          source={bg}
+          style={{
+            flex: 1,
+            flexGrow: 1,
+            width: '100%',
+          }}
         >
-          <Left
-          >
-            <Button
+          <View style={{
+            marginTop: getStatusBarHeight(true),
+            height: 108,
+            paddingBottom: 18,
+            justifyContent: 'center',
+          }}>
+            <Header
+              style={[styles.header, {
+                marginTop: -getStatusBarHeight(true),
+              }]}
+              translucent
               transparent
-              onPress={() => {
-                const { dispatch } = this.props;
-                dispatch(NavigationActions.back());
-              }}
             >
-              <FastImage
-                style={{
-                  marginLeft: 16,
-                  width: 20,
-                  height: 20,
-                  alignContent: 'center',
-                  justifyContent: 'center',
-                }}
-                source={icon}
-                resizeMode={FastImage.resizeMode.contain}
-              />
-            </Button>
-          </Left>
-          <Body>
-            <Title style={styles.headerText}>{this.props.postType || '挂号'}成功</Title>
-          </Body>
-          <Right/>
-        </Header>
-        <StatusBar barStyle="dark-content" />
-        <Content
-          disableKBDismissScroll
-          style={styles.body}
-          contentContainerStyle={styles.bodyContent}
-        >
-          <Card noShadow style={styles.formCard}>
-            <CardItem style={[styles.formItem, styles.success]}>
-              <FastImage
-                style={{
-                  marginTop: 24,
-                  marginBottom: 16,
-                  width: 98,
-                  height: 98,
-                  alignContent: 'center',
-                  justifyContent: 'center',
-                }}
-                source={pic_sce}
-                resizeMode={FastImage.resizeMode.contain}
-              />
-              <Text style={[styles.ipt, styles.successText]}>
-                您已{this.props.postType || '挂号'}成功
-              </Text>
-            </CardItem>
-          </Card>
-
-          {this.renderForm()}
-        </Content>
-        <Footer
-          style={styles.footerWrap}
-        >
-          <View style={styles.btnWrap}>
-            <LinearGradient
-              start={{x: 0, y: 0}} end={{x: 1, y: 1}}
-              colors={['#6AE27C', '#17D397']}
-              style={[
-                styles.linearGradientBtn,
-              ]}
-            >
-              <Button
-                full
-                transparent
-                rounded
-                onPress={async () => {
-                  this.props.dispatch(NavigationActions.navigate({
-                    routeName: 'Home',
-                    params: {
-                      active: 0,
-                    },
-                  }))
-                }}
-                style={styles.submitButton}
-                textStyle={{
-                  color: '#fff'
-                }}
+              <Left
               >
-                <Title>返回首页</Title>
-              </Button>
-            </LinearGradient>
+                <Button
+                  transparent
+                  onPress={() => {
+                    const { dispatch } = this.props;
+                    dispatch(NavigationActions.back());
+                  }}
+                >
+                  <FastImage
+                    style={{
+                      marginLeft: 16,
+                      width: 20,
+                      height: 20,
+                      alignContent: 'center',
+                      justifyContent: 'center',
+                    }}
+                    source={icon}
+                    resizeMode={FastImage.resizeMode.contain}
+                  />
+                </Button>
+              </Left>
+              <Body>
+                <Title style={styles.headerText}>支付成功</Title>
+              </Body>
+              <Right/>
+            </Header>
           </View>
-        </Footer>
+          <View
+            style={{
+              marginTop: -18,
+              // paddingHorizontal: 32.5,
+              flex: 1,
+              borderTopLeftRadius: 18,
+              borderTopRightRadius: 18,
+              overflow: 'hidden',
+              backgroundColor: '#fff'
+            }}
+          >
+            <StatusBar barStyle="dark-content" />
+            <Content
+              disableKBDismissScroll
+              style={styles.body}
+              contentContainerStyle={styles.bodyContent}
+            >
+              <Text style={[styles.ipt, styles.successText, {
+                paddingHorizontal: 27,
+                paddingTop: 27,
+              }]}>
+                您已支付成功
+              </Text>
+              {this.renderForm()}
+            </Content>
+          </View>
+        </ImageBackground>
       </Container>
     );
   }

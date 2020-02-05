@@ -93,7 +93,7 @@ class Home extends React.Component<IProps, IState> {
         SDK_AUTH: false,
         SDK_LOGIN: false,
         rotateVal: new Animated.Value(0),
-        inRoom: true,
+        inRoom: false,
         userList: [],
         usersInfo: {},
         audioType: true,
@@ -110,7 +110,7 @@ class Home extends React.Component<IProps, IState> {
 
     componentDidMount() {
         try {
-            StatusBar.setHidden(true);
+            // StatusBar.setHidden(true);
             this.addEventBind();
             this.initSDK();
             if (this.animationLoading) {
@@ -640,28 +640,17 @@ class Home extends React.Component<IProps, IState> {
                                         <Animated.View style={[
                                             styles.loadingWrap,
                                         ]}>
-                                            <Animated.View style={[
-                                                {
-                                                    transform: [{ // 动画属性
-                                                        rotate: this.state.rotateVal.interpolate({
-                                                            inputRange: [0, 360],
-                                                            outputRange: ['0deg', '360deg'],
-                                                        })
-                                                    }]
-                                                }
-                                            ]}>
-                                                <FastImage
-                                                    style={{
-                                                        width: 32,
-                                                        height: 32,
-                                                        alignContent: 'center',
-                                                        justifyContent: 'center',
-                                                    }}
-                                                    source={loading}
-                                                    resizeMode={FastImage.resizeMode.contain}
-                                                />
-                                            </Animated.View>
-                                            <Text style={styles.loadingText}>正在进入，请稍后</Text>
+                                            <FastImage
+                                              style={{
+                                                  width: 144,
+                                                  height: 144,
+                                                  alignContent: 'center',
+                                                  justifyContent: 'center',
+                                              }}
+                                              source={loading}
+                                              resizeMode={FastImage.resizeMode.contain}
+                                            />
+                                            <Text style={styles.loadingText}>正在进入诊室、请稍等.......</Text>
                                         </Animated.View>
                                     </View>
                                 ) : <View>
@@ -686,7 +675,11 @@ class Home extends React.Component<IProps, IState> {
                                 alignItems: 'center',
                             }}>
                                 <Button
-                                  style={styles.btnWrap}
+                                  style={[styles.btnWrap,
+                                      {
+                                          opacity: this.state.audioType ? 1 : 0.5
+                                      }
+                                  ]}
                                   onPress={() => {
                                       this.handleSDKSetAudio();
                                   }}>
@@ -697,12 +690,14 @@ class Home extends React.Component<IProps, IState> {
                                           alignContent: 'center',
                                           justifyContent: 'center',
                                       }}
-                                      source={this.state.audioType ? audio_IMG_1 : audio_IMG_2}
+                                      source={audio_IMG_1}
                                       resizeMode={FastImage.resizeMode.contain}
                                     />
                                 </Button>
                                 <Button
-                                  style={styles.btnWrap}
+                                  style={[styles.btnWrap, {
+                                      opacity: this.state.videoType ? 1 : 0.5
+                                  }]}
                                   onPress={() => {
                                       this.handleSDKSetVideo();
                                   }}>
@@ -713,7 +708,7 @@ class Home extends React.Component<IProps, IState> {
                                           alignContent: 'center',
                                           justifyContent: 'center',
                                       }}
-                                      source={this.state.videoType ? video_1 : video_2}
+                                      source={video_1}
                                       resizeMode={FastImage.resizeMode.contain}
                                     />
                                 </Button>

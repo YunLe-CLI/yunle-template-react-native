@@ -90,15 +90,18 @@ class CancelModalProvider extends React.Component<{}, IState> {
           <View style={{
             justifyContent: 'center',
             backgroundColor: '#fff',
-            borderRadius: 8,
+            borderRadius: 18,
           }}>
               <View>
-                <View>
+                <View style={{
+                  paddingTop: 20,
+                }}>
                   <Text style={styles.title}>
-                    提醒
+                    是否确认取消2020年1月3日下午的
+                    就诊？
                   </Text>
-                  <Text style={styles.infoText}>
-                    是否取消2010年1月3日下午的就诊？取消后挂号费会原路退回
+                  <Text style={[styles.title]}>
+                    取消后挂号费将原路退回！
                   </Text>
                 </View>
                 <View style={styles.btnWrap}>

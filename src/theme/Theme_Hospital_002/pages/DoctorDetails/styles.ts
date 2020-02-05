@@ -7,11 +7,10 @@ export default StyleSheet.create({
     backgroundColor: '#F9FBFF',
   },
   header: {
-    backgroundColor: '#fff',
     borderBottomWidth: 0,
   },
   headerText: {
-    color: '#192038',
+    color: '#fff',
   },
   body: {
     backgroundColor: '#F9FBFF',
@@ -43,7 +42,7 @@ export default StyleSheet.create({
   formCard: {
     marginTop: 0,
     borderRadius: 6,
-    marginBottom: 12,
+    marginBottom: 0,
     borderLeftWidth: 0,
     borderTopWidth: 0,
     borderRightWidth: 0,
@@ -98,6 +97,7 @@ export default StyleSheet.create({
     marginBottom: 24,
   },
   itemHeader: {
+    marginTop: -5,
     flexDirection: 'row',
   },
   nameText: {
@@ -130,9 +130,12 @@ export default StyleSheet.create({
   },
   tableHeader: {
     // height: 50,
-    backgroundColor: '#FAFAFA',
-    borderColor: '#E8E8E8',
+    backgroundColor: '#D9E9FE',
+    borderColor: '#D9E9FE',
     justifyContent: 'center',
+    borderLeftWidth: 0,
+    borderRightWidth: 0,
+    borderBottomWidth: 0,
   },
   tableHeaderText: {
     textAlign: 'center',
@@ -147,13 +150,13 @@ export default StyleSheet.create({
   tableDataWrapper: { marginTop: -1 },
   tableRow: {
 
-    height: 50,
+    minHeight: 50,
     backgroundColor: '#fff',
     flexDirection: 'row',
-    borderLeftWidth: 1,
-    borderLeftColor: '#E8E8E8',
+    borderLeftWidth: 0,
+    // borderLeftColor: '#E8E8E8',
     borderBottomWidth: 1,
-    borderBottomColor: '#E8E8E8',
+    borderBottomColor: '#F3F3F3',
   },
   cellWrap: {
     justifyContent: 'center',
@@ -172,10 +175,17 @@ export default StyleSheet.create({
     fontWeight: '400',
     fontSize: 12,
   },
+  startWrap: {
+    backgroundColor: '#D9E9FE',
+    borderLeftWidth: 2,
+    borderLeftColor: '#4386E2',
+  },
   start: {
-    color: '#11CD8F',
+    color: '#4386E2',
     textAlign: 'center',
     fontWeight: '400',
-    fontSize: 12,
+    fontSize: 6,
+    paddingHorizontal: 10,
+
   }
 });

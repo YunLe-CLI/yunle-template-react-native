@@ -18,14 +18,12 @@ export default StyleSheet.create({
     textAlign: 'justify'
   },
   itemBox: {
-    minHeight: 118,
-    backgroundColor: '#FFFFFF',
     borderRadius: 4,
     borderLeftWidth: 0,
     borderTopWidth: 0,
     borderRightWidth: 0,
     borderBottomWidth: 0,
-    overflow: 'hidden'
+    overflow: 'hidden',
   },
   typeLineDefault: {
     width: 16,
@@ -41,11 +39,6 @@ export default StyleSheet.create({
   itemBoxBody: {
     flex: 1,
     flexGrow: 1,
-    marginTop: -3,
-    paddingTop: 16,
-    paddingRight: 16,
-    paddingBottom: 16,
-    paddingLeft: 16,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'transparent'
@@ -57,40 +50,41 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   itemIconText: {
-    marginTop: 6,
     color: '#13B6FF',
-    fontSize: 12,
+    fontSize: 15,
     lineHeight: 15,
-    fontWeight: '400',
+    fontWeight: '500',
   },
   itemIconText00: {
     color: '#13B6FF',
   },
   itemIconText01: {
-    color: '#11CD8F',
+    color: '#6093FB',
   },
   itemIconText02: {
-    color: '#B0BED4',
+    color: '#909090',
   },
   itemBoxContent: {
     flex: 1,
     flexGrow: 1,
     justifyContent: 'center',
     alignItems: 'flex-start',
+    borderLeftColor: '#F4F4F4',
+    borderLeftWidth: 1,
+    paddingLeft: 15,
   },
   itemBodyTitle: {
     flex: 1,
     flexGrow: 1,
-    color: '#404E66',
-    fontSize: 16,
-    lineHeight: 22.5,
-    fontWeight: '500',
+    color: '#909090',
+    fontSize: 14,
+    fontWeight: '400',
     textAlign: 'justify'
   },
   itemBodyText: {
     flexGrow: 1,
     marginTop: 11,
-    color: '#8193AE',
+    color: '#909090',
     fontSize: 14,
     lineHeight: 20,
     fontWeight: '400',
@@ -103,7 +97,7 @@ export default StyleSheet.create({
     color: '#FC492E',
   },
   itemBoxFooter: {
-    marginRight: -8,
+    marginTop: 27,
     flex: 1,
     flexGrow: 1,
     flexDirection: 'row',
@@ -130,7 +124,7 @@ export default StyleSheet.create({
   },
   linearGradientBtn: {
     marginLeft: 8,
-    borderRadius: 12,
+    borderRadius: 2,
   },
   btnText: {
     color: '#fff',
@@ -150,25 +144,27 @@ export default StyleSheet.create({
 
   },
   btnTab: {
-    flexDirection: 'row'
+    width: 120,
+    borderRadius: 3,
+    flexDirection: 'row',
+    backgroundColor: '#6093FB',
   },
   btnTabText: {
-    color: '#404E66',
+    color: '#fff',
     fontSize: 14,
     lineHeight: 20,
     fontWeight: '400',
     textAlign: 'justify'
   },
   activeBtnTabText: {
-    color: '#11CD8F',
+    color: '#fff',
   },
   line: {
-    width: 1,
+    width: 15,
     height: 24,
-    backgroundColor: '#DCE3EE',
   },
   footerWrap: {
-    borderTopColor: '#DCE3EE',
+    borderTopColor: 'transparent',
     height: 53,
   },
   formContent: {
@@ -205,7 +201,7 @@ export default StyleSheet.create({
     marginTop: 24,
     marginBottom: 16,
     flexGrow: 1,
-    borderRadius: 24,
+    borderRadius: 6,
   },
   segmentWrap: {
     backgroundColor: 'transparent',

@@ -142,7 +142,9 @@ export default StyleSheet.create({
     borderBottomWidth: 0,
   },
   itemHeader: {
+    flex: 1,
     flexDirection: 'row',
+    justifyContent: 'space-between'
   },
   nameText: {
     fontSize: 16,
@@ -151,6 +153,7 @@ export default StyleSheet.create({
     fontWeight: '500',
     justifyContent: 'center',
     alignItems: 'center',
+    flexWrap: 'wrap'
   },
   span: {
     paddingLeft: 8,

@@ -255,7 +255,7 @@ class Home extends React.Component<IProps, IState> {
             <Title style={styles.itemBodyTitle}>
               {data.timeslot === 1 ? '上午' : ''}
               {data.timeslot === 2 ? '下午' : ''}
-              -小儿科
+              -{data.medicalDepartment}
             </Title>
           </TouchableOpacity>
           <Text style={[styles.itemBodyText, styles.itemBodyText001]}>
