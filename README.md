@@ -48,3 +48,13 @@
 >
 > [支付(微信&支付宝) `react-native-puti-pay`](https://github.com/puti94/react-native-puti-pay)
 >
+>
+### fix
+ 修改 `node_modules/native-base/dist/src/basic/Tabs/index.js`
+ 
+ 替换
+ 
+ `_this.scrollView.scrollTo({x:_this.props.initialPage*_this.state.containerWidth,animated:false});`
+
+
+`if (_this.scrollView && _this.scrollView.scrollTo) { _this.scrollView.scrollTo({x:_this.props.initialPage*_this.state.containerWidth,animated:false}); }`
