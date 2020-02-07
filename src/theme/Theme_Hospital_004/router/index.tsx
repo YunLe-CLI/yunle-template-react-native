@@ -29,8 +29,8 @@ import SelectLevelModalProvider from '../components/SelectLevelModal';
 import SelectDateTimeModalProvider from '../components/SelectTimeModal';
 
 import { getActiveRoute } from '@/utils/utils';
-import SelectGenderModalProvider from '@/theme/Theme_Hospital/components/SelectGenderModal';
-import AlertModalProvider from '@/theme/Theme_Hospital/components/AlertModal';
+import SelectGenderModalProvider from '@/theme/Theme_Hospital_004/components/SelectGenderModal';
+import AlertModalProvider from '@/theme/Theme_Hospital_004/components/AlertModal';
 
 
 const MainRouter = createAnimatedSwitchNavigator(

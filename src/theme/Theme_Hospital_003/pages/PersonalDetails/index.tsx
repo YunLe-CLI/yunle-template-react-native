@@ -23,8 +23,8 @@ import {NavigationActions, NavigationEvents} from 'react-navigation';
 import {OrientationType} from "react-native-orientation-locker";
 import LinearGradient from "react-native-linear-gradient";
 import {PATIENTS_DETAILS, PATIENTS_INFO_PUT} from '../../services/api';
-import { withSelectDateTimeModal } from '@/theme/Theme_Hospital/components/SelectTimeModal';
-import { withSelectGenderModal } from '@/theme/Theme_Hospital/components/SelectGenderModal';
+import { withSelectDateTimeModal } from '@/theme/Theme_Hospital_003/components/SelectTimeModal';
+import { withSelectGenderModal } from '@/theme/Theme_Hospital_003/components/SelectGenderModal';
 import moment from 'moment';
 import _ from 'lodash';
 export interface IProps {}

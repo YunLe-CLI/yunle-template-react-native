@@ -1,5 +1,5 @@
 export { default as Theme_Default } from './Theme_Default';
-export { default as Theme_Hospital } from './Theme_Hospital';
+export { default as Theme_Hospital_000 } from './Theme_Hospital_000';
 export { default as Theme_Hospital_001 } from './Theme_Hospital_001';
 export { default as Theme_Hospital_002 } from './Theme_Hospital_002';
 export { default as Theme_Hospital_003 } from './Theme_Hospital_003';
