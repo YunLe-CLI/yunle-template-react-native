@@ -4,6 +4,7 @@ export { default as Theme_Hospital_001 } from './Theme_Hospital_001';
 export { default as Theme_Hospital_002 } from './Theme_Hospital_002';
 export { default as Theme_Hospital_003 } from './Theme_Hospital_003';
 export { default as Theme_Hospital_004 } from './Theme_Hospital_004';
+export { default as Theme_Hospital_005 } from './Theme_Hospital_005';
 export { default as Theme_Meeting } from './Theme_Meeting';
 export { default as Theme_Education000 } from './Theme_Education_000';
 export { default as Theme_Education001 } from './Theme_Education_001';

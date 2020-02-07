@@ -61,23 +61,28 @@ export default StyleSheet.create({
     marginTop: 45,
   },
   iptItem: {
-    marginBottom: 29,
     marginLeft: 0,
     paddingLeft: 0,
+    borderBottomWidth: 0,
     borderBottomColor: '#E3E7EF'
   },
   ipt: {
     color: '#404E66',
   },
   btnWrap: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
     marginTop: 35,
   },
   linearGradientBtn: {
-    borderRadius: 24,
+    borderRadius: 0,
   },
   loginButton: {
+
     height: 48,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: '#5277F1',
   }
 });
