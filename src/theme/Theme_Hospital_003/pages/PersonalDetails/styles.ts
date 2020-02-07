@@ -6,11 +6,11 @@ export default StyleSheet.create({
     flex: 1,
   },
   header: {
-    backgroundColor: '#fff',
+    backgroundColor: '#5277F1',
     borderBottomWidth: 0,
   },
   headerText: {
-    color: '#192038',
+    color: '#fff',
   },
   body: {
     backgroundColor: '#F9FBFF',
@@ -28,11 +28,12 @@ export default StyleSheet.create({
     height:60,
   },
   btnWrap: {
+    marginTop: 50,
     flexGrow: 1,
     marginHorizontal: 16,
   },
   linearGradientBtn: {
-    borderRadius: 24,
+    borderRadius: 0,
   },
   submitButton: {
     height: 48,
@@ -64,6 +65,7 @@ export default StyleSheet.create({
     color: '#404E66',
     lineHeight: 21,
     flexGrow: 1,
+    textAlign: 'right'
   },
   iptMultiline: {
     // minHeight: 112,

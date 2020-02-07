@@ -116,7 +116,7 @@ class Home extends React.Component<IProps, IState> {
     return <View>
       <Card noShadow style={styles.formCard}>
         <CardItem style={styles.formItem}>
-          <Text style={styles.formItemLabel}>姓名</Text>
+          <Text style={styles.formItemLabel}><Text style={{ color: '#FE0E07' }}>*</Text>姓名</Text>
           <Input value={this.state.name} style={styles.ipt} placeholder="请输入姓名" placeholderTextColor={"#9C9EB9"}
                  onChangeText={(value) => {
                    this.setState({
@@ -124,60 +124,8 @@ class Home extends React.Component<IProps, IState> {
                    })
                  }}
           />
-          <Right>
+        </CardItem>
 
-          </Right>
-        </CardItem>
-        <CardItem style={styles.formItem}>
-          <Text style={styles.formItemLabel}>身份证号</Text>
-          <Input value={this.state.idCard} style={styles.ipt} placeholder="请输入身份证号" placeholderTextColor={"#9C9EB9"}
-                 onChangeText={(value) => {
-                   this.setState({
-                     idCard: value,
-                   })
-                 }}
-          />
-          <Right>
-
-          </Right>
-        </CardItem>
-        <CardItem
-          button
-          onPress={() => {
-            this.props.handleShowSelectGenderModal((data) => {
-              this.setState({
-                gender: data
-              })
-            })
-          }}
-          style={styles.formItem}>
-          <Text style={styles.formItemLabel}>性别</Text>
-          {this.state.gender ? <Text style={styles.ipt}>{this.state.gender === 1 ? '男' : '女'}</Text> : <Text style={[styles.ipt, {
-            color: '#9C9EB9'
-          }]}>请选择性别</Text>}
-          <Right>
-            <Icon name="arrow-forward" />
-          </Right>
-        </CardItem>
-        <CardItem
-          button
-          style={styles.formItem}
-          onPress={() => {
-            this.props.handleShowSelectDateTimeModal((data) => {
-              this.setState({
-                birthdate: data
-              })
-            })
-          }}
-        >
-          <Text style={styles.formItemLabel}>出生日期</Text>
-          {this.state.birthdate ? <Text style={styles.ipt}>{moment(this.state.birthdate).format('YYYY-MM-DD')}</Text> : <Text style={[styles.ipt, {
-            color: '#9C9EB9'
-          }]}>{'请选择出生日期'}</Text>}
-          <Right>
-            <Icon name="arrow-forward" />
-          </Right>
-        </CardItem>
         <CardItem style={styles.formItem}>
           <Text style={styles.formItemLabel}>年龄</Text>
           <Input value={this.state.age} style={styles.ipt} placeholder="请输入年龄" placeholderTextColor={"#9C9EB9"}
@@ -187,29 +135,43 @@ class Home extends React.Component<IProps, IState> {
                    })
                  }}
           />
-          <Right>
+        </CardItem>
 
-          </Right>
+        <CardItem style={styles.formItem}>
+          <Text style={styles.formItemLabel}><Text style={{ color: '#FE0E07' }}>*</Text>身份证号</Text>
+          <Input value={this.state.idCard} style={styles.ipt} placeholder="请输入身份证号" placeholderTextColor={"#9C9EB9"}
+                 onChangeText={(value) => {
+                   this.setState({
+                     idCard: value,
+                   })
+                 }}
+          />
+        </CardItem>
+
+        <CardItem style={styles.formItem}>
+          <Text style={styles.formItemLabel}><Text style={{ color: '#FE0E07' }}>*</Text>手机号</Text>
+          <Input value={this.state.phone} style={styles.ipt} placeholder="请输入手机号" placeholderTextColor={"#9C9EB9"}
+                 onChangeText={(value) => {
+                   this.setState({
+                     phone: value,
+                   })
+                 }}
+          />
+        </CardItem>
+
+        <CardItem style={styles.formItem}>
+          <Text style={styles.formItemLabel}>过敏史</Text>
+          <Input value={this.state.medicalHistory} style={styles.ipt} placeholder="请输入过敏史" placeholderTextColor={"#9C9EB9"}
+                 onChangeText={(value) => {
+                   this.setState({
+                     medicalHistory: value,
+                   })
+                 }}
+          />
         </CardItem>
       </Card>
       <Card noShadow style={styles.formCard}>
-        <CardItem style={styles.formItem}>
-          <Text style={styles.formItemLabel}>既往病史/过敏史</Text>
-        </CardItem>
-        <CardItem style={styles.formItem}>
-          <View style={{ flex: 1, flexGrow: 1, }}>
-            <Textarea value={this.state.medicalHistory}
-                      onChangeText={(value) => {
-                        this.setState({
-                          medicalHistory: value,
-                        })
-                      }}
-                      style={{
-                        color: '#404E66'
-                      }}
-                      rowSpan={5} placeholderTextColor={'#CCD5E3'} placeholder="请输入您的既往病史/过敏" />
-          </View>
-        </CardItem>
+
       </Card>
     </View>
   }
@@ -239,7 +201,6 @@ class Home extends React.Component<IProps, IState> {
         />
         <Header
           style={styles.header}
-          translucent
         >
           <Left/>
           <Body>
@@ -254,14 +215,10 @@ class Home extends React.Component<IProps, IState> {
           contentContainerStyle={styles.bodyContent}
         >
           {this.renderForm()}
-        </Content>
-        <Footer
-          style={styles.footerWrap}
-        >
           <View style={styles.btnWrap}>
             <LinearGradient
               start={{x: 0, y: 0}} end={{x: 1, y: 1}}
-              colors={['#6AE27C', '#17D397']}
+              colors={['#5277F1', '#5277F1']}
               style={[
                 styles.linearGradientBtn,
                 {
@@ -291,7 +248,7 @@ class Home extends React.Component<IProps, IState> {
               </Button>
             </LinearGradient>
           </View>
-        </Footer>
+        </Content>
       </Container>
     );
   }
