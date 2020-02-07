@@ -47,6 +47,7 @@ import audio_IMG_2 from './assets/icon_audio_ac_slices/icon_audio_ac.png';
 
 import video_1 from './assets/icon_video_de_slices2/icon_video_de.png';
 import video_2 from './assets/icon_video_ac_slices/icon_video_ac.png';
+import { getStatusBarHeight } from 'react-native-status-bar-height';
 
 const { MainViewManager = {}, MainViewController = {} } = NativeModules || {};
 const { SDKAuth, SDKLogin, SDKGoToRoom, SDKGetUsers, SDKGetUserInfo, SDKSetVideo, SDKSetAudio } = MainViewController || {};
@@ -108,23 +109,23 @@ class Home extends React.Component<IProps, IState> {
 
     componentDidMount() {
         try {
-            StatusBar.setHidden(true);
+            // StatusBar.setHidden(true);
             this.addEventBind();
             this.initSDK();
             if (this.animationLoading) {
                 Animated.loop(this.animationLoading).stop()
                 this.animationLoading = null;
             }
-            this.animationLoading = Animated.timing(
-                this.state.rotateVal, // 初始值
-                {
-                    duration: 3000,
-                    toValue: 360, // 终点值
-                    easing: Easing.linear, // 这里使用匀速曲线，详见RN-api-Easing
-                    useNativeDriver: true,
-                }
-            );
-            Animated.loop(this.animationLoading).start();
+            // this.animationLoading = Animated.timing(
+            //     this.state.rotateVal, // 初始值
+            //     {
+            //         duration: 3000,
+            //         toValue: 360, // 终点值
+            //         easing: Easing.linear, // 这里使用匀速曲线，详见RN-api-Easing
+            //         useNativeDriver: true,
+            //     }
+            // );
+            // Animated.loop(this.animationLoading).start();
         } catch (e) {
 
         }
@@ -491,7 +492,7 @@ class Home extends React.Component<IProps, IState> {
                     }}
                   />
                 ) : <View>
-                    <Text style={styles.loadingTText}>等待医生进入诊室…</Text>
+                    <Text style={styles.loadingTText}>等待医生进入诊室</Text>
                 </View>
             }
         </View>
@@ -506,10 +507,10 @@ class Home extends React.Component<IProps, IState> {
         return <View
           style={{
               position: 'absolute',
-              right: 16,
-              top: 45,
-              width: 102,
-              height: 102,
+              left: 17,
+              top: 29 + getStatusBarHeight(),
+              width: 120,
+              height: 151,
               backgroundColor: '#000',
               borderWidth: 1,
               borderColor: '#FFFFFF',
@@ -542,7 +543,14 @@ class Home extends React.Component<IProps, IState> {
         })
         console.log(meUser, "主持人");
         return (
-            <Container style={styles.container}>
+            <Container style={[
+                styles.container,
+                !this.state.inRoom ? {
+                    backgroundColor: '#fff',
+                } : {
+                    backgroundColor: '#F9FAFF',
+                }
+            ]}>
                 <NavigationEvents
                     onWillFocus={async payload => {
 
@@ -567,7 +575,7 @@ class Home extends React.Component<IProps, IState> {
                         flexGrow: 1,
                     }}
                 >
-                    <View style={{
+                    {/* <View style={{
                         position: 'absolute',
                         left: 0,
                         right: 0,
@@ -596,7 +604,7 @@ class Home extends React.Component<IProps, IState> {
                               resizeMode={FastImage.resizeMode.contain}
                             />
                         </Button>
-                    </View>
+                    </View> */}
                     {
                         !this.state.inRoom ? (
                             <View style={{ flex: 1, flexGrow: 1, paddingHorizontal: 12, justifyContent: 'center', alignItems: 'center' }}>
@@ -615,16 +623,16 @@ class Home extends React.Component<IProps, IState> {
                                     ]}>
                                         <FastImage
                                             style={{
-                                                width: 32,
-                                                height: 32,
+                                                width: 207,
+                                                height: 155,
                                                 alignContent: 'center',
                                                 justifyContent: 'center',
                                             }}
-                                            source={loading}
+                                            source={require('./assets/Bitmap_slices/Bitmap.png')}
                                             resizeMode={FastImage.resizeMode.contain}
                                         />
                                     </Animated.View>
-                                    <Text style={styles.loadingText}>正在进入，请稍后</Text>
+                                    <Text style={styles.loadingText}>正在进入诊室，请稍等</Text>
                                 </Animated.View>
                             </View>
                         ) : <View>
@@ -635,12 +643,19 @@ class Home extends React.Component<IProps, IState> {
                 {this.state.inRoom ? this.renderMe() : undefined}
                 {
                     this.state.inRoom ? <Footer style={styles.footerWrap}>
-                        <Left>
+                            
+                        <Body style={{
+                            flexGrow: 1,
+                            paddingRight: 35,
+                            justifyContent: 'center',
+                            height: 50,
+                        }}>
                             <View style={{
                                 flexGrow: 1,
                                 flexDirection: 'row',
-                                justifyContent: 'flex-end',
-                                alignItems: 'flex-end',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                height: 50,
                             }}>
                                 <Button
                                   style={styles.btnWrap}
@@ -649,12 +664,12 @@ class Home extends React.Component<IProps, IState> {
                                   }}>
                                     <FastImage
                                       style={{
-                                          width: 28,
-                                          height: 28,
+                                          width: 30,
+                                          height: 27,
                                           alignContent: 'center',
                                           justifyContent: 'center',
                                       }}
-                                      source={this.state.audioType ? audio_IMG_1 : audio_IMG_2}
+                                      source={this.state.audioType ? audio_IMG_1 : audio_IMG_1}
                                       resizeMode={FastImage.resizeMode.contain}
                                     />
                                 </Button>
@@ -665,23 +680,16 @@ class Home extends React.Component<IProps, IState> {
                                   }}>
                                     <FastImage
                                       style={{
-                                          width: 28,
-                                          height: 28,
+                                          width: 37,
+                                          height: 27,
                                           alignContent: 'center',
                                           justifyContent: 'center',
                                       }}
-                                      source={this.state.videoType ? video_1 : video_2}
+                                      source={this.state.videoType ? video_1 : video_1}
                                       resizeMode={FastImage.resizeMode.contain}
                                     />
                                 </Button>
                             </View>
-                        </Left>
-                        <Body style={{
-                            flexGrow: 1,
-                            paddingRight: 16,
-                            justifyContent: 'flex-end'
-                        }}>
-
                         </Body>
                     </Footer> : undefined
                 }
