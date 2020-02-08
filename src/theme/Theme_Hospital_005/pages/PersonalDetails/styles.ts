@@ -13,7 +13,7 @@ export default StyleSheet.create({
     color: '#192038',
   },
   body: {
-    backgroundColor: '#F9FBFF',
+    backgroundColor: '#EDF4FE',
   },
   bodyContent: {
     paddingHorizontal: 16,
@@ -25,11 +25,12 @@ export default StyleSheet.create({
     borderTopWidth: 0,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: "#EDF4FE",
     height:60,
   },
   btnWrap: {
     flexGrow: 1,
-    marginHorizontal: 16,
+    marginHorizontal: 41,
   },
   linearGradientBtn: {
     borderRadius: 24,
@@ -40,12 +41,16 @@ export default StyleSheet.create({
     justifyContent: "center",
   },
   formCard: {
-    borderRadius: 6,
+    minHeight: 55,
+    borderRadius: 10,
     marginTop: 12,
     borderLeftWidth: 0,
     borderTopWidth: 0,
     borderRightWidth: 0,
     borderBottomWidth: 0,
+    overflow: 'hidden',
+    alignItems: "center",
+    justifyContent: "center",
   },
   formItem: {
     minHeight: 44,
@@ -64,6 +69,7 @@ export default StyleSheet.create({
     color: '#404E66',
     lineHeight: 21,
     flexGrow: 1,
+    textAlign: 'right',
   },
   iptMultiline: {
     // minHeight: 112,

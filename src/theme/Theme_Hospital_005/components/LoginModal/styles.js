@@ -24,9 +24,9 @@ export default StyleSheet.create({
   },
   logoWrap: {
     flexGrow: 1,
-    flexDirection: 'row',
+    // flexDirection: 'row',
     // paddingTop: 166,
-    alignItems: 'center',
+    // alignItems: 'center',
     // justifyContent: 'center',
   },
 
@@ -71,6 +71,7 @@ export default StyleSheet.create({
   },
   btnWrap: {
     marginTop: 35,
+    width: 151,
   },
   linearGradientBtn: {
     borderRadius: 24,

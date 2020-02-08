@@ -14,7 +14,7 @@ export default StyleSheet.create({
     fontSize: 20,
     lineHeight: 23,
     fontWeight: '500',
-    backgroundColor: '#F9FBFF',
+    backgroundColor: '#EDF4FE',
     textAlign: 'justify'
   },
   itemBox: {

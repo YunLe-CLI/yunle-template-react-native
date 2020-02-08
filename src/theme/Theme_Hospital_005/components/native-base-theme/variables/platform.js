@@ -133,7 +133,7 @@ export default {
   checkboxTextShadowRadius: 0,
 
   // Color
-  brandPrimary: "#11CD8F",
+  brandPrimary: "#155BD4",
   brandInfo: '#62B1F6',
   brandSuccess: '#5cb85c',
   brandDanger: '#d9534f',
@@ -192,21 +192,21 @@ export default {
   // FooterTab
   tabBarTextColor: platform === PLATFORM.IOS ? '#6b6b6b' : '#b3c7f9',
   tabBarTextSize: platform === PLATFORM.IOS ? 14 : 11,
-  activeTab: "#11CD8F",
-  sTabBarActiveTextColor: '#11CD8F',
+  activeTab: "#155BD4",
+  sTabBarActiveTextColor: '#155BD4',
   tabBarActiveTextColor: '#fff',
-  tabActiveBgColor: '#6AE27C',
+  tabActiveBgColor: '#155BD4',
 
   // Header
-  toolbarBtnColor: "#11CD8F",
-  toolbarDefaultBg: "#11CD8F",
+  toolbarBtnColor: "#155BD4",
+  toolbarDefaultBg: "#155BD4",
   toolbarHeight: platform === PLATFORM.IOS ? 64 : 56,
   toolbarSearchIconSize: platform === PLATFORM.IOS ? 20 : 23,
   toolbarInputColor: platform === PLATFORM.IOS ? '#fff' : '#fff',
   searchBarHeight: platform === PLATFORM.IOS ? 30 : 40,
   searchBarInputHeight: platform === PLATFORM.IOS ? 30 : 50,
   toolbarBtnTextColor: platform === PLATFORM.IOS ? '#fff' : '#fff',
-  toolbarDefaultBorder: platform === PLATFORM.IOS ? '#11CD8F' : '#11CD8F',
+  toolbarDefaultBorder: platform === PLATFORM.IOS ? '#155BD4' : '#155BD4',
   iosStatusbar: platform === PLATFORM.IOS ? 'light-content' : 'light-content',
   get statusBarColor() {
     return color(this.toolbarDefaultBg)
@@ -243,7 +243,7 @@ export default {
   lineHeightH2: 27,
   lineHeightH3: 22,
   lineHeight: platform === PLATFORM.IOS ? 20 : 24,
-  listItemSelected: "#11CD8F",
+  listItemSelected: "#155BD4",
 
   // List
   listBg: 'transparent',
@@ -260,7 +260,7 @@ export default {
 
   // Radio Button
   radioBtnSize: platform === PLATFORM.IOS ? 25 : 23,
-  radioSelectedColorAndroid: '#6AE27C',
+  radioSelectedColorAndroid: '#155BD4',
   radioBtnLineHeight: platform === PLATFORM.IOS ? 29 : 24,
   get radioColor() {
     return this.brandPrimary;
@@ -268,10 +268,10 @@ export default {
 
   // Segment
   segmentBackgroundColor: '#F8F8F8',
-  segmentActiveBackgroundColor: '#11CD8F',
-  segmentTextColor: '#11CD8F',
+  segmentActiveBackgroundColor: '#155BD4',
+  segmentTextColor: '#155BD4',
   segmentActiveTextColor: '#fff',
-  segmentBorderColor: '#11CD8F',
+  segmentBorderColor: '#155BD4',
   segmentBorderColorMain: '#a7a6ab',
 
   // Spinner
@@ -282,9 +282,9 @@ export default {
   tabBarDisabledTextColor: '#BDBDBD',
   tabDefaultBg: '#F8F8F8',
   topTabBarTextColor: '#6b6b6b',
-  topTabBarActiveTextColor: '#11CD8F',
+  topTabBarActiveTextColor: '#155BD4',
   topTabBarBorderColor: '#a7a6ab',
-  topTabBarActiveBorderColor: '#11CD8F',
+  topTabBarActiveBorderColor: '#155BD4',
 
   // Tabs
   tabBgColor: '#F8F8F8',

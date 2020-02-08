@@ -116,7 +116,7 @@ class Home extends React.Component<IProps, IState> {
     return <View>
       <Card noShadow style={styles.formCard}>
         <CardItem style={styles.formItem}>
-          <Text style={styles.formItemLabel}>姓名</Text>
+          <Text style={styles.formItemLabel}>姓名<Text style={{ color: '#FF0000' }}>*</Text></Text>
           <Input value={this.state.name} style={styles.ipt} placeholder="请输入姓名" placeholderTextColor={"#9C9EB9"}
                  onChangeText={(value) => {
                    this.setState({
@@ -124,10 +124,9 @@ class Home extends React.Component<IProps, IState> {
                    })
                  }}
           />
-          <Right>
-
-          </Right>
         </CardItem>
+      </Card>
+      <Card noShadow style={styles.formCard}>
         <CardItem style={styles.formItem}>
           <Text style={styles.formItemLabel}>身份证号</Text>
           <Input value={this.state.idCard} style={styles.ipt} placeholder="请输入身份证号" placeholderTextColor={"#9C9EB9"}
@@ -137,10 +136,9 @@ class Home extends React.Component<IProps, IState> {
                    })
                  }}
           />
-          <Right>
-
-          </Right>
         </CardItem>
+      </Card>
+      <Card noShadow style={styles.formCard}>
         <CardItem
           button
           onPress={() => {
@@ -151,7 +149,7 @@ class Home extends React.Component<IProps, IState> {
             })
           }}
           style={styles.formItem}>
-          <Text style={styles.formItemLabel}>性别</Text>
+          <Text style={styles.formItemLabel}>性别<Text style={{ color: '#FF0000' }}>*</Text></Text>
           {this.state.gender ? <Text style={styles.ipt}>{this.state.gender === 1 ? '男' : '女'}</Text> : <Text style={[styles.ipt, {
             color: '#9C9EB9'
           }]}>请选择性别</Text>}
@@ -159,37 +157,18 @@ class Home extends React.Component<IProps, IState> {
             <Icon name="arrow-forward" />
           </Right>
         </CardItem>
-        <CardItem
-          button
-          style={styles.formItem}
-          onPress={() => {
-            this.props.handleShowSelectDateTimeModal((data) => {
-              this.setState({
-                birthdate: data
-              })
-            })
-          }}
-        >
-          <Text style={styles.formItemLabel}>出生日期</Text>
-          {this.state.birthdate ? <Text style={styles.ipt}>{moment(this.state.birthdate).format('YYYY-MM-DD')}</Text> : <Text style={[styles.ipt, {
-            color: '#9C9EB9'
-          }]}>{'请选择出生日期'}</Text>}
-          <Right>
-            <Icon name="arrow-forward" />
-          </Right>
-        </CardItem>
+      </Card>
+    
+      <Card noShadow style={styles.formCard}>
         <CardItem style={styles.formItem}>
-          <Text style={styles.formItemLabel}>年龄</Text>
-          <Input value={this.state.age} style={styles.ipt} placeholder="请输入年龄" placeholderTextColor={"#9C9EB9"}
-                 onChangeText={(value) => {
-                   this.setState({
-                     age: value,
-                   })
-                 }}
-          />
-          <Right>
-
-          </Right>
+            <Text style={styles.formItemLabel}>手机号<Text style={{ color: '#FF0000' }}>*</Text></Text>
+            <Input value={this.state.phone} style={styles.ipt} placeholder="请输入您的联系方式" placeholderTextColor={"#9C9EB9"}
+                  onChangeText={(value) => {
+                    this.setState({
+                      phone: value,
+                    })
+                  }}
+            />
         </CardItem>
       </Card>
       <Card noShadow style={styles.formCard}>
@@ -211,6 +190,12 @@ class Home extends React.Component<IProps, IState> {
           </View>
         </CardItem>
       </Card>
+      <Text style={{
+        marginTop: 16,
+        marginLeft: 30,
+        color: '#999999',
+        fontSize: 14,
+      }}>注：带 <Text style={{ color: '#FF0000' }}>*</Text> 号为必填项</Text>
     </View>
   }
 
@@ -261,7 +246,7 @@ class Home extends React.Component<IProps, IState> {
           <View style={styles.btnWrap}>
             <LinearGradient
               start={{x: 0, y: 0}} end={{x: 1, y: 1}}
-              colors={['#6AE27C', '#17D397']}
+              colors={['#1457FF', '#1457FF']}
               style={[
                 styles.linearGradientBtn,
                 {

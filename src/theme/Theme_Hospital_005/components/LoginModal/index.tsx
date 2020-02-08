@@ -76,10 +76,10 @@ class LoginProvider extends React.Component<IProps, IState> {
 
   state: IState = {
     isVisible: false,
-    // mobile: '18200000001',
-    // password: '123456',
     mobile: undefined,
     password: undefined,
+    mobile: '18200000006',
+    password: '123456',
   }
 
   reloadNavigation = () => {
@@ -235,30 +235,55 @@ class LoginProvider extends React.Component<IProps, IState> {
                   marginTop: 60,
                 }}>
                   <View style={styles.logoWrap}>
-                    <FastImage
-                      style={{
-                        width: 39.5,
-                        height: 39.5,
-                        marginRight: 13.5,
-                        alignContent: 'center',
-                        justifyContent: 'center',
-                      }}
-                      source={logoImg}
-                      resizeMode={FastImage.resizeMode.contain}
-                    />
                     <Text style={{
-                      fontSize: 32,
-                      fontWeight: '500',
+                      fontSize: 25,
+                      fontWeight: '400',
                       lineHeight: 45,
-                      color: '#11CD8F',
+                      color: '#155BD4',
                     }}>
-                      登录
+                      薄荷医疗
                     </Text>
+                    <Text style={{
+                      fontSize: 18,
+                      fontWeight: '400',
+                      lineHeight: 26,
+                      color: '#999999',
+                    }}
+                  >用心保障您的美好生活</Text>
                   </View>
                   <View style={styles.formWrap}>
                     <Form>
-                      <Item style={styles.iptItem}>
-                        <Input value={this.state.mobile} style={styles.ipt} placeholder="输入用户名" placeholderTextColor={"#9C9EB9"}
+                      <Item 
+                        style={[
+                          styles.iptItem,
+                          this.state.onFocus === 'mobile' ? {
+                              borderBottomColor: '#155BD4'
+                            } : {}
+                        ]}
+                      >
+                        <FastImage
+                          style={{
+                            width: 17,
+                            height: 18,
+                            marginRight: 20,
+                            alignContent: 'center',
+                            justifyContent: 'center',
+                          }}
+                          source={logoImg}
+                          resizeMode={FastImage.resizeMode.contain}
+                        />
+                        <Input value={this.state.mobile}
+                          onFocus={() => {
+                            this.setState({
+                              onFocus: 'mobile'
+                            })
+                          }}
+                          onBlur={() => {
+                            this.setState({
+                              onFocus: null
+                            })
+                          }}
+                         style={styles.ipt} placeholder="请输入用户名" placeholderTextColor={"#9C9EB9"}
                                onChangeText={(value) => {
                                  this.setState({
                                    mobile: value,
@@ -266,8 +291,37 @@ class LoginProvider extends React.Component<IProps, IState> {
                                }}
                         />
                       </Item>
-                      <Item style={styles.iptItem}>
-                        <Input secureTextEntry value={this.state.password} style={styles.ipt} placeholder="输入密码" placeholderTextColor={"#9C9EB9"}
+                      <Item 
+                        style={[
+                          styles.iptItem,
+                          this.state.onFocus === 'password' ? {
+                              borderBottomColor: '#155BD4'
+                            } : {}
+                        ]}
+                      >
+                        <FastImage
+                          style={{
+                            width: 17,
+                            height: 18,
+                            marginRight: 20,
+                            alignContent: 'center',
+                            justifyContent: 'center',
+                          }}
+                          source={logoImg}
+                          resizeMode={FastImage.resizeMode.contain}
+                        />
+                        <Input 
+                          onFocus={() => {
+                            this.setState({
+                              onFocus: 'password'
+                            })
+                          }}
+                          onBlur={() => {
+                            this.setState({
+                              onFocus: null
+                            })
+                          }}
+                          secureTextEntry value={this.state.password} style={styles.ipt} placeholder="请输入验证码" placeholderTextColor={"#9C9EB9"}
                                onChangeText={(value) => {
                                  this.setState({
                                    password: value,
@@ -277,32 +331,38 @@ class LoginProvider extends React.Component<IProps, IState> {
                       </Item>
                     </Form>
                   </View>
-                  <View style={styles.btnWrap}>
-                    <LinearGradient
-                      start={{x: 0, y: 0}} end={{x: 1, y: 1}}
-                      colors={['#6AE27C', '#17D397']}
-                      style={[
-                        styles.linearGradientBtn,
-                        {
-                          opacity: this.state.password && this.state.mobile ? 1 : 0.4
-                        }
-                      ]}
-                    >
-                      <Button
-                        transparent
-                        rounded
-                        onPress={async () => {
-                            await this.handleLogin();
-                        }}
-                        style={styles.loginButton}
-                        textStyle={{
-                          color: '#fff'
-                        }}
+                  <View style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                    <View style={styles.btnWrap}>
+                      <LinearGradient
+                        start={{x: 0, y: 0}} end={{x: 1, y: 1}}
+                        colors={['#155BD4', '#155BD4']}
+                        style={[
+                          styles.linearGradientBtn,
+                          {
+                            opacity: this.state.password && this.state.mobile ? 1 : 0.4
+                          }
+                        ]}
                       >
-                        <Title>登录</Title>
-                      </Button>
-                    </LinearGradient>
+                        <Button
+                          transparent
+                          rounded
+                          onPress={async () => {
+                              await this.handleLogin();
+                          }}
+                          style={styles.loginButton}
+                          textStyle={{
+                            color: '#fff'
+                          }}
+                        >
+                          <Title>立即登录</Title>
+                        </Button>
+                      </LinearGradient>
+                    </View>
                   </View>
+                  
                 </View>
               </Content>
             </Container>

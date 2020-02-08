@@ -99,6 +99,11 @@ class Home extends React.Component<IProps, IState> {
     this.setIntervalEvent = setInterval(() => {
       this.componentDidMount()
     }, 1000 * 60)
+
+    this.props.dispatch(NavigationActions.navigate({
+      routeName: 'PersonalDetails',
+      params: {},
+    }))
   }
 
   componentWillUnmount(): void {
