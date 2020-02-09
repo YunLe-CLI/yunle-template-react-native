@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
   container: {
-    backgroundColor: '#404E66',
+    backgroundColor: '#2B2B36',
     flex: 1,
   },
   boxWithShadow: {
@@ -69,10 +69,10 @@ export default StyleSheet.create({
     paddingBottom: 0,
     paddingRight: 0,
     paddingLeft: 0,
-    width: 48,
-    height: 48,
+    width: 66,
+    height: 66,
     backgroundColor: '#000000',
-    borderRadius: 24,
+    borderRadius: 33,
   },
   userNameWrap: {
     position: 'absolute',

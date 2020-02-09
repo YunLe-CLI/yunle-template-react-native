@@ -47,6 +47,7 @@ import audio_IMG_2 from './assets/icon_audio_ac_slices/icon_audio_ac.png';
 
 import video_1 from './assets/icon_video_de_slices2/icon_video_de.png';
 import video_2 from './assets/icon_video_ac_slices/icon_video_ac.png';
+import { getStatusBarHeight } from 'react-native-status-bar-height';
 
 const { MainViewManager = {}, MainViewController = {} } = NativeModules || {};
 const { SDKAuth, SDKLogin, SDKGoToRoom, SDKGetUsers, SDKGetUserInfo, SDKSetVideo, SDKSetAudio } = MainViewController || {};
@@ -91,7 +92,7 @@ class Home extends React.Component<IProps, IState> {
         SDK_AUTH: false,
         SDK_LOGIN: false,
         rotateVal: new Animated.Value(0),
-        inRoom: false,
+        inRoom: true,
         userList: [],
         usersInfo: {},
         audioType: true,
@@ -491,7 +492,32 @@ class Home extends React.Component<IProps, IState> {
                     }}
                   />
                 ) : <View>
-                    <Text style={styles.loadingTText}>等待医生进入诊室…</Text>
+                    <Animated.View style={[
+                        styles.loadingWrap,
+                    ]}>
+                        <Animated.View style={[
+                            {
+                                transform: [{ // 动画属性
+                                    rotate: this.state.rotateVal.interpolate({
+                                        inputRange: [0, 360],
+                                        outputRange: ['0deg', '360deg'],
+                                    })
+                                }]
+                            }
+                        ]}>
+                            <FastImage
+                                style={{
+                                    width: 60,
+                                    height: 60,
+                                    alignContent: 'center',
+                                    justifyContent: 'center',
+                                }}
+                                source={loading}
+                                resizeMode={FastImage.resizeMode.contain}
+                            />
+                        </Animated.View>
+                        <Text style={styles.loadingText}>等待医生进入诊室…</Text>
+                    </Animated.View>
                 </View>
             }
         </View>
@@ -507,13 +533,12 @@ class Home extends React.Component<IProps, IState> {
           style={{
               position: 'absolute',
               right: 16,
-              top: 45,
-              width: 102,
-              height: 102,
+              top: 60,
+              width: 150,
+              height: 150,
               backgroundColor: '#000',
-              borderWidth: 1,
-              borderColor: '#FFFFFF',
-              overflow: 'hidden'
+              overflow: 'hidden',
+              borderRadius: 3,
           }}
         >
             {
@@ -571,7 +596,7 @@ class Home extends React.Component<IProps, IState> {
                         position: 'absolute',
                         left: 0,
                         right: 0,
-                        top: 36,
+                        top: 0,
                         zIndex: 99999999999,
                         width: 50,
                         height: 50,
@@ -585,16 +610,7 @@ class Home extends React.Component<IProps, IState> {
                               dispatch(NavigationActions.back());
                           }}
                         >
-                            <FastImage
-                              style={{
-                                  width: 28,
-                                  height: 28,
-                                  alignContent: 'center',
-                                  justifyContent: 'center',
-                              }}
-                              source={require('./assets/ico_arrowleft_slices/ico_arrowleft.png')}
-                              resizeMode={FastImage.resizeMode.contain}
-                            />
+                            <Icon style={{ paddingHorizontal: 12, color: '#fff', fontSize: 26 }} name='arrow-back' />
                         </Button>
                     </View>
                     {
@@ -615,8 +631,8 @@ class Home extends React.Component<IProps, IState> {
                                     ]}>
                                         <FastImage
                                             style={{
-                                                width: 32,
-                                                height: 32,
+                                                width: 60,
+                                                height: 60,
                                                 alignContent: 'center',
                                                 justifyContent: 'center',
                                             }}
@@ -624,7 +640,7 @@ class Home extends React.Component<IProps, IState> {
                                             resizeMode={FastImage.resizeMode.contain}
                                         />
                                     </Animated.View>
-                                    <Text style={styles.loadingText}>正在进入，请稍后</Text>
+                                    <Text style={styles.loadingText}>正在进入诊室，请稍等</Text>
                                 </Animated.View>
                             </View>
                         ) : <View>
@@ -649,12 +665,12 @@ class Home extends React.Component<IProps, IState> {
                                   }}>
                                     <FastImage
                                       style={{
-                                          width: 28,
-                                          height: 28,
+                                          width: 31,
+                                          height: 37,
                                           alignContent: 'center',
                                           justifyContent: 'center',
                                       }}
-                                      source={this.state.audioType ? audio_IMG_1 : audio_IMG_2}
+                                      source={this.state.audioType ? audio_IMG_1 : audio_IMG_1}
                                       resizeMode={FastImage.resizeMode.contain}
                                     />
                                 </Button>
@@ -665,12 +681,12 @@ class Home extends React.Component<IProps, IState> {
                                   }}>
                                     <FastImage
                                       style={{
-                                          width: 28,
-                                          height: 28,
+                                          width: 32,
+                                          height: 29,
                                           alignContent: 'center',
                                           justifyContent: 'center',
                                       }}
-                                      source={this.state.videoType ? video_1 : video_2}
+                                      source={this.state.videoType ? video_1 : video_1}
                                       resizeMode={FastImage.resizeMode.contain}
                                     />
                                 </Button>

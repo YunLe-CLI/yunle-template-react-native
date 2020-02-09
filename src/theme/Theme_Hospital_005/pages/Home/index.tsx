@@ -47,6 +47,7 @@ import { withSelectDoctorModal } from '../../components/SelectDoctorModal';
 import { withSelectLevelModal } from '../../components/SelectLevelModal';
 
 import { MAKE_LIST, MAKE_ITEM, ROOM_MESSAGE } from '../../services/api';
+import { getStatusBarHeight } from 'react-native-status-bar-height';
 
 const { MainViewController = {} } = NativeModules || {};
 const { SDKLeaveRoom } = MainViewController || {};
@@ -100,10 +101,10 @@ class Home extends React.Component<IProps, IState> {
       this.componentDidMount()
     }, 1000 * 60)
 
-    this.props.dispatch(NavigationActions.navigate({
-      routeName: 'PersonalDetails',
-      params: {},
-    }))
+    // this.props.dispatch(NavigationActions.navigate({
+    //   routeName: 'PersonalDetails',
+    //   params: {},
+    // }))
   }
 
   componentWillUnmount(): void {
@@ -311,7 +312,7 @@ class Home extends React.Component<IProps, IState> {
               {
                 (type === 3) ? <LinearGradient
                   start={{x: 0, y: 0}} end={{x: 1, y: 1}}
-                  colors={['#6AE27C', '#17D397']}
+                  colors={['#155BD4', '#155BD4']}
                   style={[
                     styles.linearGradientBtn,
                   ]}
@@ -482,7 +483,7 @@ class Home extends React.Component<IProps, IState> {
         <CardItem style={styles.formItem}>
           <LinearGradient
             start={{x: 0, y: 0}} end={{x: 1, y: 1}}
-            colors={['#6AE27C', '#17D397']}
+            colors={['#1457FF', '#1457FF']}
             style={[
               styles.linearGradientBtn2,
               {
@@ -559,15 +560,14 @@ class Home extends React.Component<IProps, IState> {
           source={home_bg_slices}
           style={{
             width: '100%',
-            height: 188,
           }}
         >
-          <Content
-            scrollEnabled={false}
-            contentContainerStyle={{
-              flexGrow: 1,
+          <View
+            style={{
+              paddingTop: getStatusBarHeight(true),
               justifyContent: 'center',
               alignItems: 'center',
+              height: 238 - getStatusBarHeight(true),
             }}
           >
             <View>
@@ -588,7 +588,7 @@ class Home extends React.Component<IProps, IState> {
               lineHeight: 22.5,
               fontWeight: '400',
             }}>{user.name || '未知'}</Text>
-          </Content>
+          </View>
         </ImageBackground>
         <View
           style={{
@@ -637,8 +637,8 @@ class Home extends React.Component<IProps, IState> {
               full style={styles.btnTab}>
               <FastImage
                 style={{
-                  width: 28,
-                  height: 28,
+                  width: 20,
+                  height: 18,
                   alignContent: 'center',
                   justifyContent: 'center',
                 }}
@@ -647,7 +647,6 @@ class Home extends React.Component<IProps, IState> {
               />
               <Text style={[styles.btnTabText, active === 0 ? styles.activeBtnTabText : {}]}>我的预约</Text>
             </Button>
-            <View style={styles.line} />
             <Button
               onPress={() => {
                 this.setState({
@@ -657,8 +656,8 @@ class Home extends React.Component<IProps, IState> {
               full style={styles.btnTab}>
               <FastImage
                 style={{
-                  width: 28,
-                  height: 28,
+                  width: 20,
+                  height: 20,
                   alignContent: 'center',
                   justifyContent: 'center',
                 }}

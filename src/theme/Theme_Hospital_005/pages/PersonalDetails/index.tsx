@@ -117,7 +117,7 @@ class Home extends React.Component<IProps, IState> {
       <Card noShadow style={styles.formCard}>
         <CardItem style={styles.formItem}>
           <Text style={styles.formItemLabel}>姓名<Text style={{ color: '#FF0000' }}>*</Text></Text>
-          <Input value={this.state.name} style={styles.ipt} placeholder="请输入姓名" placeholderTextColor={"#9C9EB9"}
+          <Input value={this.state.name} style={styles.ipt} placeholder="请输入您的姓名" placeholderTextColor={"#9C9EB9"}
                  onChangeText={(value) => {
                    this.setState({
                      name: value,
@@ -149,13 +149,24 @@ class Home extends React.Component<IProps, IState> {
             })
           }}
           style={styles.formItem}>
-          <Text style={styles.formItemLabel}>性别<Text style={{ color: '#FF0000' }}>*</Text></Text>
-          {this.state.gender ? <Text style={styles.ipt}>{this.state.gender === 1 ? '男' : '女'}</Text> : <Text style={[styles.ipt, {
-            color: '#9C9EB9'
-          }]}>请选择性别</Text>}
-          <Right>
-            <Icon name="arrow-forward" />
-          </Right>
+          <Text style={[styles.formItemLabel, {
+          }]}>性别<Text style={{ color: '#FF0000' }}>*</Text></Text>
+          <View style={{
+            flex: 1,
+            flexGrow: 2,
+            marginRight: -30,
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+            {this.state.gender ? <Text style={styles.ipt}>{this.state.gender === 1 ? '男' : '女'}</Text> : <Text style={[styles.ipt, {
+              color: '#9C9EB9'
+            }]}>请选择性别</Text>}
+            <Icon style={{
+              fontSize: 16,
+              color: '#787799',
+            }} name="arrow-forward" />
+          </View>
         </CardItem>
       </Card>
     
@@ -172,8 +183,12 @@ class Home extends React.Component<IProps, IState> {
         </CardItem>
       </Card>
       <Card noShadow style={styles.formCard}>
-        <CardItem style={styles.formItem}>
-          <Text style={styles.formItemLabel}>既往病史/过敏史</Text>
+        <CardItem style={[styles.formItem, {
+          justifyContent: 'flex-start',
+          alignItems: 'flex-start',
+          width: '100%'
+        }]}>
+          <Text style={styles.formItemLabel}>既往病史</Text>
         </CardItem>
         <CardItem style={styles.formItem}>
           <View style={{ flex: 1, flexGrow: 1, }}>
@@ -186,7 +201,7 @@ class Home extends React.Component<IProps, IState> {
                       style={{
                         color: '#404E66'
                       }}
-                      rowSpan={5} placeholderTextColor={'#CCD5E3'} placeholder="请输入您的既往病史/过敏" />
+                      rowSpan={5} placeholderTextColor={'#CCD5E3'} placeholder="请输入您的既往病史" />
           </View>
         </CardItem>
       </Card>

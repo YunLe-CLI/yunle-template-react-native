@@ -63,6 +63,9 @@ export default StyleSheet.create({
     lineHeight: 21,
   },
   ipt: {
+    paddingTop: 0,
+    paddingBottom: 0,
+    height: 20,
     paddingHorizontal: 5,
     fontSize: 15,
     fontWeight: '400',

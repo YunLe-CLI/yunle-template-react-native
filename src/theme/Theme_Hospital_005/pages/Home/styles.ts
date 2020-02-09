@@ -64,10 +64,10 @@ export default StyleSheet.create({
     fontWeight: '400',
   },
   itemIconText00: {
-    color: '#13B6FF',
+    color: '#01D4BF',
   },
   itemIconText01: {
-    color: '#11CD8F',
+    color: '#155BD4',
   },
   itemIconText02: {
     color: '#B0BED4',
@@ -141,10 +141,10 @@ export default StyleSheet.create({
   },
   clearButton: {
     borderWidth: 1,
-    borderColor: '#11CD8F',
+    borderColor: '#155BD4',
   },
   btnClearText: {
-    color: '#11CD8F',
+    color: '#155BD4',
   },
   submitButton: {
 
@@ -160,7 +160,7 @@ export default StyleSheet.create({
     textAlign: 'justify'
   },
   activeBtnTabText: {
-    color: '#11CD8F',
+    color: '#155BD4',
   },
   line: {
     width: 1,
@@ -172,6 +172,7 @@ export default StyleSheet.create({
     height: 53,
   },
   formContent: {
+    marginTop: 52,
     paddingHorizontal: 16,
     paddingVertical: 6,
   },
