@@ -14,7 +14,7 @@ export default StyleSheet.create({
     color: '#192038',
   },
   body: {
-    backgroundColor: '#F9FBFF',
+    backgroundColor: '#fff',
   },
   bodyContent: {
     // paddingHorizontal: 16,
@@ -48,6 +48,7 @@ export default StyleSheet.create({
     borderTopWidth: 0,
     borderRightWidth: 0,
     borderBottomWidth: 0,
+    backgroundColor:'transparent'
   },
   formItem: {
     flex: 1,
@@ -64,7 +65,7 @@ export default StyleSheet.create({
   formItemTitle: {
     fontSize: 16,
     fontWeight: '500',
-    color: '#404E66',
+    color: '#000000',
     lineHeight: 22.5,
   },
   formItemMoney: {
@@ -98,6 +99,7 @@ export default StyleSheet.create({
     marginBottom: 24,
   },
   itemHeader: {
+    marginTop: 12.5,
     flexDirection: 'row',
   },
   nameText: {
@@ -115,11 +117,12 @@ export default StyleSheet.create({
     marginTop: 4,
     fontSize: 12,
     lineHeight: 16,
-    color: '#8193AE',
+    color: '#303133',
     fontWeight: '400',
   },
   strong: {
-    color: '#11CD8F',
+    marginTop: 0,
+    color: '#333333',
   },
   formItemMoney: {
     color: '#FF3B0E',
@@ -173,9 +176,21 @@ export default StyleSheet.create({
     fontSize: 12,
   },
   start: {
-    color: '#11CD8F',
+    color: '#000000',
     textAlign: 'center',
     fontWeight: '400',
     fontSize: 12,
-  }
+  },
+  segmentBtn: {
+    height: 32,
+    borderRadius: 0,
+    borderBottomWidth: 2,
+    borderBottomColor: '#fff',
+  },
+  segmentBtnText: {
+    fontSize: 14,
+    fontWeight: '400',
+    lineHeight: 20,
+    color: '#000000',
+  },
 });

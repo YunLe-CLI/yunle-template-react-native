@@ -91,7 +91,7 @@ class Home extends React.Component<IProps, IState> {
         SDK_AUTH: false,
         SDK_LOGIN: false,
         rotateVal: new Animated.Value(0),
-        inRoom: false,
+        inRoom: true,
         userList: [],
         usersInfo: {},
         audioType: true,
@@ -472,11 +472,8 @@ class Home extends React.Component<IProps, IState> {
         const height = Dimensions.get('window').height;
         return <View
           style={{
-              flex: 1,
-              position: 'absolute',
               width,
-              height,
-              flexGrow: 1,
+              height: height/2,
               justifyContent: 'center',
               alignItems: 'center',
           }}
@@ -487,11 +484,11 @@ class Home extends React.Component<IProps, IState> {
                     uid={userID}
                     style={{
                         width,
-                        height,
+                        height: height/2,
                     }}
                   />
                 ) : <View>
-                    <Text style={styles.loadingTText}>等待医生进入诊室…</Text>
+                    <Text style={styles.loadingTText}>等待医生进入中……</Text>
                 </View>
             }
         </View>
@@ -503,16 +500,15 @@ class Home extends React.Component<IProps, IState> {
         })
         const userID = meUser && meUser.length ? meUser[0] : undefined;
         const info = usersInfo[userID] || {};
+        const width = Dimensions.get('window').width;
+        const height = Dimensions.get('window').height;
         return <View
           style={{
-              position: 'absolute',
-              right: 16,
-              top: 45,
-              width: 102,
-              height: 102,
-              backgroundColor: '#000',
-              borderWidth: 1,
-              borderColor: '#FFFFFF',
+              width,
+              height: height/2,
+              backgroundColor: '#D8D8D8',
+              justifyContent: 'center',
+              alignItems: 'center',
               overflow: 'hidden'
           }}
         >
@@ -521,8 +517,8 @@ class Home extends React.Component<IProps, IState> {
                   <YSXVideo
                     uid={userID}
                     style={{
-                        width: 100,
-                        height: 100,
+                        width: width,
+                        height: height/2,
                     }}
                   />
                 ) : undefined
@@ -557,46 +553,12 @@ class Home extends React.Component<IProps, IState> {
 
                     }}
                 />
-                <Content
+                <View
                     style={{
                         flex: 1,
                         flexGrow: 1,
                     }}
-                    contentContainerStyle={{
-                        flex: 1,
-                        flexGrow: 1,
-                    }}
                 >
-                    <View style={{
-                        position: 'absolute',
-                        left: 0,
-                        right: 0,
-                        top: 36,
-                        zIndex: 99999999999,
-                        width: 50,
-                        height: 50,
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                    }}>
-                        <Button
-                          transparent
-                          onPress={() => {
-                              const { dispatch } = this.props;
-                              dispatch(NavigationActions.back());
-                          }}
-                        >
-                            <FastImage
-                              style={{
-                                  width: 28,
-                                  height: 28,
-                                  alignContent: 'center',
-                                  justifyContent: 'center',
-                              }}
-                              source={require('./assets/ico_arrowleft_slices/ico_arrowleft.png')}
-                              resizeMode={FastImage.resizeMode.contain}
-                            />
-                        </Button>
-                    </View>
                     {
                         !this.state.inRoom ? (
                             <View style={{ flex: 1, flexGrow: 1, paddingHorizontal: 12, justifyContent: 'center', alignItems: 'center' }}>
@@ -629,50 +591,67 @@ class Home extends React.Component<IProps, IState> {
                             </View>
                         ) : <View>
                             {this.renderHost()}
+                            {this.renderMe()}
                         </View>
                     }
-                </Content>
-                {this.state.inRoom ? this.renderMe() : undefined}
+                </View>
                 {
                     this.state.inRoom ? <Footer style={styles.footerWrap}>
                         <Left>
                             <View style={{
                                 flexGrow: 1,
-                                flexDirection: 'row',
                                 justifyContent: 'flex-end',
                                 alignItems: 'flex-end',
                             }}>
                                 <Button
-                                  style={styles.btnWrap}
+                                  style={[styles.btnWrap, !this.state.audioType ? {
+                                      backgroundColor: '#F86264',
+                                  } : {}]}
                                   onPress={() => {
                                       this.handleSDKSetAudio();
                                   }}>
-                                    <FastImage
-                                      style={{
-                                          width: 28,
-                                          height: 28,
-                                          alignContent: 'center',
-                                          justifyContent: 'center',
-                                      }}
-                                      source={this.state.audioType ? audio_IMG_1 : audio_IMG_2}
-                                      resizeMode={FastImage.resizeMode.contain}
-                                    />
+                                     <Text style={{
+                                         color: '#fff'
+                                     }}>
+                                    {this.state.audioType ? '打开' : '关闭'}
+                                    </Text>
+                                    <Text style={{
+                                        marginTop: 3,
+                                         color: '#fff'
+                                     }}>
+                                        音频
+                                    </Text>
+                                </Button>
+                                <Button
+                                  style={[styles.btnWrap, !this.state.videoType ? {
+                                      backgroundColor: '#F86264',
+                                  } : {}]}
+                                  onPress={() => {
+                                      this.handleSDKSetVideo();
+                                  }}>
+                                    <Text style={{
+                                         color: '#fff'
+                                     }}>
+                                    {this.state.videoType ? '打开' : '关闭'}
+                                    </Text>
+                                    <Text style={{
+                                        marginTop: 3,
+                                         color: '#fff'
+                                     }}>
+                                        视频
+                                    </Text>
                                 </Button>
                                 <Button
                                   style={styles.btnWrap}
                                   onPress={() => {
-                                      this.handleSDKSetVideo();
+                                    const { dispatch } = this.props;
+                                    dispatch(NavigationActions.back());
                                   }}>
-                                    <FastImage
-                                      style={{
-                                          width: 28,
-                                          height: 28,
-                                          alignContent: 'center',
-                                          justifyContent: 'center',
-                                      }}
-                                      source={this.state.videoType ? video_1 : video_2}
-                                      resizeMode={FastImage.resizeMode.contain}
-                                    />
+                                     <Text style={{
+                                         color: '#fff'
+                                     }}>
+                                        返回
+                                    </Text>
                                 </Button>
                             </View>
                         </Left>

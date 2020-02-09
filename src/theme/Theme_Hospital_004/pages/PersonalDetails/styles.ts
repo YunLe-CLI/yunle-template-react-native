@@ -13,7 +13,7 @@ export default StyleSheet.create({
     color: '#192038',
   },
   body: {
-    backgroundColor: '#F9FBFF',
+    backgroundColor: '#fff',
   },
   bodyContent: {
     paddingHorizontal: 16,
@@ -32,7 +32,7 @@ export default StyleSheet.create({
     marginHorizontal: 16,
   },
   linearGradientBtn: {
-    borderRadius: 24,
+    borderRadius: 0,
   },
   submitButton: {
     height: 48,
@@ -46,9 +46,13 @@ export default StyleSheet.create({
     borderTopWidth: 0,
     borderRightWidth: 0,
     borderBottomWidth: 0,
+    marginLeft: 0,
+    marginRight: 0,
   },
   formItem: {
     minHeight: 44,
+    borderBottomWidth: 1,
+    borderBottomColor: '#eee'
   },
   formItemLabel: {
     minWidth: 90,
@@ -58,6 +62,8 @@ export default StyleSheet.create({
     lineHeight: 21,
   },
   ipt: {
+    flex: 1,
+    textAlign: 'right',
     paddingHorizontal: 5,
     fontSize: 15,
     fontWeight: '400',

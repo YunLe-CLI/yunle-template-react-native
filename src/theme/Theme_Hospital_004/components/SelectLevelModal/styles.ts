@@ -125,8 +125,9 @@ export default StyleSheet.create({
     marginLeft: 0,
     marginRight: 0,
     height: 44,
-    borderBottomWidth: 0,
+    borderBottomWidth: 1,
     backgroundColor: '#fff',
+    borderBottomColor: '#EEEEEE',
   },
   selected: {
     backgroundColor: 'rgba(17, 205, 143, .2)',

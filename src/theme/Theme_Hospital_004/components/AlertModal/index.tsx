@@ -4,6 +4,7 @@ import styles from './styles';
 import Modal from "react-native-modal";
 import _ from "lodash";
 import {Button, Text} from 'native-base';
+import FastImage from 'react-native-fast-image';
 
 export const AlertModalContext = createContext({
   handleShowAlertModal: () => {}
@@ -105,6 +106,22 @@ class  AlertModalProvider extends React.Component<{}, IState> {
             backgroundColor: '#fff',
             borderRadius: 8,
           }}>
+              <View style={{
+                marginTop: -40,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+                <FastImage
+                  style={{
+                    width: 80,
+                    height: 80,
+                    alignContent: 'center',
+                    justifyContent: 'center',
+                  }}
+                  source={require('./assets/icon/index.png')}
+                  resizeMode={FastImage.resizeMode.contain}
+                />
+              </View>
               <View>
                 <View>
                   <Text style={styles.title}>
@@ -116,25 +133,6 @@ class  AlertModalProvider extends React.Component<{}, IState> {
                 </View>
                 <View style={styles.btnWrap}>
                   <Button
-                      full
-                      bordered
-                      onPress={async () => {
-                        this.setState({
-                          isNotRemind: true,
-                        }, () => {
-                          if (typeof this.onClearCallback === 'function') {
-                            this.onClearCallback()
-                          }
-                          this.closeModel();
-                        })
-                      }}
-                      style={styles.btn}
-                  >
-                    <Text style={[styles.btnText]}>取消</Text>
-                  </Button>
-                  <View style={{ width: 1, height: 50, backgroundColor: '#F2F2F2' }} />
-                  <Button
-                      transparent
                       full
                       bordered
                       onPress={async () => {

@@ -59,8 +59,24 @@ class Home extends React.Component<IProps, IState> {
     const time = params.time;
     return <View>
       <Card noShadow style={styles.formCard}>
-        <CardItem style={styles.formItem}>
+        <CardItem style={[styles.formItem, {
+          justifyContent: 'center'
+        }]}>
+          <View style={{
+            marginRight: 10,
+            width: 5,
+            height: 5,
+            borderRadius: 2.5,
+            backgroundColor: '#000',
+          }} />
           <Text style={styles.formItemTitle}>{this.props.postType || '挂号'}信息</Text>
+          <View style={{
+            marginLeft: 10,
+            width: 5,
+            height: 5,
+            borderRadius: 2.5,
+            backgroundColor: '#000',
+          }} />
         </CardItem>
         <CardItem style={styles.formItem}>
           <Text style={styles.formItemLabel}>医生姓名</Text>
@@ -90,8 +106,24 @@ class Home extends React.Component<IProps, IState> {
 
 
       <Card noShadow style={styles.formCard}>
-        <CardItem style={styles.formItem}>
-          <Text style={styles.formItemTitle}>就诊人信息</Text>
+        <CardItem style={[styles.formItem, {
+          justifyContent: 'center'
+        }]}>
+          <View style={{
+            marginRight: 10,
+            width: 5,
+            height: 5,
+            borderRadius: 2.5,
+            backgroundColor: '#000',
+          }} />
+          <Text style={styles.formItemTitle}>就诊信息</Text>
+          <View style={{
+            marginLeft: 10,
+            width: 5,
+            height: 5,
+            borderRadius: 2.5,
+            backgroundColor: '#000',
+          }} />
         </CardItem>
         <CardItem style={styles.formItem}>
           <Text style={styles.formItemLabel}>就诊人</Text>
@@ -191,17 +223,10 @@ class Home extends React.Component<IProps, IState> {
                 您已{this.props.postType || '挂号'}成功
               </Text>
             </CardItem>
-          </Card>
-
-          {this.renderForm()}
-        </Content>
-        <Footer
-          style={styles.footerWrap}
-        >
-          <View style={styles.btnWrap}>
+            <View style={styles.btnWrap}>
             <LinearGradient
               start={{x: 0, y: 0}} end={{x: 1, y: 1}}
-              colors={['#6AE27C', '#17D397']}
+              colors={['#000', '#000']}
               style={[
                 styles.linearGradientBtn,
               ]}
@@ -227,7 +252,10 @@ class Home extends React.Component<IProps, IState> {
               </Button>
             </LinearGradient>
           </View>
-        </Footer>
+          </Card>
+
+          {this.renderForm()}
+        </Content>
       </Container>
     );
   }

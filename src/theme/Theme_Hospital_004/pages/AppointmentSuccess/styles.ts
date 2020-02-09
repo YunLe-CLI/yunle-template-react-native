@@ -28,11 +28,12 @@ export default StyleSheet.create({
     height:60,
   },
   btnWrap: {
+    marginTop: 60,
     flexGrow: 1,
     marginHorizontal: 16,
   },
   linearGradientBtn: {
-    borderRadius: 24,
+    borderRadius: 0,
   },
   submitButton: {
     height: 48,
@@ -73,13 +74,15 @@ export default StyleSheet.create({
     marginRight: 16,
     fontSize: 14,
     fontWeight: '400',
-    color: '#8193AE',
+    color: '#333333',
     lineHeight: 22,
   },
   ipt: {
+    flex: 1,
+    textAlign: 'right',
     fontSize: 14,
     fontWeight: '400',
-    color: '#404E66',
+    color: '#999999',
     lineHeight: 22,
   },
   iptMultiline: {

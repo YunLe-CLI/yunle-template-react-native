@@ -136,6 +136,9 @@ export default StyleSheet.create({
     marginRight: 17,
   },
   card: {
+    marginTop: 0,
+    flexWrap: 'wrap',
+    flexDirection: 'row',
     borderTopWidth: 0,
     borderRightWidth: 0,
     borderLeftWidth: 0,
@@ -153,7 +156,7 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   span: {
-    paddingLeft: 8,
+    // paddingLeft: 8,
   },
   note: {
     marginTop: 4,
@@ -163,6 +166,6 @@ export default StyleSheet.create({
     fontWeight: '400',
   },
   strong: {
-    color: '#11CD8F',
+    color: '#8193AE',
   },
 });

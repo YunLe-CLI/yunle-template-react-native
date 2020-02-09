@@ -73,13 +73,16 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flexGrow: 1,
-    borderTopWidth: 1,
+    borderTopWidth: 0,
     borderTopColor: '#F2F2F2',
   },
   btn: {
+    marginHorizontal: 28,
+    marginBottom: 21,
     flexGrow: 1,
     borderColor: 'transparent',
     height: 50,
+    backgroundColor: '#000'
   },
   btnText: {
     fontSize: 18,
@@ -88,7 +91,7 @@ export default StyleSheet.create({
     fontWeight: '400',
   },
   okText: {
-    color: '#118DF0',
+    color: '#FFFFFF',
   },
   buttonStyle: {
     flexGrow: 1,

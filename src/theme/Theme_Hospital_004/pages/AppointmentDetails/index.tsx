@@ -20,6 +20,7 @@ import {
 } from 'native-base';
 import styles from './styles';
 import {NavigationActions, NavigationEvents, StackActions} from 'react-navigation';
+import Modal from "react-native-modal";
 import LinearGradient from "react-native-linear-gradient";
 import FastImage from 'react-native-fast-image';
 import XPay from 'react-native-puti-pay';
@@ -30,6 +31,7 @@ import icon_check_active from './assets/icon_check_active_slices/icon_check_acti
 import icon_check_default from './assets/icon_check_default_slices/icon_check_default.png';
 
 import {DOCTOR_ITEM, MAKE_POST} from '../../services/api';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export interface IProps {}
 
@@ -127,8 +129,24 @@ class Home extends React.Component<IProps, IState> {
     const time = params.time;
     return <View>
       <Card noShadow style={styles.formCard}>
-        <CardItem style={styles.formItem}>
+        <CardItem style={[styles.formItem, {
+          justifyContent: 'center'
+        }]}>
+          <View style={{
+            marginRight: 10,
+            width: 5,
+            height: 5,
+            borderRadius: 2.5,
+            backgroundColor: '#000',
+          }} />
           <Text style={styles.formItemTitle}>{postType || '挂号'}信息</Text>
+          <View style={{
+            marginLeft: 10,
+            width: 5,
+            height: 5,
+            borderRadius: 2.5,
+            backgroundColor: '#000',
+          }} />
         </CardItem>
         <CardItem style={styles.formItem}>
           <Text style={styles.formItemLabel}>医生姓名</Text>
@@ -164,8 +182,24 @@ class Home extends React.Component<IProps, IState> {
 
 
       <Card noShadow style={styles.formCard}>
-        <CardItem style={styles.formItem}>
-          <Text style={styles.formItemTitle}>就诊人信息</Text>
+        <CardItem style={[styles.formItem, {
+          justifyContent: 'center'
+        }]}>
+          <View style={{
+            marginRight: 10,
+            width: 5,
+            height: 5,
+            borderRadius: 2.5,
+            backgroundColor: '#000',
+          }} />
+          <Text style={styles.formItemTitle}>就诊信息</Text>
+          <View style={{
+            marginLeft: 10,
+            width: 5,
+            height: 5,
+            borderRadius: 2.5,
+            backgroundColor: '#000',
+          }} />
         </CardItem>
         <CardItem style={styles.formItem}>
           <Text style={styles.formItemLabel}>就诊人</Text>
@@ -185,11 +219,15 @@ class Home extends React.Component<IProps, IState> {
             {user.name}
           </Text>
         </CardItem>
-        <CardItem style={styles.formItem}>
+        <CardItem style={[styles.formItem, {
+          borderBottomWidth: 0,
+        }]}>
           <Text style={[styles.formItemLabel, {
             alignSelf: 'flex-start'
           }]}>看诊疾病</Text>
-          <View style={{ flex: 1, flexGrow: 1, backgroundColor: '#F9FBFF', borderRadius: 2, }}>
+        </CardItem>
+        <CardItem style={styles.formItem}>
+          <View style={{ flex: 1, flexGrow: 1, backgroundColor: '#fff', borderRadius: 2, }}>
             <Textarea rowSpan={5}
                       value={this.state.remark}
                       placeholderTextColor={'#B0BED4'} placeholder="请描述下就诊人的疾病/症状"
@@ -202,85 +240,15 @@ class Home extends React.Component<IProps, IState> {
           </View>
         </CardItem>
       </Card>
-
-      <Card noShadow style={styles.formCard}>
-        <CardItem style={[styles.formItem, styles.spaceBetween]}>
-          <Text style={styles.formItemTitle}>支付信息</Text>
-          <Text style={[styles.formItemTitle, styles.formItemMoney]}>{this.props.postType || '挂号'}费：￥{doctorInfo.registrationFee}</Text>
-        </CardItem>
-        <CardItem
-          onPress={() => {
-            this.setState({
-              payType: 'wx'
-            })
-          }}
-          button style={[styles.formItem, styles.spaceBetween]}>
-          <View style={styles.row}>
-            <FastImage
-              style={{
-                marginRight: 16,
-                width: 36,
-                height: 36,
-                alignContent: 'center',
-                justifyContent: 'center',
-              }}
-              source={icon_wx}
-              resizeMode={FastImage.resizeMode.contain}
-            />
-            <Text style={styles.formItemLabel}>微信支付</Text>
-          </View>
-
-          <FastImage
-            style={{
-              marginLeft: 16,
-              width: 16,
-              height: 16,
-              alignContent: 'center',
-              justifyContent: 'center',
-            }}
-            source={payType === 'wx' ? icon_check_active : icon_check_default}
-            resizeMode={FastImage.resizeMode.contain}
-          />
-        </CardItem>
-        <CardItem
-          onPress={() => {
-            this.setState({
-              payType: 'ali'
-            })
-          }}
-          button style={[styles.formItem, styles.spaceBetween]}>
-          <View style={styles.row}>
-            <FastImage
-              style={{
-                marginRight: 16,
-                width: 36,
-                height: 36,
-                alignContent: 'center',
-                justifyContent: 'center',
-              }}
-              source={icon_zfb}
-              resizeMode={FastImage.resizeMode.contain}
-            />
-            <Text style={styles.formItemLabel}>支付宝支付</Text>
-          </View>
-          <FastImage
-            style={{
-              marginLeft: 16,
-              width: 16,
-              height: 16,
-              alignContent: 'center',
-              justifyContent: 'center',
-            }}
-            source={payType === 'ali' ? icon_check_active : icon_check_default}
-            resizeMode={FastImage.resizeMode.contain}
-          />
-        </CardItem>
-      </Card>
     </View>
   }
 
   render() {
     const { orientationType } = this.state;
+    const { payType } = this.state;
+    const { navigation, user, postType } = this.props;
+    const { params = {} } = navigation.state;
+    const doctorInfo:DOCTOR_ITEM = params.doctorInfo || {};
     return (
       <Container style={styles.container}>
         <NavigationEvents
@@ -338,7 +306,135 @@ class Home extends React.Component<IProps, IState> {
           <View style={styles.btnWrap}>
             <LinearGradient
               start={{x: 0, y: 0}} end={{x: 1, y: 1}}
-              colors={['#6AE27C', '#17D397']}
+              colors={['#000', '#000']}
+              style={[
+                styles.linearGradientBtn,
+                {
+                  opacity: this.state.remark ? 1 : 0.4
+                }
+              ]}
+            >
+              <Button
+                full
+                transparent
+                rounded
+                onPress={async () => {
+                  this.setState({
+                    isVisible: true,
+                  })
+
+                }}
+                style={styles.submitButton}
+                textStyle={{
+                  color: '#fff'
+                }}
+              >
+                <Title>完成</Title>
+              </Button>
+            </LinearGradient>
+          </View>
+        </Footer>
+        <Modal isVisible={this.state.isVisible}
+          onBackButtonPress={() => {
+            this.setState({
+              isVisible: false,
+            })
+          }}
+          onBackdropPress={() => {
+            this.setState({
+              isVisible: false,
+            })
+          }}
+          style={{
+            marginLeft: 0,
+            marginRight: 0,
+            marginBottom: 0,
+            justifyContent: 'flex-end',
+          }}
+        >
+            <View style={{
+              marginLeft: 0,
+              marginRight: 0,
+              // alignSelf: 'flex-end',
+              backgroundColor: '#fff'
+            }}>
+            <Card noShadow style={styles.formCard}>
+              <CardItem style={[styles.formItem, styles.spaceBetween]}>
+                <Text style={styles.formItemTitle}>支付信息</Text>
+                <Text style={[styles.formItemTitle, styles.formItemMoney]}>{this.props.postType || '挂号'}费：￥{doctorInfo.registrationFee}</Text>
+              </CardItem>
+              <CardItem
+                onPress={() => {
+                  this.setState({
+                    payType: 'wx'
+                  })
+                }}
+                button style={[styles.formItem, styles.spaceBetween]}>
+                <View style={styles.row}>
+                  <FastImage
+                    style={{
+                      marginRight: 16,
+                      width: 36,
+                      height: 36,
+                      alignContent: 'center',
+                      justifyContent: 'center',
+                    }}
+                    source={icon_wx}
+                    resizeMode={FastImage.resizeMode.contain}
+                  />
+                  <Text style={styles.formItemLabel}>微信支付</Text>
+                </View>
+
+                <FastImage
+                  style={{
+                    marginLeft: 16,
+                    width: 16,
+                    height: 16,
+                    alignContent: 'center',
+                    justifyContent: 'center',
+                  }}
+                  source={payType === 'wx' ? icon_check_active : icon_check_default}
+                  resizeMode={FastImage.resizeMode.contain}
+                />
+              </CardItem>
+              <CardItem
+                onPress={() => {
+                  this.setState({
+                    payType: 'ali'
+                  })
+                }}
+                button style={[styles.formItem, styles.spaceBetween]}>
+                <View style={styles.row}>
+                  <FastImage
+                    style={{
+                      marginRight: 16,
+                      width: 36,
+                      height: 36,
+                      alignContent: 'center',
+                      justifyContent: 'center',
+                    }}
+                    source={icon_zfb}
+                    resizeMode={FastImage.resizeMode.contain}
+                  />
+                  <Text style={styles.formItemLabel}>支付宝支付</Text>
+                </View>
+                <FastImage
+                  style={{
+                    marginLeft: 16,
+                    width: 16,
+                    height: 16,
+                    alignContent: 'center',
+                    justifyContent: 'center',
+                  }}
+                  source={payType === 'ali' ? icon_check_active : icon_check_default}
+                  resizeMode={FastImage.resizeMode.contain}
+                />
+              </CardItem>
+            </Card>
+            <View style={styles.btnWrap}>
+            <LinearGradient
+              start={{x: 0, y: 0}} end={{x: 1, y: 1}}
+              colors={['#000', '#000']}
               style={[
                 styles.linearGradientBtn,
                 {
@@ -367,11 +463,13 @@ class Home extends React.Component<IProps, IState> {
                   color: '#fff'
                 }}
               >
-                <Title>去付款</Title>
+                <Title>完成</Title>
               </Button>
             </LinearGradient>
           </View>
-        </Footer>
+              <SafeAreaView />
+            </View>
+        </Modal>
       </Container>
     );
   }

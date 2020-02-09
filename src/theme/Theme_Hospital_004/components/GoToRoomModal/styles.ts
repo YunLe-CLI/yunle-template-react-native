@@ -8,21 +8,19 @@ export default StyleSheet.create({
     paddingHorizontal: 24,
   },
   header: {
-    height: 72,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    borderBottomWidth: 1,
-    borderBottomColor: '#DCE3EE',
   },
   title: {
     fontSize: 18,
-    lineHeight: 21,
     color: '#353B50',
     textAlign: 'center',
     fontWeight: '500',
   },
   body: {
+    justifyContent: 'center',
+    alignItems: 'center',
     paddingTop: 16,
     paddingHorizontal: 20,
   },
@@ -31,7 +29,7 @@ export default StyleSheet.create({
     marginBottom: 8,
     fontSize: 14,
     lineHeight: 20,
-    color: '#404E66',
+    color: '#000000',
     fontWeight: '400',
   },
   qrMainWrap: {
@@ -80,14 +78,13 @@ export default StyleSheet.create({
     marginTop: 24,
     marginHorizontal: 24,
     marginBottom: 16,
-    flexDirection: 'row',
+    // flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     flexGrow: 1,
   },
   btn: {
     flexGrow: 1,
-    borderRadius: 20,
     height: 40,
     justifyContent: 'center',
     alignItems: 'center',
@@ -95,11 +92,11 @@ export default StyleSheet.create({
   btnText: {
     fontSize: 18,
     lineHeight: 20,
-    color: '#fff',
+    color: '#000000',
     fontWeight: '400',
   },
   okText: {
-    color: '#11CD8F',
+    color: '#fff',
   },
   buttonStyle: {
     flexGrow: 1,

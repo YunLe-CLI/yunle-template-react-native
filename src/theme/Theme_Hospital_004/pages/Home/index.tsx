@@ -47,6 +47,7 @@ import { withSelectDoctorModal } from '../../components/SelectDoctorModal';
 import { withSelectLevelModal } from '../../components/SelectLevelModal';
 
 import { MAKE_LIST, MAKE_ITEM, ROOM_MESSAGE } from '../../services/api';
+import { getStatusBarHeight } from 'react-native-status-bar-height';
 
 const { MainViewController = {} } = NativeModules || {};
 const { SDKLeaveRoom } = MainViewController || {};
@@ -99,6 +100,10 @@ class Home extends React.Component<IProps, IState> {
     this.setIntervalEvent = setInterval(() => {
       this.componentDidMount()
     }, 1000 * 60)
+    // this.props.dispatch(NavigationActions.navigate({
+    //   routeName: 'PersonalDetails',
+    //   params: {},
+    // }))
   }
 
   componentWillUnmount(): void {
@@ -524,52 +529,55 @@ class Home extends React.Component<IProps, IState> {
     const { active } = this.state;
     const { user = {} } = this.props;
     return (
-      <Container style={styles.container}>
-        <NavigationEvents
-            onWillFocus={async payload => {
-              try {
-                const { navigation, exams } = this.props;
-                const { params = {} } = navigation.state;
-                if (_.isNumber(params.active)) {
-                  this.setState({
-                    active: params.active
-                  })
+      <ImageBackground
+        source={require('./assets/bg/index.png')}
+        style={{ 
+          flex: 1,
+          width: '100%',
+        }}
+      >
+        <Container style={styles.container}>
+          <NavigationEvents
+              onWillFocus={async payload => {
+                try {
+                  const { navigation, exams } = this.props;
+                  const { params = {} } = navigation.state;
+                  if (_.isNumber(params.active)) {
+                    this.setState({
+                      active: params.active
+                    })
+                  }
+                } catch (e) {
+
                 }
-              } catch (e) {
+                await this.componentDidMount();
+              }}
+              onDidFocus={async payload => {
 
-              }
-              await this.componentDidMount();
-            }}
-            onDidFocus={async payload => {
+              }}
+              onWillBlur={payload => {
+                this.componentWillUnmount()
+              }}
+              onDidBlur={payload => {
 
-            }}
-            onWillBlur={payload => {
-              this.componentWillUnmount()
-            }}
-            onDidBlur={payload => {
-
-            }}
-        />
-        <ImageBackground
-          source={home_bg_slices}
-          style={{
-            width: '100%',
-            height: 188,
-          }}
-        >
-          <Content
-            scrollEnabled={false}
-            contentContainerStyle={{
-              flexGrow: 1,
-              justifyContent: 'center',
+              }}
+          />
+          <View
+            style={{
+              marginTop: getStatusBarHeight(true),
+              paddingVertical: 34,
+              paddingHorizontal: 16,
+              flexDirection: 'row',
+              // justifyContent: 'center',
               alignItems: 'center',
             }}
           >
             <View>
               <FastImage
                 style={{
-                  width: 78,
-                  height: 86,
+                  width: 44,
+                  height: 44,
+                  marginRight: 12,
                   alignContent: 'center',
                   justifyContent: 'center',
                 }}
@@ -578,93 +586,179 @@ class Home extends React.Component<IProps, IState> {
               />
             </View>
             <Text style={{
-              color: '#404E66',
+              color: '#000000',
               fontSize: 16,
               lineHeight: 22.5,
               fontWeight: '400',
             }}>{user.name || '未知'}</Text>
-          </Content>
-        </ImageBackground>
-        <View
-          style={{
-            flex: 1,
-            flexGrow: 1,
-            overflow: 'hidden',
-            backgroundColor: '#F9FBFF',
-          }}
-        >
-          <Tabs
-            page={active}
-            renderTabBar={() => <View />}
-            onChangeTab={({i}) => {
-              this.setState({
-                active: i
-              })
+          </View>
+          <Content
+            style={{
+              flex: 1,
+              flexGrow: 2,
+              paddingHorizontal: 16,
+              overflow: 'hidden',
             }}
           >
-            <Tab
-              style={{
-                backgroundColor: '#F9FBFF',
-              }}
-              heading="1">
-              {this.renderTabList()}
-            </Tab>
-            <Tab
-              style={{
-                backgroundColor: '#F9FBFF',
-              }}
-              heading="2">
-              {this.renderTabForm()}
-            </Tab>
-          </Tabs>
-        </View>
-        <Footer style={styles.footerWrap}>
-          <FooterTab style={{
-            justifyContent: 'center',
-            alignItems: 'center'
-          }}>
-            <Button
+            <Button 
               onPress={() => {
-                this.setState({
-                  active: 0,
-                })
+                this.props.dispatch(NavigationActions.navigate({
+                  routeName: 'List',
+                  params: {
+                    title: "今日预约"
+                  },
+                }));
               }}
-              full style={styles.btnTab}>
-              <FastImage
-                style={{
-                  width: 28,
-                  height: 28,
-                  alignContent: 'center',
-                  justifyContent: 'center',
-                }}
-                source={active === 0 ? icon_myorder_active_slices : icon_myorder_default_slices}
-                resizeMode={FastImage.resizeMode.contain}
-              />
-              <Text style={[styles.btnTabText, active === 0 ? styles.activeBtnTabText : {}]}>我的预约</Text>
+              transparent
+              style={{
+                marginBottom: 16,
+                height: 76,
+                paddingHorizontal: 20,
+                borderWidth: 1,
+                borderColor: '#000',
+              }}
+            >
+              <Left>
+                <FastImage
+                  style={{
+                    width: 36,
+                    height: 36,
+                    marginRight: 12,
+                    alignContent: 'center',
+                    justifyContent: 'center',
+                  }}
+                  source={require('./assets/itemIcon_1/index.png')}
+                  resizeMode={FastImage.resizeMode.contain}
+                />
+              </Left>
+              <Right>
+              <Text>今日预约</Text>
+              </Right>
+              
             </Button>
-            <View style={styles.line} />
-            <Button
+
+            <Button 
               onPress={() => {
-                this.setState({
-                  active: 1,
-                })
+                this.props.dispatch(NavigationActions.navigate({
+                  routeName: 'List',
+                  params: {
+                    title: "全部预约"
+                  },
+                }));
               }}
-              full style={styles.btnTab}>
-              <FastImage
-                style={{
-                  width: 28,
-                  height: 28,
-                  alignContent: 'center',
-                  justifyContent: 'center',
-                }}
-                source={active === 1 ? icon_register_active_slices : icon_register_default_slices }
-                resizeMode={FastImage.resizeMode.contain}
-              />
-              <Text style={[styles.btnTabText, active === 1 ? styles.activeBtnTabText : {}]}>挂号预约</Text>
+              transparent
+              style={{
+                marginBottom: 16,
+                height: 76,
+                paddingHorizontal: 20,
+                borderWidth: 1,
+                borderColor: '#000',
+              }}
+            >
+              <Left>
+                <FastImage
+                  style={{
+                    width: 36,
+                    height: 36,
+                    marginRight: 12,
+                    alignContent: 'center',
+                    justifyContent: 'center',
+                  }}
+                  source={require('./assets/itemIcon_2/index.png')}
+                  resizeMode={FastImage.resizeMode.contain}
+                />
+              </Left>
+              <Right>
+              <Text>全部预约</Text>
+              </Right>
+              
             </Button>
-          </FooterTab>
-        </Footer>
-      </Container>
+
+            <Button 
+              onPress={() => {
+                this.props.dispatch(NavigationActions.navigate({
+                  routeName: 'Yy',
+                  params: {
+                    
+                  },
+                }));
+              }}
+              transparent
+              style={{
+                marginBottom: 16,
+                height: 76,
+                paddingHorizontal: 20,
+                borderWidth: 1,
+                borderColor: '#000',
+              }}
+            >
+              <Left>
+                <FastImage
+                  style={{
+                    width: 36,
+                    height: 36,
+                    marginRight: 12,
+                    alignContent: 'center',
+                    justifyContent: 'center',
+                  }}
+                  source={require('./assets/itemIcon_3/index.png')}
+                  resizeMode={FastImage.resizeMode.contain}
+                />
+              </Left>
+              <Right>
+              <Text>挂号预约</Text>
+              </Right>
+              
+            </Button>
+          </Content>
+          {/* <Footer style={styles.footerWrap}>
+            <FooterTab style={{
+              justifyContent: 'center',
+              alignItems: 'center'
+            }}>
+              <Button
+                onPress={() => {
+                  this.setState({
+                    active: 0,
+                  })
+                }}
+                full style={styles.btnTab}>
+                <FastImage
+                  style={{
+                    width: 28,
+                    height: 28,
+                    alignContent: 'center',
+                    justifyContent: 'center',
+                  }}
+                  source={active === 0 ? icon_myorder_active_slices : icon_myorder_default_slices}
+                  resizeMode={FastImage.resizeMode.contain}
+                />
+                <Text style={[styles.btnTabText, active === 0 ? styles.activeBtnTabText : {}]}>我的预约</Text>
+              </Button>
+              <View style={styles.line} />
+              <Button
+                onPress={() => {
+                  this.setState({
+                    active: 1,
+                  })
+                }}
+                full style={styles.btnTab}>
+                <FastImage
+                  style={{
+                    width: 28,
+                    height: 28,
+                    alignContent: 'center',
+                    justifyContent: 'center',
+                  }}
+                  source={active === 1 ? icon_register_active_slices : icon_register_default_slices }
+                  resizeMode={FastImage.resizeMode.contain}
+                />
+                <Text style={[styles.btnTabText, active === 1 ? styles.activeBtnTabText : {}]}>挂号预约</Text>
+              </Button>
+            </FooterTab>
+          </Footer> */}
+        </Container>
+      </ImageBackground>
     );
   }
 }

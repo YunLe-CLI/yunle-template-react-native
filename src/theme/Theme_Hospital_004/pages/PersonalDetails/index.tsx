@@ -124,9 +124,6 @@ class Home extends React.Component<IProps, IState> {
                    })
                  }}
           />
-          <Right>
-
-          </Right>
         </CardItem>
         <CardItem style={styles.formItem}>
           <Text style={styles.formItemLabel}>身份证号</Text>
@@ -137,9 +134,6 @@ class Home extends React.Component<IProps, IState> {
                    })
                  }}
           />
-          <Right>
-
-          </Right>
         </CardItem>
         <CardItem
           button
@@ -155,9 +149,11 @@ class Home extends React.Component<IProps, IState> {
           {this.state.gender ? <Text style={styles.ipt}>{this.state.gender === 1 ? '男' : '女'}</Text> : <Text style={[styles.ipt, {
             color: '#9C9EB9'
           }]}>请选择性别</Text>}
-          <Right>
-            <Icon name="arrow-forward" />
-          </Right>
+          <Icon style={{
+            fontSize: 16,
+            marginRight: -25,
+            color: '#CCCCCC'
+          }} name="arrow-forward" />
         </CardItem>
         <CardItem
           button
@@ -174,9 +170,11 @@ class Home extends React.Component<IProps, IState> {
           {this.state.birthdate ? <Text style={styles.ipt}>{moment(this.state.birthdate).format('YYYY-MM-DD')}</Text> : <Text style={[styles.ipt, {
             color: '#9C9EB9'
           }]}>{'请选择出生日期'}</Text>}
-          <Right>
-            <Icon name="arrow-forward" />
-          </Right>
+            <Icon style={{
+            fontSize: 16,
+            marginRight: -25,
+            color: '#CCCCCC'
+          }} name="arrow-forward" />
         </CardItem>
         <CardItem style={styles.formItem}>
           <Text style={styles.formItemLabel}>年龄</Text>
@@ -187,9 +185,6 @@ class Home extends React.Component<IProps, IState> {
                    })
                  }}
           />
-          <Right>
-
-          </Right>
         </CardItem>
       </Card>
       <Card noShadow style={styles.formCard}>
@@ -238,14 +233,32 @@ class Home extends React.Component<IProps, IState> {
           }}
         />
         <Header
-          style={styles.header}
-          translucent
+        transparent
         >
-          <Left/>
-          <Body>
-            <Title style={styles.headerText}>完善个人信息</Title>
-          </Body>
-          <Right/>
+            <Left>
+                <Button
+                    transparent
+                    style={{
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}
+                    onPress={() => {
+                        this.postData()
+                        const { dispatch } = this.props;
+                        dispatch(NavigationActions.back());
+                    }}
+                >
+                    <Icon style={{ paddingLeft: 12, color: '#333333', fontSize: 26 }} name='arrow-back' />
+                    <Text style={{
+                      marginTop: -3,
+                       color: '#333333', fontSize: 16 
+                    }}>返回</Text>
+                </Button>
+            </Left>
+            <Body>
+                <Title style={{ color: '#333333' }}>完善个人信息</Title>
+            </Body>
+            <Right />
         </Header>
         <StatusBar barStyle="dark-content" />
         <Content
@@ -255,43 +268,6 @@ class Home extends React.Component<IProps, IState> {
         >
           {this.renderForm()}
         </Content>
-        <Footer
-          style={styles.footerWrap}
-        >
-          <View style={styles.btnWrap}>
-            <LinearGradient
-              start={{x: 0, y: 0}} end={{x: 1, y: 1}}
-              colors={['#6AE27C', '#17D397']}
-              style={[
-                styles.linearGradientBtn,
-                {
-                  opacity:
-                    this.state.name &&
-                    this.state.idCard &&
-                    this.state.birthdate &&
-                    this.state.gender &&
-                    this.state.age ?
-                      1 : 0.4
-                }
-              ]}
-            >
-              <Button
-                full
-                transparent
-                rounded
-                onPress={async () => {
-                  this.postData()
-                }}
-                style={styles.submitButton}
-                textStyle={{
-                  color: '#fff'
-                }}
-              >
-                <Title>完成</Title>
-              </Button>
-            </LinearGradient>
-          </View>
-        </Footer>
       </Container>
     );
   }

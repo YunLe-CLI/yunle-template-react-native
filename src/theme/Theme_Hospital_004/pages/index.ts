@@ -2,6 +2,9 @@ export { default as Setting } from './Setting';
 export { default as Splash } from './Splash';
 
 export { default as Home } from './Home';
+export { default as List } from './List';
+export { default as Yy } from './Yy';
+
 export { default as Me } from './Me';
 export { default as VideoPlayer } from './VideoPlayer';
 // 完善个人信息

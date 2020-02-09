@@ -141,7 +141,7 @@ class SelectDepartmentModalProvider extends React.Component<{}, IState> {
               <Right />
             </Header>
             <StatusBar barStyle="dark-content" />
-            <Content style={{ backgroundColor: '#F9FBFF' }}>
+            <Content style={{ backgroundColor: '#fff' }}>
               <List style={styles.listWrap}>
                 {
                   list.map((item) => {
