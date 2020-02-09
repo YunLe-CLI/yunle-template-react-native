@@ -77,10 +77,21 @@ class Home extends React.Component<IProps, IState> {
     const doctorInfo:DOCTOR_ITEM = params.doctorInfo || {};
     return <View>
       <Card noShadow style={styles.formCard}>
-        <CardItem style={styles.formItem}>
+        <CardItem style={[styles.formItem, {
+          backgroundColor: 'transparent'
+        }]}>
           <Text style={styles.formItemTitle}>医生介绍</Text>
         </CardItem>
-        <CardItem style={styles.formItem}>
+        <CardItem style={[styles.formItem, {
+          paddingVertical: 21,
+          marginBottom: 15,
+          borderRadius: 10,
+          shadowColor: '#272727',
+          shadowOffset: { width: 0, height: 0 },
+          shadowOpacity: 0.1,
+          shadowRadius: 2,
+          elevation: 1,
+        }]}>
           <Text style={styles.formItemLabel}>
             {doctorInfo.personalIntro}
           </Text>
@@ -88,10 +99,21 @@ class Home extends React.Component<IProps, IState> {
 
           </Text>
         </CardItem>
-        <CardItem style={styles.formItem}>
+        <CardItem style={[styles.formItem, {
+          backgroundColor: 'transparent'
+        }]}>
           <Text style={styles.formItemTitle}>擅长疾病</Text>
         </CardItem>
-        <CardItem style={styles.formItem}>
+        <CardItem style={[styles.formItem, {
+          paddingVertical: 21,
+          marginBottom: 15,
+          borderRadius: 10,
+          shadowColor: '#272727',
+          shadowOffset: { width: 0, height: 0 },
+          shadowOpacity: 0.1,
+          shadowRadius: 2,
+          elevation: 1,
+        }]}>
           <Text style={styles.formItemLabel}>
             {doctorInfo.skillsIntro}
           </Text>
@@ -103,11 +125,27 @@ class Home extends React.Component<IProps, IState> {
 
 
       <Card noShadow style={styles.formCard}>
-        <CardItem style={[styles.formItem, styles.spaceBetween]}>
+        <CardItem style={[styles.formItem, styles.spaceBetween, {
+          backgroundColor: 'transparent'
+        }]}>
           <Text style={styles.formItemTitle}>出诊信息</Text>
           <Text style={[styles.formItemTitle, styles.formItemMoney]}>挂号费：￥{doctorInfo.registrationFee}</Text>
         </CardItem>
-        <CardItem style={styles.formItem}>
+        <CardItem  style={[styles.formItem, {
+          paddingVertical: 0,
+          marginBottom: 15,
+          borderRadius: 10,
+          shadowColor: '#272727',
+          shadowOffset: { width: 0, height: 0 },
+          shadowOpacity: 0.1,
+          shadowRadius: 2,
+          elevation: 1,
+          paddingTop: 0,
+          paddingRight: 0,
+          paddingBottom: 0,
+    
+          paddingLeft: 0,
+        }]}>
           {this.renderTable()}
         </CardItem>
       </Card>
@@ -169,7 +207,7 @@ class Home extends React.Component<IProps, IState> {
 
     return <ScrollView style={styles.scrollView} horizontal={true}>
       <Table>
-        <TableWrapper borderStyle={{borderWidth: 1, borderColor: '#E8E8E8'}} style={[styles.tableRow]}>
+        <TableWrapper borderStyle={{borderWidth: 1, borderColor: '#D3E5FF'}} style={[styles.tableRow]}>
           {
             tableHead.map((cellData, cellIndex) => (
               <Cell
@@ -178,7 +216,7 @@ class Home extends React.Component<IProps, IState> {
                   <View style={[styles.cellWrap, { width: widthArr[cellIndex] }]}>
                     {
                       cellIndex === 0 ? undefined : <>
-                        <Text style={styles.tableHeaderText}>周{utils[moment(item.date).day()+1]}</Text>
+                        <Text style={styles.tableHeaderText}>周{utils[moment(cellData).day()+1]}</Text>
                         <Text style={styles.headerCellSpanText}>{moment(cellData).format('MM-DD')}</Text>
                       </>
                     }
@@ -296,6 +334,17 @@ class Home extends React.Component<IProps, IState> {
           <Card noShadow style={styles.formCard}>
             <CardItem
               button
+              style={{
+                marginTop: 30,
+                paddingVertical: 21,
+                marginBottom: 15,
+                borderRadius: 10,
+                shadowColor: '#272727',
+                shadowOffset: { width: 0, height: 0 },
+                shadowOpacity: 0.1,
+                shadowRadius: 2,
+                elevation: 1,
+              }}
               onPress={async () => {
                 this.props.dispatch(NavigationActions.navigate({
                   routeName: 'DoctorDetails',

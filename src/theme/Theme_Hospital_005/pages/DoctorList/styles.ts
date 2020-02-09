@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
   container: {
-    backgroundColor: '#fff',
+    backgroundColor: '#EDF4FE',
     flex: 1,
   },
   header: {
@@ -140,6 +140,7 @@ export default StyleSheet.create({
     borderRightWidth: 0,
     borderLeftWidth: 0,
     borderBottomWidth: 0,
+    backgroundColor: '#EDF4FE',
   },
   itemHeader: {
     flexDirection: 'row',
@@ -163,6 +164,6 @@ export default StyleSheet.create({
     fontWeight: '400',
   },
   strong: {
-    color: '#11CD8F',
+    color: '#1457FF',
   },
 });

@@ -104,7 +104,7 @@ class Home extends React.Component<IProps, IState> {
                   <Right />
               </Header>
               <StatusBar barStyle="dark-content" />
-              <Content style={{ backgroundColor: '#F9FBFF' }}
+              <Content style={{ backgroundColor: '#EDF4FE' }}
                        contentContainerStyle={{
                            padding: 16,
                        }}
@@ -115,6 +115,16 @@ class Home extends React.Component<IProps, IState> {
                               const { selected } = this.state;
                               const isSelect: boolean = selected && item.id === selected.id
                               return <CardItem
+                                style={{
+                                  paddingVertical: 21,
+                                  marginBottom: 15,
+                                  borderRadius: 10,
+                                  shadowColor: '#272727',
+                                  shadowOffset: { width: 0, height: 0 },
+                                  shadowOpacity: 0.1,
+                                  shadowRadius: 2,
+                                  elevation: 1,
+                                }}
                                 button
                                 onPress={async () => {
                                     this.props.dispatch(NavigationActions.navigate({
@@ -148,8 +158,11 @@ class Home extends React.Component<IProps, IState> {
                                                   {item.professionalTitle}
                                               </Text>
                                           </View>
-
-                                          <Text style={styles.note}> {item.hospitalName} {item.medicalDepartment}</Text>
+                                          <Text style={styles.note}>
+                                            {item.hospitalName} 
+                                            <View style={{ width: 33, }} />
+                                            {item.medicalDepartment}
+                                          </Text>
                                           <Text  numberOfLines={2} style={[styles.note, styles.strong]}>擅长：{item.skillsIntro}</Text>
                                       </Body>
                                   </Left>

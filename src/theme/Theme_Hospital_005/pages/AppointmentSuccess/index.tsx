@@ -59,9 +59,30 @@ class Home extends React.Component<IProps, IState> {
     const time = params.time;
     return <View>
       <Card noShadow style={styles.formCard}>
-        <CardItem style={styles.formItem}>
+      <CardItem style={[styles.formItem, {
+          backgroundColor: 'transparent'
+        }]}>
           <Text style={styles.formItemTitle}>{this.props.postType || '挂号'}信息</Text>
         </CardItem>
+        <View style={[styles.formItem, {
+          paddingVertical: 0,
+          marginBottom: 15,
+          borderRadius: 10,
+          shadowColor: '#272727',
+          shadowOffset: { width: 0, height: 0 },
+          shadowOpacity: 0.1,
+          shadowRadius: 2,
+          elevation: 1,
+          paddingTop: 0,
+          paddingRight: 0,
+          paddingBottom: 0,
+          
+          paddingLeft: 0,
+        }]}>
+          <View style={{
+            borderRadius: 10,
+            overflow: 'hidden',
+          }}>
         <CardItem style={styles.formItem}>
           <Text style={styles.formItemLabel}>医生姓名</Text>
           <Text style={styles.ipt}>
@@ -86,13 +107,36 @@ class Home extends React.Component<IProps, IState> {
             {doctorInfo.medicalDepartment}
           </Text>
         </CardItem>
+        </View>
+        </View>
       </Card>
 
 
       <Card noShadow style={styles.formCard}>
-        <CardItem style={styles.formItem}>
+      <CardItem style={[styles.formItem, {
+          backgroundColor: 'transparent'
+        }]}>
           <Text style={styles.formItemTitle}>就诊人信息</Text>
         </CardItem>
+        <View style={[styles.formItem, {
+          paddingVertical: 0,
+          marginBottom: 15,
+          borderRadius: 10,
+          shadowColor: '#272727',
+          shadowOffset: { width: 0, height: 0 },
+          shadowOpacity: 0.1,
+          shadowRadius: 2,
+          elevation: 1,
+          paddingTop: 0,
+          paddingRight: 0,
+          paddingBottom: 0,
+          
+          paddingLeft: 0,
+        }]}>
+          <View style={{
+            borderRadius: 10,
+            overflow: 'hidden',
+          }}>
         <CardItem style={styles.formItem}>
           <Text style={styles.formItemLabel}>就诊人</Text>
           <Text style={styles.ipt}>
@@ -117,6 +161,8 @@ class Home extends React.Component<IProps, IState> {
             {time}
           </Text>
         </CardItem>
+        </View>
+        </View>
       </Card>
 
     </View>
@@ -174,7 +220,9 @@ class Home extends React.Component<IProps, IState> {
           contentContainerStyle={styles.bodyContent}
         >
           <Card noShadow style={styles.formCard}>
-            <CardItem style={[styles.formItem, styles.success]}>
+            <CardItem style={[styles.formItem, styles.success, {
+              backgroundColor: 'transparent'
+            }]}>
               <FastImage
                 style={{
                   marginTop: 24,
@@ -201,7 +249,7 @@ class Home extends React.Component<IProps, IState> {
           <View style={styles.btnWrap}>
             <LinearGradient
               start={{x: 0, y: 0}} end={{x: 1, y: 1}}
-              colors={['#6AE27C', '#17D397']}
+              colors={['#1457FF', '#1457FF']}
               style={[
                 styles.linearGradientBtn,
               ]}

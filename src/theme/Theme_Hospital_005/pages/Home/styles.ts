@@ -21,11 +21,17 @@ export default StyleSheet.create({
     minHeight: 118,
     backgroundColor: '#FFFFFF',
     borderRadius: 4,
-    borderLeftWidth: 0,
     borderTopWidth: 0,
     borderRightWidth: 0,
     borderBottomWidth: 0,
-    overflow: 'hidden'
+    borderLeftWidth: 0,
+    borderColor: '#1457FF',
+    shadowColor: '#1457FF',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    elevation: 1,
+  
   },
   typeLineDefault: {
     width: 16,
@@ -79,13 +85,16 @@ export default StyleSheet.create({
     alignItems: 'flex-start',
   },
   itemBodyTitle: {
+    paddingLeft: 16,
     flex: 1,
     flexGrow: 1,
-    color: '#404E66',
+    color: '#1457FF',
     fontSize: 16,
-    lineHeight: 22.5,
+    lineHeight: 30,
     fontWeight: '500',
-    textAlign: 'justify'
+    textAlign: 'justify',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   itemBodyText: {
     flexGrow: 1,

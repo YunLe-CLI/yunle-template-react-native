@@ -20,6 +20,7 @@ import {
   Tabs,
   Tab,
   Picker,
+  Switch,
 } from 'native-base';
 import FastImage from 'react-native-fast-image';
 import _ from 'lodash';
@@ -86,6 +87,7 @@ class Home extends React.Component<IProps, IState> {
     department: undefined,
     level: undefined,
     today: [],
+    isToday: false,
     registrations: [],
   };
   setIntervalEvent: any = undefined;
@@ -224,160 +226,205 @@ class Home extends React.Component<IProps, IState> {
         typeText = '已结束';
       }
     }
-    return <Card style={styles.itemBox}>
-      <View style={[styles.typeLineDefault]}></View>
-      <CardItem button onPress={() => {
-        // this.props.dispatch(NavigationActions.navigate({
-        //   routeName: 'AppointmentDetails',
-        //   params: {},
-        // }));
-      }} style={styles.itemBoxBody}>
-        <View style={styles.itemBoxLeft}>
-          <FastImage
-            style={{
-              width: 40,
-              height: 40,
-              alignContent: 'center',
-              justifyContent: 'center',
-            }}
-            source={icon}
-            resizeMode={FastImage.resizeMode.contain}
-          />
-          <Text  style={[styles.itemIconText, iconText]}>
-            {typeText}
-          </Text>
-        </View>
-        <View style={styles.itemBoxContent}>
-          <TouchableOpacity
-            onPress={() => {
-              this.props.dispatch(NavigationActions.navigate({
-                routeName: 'Room',
-                params: {
-                  metaData: data.metaData,
-                },
-              }))
-            }}
-          >
-            <Title style={styles.itemBodyTitle}>
-              {data.timeslot === 1 ? '上午' : ''}
-              {data.timeslot === 2 ? '下午' : ''}
-              -{data.medicalDepartment}
-            </Title>
-          </TouchableOpacity>
-          <Text style={[styles.itemBodyText, styles.itemBodyText001]}>
-            {data.hospitalName} {data.name} {data.professionalTitle}
-          </Text>
-          <View style={[styles.itemBoxFooter]}>
-            {
-              data.position >= 0 ? (
-                <Text numberOfLines={2} style={[styles.itemBodyText]}>
-                  前面还有
-                  <Text style={[styles.itemBodyText, styles.itemBodyText002]}>{data.position}</Text>
-                  人
-                </Text>
-              ) : undefined
-            }
-
-            <View style={styles.itemBodyBtnWrap}>
-              {
-                (type === 1) ? <LinearGradient
-                  start={{x: 0, y: 0}} end={{x: 1, y: 1}}
-                  colors={['#DCE3EE', '#DCE3EE']}
-                  style={[
-                    styles.linearGradientBtn,
-                  ]}
-                >
-                  <Button
-                    full
-                    transparent
-                    rounded
-                    onPress={async () => {
-                      // this.props.dispatch(NavigationActions.navigate({
-                      //   routeName: 'Room',
-                      //   params: {},
-                      // }))
-                    }}
-                    style={[
-                      styles.btnDefault,
-                      styles.submitButton
-                    ]}
-                    textStyle={{
-                      color: '#fff'
-                    }}
-                  >
-                    <Title style={styles.btnText}>进入诊室</Title>
-                  </Button>
-                </LinearGradient> : undefined
-              }
-              {
-                (type === 3) ? <LinearGradient
-                  start={{x: 0, y: 0}} end={{x: 1, y: 1}}
-                  colors={['#155BD4', '#155BD4']}
-                  style={[
-                    styles.linearGradientBtn,
-                  ]}
-                >
-                  <Button
-                    full
-                    transparent
-                    rounded
-                    onPress={async () => {
-                      this.props.dispatch(NavigationActions.navigate({
-                        routeName: 'Room',
-                        params: {
-                          metaData: data.metaData,
-                        },
-                      }))
-                    }}
-                    style={[
-                      styles.btnDefault,
-                      styles.submitButton
-                    ]}
-                    textStyle={{
-                      color: '#fff'
-                    }}
-                  >
-                    <Title style={styles.btnText}>进入诊室</Title>
-                  </Button>
-                </LinearGradient> : undefined
-              }
-              {
-                (type === 1) ? <LinearGradient
-                  start={{x: 0, y: 0}} end={{x: 1, y: 1}}
-                  colors={['transparent', 'transparent']}
-                  style={[
-                    styles.linearGradientBtn,
-                    styles.clearButton,
-                  ]}
-                >
-                  <Button
-                    full
-                    transparent
-                    rounded
-                    onPress={async () => {
-                      this.props.handleShowCancelModal();
-                    }}
-                    style={[
-                      styles.btnDefault,
-                    ]}
-                    textStyle={{
-                      color: '#fff'
-                    }}
-                  >
-                    <Title style={[styles.btnText, styles.btnClearText]}>取消预约</Title>
-                  </Button>
-                </LinearGradient> : undefined
-              }
-
+    return <View>
+      <View>
+        <View style={{
+          paddingBottom: 15,
+        }}>
+          <View style={{
+              position: 'absolute',
+              width: 10,
+              top: 15,
+              left: 10,
+              height: 100,
+              backgroundColor: '#E7F1FF',
+            }} />
+            <View style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}>
+              <View style={{
+                width: 30,
+                height: 30,
+                borderRadius: 15,
+                backgroundColor: '#E7F1FF',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+                <View style={{
+                  borderRadius: 15,
+                  width: 18,
+                  height: 18,
+                  backgroundColor: '#fff',
+                }} />
+              </View>
+              <View>
+              <Title style={styles.itemBodyTitle}>
+                {
+                  moment(data.date).format('YYYY年MM月DD日')
+                }
+                <View style={{ width: 10, }} />
+                {data.timeslot === 1 ? '上午' : ''}
+                {data.timeslot === 2 ? '下午' : ''}
+              </Title>
             </View>
           </View>
         </View>
-      </CardItem>
-    </Card>
+      </View>
+      <Card style={styles.itemBox}>
+        <CardItem button onPress={() => {
+          // this.props.dispatch(NavigationActions.navigate({
+          //   routeName: 'AppointmentDetails',
+          //   params: {},
+          // }));
+        }} style={styles.itemBoxBody}>
+          <View style={styles.itemBoxLeft}>
+            <FastImage
+              style={{
+                width: 40,
+                height: 40,
+                alignContent: 'center',
+                justifyContent: 'center',
+              }}
+              source={icon}
+              resizeMode={FastImage.resizeMode.contain}
+            />
+            <Text  style={[styles.itemIconText, iconText]}>
+              {typeText}
+            </Text>
+          </View>
+          <View style={styles.itemBoxContent}>
+            <TouchableOpacity
+              onPress={() => {
+                this.props.dispatch(NavigationActions.navigate({
+                  routeName: 'Room',
+                  params: {
+                    metaData: data.metaData,
+                  },
+                }))
+              }}
+            >
+              <Title style={[{
+                paddingLeft: 0,
+                color: '#2C3153',
+              }]}>{data.medicalDepartment}
+              </Title>
+            </TouchableOpacity>
+            <Text style={[styles.itemBodyText, styles.itemBodyText001]}>
+              {data.hospitalName}{data.name}-{data.professionalTitle}
+            </Text>
+            <View style={[styles.itemBoxFooter]}>
+              {
+                data.position >= 0 ? (
+                  <Text numberOfLines={2} style={[styles.itemBodyText]}>
+                    前面还有
+                    <Text style={[styles.itemBodyText, styles.itemBodyText002]}>{data.position}</Text>
+                    人
+                  </Text>
+                ) : undefined
+              }
+
+              <View style={styles.itemBodyBtnWrap}>
+                {
+                  (type === 1) ? <LinearGradient
+                    start={{x: 0, y: 0}} end={{x: 1, y: 1}}
+                    colors={['#DCE3EE', '#DCE3EE']}
+                    style={[
+                      styles.linearGradientBtn,
+                    ]}
+                  >
+                    <Button
+                      full
+                      transparent
+                      rounded
+                      onPress={async () => {
+                        // this.props.dispatch(NavigationActions.navigate({
+                        //   routeName: 'Room',
+                        //   params: {},
+                        // }))
+                      }}
+                      style={[
+                        styles.btnDefault,
+                        styles.submitButton
+                      ]}
+                      textStyle={{
+                        color: '#fff'
+                      }}
+                    >
+                      <Title style={styles.btnText}>进入诊室</Title>
+                    </Button>
+                  </LinearGradient> : undefined
+                }
+                {
+                  (type === 3) ? <LinearGradient
+                    start={{x: 0, y: 0}} end={{x: 1, y: 1}}
+                    colors={['#155BD4', '#155BD4']}
+                    style={[
+                      styles.linearGradientBtn,
+                    ]}
+                  >
+                    <Button
+                      full
+                      transparent
+                      rounded
+                      onPress={async () => {
+                        this.props.dispatch(NavigationActions.navigate({
+                          routeName: 'Room',
+                          params: {
+                            metaData: data.metaData,
+                          },
+                        }))
+                      }}
+                      style={[
+                        styles.btnDefault,
+                        styles.submitButton
+                      ]}
+                      textStyle={{
+                        color: '#fff'
+                      }}
+                    >
+                      <Title style={styles.btnText}>进入诊室</Title>
+                    </Button>
+                  </LinearGradient> : undefined
+                }
+                {
+                  (type === 1) ? <LinearGradient
+                    start={{x: 0, y: 0}} end={{x: 1, y: 1}}
+                    colors={['transparent', 'transparent']}
+                    style={[
+                      styles.linearGradientBtn,
+                      styles.clearButton,
+                    ]}
+                  >
+                    <Button
+                      full
+                      transparent
+                      rounded
+                      onPress={async () => {
+                        this.props.handleShowCancelModal();
+                      }}
+                      style={[
+                        styles.btnDefault,
+                      ]}
+                      textStyle={{
+                        color: '#fff'
+                      }}
+                    >
+                      <Title style={[styles.btnText, styles.btnClearText]}>取消预约</Title>
+                    </Button>
+                  </LinearGradient> : undefined
+                }
+
+              </View>
+            </View>
+          </View>
+        </CardItem>
+      </Card>
+    </View>
   }
 
   renderTabList() {
-    const { today, registrations } = this.state;
+    const { today, registrations, isToday } = this.state;
     const todayList = {
       title: "今日预约",
       data: today,
@@ -393,9 +440,15 @@ class Home extends React.Component<IProps, IState> {
     if (!today || !today.length) {
       list = [registrationsList]
     }
+    if (isToday) {
+      list = [todayList]
+    } else {
+      list = [registrationsList]
+    }
     return <SectionList
       style={{
         flexGrow: 1,
+        backgroundColor: '#fff'
       }}
       contentContainerStyle={{
         paddingHorizontal: 16,
@@ -406,15 +459,49 @@ class Home extends React.Component<IProps, IState> {
       onRefresh={this._onRefresh}
       showsVerticalScrollIndicator={false}
       renderItem={({ item, index, section }) => {
-        if (item === 'MSG') {
-          return this.allInfo()
-        }
         return <View key={JSON.stringify(item)}>
           {this.renderItem(item)}
         </View>
       }}
       renderSectionHeader={({ section: { title } }) => {
-        return <Text style={styles.itemTitle}>{title}</Text>
+        return <View style={{
+          justifyContent: 'center',
+          alignItems: 'flex-end',
+          height: 48,
+        }}>
+          <TouchableOpacity 
+          onPress={() => {
+            this.setState({
+              isToday: !this.state.isToday,
+            })
+          }}
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: '#fff',
+            paddingHorizontal: 10,
+          }}>
+            <Switch
+              value={this.state.isToday}
+              onValueChange={(v) => {
+                this.setState({
+                  isToday: v
+                })
+              }}
+              style={{
+                marginRight: -10,
+                transform: [{
+                  scale: .4
+                }]
+              }}
+             />
+            <Text style={{
+              fontSize: 15,
+              color: '#787799',
+            }}>显示今日</Text>
+          </TouchableOpacity>  
+        </View>
       }}
       sections={list || []}
       ItemSeparatorComponent={() => <View style={{ height: 12 }} />}
@@ -567,16 +654,26 @@ class Home extends React.Component<IProps, IState> {
               paddingTop: getStatusBarHeight(true),
               justifyContent: 'center',
               alignItems: 'center',
-              height: 238 - getStatusBarHeight(true),
+              height: 238 - 20,
             }}
           >
+            <Text style={{
+              color: '#fff',
+              fontSize: 18,
+              marginBottom: 27,
+            }}>
+              我的预约
+            </Text>
             <View>
               <FastImage
                 style={{
-                  width: 78,
-                  height: 86,
+                  marginBottom: 20,
+                  width: 64,
+                  height: 64,
                   alignContent: 'center',
                   justifyContent: 'center',
+                  borderRadius: 32,
+                  overflow: 'hidden'
                 }}
                 source={userImg}
                 resizeMode={FastImage.resizeMode.contain}
@@ -584,7 +681,7 @@ class Home extends React.Component<IProps, IState> {
             </View>
             <Text style={{
               color: '#404E66',
-              fontSize: 16,
+              fontSize: 20,
               lineHeight: 22.5,
               fontWeight: '400',
             }}>{user.name || '未知'}</Text>

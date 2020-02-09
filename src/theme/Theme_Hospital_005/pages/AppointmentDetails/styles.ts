@@ -13,10 +13,10 @@ export default StyleSheet.create({
     color: '#192038',
   },
   body: {
-    backgroundColor: '#F9FBFF',
+    backgroundColor: '#EDF4FE',
   },
   bodyContent: {
-    // paddingHorizontal: 16,
+    paddingHorizontal: 15,
   },
   btn: {
     borderRadius: 4,
@@ -26,10 +26,11 @@ export default StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     height:60,
+    backgroundColor: '#EDF4FE'
   },
   btnWrap: {
     flexGrow: 1,
-    marginHorizontal: 16,
+    marginHorizontal: 40,
   },
   linearGradientBtn: {
     borderRadius: 24,
@@ -47,6 +48,7 @@ export default StyleSheet.create({
     borderTopWidth: 0,
     borderRightWidth: 0,
     borderBottomWidth: 0,
+    backgroundColor: 'transparent'
   },
   formItem: {
     minHeight: 44,

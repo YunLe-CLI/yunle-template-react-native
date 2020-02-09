@@ -14,10 +14,10 @@ export default StyleSheet.create({
     color: '#192038',
   },
   body: {
-    backgroundColor: '#F9FBFF',
+    backgroundColor: '#EDF4FE',
   },
   bodyContent: {
-    // paddingHorizontal: 16,
+    paddingHorizontal: 15,
   },
   btn: {
     borderRadius: 4,
@@ -48,6 +48,7 @@ export default StyleSheet.create({
     borderTopWidth: 0,
     borderRightWidth: 0,
     borderBottomWidth: 0,
+    backgroundColor: 'transparent'
   },
   formItem: {
     flex: 1,
@@ -119,18 +120,24 @@ export default StyleSheet.create({
     fontWeight: '400',
   },
   strong: {
-    color: '#11CD8F',
+    color: '#1457FF',
   },
   formItemMoney: {
-    color: '#FF3B0E',
+    color: '#FF8A00',
   },
   scrollView: {
+    marginLeft: -1,
+    marginTop: -1,
+    marginBottom: -1,
+    marginRight: -1,
     flex: 1,
     flexGrow: 1,
+    borderRadius: 10,
+    overflow: 'hidden',
   },
   tableHeader: {
     // height: 50,
-    backgroundColor: '#FAFAFA',
+    backgroundColor: '#D3E5FF',
     borderColor: '#E8E8E8',
     justifyContent: 'center',
   },
@@ -173,7 +180,7 @@ export default StyleSheet.create({
     fontSize: 12,
   },
   start: {
-    color: '#11CD8F',
+    color: '#1457FF',
     textAlign: 'center',
     fontWeight: '400',
     fontSize: 12,
