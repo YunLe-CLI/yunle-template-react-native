@@ -1,6 +1,6 @@
 import React, {createContext} from 'react';
 import {
-  View,
+  View, ImageBackground,
 } from 'react-native';
 import {
   Container,
@@ -222,7 +222,11 @@ class LoginProvider extends React.Component<IProps, IState> {
             // });
           }}
         >
-          <View style={{ flex: 1 }}>
+          <ImageBackground
+           source={require('./assets/bg/index.png')}
+           style={{ flex: 1,
+            width: '100%',
+           }}>
             <Container style={styles.container}>
               <Content
                 disableKBDismissScroll
@@ -237,9 +241,8 @@ class LoginProvider extends React.Component<IProps, IState> {
                   <View style={styles.logoWrap}>
                     <FastImage
                       style={{
-                        width: 39.5,
-                        height: 39.5,
-                        marginRight: 13.5,
+                        width: 100,
+                        height: 100,
                         alignContent: 'center',
                         justifyContent: 'center',
                       }}
@@ -247,18 +250,29 @@ class LoginProvider extends React.Component<IProps, IState> {
                       resizeMode={FastImage.resizeMode.contain}
                     />
                     <Text style={{
-                      fontSize: 32,
+                      fontSize: 20,
                       fontWeight: '500',
                       lineHeight: 45,
-                      color: '#11CD8F',
+                      color: '#000',
                     }}>
-                      登录
+                      好医生
                     </Text>
                   </View>
                   <View style={styles.formWrap}>
                     <Form>
                       <Item style={styles.iptItem}>
-                        <Input value={this.state.mobile} style={styles.ipt} placeholder="输入用户名" placeholderTextColor={"#9C9EB9"}
+                        <FastImage
+                          style={{
+                            marginRight: 18,
+                            width: 20,
+                            height: 20,
+                            alignContent: 'center',
+                            justifyContent: 'center',
+                          }}
+                          source={require('./assets/user/index.png')}
+                          resizeMode={FastImage.resizeMode.contain}
+                        />
+                        <Input value={this.state.mobile} style={styles.ipt} placeholder="输入用户名" placeholderTextColor={"#000000"}
                                onChangeText={(value) => {
                                  this.setState({
                                    mobile: value,
@@ -267,7 +281,18 @@ class LoginProvider extends React.Component<IProps, IState> {
                         />
                       </Item>
                       <Item style={styles.iptItem}>
-                        <Input secureTextEntry value={this.state.password} style={styles.ipt} placeholder="输入密码" placeholderTextColor={"#9C9EB9"}
+                        <FastImage
+                          style={{
+                            marginRight: 18,
+                            width: 20,
+                            height: 20,
+                            alignContent: 'center',
+                            justifyContent: 'center',
+                          }}
+                          source={require('./assets/pwd/index.png')}
+                          resizeMode={FastImage.resizeMode.contain}
+                        />
+                        <Input secureTextEntry value={this.state.password} style={styles.ipt} placeholder="输入密码" placeholderTextColor={"#000000"}
                                onChangeText={(value) => {
                                  this.setState({
                                    password: value,
@@ -278,16 +303,7 @@ class LoginProvider extends React.Component<IProps, IState> {
                     </Form>
                   </View>
                   <View style={styles.btnWrap}>
-                    <LinearGradient
-                      start={{x: 0, y: 0}} end={{x: 1, y: 1}}
-                      colors={['#6AE27C', '#17D397']}
-                      style={[
-                        styles.linearGradientBtn,
-                        {
-                          opacity: this.state.password && this.state.mobile ? 1 : 0.4
-                        }
-                      ]}
-                    >
+                   
                       <Button
                         transparent
                         rounded
@@ -299,14 +315,22 @@ class LoginProvider extends React.Component<IProps, IState> {
                           color: '#fff'
                         }}
                       >
-                        <Title>登录</Title>
+                        <FastImage
+                          style={{
+                            width: 80,
+                            height: 80,
+                            alignContent: 'center',
+                            justifyContent: 'center',
+                          }}
+                          source={require('./assets/btn/index.png')}
+                          resizeMode={FastImage.resizeMode.contain}
+                        />
                       </Button>
-                    </LinearGradient>
                   </View>
                 </View>
               </Content>
             </Container>
-          </View>
+          </ImageBackground>
         </Modal>
       </LoginContext.Provider>
     );
