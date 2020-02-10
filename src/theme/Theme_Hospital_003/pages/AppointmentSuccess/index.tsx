@@ -58,63 +58,44 @@ class Home extends React.Component<IProps, IState> {
     const doctorInfo: DOCTOR_ITEM = params.doctorInfo || {};
     const time = params.time;
     return <View>
-      <Card noShadow style={styles.formCard}>
-        <CardItem style={styles.formItem}>
+      <Card noShadow style={[styles.formCard, {
+        backgroundColor: '#16183E'
+      }]}>
+        <CardItem style={[styles.formItem, {
+        backgroundColor: '#16183E'
+      }]}>
           <Text style={styles.formItemTitle}>{this.props.postType || '挂号'}信息</Text>
         </CardItem>
-        <CardItem style={styles.formItem}>
+        <CardItem style={[styles.formItem, {
+          backgroundColor:'#2C2D59'
+        }]}>
           <Text style={styles.formItemLabel}>医生姓名</Text>
           <Text style={styles.ipt}>
             {doctorInfo.name}
           </Text>
         </CardItem>
-        <CardItem style={styles.formItem}>
+        <CardItem style={[styles.formItem, {
+          backgroundColor:'#2C2D59'
+        }]}>
           <Text style={styles.formItemLabel}>医生职称</Text>
           <Text style={styles.ipt}>
             {doctorInfo.professionalTitle}
           </Text>
         </CardItem>
-        <CardItem style={styles.formItem}>
+        <CardItem style={[styles.formItem, {
+          backgroundColor:'#2C2D59'
+        }]}>
           <Text style={styles.formItemLabel}>所在医院</Text>
           <Text style={styles.ipt}>
             {doctorInfo.hospitalName}
           </Text>
         </CardItem>
-        <CardItem style={styles.formItem}>
+        <CardItem style={[styles.formItem, {
+          backgroundColor:'#2C2D59'
+        }]}>
           <Text style={styles.formItemLabel}>就诊科室</Text>
           <Text style={styles.ipt}>
             {doctorInfo.medicalDepartment}
-          </Text>
-        </CardItem>
-      </Card>
-
-
-      <Card noShadow style={styles.formCard}>
-        <CardItem style={styles.formItem}>
-          <Text style={styles.formItemTitle}>就诊人信息</Text>
-        </CardItem>
-        <CardItem style={styles.formItem}>
-          <Text style={styles.formItemLabel}>就诊人</Text>
-          <Text style={styles.ipt}>
-            {user.name}
-          </Text>
-        </CardItem>
-        <CardItem style={styles.formItem}>
-          <Text style={styles.formItemLabel}>身份证号</Text>
-          <Text style={styles.ipt}>
-            {user.idCard}
-          </Text>
-        </CardItem>
-        <CardItem style={styles.formItem}>
-          <Text style={styles.formItemLabel}>手机号码</Text>
-          <Text style={styles.ipt}>
-            {user.mobile}
-          </Text>
-        </CardItem>
-        <CardItem style={styles.formItem}>
-          <Text style={styles.formItemLabel}>就诊时间</Text>
-          <Text style={styles.ipt}>
-            {time}
           </Text>
         </CardItem>
       </Card>
@@ -138,7 +119,6 @@ class Home extends React.Component<IProps, IState> {
         />
         <Header
           style={styles.header}
-          translucent
         >
           <Left
           >
@@ -149,21 +129,11 @@ class Home extends React.Component<IProps, IState> {
                 dispatch(NavigationActions.back());
               }}
             >
-              <FastImage
-                style={{
-                  marginLeft: 16,
-                  width: 20,
-                  height: 20,
-                  alignContent: 'center',
-                  justifyContent: 'center',
-                }}
-                source={icon}
-                resizeMode={FastImage.resizeMode.contain}
-              />
+              <Icon style={{ paddingHorizontal: 12, color: '#fff', fontSize: 26 }} name='arrow-back' />
             </Button>
           </Left>
           <Body>
-            <Title style={styles.headerText}>{this.props.postType || '挂号'}成功</Title>
+            <Text style={styles.headerText}>{this.props.postType || '挂号'}成功</Text>
           </Body>
           <Right/>
         </Header>
@@ -173,8 +143,13 @@ class Home extends React.Component<IProps, IState> {
           style={styles.body}
           contentContainerStyle={styles.bodyContent}
         >
-          <Card noShadow style={styles.formCard}>
-            <CardItem style={[styles.formItem, styles.success]}>
+          <Card noShadow style={[styles.formCard, {
+            backgroundColor: '#16183E'
+          }]}>
+            <CardItem style={[styles.formItem, styles.success, {
+              backgroundColor: '#16183E',
+              borderBottomWidth: 0,
+            }]}>
               <FastImage
                 style={{
                   marginTop: 24,
@@ -201,7 +176,7 @@ class Home extends React.Component<IProps, IState> {
           <View style={styles.btnWrap}>
             <LinearGradient
               start={{x: 0, y: 0}} end={{x: 1, y: 1}}
-              colors={['#6AE27C', '#17D397']}
+              colors={['#0059D3', '#0059D3']}
               style={[
                 styles.linearGradientBtn,
               ]}

@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
   container: {
-    backgroundColor: '#F9FAFF',
+    backgroundColor: '#16183E',
     flex: 1,
   },
   boxWithShadow: {
@@ -86,7 +86,7 @@ export default StyleSheet.create({
   },
   loadingTText: {
     fontSize: 14,
-    color: '#333333',
+    color: '#999999',
     textAlign: 'center',
     fontWeight: '500',
   },

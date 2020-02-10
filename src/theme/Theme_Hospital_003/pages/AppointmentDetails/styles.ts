@@ -6,17 +6,16 @@ export default StyleSheet.create({
     flex: 1,
   },
   header: {
-    backgroundColor: '#fff',
     borderBottomWidth: 0,
   },
   headerText: {
-    color: '#192038',
+    color: '#fff',
   },
   body: {
-    backgroundColor: '#F9FBFF',
+    backgroundColor: '#16183E',
   },
   bodyContent: {
-    // paddingHorizontal: 16,
+    paddingHorizontal: 16,
   },
   btn: {
     borderRadius: 4,
@@ -26,13 +25,12 @@ export default StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     height:60,
+    backgroundColor: '#0059D3'
   },
   btnWrap: {
     flexGrow: 1,
-    marginHorizontal: 16,
   },
   linearGradientBtn: {
-    borderRadius: 24,
   },
   submitButton: {
     height: 48,
@@ -47,9 +45,13 @@ export default StyleSheet.create({
     borderTopWidth: 0,
     borderRightWidth: 0,
     borderBottomWidth: 0,
+    backgroundColor: '#16183E'
   },
   formItem: {
     minHeight: 44,
+    backgroundColor: '#2C2D59',
+    borderBottomColor: 'rgba(255,255,255,.1)',
+    borderBottomWidth: 1,
   },
   row: {
     flexDirection: 'row',
@@ -62,7 +64,7 @@ export default StyleSheet.create({
   formItemTitle: {
     fontSize: 16,
     fontWeight: '500',
-    color: '#404E66',
+    color: '#fff',
     lineHeight: 22.5,
   },
   formItemMoney: {
@@ -73,13 +75,16 @@ export default StyleSheet.create({
     marginRight: 16,
     fontSize: 14,
     fontWeight: '400',
-    color: '#8193AE',
+    color: '#fff',
     lineHeight: 22,
   },
   ipt: {
+    flex:1,
+    flexGrow: 1,
+    textAlign: 'right',
     fontSize: 14,
     fontWeight: '400',
-    color: '#404E66',
+    color: '#D4D5DD',
     lineHeight: 22,
   },
   iptMultiline: {

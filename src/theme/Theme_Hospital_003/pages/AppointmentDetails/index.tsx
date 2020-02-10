@@ -1,5 +1,6 @@
 import React from 'react';
-import {StatusBar, Dimensions, View} from 'react-native';
+import {StatusBar, Dimensions, View, TouchableOpacity} from 'react-native';
+import Modal from "react-native-modal";
 import { connect } from 'react-redux';
 import {
   Container,
@@ -53,7 +54,7 @@ class Home extends React.Component<IProps, IState> {
 
   async postData(time: string) {
     try {
-      const { navigation, user } = this.props;
+      const { navigation, user = {} } = this.props;
       const { params = {} } = navigation.state;
       const registration_id = params.registration_id || '';
       const doctorInfo = params.doctorInfo || {};
@@ -64,13 +65,9 @@ class Home extends React.Component<IProps, IState> {
         patientId: user.id,
       })
       if (res.code === 0) {
-        this.props.dispatch(StackActions.replace({
-          routeName: 'AppointmentSuccess',
-          params: {
-            doctorInfo,
-            time
-          },
-        }))
+        this.state({
+          isVisible: true,
+        })
         return;
       }
       throw res.msg
@@ -121,126 +118,106 @@ class Home extends React.Component<IProps, IState> {
 
   renderForm() {
     const { payType } = this.state;
-    const { navigation, user, postType } = this.props;
+    const { navigation, user = {}, postType } = this.props;
     const { params = {} } = navigation.state;
     const doctorInfo:DOCTOR_ITEM = params.doctorInfo || {};
     const time = params.time;
-    return <View>
+    return <View style={{
+      marginTop: 20,
+    }}>
       <Card noShadow style={styles.formCard}>
-        <CardItem style={styles.formItem}>
-          <Text style={styles.formItemTitle}>{postType || '挂号'}信息</Text>
-        </CardItem>
-        <CardItem style={styles.formItem}>
-          <Text style={styles.formItemLabel}>医生姓名</Text>
-          <Text style={styles.ipt}>
-            {doctorInfo.name}
-          </Text>
-        </CardItem>
-        <CardItem style={styles.formItem}>
-          <Text style={styles.formItemLabel}>医生职称</Text>
-          <Text style={styles.ipt}>
-            {doctorInfo.professionalTitle}
-          </Text>
-        </CardItem>
-        <CardItem style={styles.formItem}>
-          <Text style={styles.formItemLabel}>所在医院</Text>
-          <Text style={styles.ipt}>
-            {doctorInfo.hospitalName}
-          </Text>
-        </CardItem>
-        <CardItem style={styles.formItem}>
-          <Text style={styles.formItemLabel}>就诊科室</Text>
-          <Text style={styles.ipt}>
-            {doctorInfo.medicalDepartment}
-          </Text>
-        </CardItem>
         <CardItem style={styles.formItem}>
           <Text style={styles.formItemLabel}>就诊时间</Text>
           <Text style={styles.ipt}>
             {time}
           </Text>
         </CardItem>
-      </Card>
 
-
-      <Card noShadow style={styles.formCard}>
         <CardItem style={styles.formItem}>
-          <Text style={styles.formItemTitle}>就诊人信息</Text>
+          <Text style={styles.formItemLabel}>就诊科室</Text>
+          <Text style={styles.ipt}>
+            {doctorInfo.medicalDepartment}
+          </Text>
         </CardItem>
+
         <CardItem style={styles.formItem}>
-          <Text style={styles.formItemLabel}>就诊人</Text>
+          <Text style={styles.formItemLabel}>医生姓名</Text>
+          <Text style={styles.ipt}>
+            {doctorInfo.name}
+          </Text>
+        </CardItem>
+
+        <CardItem style={styles.formItem}>
+          <Text style={styles.formItemLabel}>就诊人姓名</Text>
           <Text style={styles.ipt}>
             {user.name}
           </Text>
         </CardItem>
+
+        <CardItem style={styles.formItem}>
+          <Text style={styles.formItemLabel}>医生职称</Text>
+          <Text style={styles.ipt}>
+            {doctorInfo.professionalTitle}
+          </Text>
+        </CardItem>
+
         <CardItem style={styles.formItem}>
           <Text style={styles.formItemLabel}>身份证号</Text>
           <Text style={styles.ipt}>
             123456789098765432
           </Text>
         </CardItem>
+        
         <CardItem style={styles.formItem}>
           <Text style={styles.formItemLabel}>手机号码</Text>
           <Text style={styles.ipt}>
             {user.name}
           </Text>
         </CardItem>
-        <CardItem style={styles.formItem}>
-          <Text style={[styles.formItemLabel, {
-            alignSelf: 'flex-start'
-          }]}>看诊疾病</Text>
-          <View style={{ flex: 1, flexGrow: 1, backgroundColor: '#F9FBFF', borderRadius: 2, }}>
-            <Textarea rowSpan={5}
-                      value={this.state.remark}
-                      placeholderTextColor={'#B0BED4'} placeholder="请描述下就诊人的疾病/症状"
-                      onChangeText={(remark) => {
-                        this.setState({
-                          remark
-                        })
-                      }}
-            />
-          </View>
-        </CardItem>
+
       </Card>
 
       <Card noShadow style={styles.formCard}>
-        <CardItem style={[styles.formItem, styles.spaceBetween]}>
-          <Text style={styles.formItemTitle}>支付信息</Text>
-          <Text style={[styles.formItemTitle, styles.formItemMoney]}>{this.props.postType || '挂号'}费：￥{doctorInfo.registrationFee}</Text>
+        <CardItem style={[styles.formItem, styles.spaceBetween, {
+          backgroundColor: ''
+        }]}>
+          <Text style={styles.formItemTitle}>{this.props.postType || '挂号'}费：￥{doctorInfo.registrationFee}</Text>
         </CardItem>
-        <CardItem
+       <View style={{
+         flexDirection: 'row',
+       }}>
+       <CardItem
           onPress={() => {
             this.setState({
               payType: 'wx'
             })
           }}
-          button style={[styles.formItem, styles.spaceBetween]}>
+          button style={[styles.formItem, styles.spaceBetween, {
+            marginTop: 25,
+            backgroundColor: '#2C2D59',
+            width: 83.5,
+            height: 83.5,
+            borderTopWidth: 1,
+            borderRightWidth: 1,
+            borderBottomWidth: 1,
+            borderLeftWidth: 1,
+            borderColor: payType === 'wx' ? '#8CBDFF' : '#2C2D59',
+            borderBottomColor: payType === 'wx' ? '#8CBDFF' : '#2C2D59',
+            marginRight: 28,
+            justifyContent: 'center'
+          }]}>
           <View style={styles.row}>
             <FastImage
               style={{
-                marginRight: 16,
-                width: 36,
-                height: 36,
+                width: 43,
+                height: 43,
                 alignContent: 'center',
                 justifyContent: 'center',
               }}
               source={icon_wx}
               resizeMode={FastImage.resizeMode.contain}
             />
-            <Text style={styles.formItemLabel}>微信支付</Text>
           </View>
-
-          <FastImage
-            style={{
-              marginLeft: 16,
-              width: 16,
-              height: 16,
-              alignContent: 'center',
-              justifyContent: 'center',
-            }}
-            source={payType === 'wx' ? icon_check_active : icon_check_default}
-            resizeMode={FastImage.resizeMode.contain}
-          />
         </CardItem>
         <CardItem
           onPress={() => {
@@ -248,33 +225,34 @@ class Home extends React.Component<IProps, IState> {
               payType: 'ali'
             })
           }}
-          button style={[styles.formItem, styles.spaceBetween]}>
+          button style={[styles.formItem, styles.spaceBetween, {
+            marginTop: 25,
+            backgroundColor: '#2C2D59',
+            width: 83.5,
+            height: 83.5,
+            borderTopWidth: 1,
+            borderRightWidth: 1,
+            borderBottomWidth: 1,
+            borderLeftWidth: 1,
+            borderColor: payType === 'ali' ? '#8CBDFF' : '#2C2D59',
+            borderBottomColor: payType === 'ali' ? '#8CBDFF' : '#2C2D59',
+            marginRight: 28,
+            justifyContent: 'center'
+          }]}>
           <View style={styles.row}>
             <FastImage
               style={{
-                marginRight: 16,
-                width: 36,
-                height: 36,
+                width: 43,
+                height: 43,
                 alignContent: 'center',
                 justifyContent: 'center',
               }}
               source={icon_zfb}
               resizeMode={FastImage.resizeMode.contain}
             />
-            <Text style={styles.formItemLabel}>支付宝支付</Text>
           </View>
-          <FastImage
-            style={{
-              marginLeft: 16,
-              width: 16,
-              height: 16,
-              alignContent: 'center',
-              justifyContent: 'center',
-            }}
-            source={payType === 'ali' ? icon_check_active : icon_check_default}
-            resizeMode={FastImage.resizeMode.contain}
-          />
         </CardItem>
+       </View>
       </Card>
     </View>
   }
@@ -295,7 +273,6 @@ class Home extends React.Component<IProps, IState> {
         />
         <Header
           style={styles.header}
-          translucent
         >
           <Left
           >
@@ -306,21 +283,11 @@ class Home extends React.Component<IProps, IState> {
                 dispatch(NavigationActions.back());
               }}
             >
-              <FastImage
-                style={{
-                  marginLeft: 16,
-                  width: 20,
-                  height: 20,
-                  alignContent: 'center',
-                  justifyContent: 'center',
-                }}
-                source={icon}
-                resizeMode={FastImage.resizeMode.contain}
-              />
+              <Icon style={{ paddingHorizontal: 12, color: '#fff', fontSize: 26 }} name='arrow-back' />
             </Button>
           </Left>
           <Body>
-            <Title style={styles.headerText}>{this.props.postType || '挂号'}详情</Title>
+            <Text style={styles.headerText}>{this.props.postType || '挂号'}详情</Text>
           </Body>
           <Right/>
         </Header>
@@ -338,11 +305,11 @@ class Home extends React.Component<IProps, IState> {
           <View style={styles.btnWrap}>
             <LinearGradient
               start={{x: 0, y: 0}} end={{x: 1, y: 1}}
-              colors={['#6AE27C', '#17D397']}
+              colors={['#0059D3', '#0059D3']}
               style={[
                 styles.linearGradientBtn,
                 {
-                  opacity: this.state.remark ? 1 : 0.4
+                  opacity: this.state.remark ? 1 : 1
                 }
               ]}
             >
@@ -355,11 +322,7 @@ class Home extends React.Component<IProps, IState> {
                   //   routeName: 'AppointmentSuccess',
                   //   params: {},
                   // }))
-                  if (this.state.remark) {
-                    this.handlePay();
-                  } else {
-                    alert('请描述下就诊人的疾病/症状')
-                  }
+                  this.handlePay();
 
                 }}
                 style={styles.submitButton}
@@ -372,6 +335,124 @@ class Home extends React.Component<IProps, IState> {
             </LinearGradient>
           </View>
         </Footer>
+        <Modal 
+        useNativeDriver
+        onBackButtonPress={() => {
+          const { navigation, user = {} } = this.props;
+          const { params = {} } = navigation.state;
+          const registration_id = params.registration_id || '';
+          const doctorInfo = params.doctorInfo || {};
+          const time = params.time;
+          this.setState({
+            isVisible: false,
+          }, () => {
+            this.props.dispatch(StackActions.replace({
+              routeName: 'AppointmentSuccess',
+              params: {
+                doctorInfo,
+                time
+              },
+            }))
+          })
+        }}
+        onBackdropPress={() => {
+          const { navigation, user = {} } = this.props;
+          const { params = {} } = navigation.state;
+          const registration_id = params.registration_id || '';
+          const doctorInfo = params.doctorInfo || {};
+          const time = params.time;
+          this.setState({
+            isVisible: false,
+          }, () => {
+            this.props.dispatch(StackActions.replace({
+              routeName: 'AppointmentSuccess',
+              params: {
+                doctorInfo,
+                time
+              },
+            }))
+          })
+        }}
+        isVisible={this.state.isVisible}
+        style={{
+          marginLeft: 0,
+          marginRight: 0,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+        >
+            <View style={{
+              width: 255,
+              height: 255,
+              backgroundColor: '#F7F7F7',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+              <View style={{
+                position: 'absolute',
+                top: -44,
+                width: 30,
+                right: 10,
+                height: 44,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+                <TouchableOpacity
+                onPress={() => {
+                  const { navigation, user = {} } = this.props;
+                  const { params = {} } = navigation.state;
+                  const registration_id = params.registration_id || '';
+                  const doctorInfo = params.doctorInfo || {};
+                  const time = params.time;
+                  this.setState({
+                    isVisible: false,
+                  }, () => {
+                    this.props.dispatch(StackActions.replace({
+                      routeName: 'AppointmentSuccess',
+                      params: {
+                        doctorInfo,
+                        time
+                      },
+                    }))
+                  })
+                }}
+                 style={{
+                  width: 28,
+                  height: 28,
+                  borderRadius: 19,
+                  borderWidth: 1,
+                  borderColor: '#0059D3',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                  <Icon style={{
+                    color: '#0059D3',
+                  }} name="close" />
+                </TouchableOpacity>
+                <View style={{
+                  width: 1,
+                  flexGrow: 1,
+                  backgroundColor: '#0059D3',
+                }}></View>
+              </View>
+              <FastImage
+                style={{
+                  width: 110,
+                  height: 110,
+                  alignContent: 'center',
+                  justifyContent: 'center',
+                }}
+                source={require('./assets/success.png')}
+                resizeMode={FastImage.resizeMode.contain}
+              />
+              <Text style={{
+                fontSize: 17,
+                fontWeight: '500',
+                color: '#000',
+                marginTop: 16,
+              }}>{this.props.postType || '挂号'}成功</Text>
+            </View>
+        </Modal>
       </Container>
     );
   }

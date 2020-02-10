@@ -116,8 +116,8 @@ class Home extends React.Component<IProps, IState> {
     return <View>
       <Card noShadow style={styles.formCard}>
         <CardItem style={styles.formItem}>
-          <Text style={styles.formItemLabel}><Text style={{ color: '#FE0E07' }}>*</Text>姓名</Text>
-          <Input value={this.state.name} style={styles.ipt} placeholder="请输入姓名" placeholderTextColor={"#9C9EB9"}
+          <Text style={styles.formItemLabel}><Text style={{ color: '#FD8C8C' }}>*</Text>姓名</Text>
+          <Input value={this.state.name} style={styles.ipt} placeholder="请输入患者姓名" placeholderTextColor={"#9C9EB9"}
                  onChangeText={(value) => {
                    this.setState({
                      name: value,
@@ -128,7 +128,7 @@ class Home extends React.Component<IProps, IState> {
 
         <CardItem style={styles.formItem}>
           <Text style={styles.formItemLabel}>年龄</Text>
-          <Input value={this.state.age} style={styles.ipt} placeholder="请输入年龄" placeholderTextColor={"#9C9EB9"}
+          <Input value={this.state.age} style={styles.ipt} placeholder="请输入性别" placeholderTextColor={"#9C9EB9"}
                  onChangeText={(value) => {
                    this.setState({
                      age: value,
@@ -138,7 +138,7 @@ class Home extends React.Component<IProps, IState> {
         </CardItem>
 
         <CardItem style={styles.formItem}>
-          <Text style={styles.formItemLabel}><Text style={{ color: '#FE0E07' }}>*</Text>身份证号</Text>
+          <Text style={styles.formItemLabel}>身份证号</Text>
           <Input value={this.state.idCard} style={styles.ipt} placeholder="请输入身份证号" placeholderTextColor={"#9C9EB9"}
                  onChangeText={(value) => {
                    this.setState({
@@ -149,7 +149,7 @@ class Home extends React.Component<IProps, IState> {
         </CardItem>
 
         <CardItem style={styles.formItem}>
-          <Text style={styles.formItemLabel}><Text style={{ color: '#FE0E07' }}>*</Text>手机号</Text>
+          <Text style={styles.formItemLabel}><Text style={{ color: '#FD8C8C' }}>*</Text>手机号</Text>
           <Input value={this.state.phone} style={styles.ipt} placeholder="请输入手机号" placeholderTextColor={"#9C9EB9"}
                  onChangeText={(value) => {
                    this.setState({
@@ -160,8 +160,8 @@ class Home extends React.Component<IProps, IState> {
         </CardItem>
 
         <CardItem style={styles.formItem}>
-          <Text style={styles.formItemLabel}>过敏史</Text>
-          <Input value={this.state.medicalHistory} style={styles.ipt} placeholder="请输入过敏史" placeholderTextColor={"#9C9EB9"}
+          <Text style={styles.formItemLabel}>既往病史</Text>
+          <Input value={this.state.medicalHistory} style={styles.ipt} placeholder="请输入病史" placeholderTextColor={"#9C9EB9"}
                  onChangeText={(value) => {
                    this.setState({
                      medicalHistory: value,
@@ -216,26 +216,9 @@ class Home extends React.Component<IProps, IState> {
         >
           {this.renderForm()}
           <View style={styles.btnWrap}>
-            <LinearGradient
-              start={{x: 0, y: 0}} end={{x: 1, y: 1}}
-              colors={['#5277F1', '#5277F1']}
-              style={[
-                styles.linearGradientBtn,
-                {
-                  opacity:
-                    this.state.name &&
-                    this.state.idCard &&
-                    this.state.birthdate &&
-                    this.state.gender &&
-                    this.state.age ?
-                      1 : 0.4
-                }
-              ]}
-            >
               <Button
                 full
                 transparent
-                rounded
                 onPress={async () => {
                   this.postData()
                 }}
@@ -244,9 +227,8 @@ class Home extends React.Component<IProps, IState> {
                   color: '#fff'
                 }}
               >
-                <Title>完成</Title>
+                <Title style={{ color: '#4292FF' }}>完成</Title>
               </Button>
-            </LinearGradient>
           </View>
         </Content>
       </Container>

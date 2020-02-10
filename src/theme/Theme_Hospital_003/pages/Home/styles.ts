@@ -19,7 +19,7 @@ export default StyleSheet.create({
   },
   itemBox: {
     minHeight: 118,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#2C2D59',
     borderRadius: 4,
     borderLeftWidth: 0,
     borderTopWidth: 0,
@@ -57,17 +57,15 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   itemIconText: {
-    marginTop: 6,
     color: '#13B6FF',
-    fontSize: 12,
-    lineHeight: 15,
+    fontSize: 14,
     fontWeight: '400',
   },
   itemIconText00: {
-    color: '#13B6FF',
+    color: '#999999',
   },
   itemIconText01: {
-    color: '#11CD8F',
+    color: '#5277F1',
   },
   itemIconText02: {
     color: '#B0BED4',
@@ -89,8 +87,7 @@ export default StyleSheet.create({
   },
   itemBodyText: {
     flexGrow: 1,
-    marginTop: 11,
-    color: '#8193AE',
+    color: '#fff',
     fontSize: 14,
     lineHeight: 20,
     fontWeight: '400',
@@ -107,7 +104,7 @@ export default StyleSheet.create({
     flex: 1,
     flexGrow: 1,
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    // justifyContent: 'space-between',
     alignItems: 'center',
     flexWrap: 'wrap'
   },
@@ -116,7 +113,7 @@ export default StyleSheet.create({
     flexGrow: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'flex-end',
+    // justifyContent: 'flex-end',
     alignItems: 'center',
   },
   btnDefault: {
@@ -129,11 +126,11 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   linearGradientBtn: {
-    marginLeft: 8,
-    borderRadius: 12,
+    marginRight: 8,
+    borderRadius: 2,
   },
   btnText: {
-    color: '#fff',
+    color: '#4292FF',
     fontSize: 12,
     lineHeight: 20,
     fontWeight: '400',
@@ -141,10 +138,10 @@ export default StyleSheet.create({
   },
   clearButton: {
     borderWidth: 1,
-    borderColor: '#11CD8F',
+    borderColor: '#4292FF',
   },
   btnClearText: {
-    color: '#11CD8F',
+    color: '#4292FF',
   },
   submitButton: {
 
@@ -153,14 +150,14 @@ export default StyleSheet.create({
     flexDirection: 'row'
   },
   btnTabText: {
-    color: '#404E66',
+    color: '#fff',
     fontSize: 14,
     lineHeight: 20,
     fontWeight: '400',
     textAlign: 'justify'
   },
   activeBtnTabText: {
-    color: '#11CD8F',
+    color: '#fff',
   },
   line: {
     width: 1,
@@ -170,8 +167,10 @@ export default StyleSheet.create({
   footerWrap: {
     borderTopColor: '#DCE3EE',
     height: 53,
+    backgroundColor: '#0059D3'
   },
   formContent: {
+    marginTop: 40,
     paddingHorizontal: 16,
     paddingVertical: 6,
   },
@@ -191,7 +190,7 @@ export default StyleSheet.create({
     marginRight: 27.5,
     fontSize: 15,
     fontWeight: '400',
-    color: '#404E66',
+    color: '#FFFFFF',
     lineHeight: 21,
   },
   ipt: {

@@ -77,38 +77,71 @@ class Home extends React.Component<IProps, IState> {
     const doctorInfo:DOCTOR_ITEM = params.doctorInfo || {};
     return <View>
       <Card noShadow style={styles.formCard}>
-        <CardItem style={styles.formItem}>
-          <Text style={styles.formItemTitle}>医生介绍</Text>
-        </CardItem>
-        <CardItem style={styles.formItem}>
-          <Text style={styles.formItemLabel}>
-            {doctorInfo.personalIntro}
-          </Text>
-          <Text style={styles.ipt}>
+        <View style={{
+          flexGrow: 1,
+        }}>
+          <CardItem style={[styles.formItem, {
+            backgroundColor: '#16183E'
+          }]}>
+            <Text style={styles.formItemTitle}>医生介绍</Text>
+          </CardItem>
+          <CardItem style={[styles.formItem]}>
+            <Text style={styles.formItemLabel}>
+              {doctorInfo.personalIntro}
+            </Text>
+            <Text style={styles.ipt}>
 
-          </Text>
-        </CardItem>
-        <CardItem style={styles.formItem}>
-          <Text style={styles.formItemTitle}>擅长疾病</Text>
-        </CardItem>
-        <CardItem style={styles.formItem}>
-          <Text style={styles.formItemLabel}>
-            {doctorInfo.skillsIntro}
-          </Text>
-          <Text style={styles.ipt}>
+            </Text>
+          </CardItem>
+        </View>
+        <View style={{ width: 16, }}></View>
+        <View style={{
+          flexGrow: 1,
+        }}>
+          <CardItem style={[styles.formItem, {
+            backgroundColor: '#16183E'
+          }]}>
+            <Text style={styles.formItemTitle}>擅长疾病</Text>
+          </CardItem>
+          <CardItem style={styles.formItem}>
+            <Text style={styles.formItemLabel}>
+              {doctorInfo.skillsIntro}
+            </Text>
+            <Text style={styles.ipt}>
 
-          </Text>
-        </CardItem>
+            </Text>
+          </CardItem>
+        </View>
       </Card>
 
 
-      <Card noShadow style={styles.formCard}>
-        <CardItem style={[styles.formItem, styles.spaceBetween]}>
+      <Card noShadow style={[styles.formCard, {
+        flexDirection: 'column',
+        backgroundColor: '#16183E'
+      }]}>
+        <CardItem style={[styles.formItem, styles.spaceBetween, {
+          backgroundColor: '#16183E'
+        }]}>
           <Text style={styles.formItemTitle}>出诊信息</Text>
-          <Text style={[styles.formItemTitle, styles.formItemMoney]}>挂号费：￥{doctorInfo.registrationFee}</Text>
+          <Text style={[styles.formItemTitle, styles.formItemMoney, {
+            fontSize: 12,
+            color: '#fff'
+          }]}>挂号费：￥<Text style={[styles.formItemTitle, styles.formItemMoney, {
+            fontSize: 12,
+            color: '#FF3B0E'
+          }]}>{doctorInfo.registrationFee}</Text>元</Text>
         </CardItem>
-        <CardItem style={styles.formItem}>
-          {this.renderTable()}
+        <CardItem style={[styles.formItem, {
+          flex: 1,
+          flexGrow: 1,
+          justifyContent: 'flex-start',
+          alignItems: 'center',
+        }]}>
+          <View style={{
+            flexGrow: 1,
+          }}>
+            {this.renderTable()}
+          </View>
         </CardItem>
       </Card>
 
@@ -133,40 +166,187 @@ class Home extends React.Component<IProps, IState> {
       widthArr.push(62.5)
       tableHead.push(item.date || '')
       const { data = [] } = item;
-      let NODE_AM = '';
-      let NODE_PM = '';
-      if (data && _.isArray(data) && data.length) {
-        data.forEach((cItem: REGISTRATIONS_ITEM_INFO) => {
-          if (cItem.remainCount > 0) {
-            NODE = (<TouchableOpacity onPress={() => {
+      let NODE_AM = {date: item.date};
+      let NODE_PM = {date: item.date};
+
+      console.log(1111, data, 111);
+
+      (data || [{}, {}]).forEach((cItem: REGISTRATIONS_ITEM_INFO) => {
+       
+        if (cItem.timeslot === 1) {
+          NODE_AM = ({...cItem, date: item.date, remainCount: cItem.remainCount });
+        }
+        if (cItem.timeslot === 2) {
+          NODE_PM = ({...cItem, date: item.date, remainCount: cItem.remainCount });
+        }
+      })
+      if (NODE_AM) {
+        tableData1.push(NODE_AM);
+      }
+      if (NODE_PM) {
+        tableData2.push(NODE_PM);
+      }
+    });
+    return <View style={{
+
+    }}>
+      <View style={{
+      }}>
+        <View style={{
+          flex: 1,
+          flexGrow: 1,
+          flexDirection: 'row',
+          borderBottomColor: 'rgba(255,255,255, .3)',
+          borderBottomWidth: 1,
+        }}>
+          <View style={{  
+            flex: 1,
+            paddingVertical: 12,
+            flexGrow: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+            <Text>
+            </Text>
+          </View>
+          <View style={{
+             backgroundColor: 'rgba(255,255,255, .3)',
+            width: 1,
+          }} />
+          <View style={{ 
+            flex: 1,
+            paddingVertical: 12, 
+            flexGrow: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+            <Text style={{
+              fontSize: 13,
+              color: '#fff'
+            }}>
+              上午
+            </Text>
+          </View>
+          <View style={{
+             backgroundColor: 'rgba(255,255,255, .3)',
+            width: 1,
+          }} />
+          <View style={{ 
+            flex: 1,
+            paddingVertical: 12, 
+            flexGrow: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+            <Text style={{
+              fontSize: 13,
+              color: '#fff'
+            }}>
+              下午
+            </Text>
+          </View>
+        </View>
+        {
+          registrations.map((item, index) => {
+            return <View style={{
+              flex: 1,
+              flexGrow: 1,
+              flexDirection: 'row',
+              borderBottomColor: 'rgba(255,255,255, .3)',
+              borderBottomWidth: 1,
+            }}>
+              <View style={{  
+                flex: 1,
+                paddingVertical: 12,
+                flexGrow: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+                overflow: 'hidden',
+              }}>
+                <Text style={{
+                  flexWrap: 'wrap',
+                  fontSize: 13,
+                  color: '#fff'
+                }}>
+                  周{utils[moment(item.date).day()+1]}
+                  <View style={{ width: 10, }}></View>
+                  {moment(item.date).format('MM-DD')}
+                </Text>
+              </View>
+              <View style={{
+                 backgroundColor: 'rgba(255,255,255, .3)',
+                width: 1,
+              }} />
+              <View style={{ 
+                flex: 1,
+                paddingVertical: 12, 
+                flexGrow: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+                
+                {(tableData1[index] || {}).remainCount === 0 ? <Text style={{
+                  fontSize: 13,
+                  color: '#fff'
+                }}>
+                  挂满
+                </Text> : null}
+                {(tableData1[index] || {}).remainCount > 0 ? <TouchableOpacity onPress={() => {
               this.props.dispatch(NavigationActions.navigate({
                 routeName: 'AppointmentDetails',
                 params: {
                   doctorInfo,
-                  registration_id: cItem.id,
+                  registration_id: tableData1[index].id,
                   segmentActive: params.segmentActive,
-                  time: `${moment(item.date).format('YYYY.MM.DD')} ${cItem.timeslot === 1 ? '上午' : '下午'} `
+                  time: `${moment(item.date).format('YYYY.MM.DD')} ${tableData1[index].timeslot === 1 ? '上午' : '下午'} `
                 },
               }))
             }}>
-              <Text style={styles.start}>剩余{data[0].remainCount}</Text>
-            </TouchableOpacity>)
-          }
-          if (cItem.remainCount === 0) {
-            NODE = (<Text style={styles.end}>挂满</Text>);
-          }
-          if (cItem.timeslot === 1) {
-            NODE_AM = (NODE);
-          }
-          if (cItem.timeslot === 2) {
-            NODE_PM = (NODE);
-          }
-        })
-      }
-      tableData1.push(NODE_AM);
-      tableData2.push(NODE_PM);
-    });
-
+              <View style={styles.startWrap}><Text style={{
+                  fontSize: 13,
+                  color: '#E9B631'
+                }}>剩余{tableData2[index].remainCount}</Text></View>
+            </TouchableOpacity>: null}
+              </View>
+              <View style={{
+                 backgroundColor: 'rgba(255,255,255, .3)',
+                width: 1,
+              }} />
+              <View style={{ 
+                flex: 1,
+                paddingVertical: 12, 
+                flexGrow: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+                {(tableData2[index] || {}).remainCount === 0 ? <Text style={{
+                  fontSize: 13,
+                  color: '#fff'
+                }}>
+                  挂满
+                </Text> : null}
+                {(tableData2[index] || {}).remainCount > 0 ? <TouchableOpacity onPress={() => {
+              this.props.dispatch(NavigationActions.navigate({
+                routeName: 'AppointmentDetails',
+                params: {
+                  doctorInfo,
+                  registration_id: tableData2[index].id,
+                  segmentActive: params.segmentActive,
+                  time: `${moment(item.date).format('YYYY.MM.DD')} ${tableData2[index].timeslot === 1 ? '上午' : '下午'} `
+                },
+              }))
+            }}>
+               <View style={styles.startWrap}><Text style={{
+                  fontSize: 13,
+                  color: '#E9B631'
+                }}>剩余{tableData2[index].remainCount}</Text></View>
+            </TouchableOpacity>: null}
+              </View>
+            </View>
+          })
+        }
+      </View>
+    </View>
     return <ScrollView style={styles.scrollView} horizontal={true}>
       <Table>
         <TableWrapper borderStyle={{borderWidth: 1, borderColor: '#E8E8E8'}} style={[styles.tableRow]}>
@@ -178,7 +358,7 @@ class Home extends React.Component<IProps, IState> {
                   <View style={[styles.cellWrap, { width: widthArr[cellIndex] }]}>
                     {
                       cellIndex === 0 ? undefined : <>
-                        <Text style={styles.tableHeaderText}>周{utils[moment(item.date).day()+1]}</Text>
+                        <Text style={styles.tableHeaderText}>周{utils[moment(cellData).day()+1]}</Text>
                         <Text style={styles.headerCellSpanText}>{moment(cellData).format('MM-DD')}</Text>
                       </>
                     }
@@ -258,7 +438,6 @@ class Home extends React.Component<IProps, IState> {
         />
         <Header
           style={styles.header}
-          translucent
         >
           <Left
           >
@@ -269,17 +448,7 @@ class Home extends React.Component<IProps, IState> {
                 dispatch(NavigationActions.back());
               }}
             >
-              <FastImage
-                style={{
-                  marginLeft: 16,
-                  width: 20,
-                  height: 20,
-                  alignContent: 'center',
-                  justifyContent: 'center',
-                }}
-                source={icon}
-                resizeMode={FastImage.resizeMode.contain}
-              />
+              <Icon style={{ paddingHorizontal: 12, color: '#fff', fontSize: 26 }} name='arrow-back' />
             </Button>
           </Left>
           <Body>
@@ -293,7 +462,12 @@ class Home extends React.Component<IProps, IState> {
           style={styles.body}
           contentContainerStyle={styles.bodyContent}
         >
-          <Card noShadow style={styles.formCard}>
+          <Card noShadow style={{
+            borderTopWidth: 0,
+            borderRightWidth: 0,
+            borderBottomWidth: 0,
+            borderLeftWidth: 0,
+          }}>
             <CardItem
               button
               onPress={async () => {
@@ -302,14 +476,20 @@ class Home extends React.Component<IProps, IState> {
                   params: {},
                 }))
               }}
+              style={{
+                paddingTop: 0,
+                paddingBottom: 0,
+                paddingLeft: 0,
+                paddingRight: 0,
+                backgroundColor: '#2C2D59'
+              }}
               >
               <Left>
                 <FastImage
                   style={{
-                    width: 48,
-                    height: 48,
+                    width: 88,
+                    height: 88,
                     marginRight: 16,
-                    borderRadius: 24,
                     alignContent: 'center',
                     justifyContent: 'center',
                   }}
@@ -324,10 +504,25 @@ class Home extends React.Component<IProps, IState> {
                     <Text style={[styles.note, styles.span]}>
                       {doctorInfo.professionalTitle}
                     </Text>
+                    <Text  style={[styles.note, styles.strong, {
+                      alignItems:'flex-end',
+                      textAlign: 'right',
+                      flexGrow: 1,
+                      paddingRight: 16,
+                      color: '#E2E3DC',
+                    }]}>已预约：<Text  style={[styles.note, styles.strong, {
+                      alignItems:'flex-end',
+                      textAlign: 'right',
+                      flexGrow: 1,
+                      paddingRight: 16,
+                      color: '#FF3B0E',
+                    }]}>{appointment.registrationCount || 0}</Text></Text>
                   </View>
-
-                  <Text style={styles.note}>{doctorInfo.hospitalName}  {doctorInfo.medicalDepartment}</Text>
-                  <Text  style={[styles.note, styles.strong]}>已预约：{appointment.registrationCount || 0}</Text>
+                  <Text style={[styles.note, {
+                    marginTop: 14,
+                  }]}>{doctorInfo.hospitalName} 
+                  <View style={{ width: 55, }}/>
+                   {doctorInfo.medicalDepartment}</Text>
                 </Body>
               </Left>
             </CardItem>

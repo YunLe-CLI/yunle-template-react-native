@@ -92,7 +92,7 @@ class Home extends React.Component<IProps, IState> {
         SDK_AUTH: false,
         SDK_LOGIN: false,
         rotateVal: new Animated.Value(0),
-        inRoom: false,
+        inRoom: true,
         userList: [],
         usersInfo: {},
         audioType: true,
@@ -507,8 +507,8 @@ class Home extends React.Component<IProps, IState> {
         return <View
           style={{
               position: 'absolute',
-              left: 17,
-              top: 29 + getStatusBarHeight(),
+              right: 17,
+              top: 70 + getStatusBarHeight(),
               width: 120,
               height: 151,
               backgroundColor: '#000',
@@ -546,9 +546,9 @@ class Home extends React.Component<IProps, IState> {
             <Container style={[
                 styles.container,
                 !this.state.inRoom ? {
-                    backgroundColor: '#fff',
+                    backgroundColor: '#16183E',
                 } : {
-                    backgroundColor: '#F9FAFF',
+                    backgroundColor: '#16183E',
                 }
             ]}>
                 <NavigationEvents
@@ -565,6 +565,71 @@ class Home extends React.Component<IProps, IState> {
 
                     }}
                 />
+                {
+                     this.state.inRoom ? (
+                        <Header>
+                            <Left>
+                                {/* <Button
+                                    transparent
+                                    onPress={() => {
+                                        const { dispatch } = this.props;
+                                        dispatch(NavigationActions.back());
+                                    }}
+                                >
+                                    <Icon style={{ paddingHorizontal: 12, color: '#fff', fontSize: 26 }} name='arrow-back' />
+                                </Button> */}
+                            </Left>
+                            <Body style={{
+                                    flexGrow: 1,
+                                    paddingRight: 35,
+                                    justifyContent: 'center',
+                                    height: 50,
+                                }}>
+                                    <View style={{
+                                        flexGrow: 1,
+                                        flexDirection: 'row',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        height: 50,
+                                    }}>
+                                        <Button
+                                        style={styles.btnWrap}
+                                        onPress={() => {
+                                            this.handleSDKSetAudio();
+                                        }}>
+                                            <FastImage
+                                            style={{
+                                                width: 30,
+                                                height: 27,
+                                                alignContent: 'center',
+                                                justifyContent: 'center',
+                                            }}
+                                            source={this.state.audioType ? audio_IMG_1 : audio_IMG_1}
+                                            resizeMode={FastImage.resizeMode.contain}
+                                            />
+                                        </Button>
+                                        <Button
+                                        style={styles.btnWrap}
+                                        onPress={() => {
+                                            this.handleSDKSetVideo();
+                                        }}>
+                                            <FastImage
+                                            style={{
+                                                width: 37,
+                                                height: 27,
+                                                alignContent: 'center',
+                                                justifyContent: 'center',
+                                            }}
+                                            source={this.state.videoType ? video_1 : video_1}
+                                            resizeMode={FastImage.resizeMode.contain}
+                                            />
+                                        </Button>
+                                    </View>
+                                </Body>
+                            <Right />
+                        </Header>
+                     ) : null
+                }
                 <Content
                     style={{
                         flex: 1,
@@ -623,8 +688,8 @@ class Home extends React.Component<IProps, IState> {
                                     ]}>
                                         <FastImage
                                             style={{
-                                                width: 207,
-                                                height: 155,
+                                                width: 176,
+                                                height: 187,
                                                 alignContent: 'center',
                                                 justifyContent: 'center',
                                             }}
@@ -641,58 +706,6 @@ class Home extends React.Component<IProps, IState> {
                     }
                 </Content>
                 {this.state.inRoom ? this.renderMe() : undefined}
-                {
-                    this.state.inRoom ? <Footer style={styles.footerWrap}>
-                            
-                        <Body style={{
-                            flexGrow: 1,
-                            paddingRight: 35,
-                            justifyContent: 'center',
-                            height: 50,
-                        }}>
-                            <View style={{
-                                flexGrow: 1,
-                                flexDirection: 'row',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                height: 50,
-                            }}>
-                                <Button
-                                  style={styles.btnWrap}
-                                  onPress={() => {
-                                      this.handleSDKSetAudio();
-                                  }}>
-                                    <FastImage
-                                      style={{
-                                          width: 30,
-                                          height: 27,
-                                          alignContent: 'center',
-                                          justifyContent: 'center',
-                                      }}
-                                      source={this.state.audioType ? audio_IMG_1 : audio_IMG_1}
-                                      resizeMode={FastImage.resizeMode.contain}
-                                    />
-                                </Button>
-                                <Button
-                                  style={styles.btnWrap}
-                                  onPress={() => {
-                                      this.handleSDKSetVideo();
-                                  }}>
-                                    <FastImage
-                                      style={{
-                                          width: 37,
-                                          height: 27,
-                                          alignContent: 'center',
-                                          justifyContent: 'center',
-                                      }}
-                                      source={this.state.videoType ? video_1 : video_1}
-                                      resizeMode={FastImage.resizeMode.contain}
-                                    />
-                                </Button>
-                            </View>
-                        </Body>
-                    </Footer> : undefined
-                }
             </Container>
         );
     }

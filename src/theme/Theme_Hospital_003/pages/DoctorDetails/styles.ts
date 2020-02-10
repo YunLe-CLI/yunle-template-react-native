@@ -4,20 +4,20 @@ import {StyleSheet} from 'react-native';
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F9FBFF',
+    backgroundColor: '#16183E',
   },
   header: {
-    backgroundColor: '#fff',
     borderBottomWidth: 0,
   },
   headerText: {
-    color: '#192038',
+    color: '#fff',
   },
   body: {
-    backgroundColor: '#F9FBFF',
+    backgroundColor: '#16183E',
   },
   bodyContent: {
-    // paddingHorizontal: 16,
+    paddingTop: 15,
+    paddingHorizontal: 15,
   },
   btn: {
     borderRadius: 4,
@@ -48,10 +48,13 @@ export default StyleSheet.create({
     borderTopWidth: 0,
     borderRightWidth: 0,
     borderBottomWidth: 0,
+    backgroundColor: '#16183E',
+    flexDirection: 'row',
   },
   formItem: {
     flex: 1,
     minHeight: 44,
+    backgroundColor: '#2C2D59'
   },
   row: {
     flexDirection: 'row',
@@ -64,19 +67,22 @@ export default StyleSheet.create({
   formItemTitle: {
     fontSize: 16,
     fontWeight: '500',
-    color: '#404E66',
+    color: '#FFFFFF',
     lineHeight: 22.5,
   },
   formItemMoney: {
     color: '#FF3B0E',
   },
   formItemLabel: {
+    minHeight: 200,
+    flex: 1,
     minWidth: 56,
     marginRight: 16,
     fontSize: 14,
     fontWeight: '400',
     color: '#8193AE',
     lineHeight: 22,
+    flexWrap: 'wrap'
   },
   ipt: {
     fontSize: 14,
@@ -103,7 +109,7 @@ export default StyleSheet.create({
   nameText: {
     fontSize: 16,
     lineHeight: 22.5,
-    color: '#404E66',
+    color: '#DBDCD4',
     fontWeight: '500',
     justifyContent: 'center',
     alignItems: 'center',

@@ -84,11 +84,11 @@ export default StyleSheet.create({
   btnText: {
     fontSize: 18,
     lineHeight: 20,
-    color: '#8193AE',
+    color: '#FFFFFF',
     fontWeight: '400',
   },
   okText: {
-    color: '#118DF0',
+    color: '#FFFFFF',
   },
   buttonStyle: {
     flexGrow: 1,

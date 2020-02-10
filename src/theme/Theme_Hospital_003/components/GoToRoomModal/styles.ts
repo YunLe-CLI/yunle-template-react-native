@@ -8,11 +8,9 @@ export default StyleSheet.create({
     paddingHorizontal: 24,
   },
   header: {
-    height: 72,
-    flexDirection: 'row',
+    height: 156,
     justifyContent: 'center',
     alignItems: 'center',
-    borderBottomWidth: 1,
     borderBottomColor: '#DCE3EE',
   },
   title: {
@@ -78,16 +76,17 @@ export default StyleSheet.create({
   },
   btnWrap: {
     marginTop: 24,
-    marginHorizontal: 24,
-    marginBottom: 16,
+    marginHorizontal: 0,
+    marginBottom: 0,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     flexGrow: 1,
   },
   btn: {
+    flex: 1,
     flexGrow: 1,
-    borderRadius: 20,
+    borderRadius: 0,
     height: 40,
     justifyContent: 'center',
     alignItems: 'center',

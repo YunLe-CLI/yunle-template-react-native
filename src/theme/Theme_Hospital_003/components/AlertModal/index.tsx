@@ -103,7 +103,7 @@ class  AlertModalProvider extends React.Component<{}, IState> {
           <View style={{
             justifyContent: 'center',
             backgroundColor: '#fff',
-            borderRadius: 8,
+            borderRadius: 0,
           }}>
               <View>
                 <View>
@@ -128,11 +128,12 @@ class  AlertModalProvider extends React.Component<{}, IState> {
                           this.closeModel();
                         })
                       }}
-                      style={styles.btn}
+                      style={[styles.btn, {
+                        backgroundColor: '#7D899B'
+                      }]}
                   >
                     <Text style={[styles.btnText]}>取消</Text>
                   </Button>
-                  <View style={{ width: 1, height: 50, backgroundColor: '#F2F2F2' }} />
                   <Button
                       transparent
                       full
@@ -143,7 +144,9 @@ class  AlertModalProvider extends React.Component<{}, IState> {
                         }
                         this.closeModel();
                       }}
-                      style={styles.btn}
+                      style={[styles.btn, {
+                        backgroundColor: '#0059D3',
+                      }]}
                   >
                     <Text style={[styles.btnText, styles.okText]}>确定</Text>
                   </Button>

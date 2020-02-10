@@ -2,7 +2,7 @@ import { Dimensions, StyleSheet, Platform } from "react-native";
 
 export default StyleSheet.create({
   container: {
-    backgroundColor: '#fff',
+    backgroundColor: 'transparent',
     justifyContent: 'space-between',
     flexGrow: 1,
   },
@@ -27,7 +27,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     // paddingTop: 166,
     alignItems: 'center',
-    // justifyContent: 'center',
+    justifyContent: 'center',
   },
 
 
@@ -61,28 +61,26 @@ export default StyleSheet.create({
     marginTop: 45,
   },
   iptItem: {
+    marginBottom: 29,
     marginLeft: 0,
     paddingLeft: 0,
-    borderBottomWidth: 0,
-    borderBottomColor: '#E3E7EF'
+    borderBottomColor: '#E3E7EF',
+    backgroundColor: '#fff',
+    opacity: .7,
+    paddingLeft: 17.5,
   },
   ipt: {
     color: '#404E66',
   },
   btnWrap: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
-    marginTop: 35,
+    marginTop: 108,
   },
   linearGradientBtn: {
     borderRadius: 0,
   },
   loginButton: {
-
     height: 48,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: '#5277F1',
   }
 });

@@ -93,7 +93,6 @@ class SelectDepartmentModalProvider extends React.Component<{}, IState> {
       }}>
         {this.props.children}
         <Modal
-          backdropColor={'transparent'}
           coverScreen={false}
           useNativeDriver
           propagateSwipe
@@ -106,40 +105,11 @@ class SelectDepartmentModalProvider extends React.Component<{}, IState> {
           }}
           style={{
             margin: 0,
-            paddingLeft: 0,
-            paddingRight: 0,
-            marginLeft: 0,
-            marginRight: 0,
-            margin: 0,
+            justifyContent: 'center',
+            alignItems: 'center',
           }}
         >
           <Container style={styles.container}>
-            <Header transparent>
-              <Left>
-                <Button
-                  transparent
-                  onPress={() => {
-                    this.closeModel();
-                  }}
-                >
-                  <FastImage
-                    style={{
-                      marginLeft: 16,
-                      width: 20,
-                      height: 20,
-                      alignContent: 'center',
-                      justifyContent: 'center',
-                    }}
-                    source={iconLeft}
-                    resizeMode={FastImage.resizeMode.contain}
-                  />
-                </Button>
-              </Left>
-              <Body>
-                <Title style={styles.title}>科室列表</Title>
-              </Body>
-              <Right />
-            </Header>
             <StatusBar barStyle="dark-content" />
             <Content style={{ backgroundColor: '#F9FBFF' }}>
               <List style={styles.listWrap}>
@@ -147,24 +117,48 @@ class SelectDepartmentModalProvider extends React.Component<{}, IState> {
                   list.map((item) => {
                     const { selected } = this.state;
                     const isSelect = JSON.stringify(item) === JSON.stringify(selected)
-                    return <ListItem selected={isSelect} key={JSON.stringify(item)} style={[styles.listItem, isSelect ? styles.selected : {}]}
+                    return <ListItem selected={isSelect} key={JSON.stringify(item)} style={[styles.listItem]}
                                      onPress={async () => {
                         this.setState({
                           selected: item,
                         }, () => {
-                          if (this.onCallBack) {
-                            this.onCallBack(item);
-                          }
-                          this.closeModel();
+                          // if (this.onCallBack) {
+                          //   this.onCallBack(item);
+                          // }
+                          // this.closeModel();
                         })
                     }}>
                       <Text style={styles.listText}>{item}</Text>
+                      <Right style={{
+                        flexGrow: 1,
+                        justifyContent: 'flex-end'
+                      }}>
+                        {
+                          isSelect ? (
+                            <Icon style={{
+                              fontSize: 25,
+                              color: '#0059D3',
+                            }} name="checkmark" />
+                          ) : null
+                        }
+                        
+                      </Right>
                     </ListItem>
                   })
                 }
-
               </List>
             </Content>
+            <Button
+              full
+              onPress={() => {
+                if (this.onCallBack) {
+                  this.onCallBack(this.state.selected);
+                }
+                this.closeModel();
+              }}
+            >
+              <Text>确定</Text>
+            </Button>
           </Container>
         </Modal>
       </SelectDepartmentModalContext.Provider>

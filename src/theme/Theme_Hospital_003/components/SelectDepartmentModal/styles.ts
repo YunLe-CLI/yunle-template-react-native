@@ -2,8 +2,10 @@ import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
   container: {
+    width: 250,
+    height: 340,
     backgroundColor: '#fff',
-    flex: 1,
+    flex: 0,
   },
   header: {
     height: 72,
@@ -125,8 +127,9 @@ export default StyleSheet.create({
     marginLeft: 0,
     marginRight: 0,
     height: 44,
-    borderBottomWidth: 0,
+    borderBottomWidth: 1,
     backgroundColor: '#fff',
+    borderBottomColor: 'rgba(99,99,99,.1)',
   },
   selected: {
     backgroundColor: 'rgba(17, 205, 143, .2)',

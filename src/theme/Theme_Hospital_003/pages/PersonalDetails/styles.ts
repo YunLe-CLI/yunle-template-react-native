@@ -4,16 +4,17 @@ import {StyleSheet} from 'react-native';
 export default StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#16183E',
   },
   header: {
-    backgroundColor: '#5277F1',
+    backgroundColor: '#0059D3',
     borderBottomWidth: 0,
   },
   headerText: {
     color: '#fff',
   },
   body: {
-    backgroundColor: '#F9FBFF',
+    backgroundColor: '#16183E',
   },
   bodyContent: {
     paddingHorizontal: 16,
@@ -39,6 +40,8 @@ export default StyleSheet.create({
     height: 48,
     alignItems: "center",
     justifyContent: "center",
+    borderColor: '#4292FF',
+    borderWidth: 1,
   },
   formCard: {
     borderRadius: 6,
@@ -47,22 +50,24 @@ export default StyleSheet.create({
     borderTopWidth: 0,
     borderRightWidth: 0,
     borderBottomWidth: 0,
+    backgroundColor: '#2C2D59',
   },
   formItem: {
     minHeight: 44,
+    backgroundColor: '#2C2D59'
   },
   formItemLabel: {
     minWidth: 90,
     fontSize: 15,
     fontWeight: '400',
-    color: '#404E66',
+    color: '#fff',
     lineHeight: 21,
   },
   ipt: {
     paddingHorizontal: 5,
     fontSize: 15,
     fontWeight: '400',
-    color: '#404E66',
+    color: '#fff',
     lineHeight: 21,
     flexGrow: 1,
     textAlign: 'right'
