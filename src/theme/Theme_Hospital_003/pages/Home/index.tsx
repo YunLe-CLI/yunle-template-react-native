@@ -412,6 +412,7 @@ class Home extends React.Component<IProps, IState> {
         flexGrow: 1,
       }}
       contentContainerStyle={{
+        paddingTop: 15,
         paddingHorizontal: 16,
       }}
       stickySectionHeadersEnabled
