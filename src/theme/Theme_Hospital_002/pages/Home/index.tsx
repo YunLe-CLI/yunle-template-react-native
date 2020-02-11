@@ -624,6 +624,7 @@ class Home extends React.Component<IProps, IState> {
           source={home_bg_slices}
           style={{
             width: '100%',
+            backgroundColor: '#F9FAFF'
           }}
         >
           <Header transparent>
@@ -678,7 +679,7 @@ class Home extends React.Component<IProps, IState> {
               this.state.active === 0 ? (
                 <>
                 <Text style={{
-                  color: '#404E66',
+                  color: '#fff',
                   fontSize: 15,
                   lineHeight: 22.5,
                   fontWeight: '400',

@@ -259,7 +259,7 @@ class LoginProvider extends React.Component<IProps, IState> {
                             alignContent: 'center',
                             justifyContent: 'center',
                           }}
-                          source={require('./assets/user/index.png')}
+                          source={require('./assets/user/index.jpg')}
                           resizeMode={FastImage.resizeMode.contain}
                         />
                         <Text style={{
