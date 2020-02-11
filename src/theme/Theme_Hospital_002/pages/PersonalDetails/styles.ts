@@ -6,14 +6,13 @@ export default StyleSheet.create({
     flex: 1,
   },
   header: {
-    backgroundColor: '#fff',
     borderBottomWidth: 0,
   },
   headerText: {
-    color: '#192038',
+    color: '#fff',
   },
   body: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#F9FBFF',
   },
   bodyContent: {
     // paddingHorizontal: 16,
@@ -26,14 +25,13 @@ export default StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     height:60,
+    backgroundColor: '#F9FAFF'
   },
   btnWrap: {
     flexGrow: 1,
-    marginTop: 88,
-    marginHorizontal: 33,
+    marginHorizontal: 16,
   },
   linearGradientBtn: {
-    borderRadius: 6,
   },
   submitButton: {
     height: 48,
@@ -41,24 +39,30 @@ export default StyleSheet.create({
     justifyContent: "center",
   },
   formCard: {
+
     borderRadius: 6,
-    marginTop: 12,
+    marginTop: 0,
     borderLeftWidth: 0,
     borderTopWidth: 0,
     borderRightWidth: 0,
     borderBottomWidth: 0,
+    backgroundColor: '#fff'
   },
   formItem: {
-    // minHeight: 44,
+    minHeight: 44,
+    borderBottomColor: '#EBEBEB',
+    borderBottomWidth: 1,
   },
   formItemLabel: {
     minWidth: 90,
     fontSize: 15,
     fontWeight: '400',
-    color: '#BBBABA',
+    color: '#404E66',
     lineHeight: 21,
   },
   ipt: {
+    flex: 1,
+    textAlign: 'right',
     paddingHorizontal: 5,
     fontSize: 15,
     fontWeight: '400',
@@ -68,9 +72,5 @@ export default StyleSheet.create({
   },
   iptMultiline: {
     // minHeight: 112,
-  },
-  formItemContent: {
-    marginLeft: 26,
-    marginRight: 26,
   }
 });

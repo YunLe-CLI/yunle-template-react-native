@@ -16,7 +16,7 @@ export default StyleSheet.create({
   title: {
     fontSize: 18,
     lineHeight: 25,
-    color: '#192038',
+    color: '#fff',
     textAlign: 'center',
     fontWeight: '500',
   },
@@ -142,9 +142,7 @@ export default StyleSheet.create({
     borderBottomWidth: 0,
   },
   itemHeader: {
-    flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-between'
   },
   nameText: {
     fontSize: 16,
@@ -153,7 +151,6 @@ export default StyleSheet.create({
     fontWeight: '500',
     justifyContent: 'center',
     alignItems: 'center',
-    flexWrap: 'wrap'
   },
   span: {
     paddingLeft: 8,

@@ -18,12 +18,15 @@ export default StyleSheet.create({
     textAlign: 'justify'
   },
   itemBox: {
-    borderRadius: 4,
+    marginTop: -3,
+    minHeight: 118,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 0,
     borderLeftWidth: 0,
     borderTopWidth: 0,
     borderRightWidth: 0,
     borderBottomWidth: 0,
-    overflow: 'hidden',
+    overflow: 'hidden'
   },
   typeLineDefault: {
     width: 16,
@@ -39,6 +42,11 @@ export default StyleSheet.create({
   itemBoxBody: {
     flex: 1,
     flexGrow: 1,
+    marginTop: -3,
+    paddingTop: 16,
+    paddingRight: 16,
+    paddingBottom: 16,
+    paddingLeft: 16,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'transparent'
@@ -50,54 +58,55 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   itemIconText: {
+    marginTop: 6,
     color: '#13B6FF',
-    fontSize: 15,
+    fontSize: 12,
     lineHeight: 15,
-    fontWeight: '500',
+    fontWeight: '400',
   },
   itemIconText00: {
     color: '#13B6FF',
   },
   itemIconText01: {
-    color: '#6093FB',
+    color: '#11CD8F',
   },
   itemIconText02: {
-    color: '#909090',
+    color: '#B0BED4',
   },
   itemBoxContent: {
     flex: 1,
     flexGrow: 1,
+    paddingHorizontal: 24,
     justifyContent: 'center',
     alignItems: 'flex-start',
-    borderLeftColor: '#F4F4F4',
-    borderLeftWidth: 1,
-    paddingLeft: 15,
   },
   itemBodyTitle: {
     flex: 1,
     flexGrow: 1,
-    color: '#909090',
-    fontSize: 14,
-    fontWeight: '400',
+    color: '#333333',
+    fontSize: 16,
+    lineHeight: 22.5,
+    fontWeight: '500',
     textAlign: 'justify'
   },
   itemBodyText: {
     flexGrow: 1,
     marginTop: 11,
-    color: '#909090',
+    color: '#333333',
     fontSize: 14,
     lineHeight: 20,
-    fontWeight: '400',
+    fontWeight: '500',
     textAlign: 'justify'
   },
   itemBodyText001: {
     marginTop: 8.5,
   },
   itemBodyText002: {
-    color: '#FC492E',
+    color: '#5277F1',
   },
   itemBoxFooter: {
-    marginTop: 27,
+    paddingTop: 19,
+    marginRight: -8,
     flex: 1,
     flexGrow: 1,
     flexDirection: 'row',
@@ -124,7 +133,7 @@ export default StyleSheet.create({
   },
   linearGradientBtn: {
     marginLeft: 8,
-    borderRadius: 2,
+    borderRadius: 0,
   },
   btnText: {
     color: '#fff',
@@ -144,27 +153,25 @@ export default StyleSheet.create({
 
   },
   btnTab: {
-    width: 120,
-    borderRadius: 3,
-    flexDirection: 'row',
-    backgroundColor: '#6093FB',
+    flexDirection: 'row'
   },
   btnTabText: {
-    color: '#fff',
+    color: '#404E66',
     fontSize: 14,
     lineHeight: 20,
     fontWeight: '400',
     textAlign: 'justify'
   },
   activeBtnTabText: {
-    color: '#fff',
+    color: '#5277F1',
   },
   line: {
-    width: 15,
+    width: 1,
     height: 24,
+    backgroundColor: '#DCE3EE',
   },
   footerWrap: {
-    borderTopColor: 'transparent',
+    borderTopColor: '#DCE3EE',
     height: 53,
   },
   formContent: {
@@ -194,14 +201,14 @@ export default StyleSheet.create({
     flexGrow: 1,
     fontSize: 15,
     fontWeight: '400',
-    color: '#CCD5E3',
+    color: '#D0D0D0',
     lineHeight: 21,
   },
   linearGradientBtn2: {
     marginTop: 24,
     marginBottom: 16,
     flexGrow: 1,
-    borderRadius: 6,
+    borderRadius: 0,
   },
   segmentWrap: {
     backgroundColor: 'transparent',
@@ -214,5 +221,6 @@ export default StyleSheet.create({
     fontSize: 14,
     fontWeight: '400',
     lineHeight: 20,
+    color: '#979797'
   },
 });

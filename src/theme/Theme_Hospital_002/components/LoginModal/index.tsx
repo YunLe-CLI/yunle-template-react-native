@@ -1,6 +1,5 @@
 import React, {createContext} from 'react';
 import {
-  ImageBackground,
   View,
 } from 'react-native';
 import {
@@ -11,7 +10,7 @@ import {
   Item,
   Input, Form,
   Title,
-  Label,
+  Icon,
 } from 'native-base';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
@@ -24,11 +23,9 @@ import logoImg from './assets/logo_slices/pic_logo_s.png';
 import { withDropdownAlert } from '@/components/DropdownAlert';
 import { withLoadingSpinner } from '@/components/LoadingSpinner';
 import { getActiveRoute } from '@/utils/utils';
-import bg from './assets/bg/bg.png'
 
 import { LOGIN, PATIENTS_DETAILS } from '../../services/api';
 import _ from 'lodash';
-import {getStatusBarHeight} from "react-native-status-bar-height";
 
 export const LoginContext = createContext({
   openLoginModal: () => {},
@@ -80,10 +77,10 @@ class LoginProvider extends React.Component<IProps, IState> {
 
   state: IState = {
     isVisible: false,
+    mobile: undefined,
+    password: undefined,
     mobile: '18200000006',
     password: '123456',
-    // mobile: undefined,
-    // password: undefined,
   }
 
   reloadNavigation = () => {
@@ -228,146 +225,144 @@ class LoginProvider extends React.Component<IProps, IState> {
         >
           <View style={{ flex: 1 }}>
             <Container style={styles.container}>
-              <ImageBackground
-                source={bg}
-                style={{
+              <Content
+                disableKBDismissScroll
+                contentContainerStyle={{
+                  paddingHorizontal: 32.5,
                   flex: 1,
-                  flexGrow: 1,
-                  width: '100%',
                 }}
               >
                 <View style={{
-                  marginTop: getStatusBarHeight(true),
-                  height: 108,
-                  paddingBottom: 18,
-                  justifyContent: 'center',
+                  marginTop: 60,
                 }}>
-                  <View style={{
-                    paddingHorizontal: 16,
-                  }}>
+                  <View style={styles.logoWrap}>
                     <Text style={{
                       fontSize: 18,
                       fontWeight: '500',
-                      color: '#FFFFFF'
+                      lineHeight: 45,
+                      color: '#32303D',
                     }}>
-                      云诊室demo
+                      问诊
                     </Text>
                   </View>
-                </View>
-                <View
-                  style={{
-                    marginTop: -18,
-                    paddingHorizontal: 32.5,
-                    flex: 1,
-                    borderTopLeftRadius: 18,
-                    borderTopRightRadius: 18,
-                    overflow: 'hidden',
-                    backgroundColor: '#fff'
-                  }}
-                >
-                  <View style={{
-                    marginTop: 32,
-                  }}>
-                    <View style={styles.logoWrap}>
-                      <Text style={{
-                        fontSize: 20,
-                        fontWeight: '500',
-                        lineHeight: 45,
-                        color: '#000000',
+                  <View style={styles.formWrap}>
+                    <Form>
+                      <View style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
                       }}>
-                        Welcome to 云诊室demo!
-                      </Text>
-                    </View>
-                    <View style={styles.formWrap}>
-                      <Form>
-                        <Item floatingLabel style={[
-                          styles.iptItem,
-                          this.state.focusIpt === 'mobile' ? {
-                            borderBottomColor: '#6093FB'
-                          } : {}
-                        ]}>
-                          <Label>Login id</Label>
-                          <Input value={this.state.mobile}
-                                 style={styles.ipt}
-                                 placeholder="输入用户名"
-                                 placeholderTextColor={"#9C9EB9"}
-                                 onFocus={() => {
-                                   this.setState({
-                                     focusIpt: 'mobile',
-                                   })
-                                 }}
-                                 onBlur={() => {
-                                   this.setState({
-                                     focusIpt: undefined,
-                                   })
-                                 }}
-                                 onChangeText={(value) => {
-                                   this.setState({
-                                     mobile: value,
-                                   })
-                                 }}
-                          />
-                        </Item>
-                        <Item floatingLabel style={[
-                          styles.iptItem,
-                          this.state.focusIpt === 'password' ? {
-                            borderBottomColor: '#6093FB'
-                          } : {}
-                        ]}>
-                          <Label>Password</Label>
-                          <Input secureTextEntry
-                                 value={this.state.password}
-                                 style={styles.ipt}
-                                 placeholder="输入密码"
-                                 placeholderTextColor={"#9C9EB9"}
-                                 onFocus={() => {
-                                   this.setState({
-                                     focusIpt: 'password',
-                                   })
-                                 }}
-                                 onBlur={() => {
-                                   this.setState({
-                                     focusIpt: undefined,
-                                   })
-                                 }}
-                                 onChangeText={(value) => {
-                                   this.setState({
-                                     password: value,
-                                   })
-                                 }}
-                          />
-                        </Item>
-                      </Form>
-                    </View>
-                    <View style={styles.btnWrap}>
-                      <LinearGradient
-                        start={{x: 0, y: 0}} end={{x: 1, y: 1}}
-                        colors={['#6093FB', '#6093FB']}
-                        style={[
-                          styles.linearGradientBtn,
-                          {
-                            opacity: this.state.password && this.state.mobile ? 1 : 0.4
-                          }
-                        ]}
+                        <FastImage
+                          style={{
+                            marginRight: 14,
+                            width: 14,
+                            height: 19,
+                            alignContent: 'center',
+                            justifyContent: 'center',
+                          }}
+                          source={require('./assets/user/index.png')}
+                          resizeMode={FastImage.resizeMode.contain}
+                        />
+                        <Text style={{
+                          fontSize: 14,
+                          color: '#32303D',
+                        }}>
+                        手机号码
+                        </Text>
+                      </View>
+                      <Item style={styles.iptItem}>
+                        <View style={{
+                          flexDirection: 'row',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                        }}>
+                          <Text style={{
+                            fontSize: 17,
+                            color: '#32303D'
+                          }}>
+                            +86
+                          </Text>
+                          <FastImage
+                          style={{
+                            marginLeft: 14,
+                            marginRight: 14,
+                            width: 9,
+                            height: 8,
+                            alignContent: 'center',
+                            justifyContent: 'center',
+                          }}
+                          source={require('./assets/sj.png')}
+                          resizeMode={FastImage.resizeMode.contain}
+                        />
+                        </View>
+                        <Input value={this.state.mobile} style={styles.ipt} placeholder="请输入手机号" placeholderTextColor={"#9C9EB9"}
+                               onChangeText={(value) => {
+                                 this.setState({
+                                   mobile: value,
+                                 })
+                               }}
+                        />
+                      </Item>
+                      <View style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                      }}>
+                        <FastImage
+                          style={{
+                            marginRight: 14,
+                            width: 14,
+                            height: 19,
+                            alignContent: 'center',
+                            justifyContent: 'center',
+                          }}
+                          source={require('./assets/pwd/index.png')}
+                          resizeMode={FastImage.resizeMode.contain}
+                        />
+                        <Text style={{
+                          fontSize: 14,
+                          color: '#32303D',
+                        }}>
+                        密码
+                        </Text>
+                      </View>
+                      <Item style={styles.iptItem}>
+                        <Input secureTextEntry value={this.state.password} style={styles.ipt} placeholder="请输入密码" placeholderTextColor={"#9C9EB9"}
+                               onChangeText={(value) => {
+                                 this.setState({
+                                   password: value,
+                                 })
+                               }}
+                        />
+                      </Item>
+                    </Form>
+                  </View>
+                  <View style={styles.btnWrap}>
+                    <LinearGradient
+                      start={{x: 0, y: 0}} end={{x: 1, y: 1}}
+                      colors={['#5277F1', '#5277F1']}
+                      style={[
+                        styles.linearGradientBtn,
+                        {
+                          opacity: this.state.password && this.state.mobile ? 1 : 0.4
+                        }
+                      ]}
+                    >
+                      <Button
+                        transparent
+                        rounded
+                        onPress={async () => {
+                            await this.handleLogin();
+                        }}
+                        style={styles.loginButton}
+                        textStyle={{
+                          color: '#fff'
+                        }}
                       >
-                        <Button
-                          transparent
-                          rounded
-                          onPress={async () => {
-                              await this.handleLogin();
-                          }}
-                          style={styles.loginButton}
-                          textStyle={{
-                            color: '#fff'
-                          }}
-                        >
-                          <Title>登录</Title>
-                        </Button>
-                      </LinearGradient>
-                    </View>
+                        <Title>登录</Title>
+                      </Button>
+                    </LinearGradient>
                   </View>
                 </View>
-              </ImageBackground>
+              </Content>
             </Container>
           </View>
         </Modal>

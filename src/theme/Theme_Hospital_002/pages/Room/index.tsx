@@ -8,7 +8,7 @@ import {
     NativeModules,
     Animated,
     Easing,
-    TouchableOpacity, ImageBackground,
+    TouchableOpacity,
 } from 'react-native';
 import {NavigationActions, NavigationEvents} from 'react-navigation';
 import {
@@ -47,8 +47,7 @@ import audio_IMG_2 from './assets/icon_audio_ac_slices/icon_audio_ac.png';
 
 import video_1 from './assets/icon_video_de_slices2/icon_video_de.png';
 import video_2 from './assets/icon_video_ac_slices/icon_video_ac.png';
-import bg from '@/theme/Theme_Hospital_002/components/LoginModal/assets/bg/bg.png';
-import {getStatusBarHeight} from "react-native-status-bar-height";
+import { getStatusBarHeight } from 'react-native-status-bar-height';
 
 const { MainViewManager = {}, MainViewController = {} } = NativeModules || {};
 const { SDKAuth, SDKLogin, SDKGoToRoom, SDKGetUsers, SDKGetUserInfo, SDKSetVideo, SDKSetAudio } = MainViewController || {};
@@ -110,23 +109,23 @@ class Home extends React.Component<IProps, IState> {
 
     componentDidMount() {
         try {
-            // StatusBar.setHidden(true);
+            StatusBar.setHidden(true);
             this.addEventBind();
             this.initSDK();
             if (this.animationLoading) {
                 Animated.loop(this.animationLoading).stop()
                 this.animationLoading = null;
             }
-            this.animationLoading = Animated.timing(
-                this.state.rotateVal, // 初始值
-                {
-                    duration: 3000,
-                    toValue: 360, // 终点值
-                    easing: Easing.linear, // 这里使用匀速曲线，详见RN-api-Easing
-                    useNativeDriver: true,
-                }
-            );
-            Animated.loop(this.animationLoading).start();
+            // this.animationLoading = Animated.timing(
+            //     this.state.rotateVal, // 初始值
+            //     {
+            //         duration: 3000,
+            //         toValue: 360, // 终点值
+            //         easing: Easing.linear, // 这里使用匀速曲线，详见RN-api-Easing
+            //         useNativeDriver: true,
+            //     }
+            // );
+            // Animated.loop(this.animationLoading).start();
         } catch (e) {
 
         }
@@ -477,7 +476,7 @@ class Home extends React.Component<IProps, IState> {
               flex: 1,
               position: 'absolute',
               width,
-              height: height - getStatusBarHeight(true) - 108,
+              height,
               flexGrow: 1,
               justifyContent: 'center',
               alignItems: 'center',
@@ -489,11 +488,11 @@ class Home extends React.Component<IProps, IState> {
                     uid={userID}
                     style={{
                         width,
-                        height: height - getStatusBarHeight(true) - 108,
+                        height,
                     }}
                   />
                 ) : <View>
-                    <Text style={styles.loadingTText}>等待医生进入诊室…</Text>
+                    <Text style={styles.loadingTText}>等待医生进入诊室</Text>
                 </View>
             }
         </View>
@@ -508,10 +507,10 @@ class Home extends React.Component<IProps, IState> {
         return <View
           style={{
               position: 'absolute',
-              right: 16,
-              top: getStatusBarHeight(true) +  108,
-              width: 117,
-              height: 156,
+              left: 16,
+              top: 29+getStatusBarHeight(true),
+              width: 125.5,
+              height: 151.5,
               backgroundColor: '#000',
               borderWidth: 1,
               borderColor: '#FFFFFF',
@@ -544,7 +543,11 @@ class Home extends React.Component<IProps, IState> {
         })
         console.log(meUser, "主持人");
         return (
-            <Container style={styles.container}>
+            <Container style={[styles.container, this.state.inRoom ? {
+                backgroundColor: '#F9FAFF'
+            } : {
+                backgroundColor: '#FFFFFF'
+            }]}>
                 <NavigationEvents
                     onWillFocus={async payload => {
 
@@ -559,107 +562,89 @@ class Home extends React.Component<IProps, IState> {
 
                     }}
                 />
-                <ImageBackground
-                  source={bg}
-                  style={{
-                      flex: 1,
-                      flexGrow: 1,
-                      width: '100%',
-                  }}
+                <Content
+                    style={[{
+                        flex: 1,
+                        flexGrow: 1,
+                    },  this.state.inRoom ? {
+                        backgroundColor: '#F9FAFF'
+                    } : {
+                        backgroundColor: '#FFFFFF'
+                    }]}
+                    contentContainerStyle={[{
+                        flex: 1,
+                        flexGrow: 1,
+                    },  this.state.inRoom ? {
+                        backgroundColor: '#F9FAFF'
+                    } : {
+                        backgroundColor: '#FFFFFF'
+                    }]}
                 >
                     <View style={{
-                        marginTop: getStatusBarHeight(true),
-                        height: 108,
-                        paddingBottom: 18,
+                        position: 'absolute',
+                        left: 0,
+                        right: 0,
+                        top: 36,
+                        zIndex: 99999999999,
+                        width: 50,
+                        height: 50,
                         justifyContent: 'center',
+                        alignItems: 'center',
                     }}>
-                        <View style={{
-                            paddingHorizontal: 16,
-                        }}>
-                            <Text style={{
-                                fontSize: 18,
-                                fontWeight: '500',
-                                color: '#FFFFFF'
-                            }}>
-                            </Text>
-                        </View>
-                    </View>
-                    <View
-                      style={{
-                          marginTop: -18,
-                          flex: 1,
-                          borderTopLeftRadius: 18,
-                          borderTopRightRadius: 18,
-                          overflow: 'hidden',
-                          backgroundColor: '#fff'
-                      }}
-                    >
-                        <Content
-                            style={{
-                                flex: 1,
-                                flexGrow: 1,
-                            }}
-                            contentContainerStyle={{
-                                flex: 1,
-                                flexGrow: 1,
-                            }}
+                        <Button
+                          transparent
+                          onPress={() => {
+                              const { dispatch } = this.props;
+                              dispatch(NavigationActions.back());
+                          }}
                         >
-                            <View style={{
-                                position: 'absolute',
-                                left: 0,
-                                right: 0,
-                                top: 36,
-                                zIndex: 99999999999,
-                                width: 50,
-                                height: 50,
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                            }}>
-                                <Button
-                                  transparent
-                                  onPress={() => {
-                                      const { dispatch } = this.props;
-                                      dispatch(NavigationActions.back());
-                                  }}
-                                >
-                                    <FastImage
-                                      style={{
-                                          width: 28,
-                                          height: 28,
-                                          alignContent: 'center',
-                                          justifyContent: 'center',
-                                      }}
-                                      source={require('./assets/ico_arrowleft_slices/ico_arrowleft.png')}
-                                      resizeMode={FastImage.resizeMode.contain}
-                                    />
-                                </Button>
-                            </View>
-                            {
-                                !this.state.inRoom ? (
-                                    <View style={{ flex: 1, flexGrow: 1, paddingHorizontal: 12, justifyContent: 'center', alignItems: 'center' }}>
-                                        <Animated.View style={[
-                                            styles.loadingWrap,
-                                        ]}>
-                                            <FastImage
-                                              style={{
-                                                  width: 144,
-                                                  height: 144,
-                                                  alignContent: 'center',
-                                                  justifyContent: 'center',
-                                              }}
-                                              source={loading}
-                                              resizeMode={FastImage.resizeMode.contain}
-                                            />
-                                            <Text style={styles.loadingText}>正在进入诊室、请稍等.......</Text>
-                                        </Animated.View>
-                                    </View>
-                                ) : <View>
-                                    {this.renderHost()}
-                                </View>
-                            }
-                        </Content>
+                            <FastImage
+                              style={{
+                                  width: 28,
+                                  height: 28,
+                                  alignContent: 'center',
+                                  justifyContent: 'center',
+                              }}
+                              source={require('./assets/ico_arrowleft_slices/ico_arrowleft.png')}
+                              resizeMode={FastImage.resizeMode.contain}
+                            />
+                        </Button>
                     </View>
-                </ImageBackground>
+                    {
+                        !this.state.inRoom ? (
+                            <View style={{ flex: 1, flexGrow: 1, paddingHorizontal: 12, justifyContent: 'center', alignItems: 'center' }}>
+                                <Animated.View style={[
+                                    styles.loadingWrap,
+                                ]}>
+                                    <Animated.View style={[
+                                        {
+                                            transform: [{ // 动画属性
+                                                rotate: this.state.rotateVal.interpolate({
+                                                    inputRange: [0, 360],
+                                                    outputRange: ['0deg', '360deg'],
+                                                })
+                                            }]
+                                        }
+                                    ]}>
+                                        <FastImage
+                                            style={{
+                                                width: 207.5,
+                                                height: 155,
+                                                alignContent: 'center',
+                                                justifyContent: 'center',
+                                            }}
+                                            source={require('./assets/Bitmap_slices/Bitmap.png')}
+                                            resizeMode={FastImage.resizeMode.contain}
+                                        />
+                                    </Animated.View>
+                                    <Text style={styles.loadingText}>正在进入诊室，请稍等</Text>
+                                </Animated.View>
+                            </View>
+                        ) : <View>
+                            {this.renderHost()}
+                        </View>
+                    }
+                </Content>
                 {this.state.inRoom ? this.renderMe() : undefined}
                 {
                     this.state.inRoom ? <Footer style={styles.footerWrap}>
@@ -675,40 +660,35 @@ class Home extends React.Component<IProps, IState> {
                                 alignItems: 'center',
                             }}>
                                 <Button
-                                  style={[styles.btnWrap,
-                                      {
-                                          opacity: this.state.audioType ? 1 : 0.5
-                                      }
-                                  ]}
+                                  style={styles.btnWrap}
                                   onPress={() => {
                                       this.handleSDKSetAudio();
                                   }}>
                                     <FastImage
                                       style={{
-                                          width: 23,
-                                          height: 23,
+                                          width: 28,
+                                          height: 28,
                                           alignContent: 'center',
                                           justifyContent: 'center',
                                       }}
-                                      source={audio_IMG_1}
+                                      source={this.state.audioType ? audio_IMG_1 : audio_IMG_2}
                                       resizeMode={FastImage.resizeMode.contain}
                                     />
                                 </Button>
+                                <View style={{ width: 50 }}></View>
                                 <Button
-                                  style={[styles.btnWrap, {
-                                      opacity: this.state.videoType ? 1 : 0.5
-                                  }]}
+                                  style={styles.btnWrap}
                                   onPress={() => {
                                       this.handleSDKSetVideo();
                                   }}>
                                     <FastImage
                                       style={{
-                                          width: 23,
-                                          height: 23,
+                                          width: 28,
+                                          height: 28,
                                           alignContent: 'center',
                                           justifyContent: 'center',
                                       }}
-                                      source={video_1}
+                                      source={this.state.videoType ? video_1 : video_2}
                                       resizeMode={FastImage.resizeMode.contain}
                                     />
                                 </Button>

@@ -4,6 +4,7 @@ import styles from './styles';
 import Modal from "react-native-modal";
 import _ from "lodash";
 import {Button, Text} from 'native-base';
+import LinearGradient from "react-native-linear-gradient";
 
 import nativeAutoUpdate, { handleDownload } from "@/utils/native-auto-update";
 
@@ -90,23 +91,21 @@ class CancelModalProvider extends React.Component<{}, IState> {
           <View style={{
             justifyContent: 'center',
             backgroundColor: '#fff',
-            borderRadius: 18,
+            borderRadius: 15,
+            height: 211,
           }}>
               <View>
-                <View style={{
-                  paddingTop: 20,
-                }}>
+                <View style={styles.header}>
                   <Text style={styles.title}>
-                    是否确认取消2020年1月3日下午的
-                    就诊？
+                  是否取消2010年1月3日下午的就诊？
                   </Text>
-                  <Text style={[styles.title]}>
-                    取消后挂号费将原路退回！
+                  <Text style={styles.infoText}>
+                    取消后挂号费会原路退回
                   </Text>
                 </View>
                 <View style={styles.btnWrap}>
                   <Button
-                      full
+                      rounded
                       bordered
                       onPress={async () => {
                         this.setState({
@@ -117,20 +116,28 @@ class CancelModalProvider extends React.Component<{}, IState> {
                       }}
                       style={styles.btn}
                   >
-                    <Text style={[styles.btnText]}>取消</Text>
+                    <Text style={[styles.btnText, styles.okText]}>取消</Text>
                   </Button>
-                  <View style={{ width: 1, height: 50, backgroundColor: '#F2F2F2' }} />
-                  <Button
-                      transparent
-                      full
-                      bordered
-                      onPress={async () => {
-                        this.closeModel();
-                      }}
-                      style={styles.btn}
+                  <View style={{ width: 15, height: 40 }} />
+                  <LinearGradient
+                    start={{x: 0, y: 0}} end={{x: 1, y: 1}}
+                    colors={['#5277F1', '#5277F1']}
+                    style={[
+                      styles.btn,
+                    ]}
                   >
-                    <Text style={[styles.btnText, styles.okText]}>确定</Text>
-                  </Button>
+                    <Button
+                      full
+                        rounded
+                        bordered={false}
+                        onPress={async () => {
+                          this.closeModel();
+                        }}
+                        style={styles.btn}
+                    >
+                      <Text style={[styles.btnText]}>确定</Text>
+                    </Button>
+                  </LinearGradient>
                 </View>
               </View>
           </View>

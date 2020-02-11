@@ -6,13 +6,14 @@ export default StyleSheet.create({
     flex: 1,
   },
   header: {
+    backgroundColor: '#fff',
     borderBottomWidth: 0,
   },
   headerText: {
-    color: '#fff',
+    color: '#192038',
   },
   body: {
-    backgroundColor: '#fff',
+    backgroundColor: '#F9FBFF',
   },
   bodyContent: {
     // paddingHorizontal: 16,
@@ -27,12 +28,11 @@ export default StyleSheet.create({
     height:60,
   },
   btnWrap: {
-    width: 120,
-    // flexGrow: 1,
+    flexGrow: 1,
     marginHorizontal: 16,
   },
   linearGradientBtn: {
-    borderRadius: 6,
+    borderRadius: 24,
   },
   submitButton: {
     height: 48,

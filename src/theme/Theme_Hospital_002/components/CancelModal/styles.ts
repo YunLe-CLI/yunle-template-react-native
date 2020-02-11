@@ -7,21 +7,32 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: 24,
   },
+  header: {
+    flexGrow: 1,
+    height: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   title: {
-    paddingHorizontal: 20,
     fontSize: 18,
     lineHeight: 21,
-    color: '#353B50',
+    color: '#333333',
+    textAlign: 'center',
     fontWeight: '500',
   },
-  infoText: {
+  body: {
+    paddingTop: 16,
     paddingHorizontal: 20,
-    marginTop: 24,
+  },
+  infoText: {
+    marginTop: 10,
+    paddingHorizontal: 20,
+    marginBottom: 8,
     fontSize: 14,
     lineHeight: 20,
-    color: '#404E66',
-    textAlign: 'center',
+    color: '#979797',
     fontWeight: '400',
+    textAlign: 'center'
   },
   qrMainWrap: {
     justifyContent: 'center',
@@ -67,26 +78,28 @@ export default StyleSheet.create({
   },
   btnWrap: {
     marginTop: 24,
+    marginHorizontal: 24,
+    marginBottom: 16,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     flexGrow: 1,
-    borderTopWidth: 1,
-    borderTopColor: '#F2F2F2',
   },
   btn: {
     flexGrow: 1,
-    borderColor: 'transparent',
-    height: 50,
+    borderRadius: 0,
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   btnText: {
     fontSize: 18,
     lineHeight: 20,
-    color: '#8193AE',
+    color: '#fff',
     fontWeight: '400',
   },
   okText: {
-    color: '#5F95FB',
+    color: '#5277F1',
   },
   buttonStyle: {
     flexGrow: 1,

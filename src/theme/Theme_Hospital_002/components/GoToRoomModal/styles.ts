@@ -8,34 +8,29 @@ export default StyleSheet.create({
     paddingHorizontal: 24,
   },
   header: {
-    height: 72,
-    flexDirection: 'row',
+    flexGrow: 1,
+    height: 100,
     justifyContent: 'center',
     alignItems: 'center',
-    borderBottomWidth: 1,
-    borderBottomColor: '#DCE3EE',
   },
   title: {
-    marginTop: 21,
-    paddingHorizontal: 20,
     fontSize: 18,
     lineHeight: 21,
-    color: '#000000',
-    textAlign: 'center',
-    fontWeight: '500',
-  },
-  infoText: {
-    paddingHorizontal: 20,
-    marginBottom: 24,
-    fontSize: 18,
-    lineHeight: 20,
-    color: '#000000',
+    color: '#333333',
     textAlign: 'center',
     fontWeight: '500',
   },
   body: {
     paddingTop: 16,
     paddingHorizontal: 20,
+  },
+  infoText: {
+    paddingHorizontal: 20,
+    marginBottom: 8,
+    fontSize: 14,
+    lineHeight: 20,
+    color: '#404E66',
+    fontWeight: '400',
   },
   qrMainWrap: {
     justifyContent: 'center',
@@ -79,19 +74,30 @@ export default StyleSheet.create({
   copyText2: {
     fontWeight: '600',
   },
+  btnWrap: {
+    marginTop: 24,
+    marginHorizontal: 24,
+    marginBottom: 16,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexGrow: 1,
+  },
   btn: {
     flexGrow: 1,
-    borderColor: 'transparent',
-    height: 50,
+    borderRadius: 0,
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   btnText: {
     fontSize: 18,
     lineHeight: 20,
-    color: '#8193AE',
+    color: '#fff',
     fontWeight: '400',
   },
   okText: {
-    color: '#118DF0',
+    color: '#5277F1',
   },
   buttonStyle: {
     flexGrow: 1,
@@ -112,9 +118,4 @@ export default StyleSheet.create({
     fontSize: 16,
     color: '#BFBFBF',
   },
-  btnWrap: {
-    borderTopWidth: 1,
-    borderTopColor: '#eee',
-    flexDirection: 'row'
-  }
 });

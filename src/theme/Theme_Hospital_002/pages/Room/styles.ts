@@ -2,7 +2,6 @@ import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
   container: {
-    backgroundColor: '#404E66',
     flex: 1,
   },
   boxWithShadow: {
@@ -45,21 +44,15 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   loadingText: {
-    marginTop: 12.5,
+    marginTop: 35,
     fontSize: 16,
     lineHeight: 22,
-    color: '#909090',
+    color: '#999999',
     textAlign: 'center',
     fontWeight: '400',
   },
   footerWrap: {
-    borderTopWidth: 0,
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    bottom: 45,
-    height: 100,
-    backgroundColor: 'transparent'
+    backgroundColor: '#fff'
   },
   btnWrap: {
     marginLeft: 16,
@@ -69,10 +62,10 @@ export default StyleSheet.create({
     paddingBottom: 0,
     paddingRight: 0,
     paddingLeft: 0,
-    width: 120,
-    height: 40,
-    backgroundColor: '#6093FB',
-    borderRadius: 3,
+    width: 48,
+    height: 48,
+    backgroundColor: 'transparent',
+    borderRadius: 24,
   },
   userNameWrap: {
     position: 'absolute',
@@ -92,7 +85,7 @@ export default StyleSheet.create({
   },
   loadingTText: {
     fontSize: 16,
-    color: '#909090',
+    color: '#333333',
     textAlign: 'center',
     fontWeight: '400',
   },
