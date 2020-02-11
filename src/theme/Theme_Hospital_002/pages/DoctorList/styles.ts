@@ -140,6 +140,7 @@ export default StyleSheet.create({
     borderRightWidth: 0,
     borderLeftWidth: 0,
     borderBottomWidth: 0,
+    backgroundColor: '#F9FAFF'
   },
   itemHeader: {
     flexDirection: 'row',
@@ -147,7 +148,7 @@ export default StyleSheet.create({
   nameText: {
     fontSize: 16,
     lineHeight: 22.5,
-    color: '#404E66',
+    color: '#333333',
     fontWeight: '500',
     justifyContent: 'center',
     alignItems: 'center',

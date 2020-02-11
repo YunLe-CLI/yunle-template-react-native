@@ -57,151 +57,45 @@ class Home extends React.Component<IProps, IState> {
     const { params = {} } = navigation.state;
     const doctorInfo: DOCTOR_ITEM = params.doctorInfo || {};
     const time = params.time;
-    return <View>
-      <Card noShadow style={styles.formCard}>
+    return <View style={{
+      margin: 16,
+      backgroundColor: '#fff'
+    }}>
+      <Card noShadow style={[styles.formCard, {
+        backgroundColor: '#F5F6FD',
+        paddingTop: 40,
+      }]}>
         <CardItem style={styles.formItem}>
           <Text style={styles.formItemTitle}>{this.props.postType || '挂号'}信息</Text>
         </CardItem>
-        <CardItem style={styles.formItem}>
-          <Text style={styles.formItemLabel}>医生姓名</Text>
+        <CardItem style={[styles.formItem, { marginTop:  -10,}]}>
+          <Text style={styles.formItemLabel}>医生姓名: </Text>
           <Text style={styles.ipt}>
             {doctorInfo.name}
           </Text>
         </CardItem>
-        <CardItem style={styles.formItem}>
-          <Text style={styles.formItemLabel}>医生职称</Text>
+        <CardItem style={[styles.formItem, { marginTop:  -20,}]}>
+          <Text style={styles.formItemLabel}>医生职称: </Text>
           <Text style={styles.ipt}>
             {doctorInfo.professionalTitle}
           </Text>
         </CardItem>
-        <CardItem style={styles.formItem}>
-          <Text style={styles.formItemLabel}>所在医院</Text>
+        <CardItem style={[styles.formItem, { marginTop:  -20,}]}>
+          <Text style={styles.formItemLabel}>所在医院: </Text>
           <Text style={styles.ipt}>
             {doctorInfo.hospitalName}
           </Text>
         </CardItem>
-        <CardItem style={styles.formItem}>
-          <Text style={styles.formItemLabel}>就诊科室</Text>
+        <CardItem style={[styles.formItem, { marginTop:  -20,}]}>
+          <Text style={styles.formItemLabel}>就诊科室: </Text>
           <Text style={styles.ipt}>
             {doctorInfo.medicalDepartment}
           </Text>
         </CardItem>
-      </Card>
-
-
-      <Card noShadow style={styles.formCard}>
-        <CardItem style={styles.formItem}>
-          <Text style={styles.formItemTitle}>就诊人信息</Text>
-        </CardItem>
-        <CardItem style={styles.formItem}>
-          <Text style={styles.formItemLabel}>就诊人</Text>
-          <Text style={styles.ipt}>
-            {user.name}
-          </Text>
-        </CardItem>
-        <CardItem style={styles.formItem}>
-          <Text style={styles.formItemLabel}>身份证号</Text>
-          <Text style={styles.ipt}>
-            {user.idCard}
-          </Text>
-        </CardItem>
-        <CardItem style={styles.formItem}>
-          <Text style={styles.formItemLabel}>手机号码</Text>
-          <Text style={styles.ipt}>
-            {user.mobile}
-          </Text>
-        </CardItem>
-        <CardItem style={styles.formItem}>
-          <Text style={styles.formItemLabel}>就诊时间</Text>
-          <Text style={styles.ipt}>
-            {time}
-          </Text>
-        </CardItem>
-      </Card>
-
-    </View>
-  }
-
-  render() {
-    const { orientationType } = this.state;
-    return (
-      <Container style={styles.container}>
-        <NavigationEvents
-          onWillFocus={payload => {
-          }}
-          onDidFocus={payload => {
-          }}
-          onWillBlur={payload => {
-          }}
-          onDidBlur={payload => {
-          }}
-        />
-        <Header
-          style={styles.header}
-          translucent
-        >
-          <Left
-          >
-            <Button
-              transparent
-              onPress={() => {
-                const { dispatch } = this.props;
-                dispatch(NavigationActions.back());
-              }}
-            >
-              <FastImage
-                style={{
-                  marginLeft: 16,
-                  width: 20,
-                  height: 20,
-                  alignContent: 'center',
-                  justifyContent: 'center',
-                }}
-                source={icon}
-                resizeMode={FastImage.resizeMode.contain}
-              />
-            </Button>
-          </Left>
-          <Body>
-            <Title style={styles.headerText}>{this.props.postType || '挂号'}成功</Title>
-          </Body>
-          <Right/>
-        </Header>
-        <StatusBar barStyle="dark-content" />
-        <Content
-          disableKBDismissScroll
-          style={styles.body}
-          contentContainerStyle={styles.bodyContent}
-        >
-          <Card noShadow style={styles.formCard}>
-            <CardItem style={[styles.formItem, styles.success]}>
-              <FastImage
-                style={{
-                  marginTop: 24,
-                  marginBottom: 16,
-                  width: 98,
-                  height: 98,
-                  alignContent: 'center',
-                  justifyContent: 'center',
-                }}
-                source={pic_sce}
-                resizeMode={FastImage.resizeMode.contain}
-              />
-              <Text style={[styles.ipt, styles.successText]}>
-                您已{this.props.postType || '挂号'}成功
-              </Text>
-            </CardItem>
-          </Card>
-
-          {this.renderForm()}
-        </Content>
-        <Footer
-          style={styles.footerWrap}
-        >
-          <View style={styles.btnWrap}>
+        <View style={styles.btnWrap}>
             <LinearGradient
               start={{x: 0, y: 0}} end={{x: 1, y: 1}}
-              colors={['#6AE27C', '#17D397']}
+              colors={['#5277F1', '#5277F1']}
               style={[
                 styles.linearGradientBtn,
               ]}
@@ -227,7 +121,71 @@ class Home extends React.Component<IProps, IState> {
               </Button>
             </LinearGradient>
           </View>
-        </Footer>
+      </Card>
+
+    </View>
+  }
+
+  render() {
+    const { orientationType } = this.state;
+    return (
+      <Container style={styles.container}>
+        <NavigationEvents
+          onWillFocus={payload => {
+          }}
+          onDidFocus={payload => {
+          }}
+          onWillBlur={payload => {
+          }}
+          onDidBlur={payload => {
+          }}
+        />
+        <Header>
+            <Left>
+                <Button
+                  transparent
+                  onPress={() => {
+                    const { dispatch } = this.props;
+                    dispatch(NavigationActions.back());
+                  }}
+                >
+                  <Icon style={{ paddingHorizontal: 12, color: '#fff', fontSize: 26 }} name='arrow-back' />
+                </Button>
+            </Left>
+            <Body>
+                <Title style={styles.title}>{this.props.postType || '挂号'}成功</Title>
+            </Body>
+            <Right />
+        </Header>
+        <StatusBar barStyle="dark-content" />
+        <Content
+          disableKBDismissScroll
+          style={styles.body}
+          contentContainerStyle={styles.bodyContent}
+        >
+          <Card noShadow style={styles.formCard}>
+            <CardItem style={[styles.formItem, styles.success]}>
+              <FastImage
+                style={{
+                  marginTop: 24,
+                  marginBottom: 16,
+                  width: 123,
+                  height: 123,
+                  alignContent: 'center',
+                  justifyContent: 'center',
+                }}
+                source={pic_sce}
+                resizeMode={FastImage.resizeMode.contain}
+              />
+              <Text style={[styles.ipt, styles.successText]}>
+                您已成功{this.props.postType || '挂号'}
+              </Text>
+            </CardItem>
+          </Card>
+
+          {this.renderForm()}
+        </Content>
+    
       </Container>
     );
   }

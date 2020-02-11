@@ -76,9 +76,18 @@ class Home extends React.Component<IProps, IState> {
     const { params = {} } = navigation.state;
     const doctorInfo:DOCTOR_ITEM = params.doctorInfo || {};
     return <View>
-      <Card noShadow style={styles.formCard}>
+     <Card noShadow style={[styles.formCard,{
+            paddingVertical: 20,
+          }]}>
         <CardItem style={styles.formItem}>
-          <Text style={styles.formItemTitle}>医生介绍</Text>
+          <Text style={styles.formItemTitle}><View style={{
+              width: 3.5,
+              height: 12,
+              backgroundColor: '#5277F1',
+            }}/>
+            <View style={{
+              width: 10,
+            }}/>医生介绍</Text>
         </CardItem>
         <CardItem style={styles.formItem}>
           <Text style={styles.formItemLabel}>
@@ -88,8 +97,23 @@ class Home extends React.Component<IProps, IState> {
 
           </Text>
         </CardItem>
+        
+      </Card>
+      <Card noShadow style={[styles.formCard,{
+            paddingVertical: 20,
+          }]}>
         <CardItem style={styles.formItem}>
-          <Text style={styles.formItemTitle}>擅长疾病</Text>
+          <Text style={styles.formItemTitle}>
+            <View style={{
+              width: 3.5,
+              height: 12,
+              backgroundColor: '#5277F1',
+            }}/>
+            <View style={{
+              width: 10,
+            }}/>
+            擅长疾病
+          </Text>
         </CardItem>
         <CardItem style={styles.formItem}>
           <Text style={styles.formItemLabel}>
@@ -102,13 +126,39 @@ class Home extends React.Component<IProps, IState> {
       </Card>
 
 
-      <Card noShadow style={styles.formCard}>
+      <Card noShadow style={[styles.formCard,{
+            paddingVertical: 20,
+          }]}>
         <CardItem style={[styles.formItem, styles.spaceBetween]}>
-          <Text style={styles.formItemTitle}>出诊信息</Text>
-          <Text style={[styles.formItemTitle, styles.formItemMoney]}>挂号费：￥{doctorInfo.registrationFee}</Text>
+          <Text style={styles.formItemTitle}>
+          <View style={{
+              width: 3.5,
+              height: 12,
+              backgroundColor: '#5277F1',
+            }}/>
+            <View style={{
+              width: 10,
+            }}/>
+            出诊信息</Text>
+          <Text style={[styles.formItemTitle]}>
+            挂号费：￥
+            <Text style={[styles.formItemTitle, styles.formItemMoney]}>
+              {doctorInfo.registrationFee}
+            </Text>
+            元
+          </Text>
         </CardItem>
-        <CardItem style={styles.formItem}>
-          {this.renderTable()}
+        <CardItem style={[styles.formItem, {
+          flex: 1,
+          flexGrow: 1,
+          justifyContent: 'flex-start',
+          alignItems: 'center',
+        }]}>
+          <View style={{
+            flexGrow: 1,
+          }}>
+            {this.renderTable()}
+          </View>
         </CardItem>
       </Card>
 
@@ -133,40 +183,187 @@ class Home extends React.Component<IProps, IState> {
       widthArr.push(62.5)
       tableHead.push(item.date || '')
       const { data = [] } = item;
-      let NODE_AM = '';
-      let NODE_PM = '';
-      if (data && _.isArray(data) && data.length) {
-        data.forEach((cItem: REGISTRATIONS_ITEM_INFO) => {
-          if (cItem.remainCount > 0) {
-            NODE = (<TouchableOpacity onPress={() => {
+      let NODE_AM = {date: item.date};
+      let NODE_PM = {date: item.date};
+
+      console.log(1111, data, 111);
+
+      (data || [{}, {}]).forEach((cItem: REGISTRATIONS_ITEM_INFO) => {
+       
+        if (cItem.timeslot === 1) {
+          NODE_AM = ({...cItem, date: item.date, remainCount: cItem.remainCount });
+        }
+        if (cItem.timeslot === 2) {
+          NODE_PM = ({...cItem, date: item.date, remainCount: cItem.remainCount });
+        }
+      })
+      if (NODE_AM) {
+        tableData1.push(NODE_AM);
+      }
+      if (NODE_PM) {
+        tableData2.push(NODE_PM);
+      }
+    });
+    return <View style={{
+      backgroundColor: '#F9FAFF'
+    }}>
+      <View style={{
+      }}>
+        <View style={{
+          flex: 1,
+          flexGrow: 1,
+          flexDirection: 'row',
+          borderBottomColor: '#E6E6E6',
+          borderBottomWidth: 1,
+        }}>
+          <View style={{  
+            flex: 1,
+            paddingVertical: 12,
+            flexGrow: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+            <Text>
+            </Text>
+          </View>
+          <View style={{
+             backgroundColor: '#E6E6E6',
+            width: 1,
+          }} />
+          <View style={{ 
+            flex: 1,
+            paddingVertical: 12, 
+            flexGrow: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+            <Text style={{
+              fontSize: 13,
+              color: '#333333'
+            }}>
+              上午
+            </Text>
+          </View>
+          <View style={{
+             backgroundColor: '#E6E6E6',
+            width: 1,
+          }} />
+          <View style={{ 
+            flex: 1,
+            paddingVertical: 12, 
+            flexGrow: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+            <Text style={{
+              fontSize: 13,
+              color: '#333333'
+            }}>
+              下午
+            </Text>
+          </View>
+        </View>
+        {
+          registrations.map((item, index) => {
+            return <View style={{
+              flex: 1,
+              flexGrow: 1,
+              flexDirection: 'row',
+              borderBottomColor: '#E6E6E6',
+              borderBottomWidth: 1,
+            }}>
+              <View style={{  
+                flex: 1,
+                paddingVertical: 12,
+                flexGrow: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+                overflow: 'hidden',
+              }}>
+                <Text style={{
+                  flexWrap: 'wrap',
+                  fontSize: 13,
+                  color: '#333333'
+                }}>
+                  周{utils[moment(item.date).day()+1]}
+                  <View style={{ width: 10, }}></View>
+                  {/* {moment(item.date).format('MM-DD')} */}
+                </Text>
+              </View>
+              <View style={{
+                 backgroundColor: '#E6E6E6',
+                width: 1,
+              }} />
+              <View style={{ 
+                flex: 1,
+                paddingVertical: 12, 
+                flexGrow: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+                
+                {(tableData1[index] || {}).remainCount === 0 ? <Text style={{
+                  fontSize: 13,
+                  color: '#333333'
+                }}>
+                  挂满
+                </Text> : null}
+                {(tableData1[index] || {}).remainCount > 0 ? <TouchableOpacity onPress={() => {
               this.props.dispatch(NavigationActions.navigate({
                 routeName: 'AppointmentDetails',
                 params: {
                   doctorInfo,
-                  registration_id: cItem.id,
+                  registration_id: tableData1[index].id,
                   segmentActive: params.segmentActive,
-                  time: `${moment(item.date).format('YYYY.MM.DD')} ${cItem.timeslot === 1 ? '上午' : '下午'} `
+                  time: `${moment(item.date).format('YYYY.MM.DD')} ${tableData1[index].timeslot === 1 ? '上午' : '下午'} `
                 },
               }))
             }}>
-              <Text style={styles.start}>剩余{data[0].remainCount}</Text>
-            </TouchableOpacity>)
-          }
-          if (cItem.remainCount === 0) {
-            NODE = (<Text style={styles.end}>挂满</Text>);
-          }
-          if (cItem.timeslot === 1) {
-            NODE_AM = (NODE);
-          }
-          if (cItem.timeslot === 2) {
-            NODE_PM = (NODE);
-          }
-        })
-      }
-      tableData1.push(NODE_AM);
-      tableData2.push(NODE_PM);
-    });
-
+              <View style={styles.startWrap}><Text style={{
+                  fontSize: 13,
+                  color: '#5277F1'
+                }}>剩余{tableData2[index].remainCount}</Text></View>
+            </TouchableOpacity>: null}
+              </View>
+              <View style={{
+                 backgroundColor: '#E6E6E6',
+                width: 1,
+              }} />
+              <View style={{ 
+                flex: 1,
+                paddingVertical: 12, 
+                flexGrow: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+                {(tableData2[index] || {}).remainCount === 0 ? <Text style={{
+                  fontSize: 13,
+                  color: '#fff'
+                }}>
+                  挂满
+                </Text> : null}
+                {(tableData2[index] || {}).remainCount > 0 ? <TouchableOpacity onPress={() => {
+              this.props.dispatch(NavigationActions.navigate({
+                routeName: 'AppointmentDetails',
+                params: {
+                  doctorInfo,
+                  registration_id: tableData2[index].id,
+                  segmentActive: params.segmentActive,
+                  time: `${moment(item.date).format('YYYY.MM.DD')} ${tableData2[index].timeslot === 1 ? '上午' : '下午'} `
+                },
+              }))
+            }}>
+               <View style={styles.startWrap}><Text style={{
+                  fontSize: 13,
+                  color: '#5277F1'
+                }}>剩余{tableData2[index].remainCount}</Text></View>
+            </TouchableOpacity>: null}
+              </View>
+            </View>
+          })
+        }
+      </View>
+    </View>
     return <ScrollView style={styles.scrollView} horizontal={true}>
       <Table>
         <TableWrapper borderStyle={{borderWidth: 1, borderColor: '#E8E8E8'}} style={[styles.tableRow]}>
@@ -178,7 +375,7 @@ class Home extends React.Component<IProps, IState> {
                   <View style={[styles.cellWrap, { width: widthArr[cellIndex] }]}>
                     {
                       cellIndex === 0 ? undefined : <>
-                        <Text style={styles.tableHeaderText}>周{utils[moment(item.date).day()+1]}</Text>
+                        <Text style={styles.tableHeaderText}>周{utils[moment(cellData).day()+1]}</Text>
                         <Text style={styles.headerCellSpanText}>{moment(cellData).format('MM-DD')}</Text>
                       </>
                     }
@@ -256,36 +453,22 @@ class Home extends React.Component<IProps, IState> {
           onDidBlur={payload => {
           }}
         />
-        <Header
-          style={styles.header}
-          translucent
-        >
-          <Left
-          >
-            <Button
-              transparent
-              onPress={() => {
-                const { dispatch } = this.props;
-                dispatch(NavigationActions.back());
-              }}
-            >
-              <FastImage
-                style={{
-                  marginLeft: 16,
-                  width: 20,
-                  height: 20,
-                  alignContent: 'center',
-                  justifyContent: 'center',
-                }}
-                source={icon}
-                resizeMode={FastImage.resizeMode.contain}
-              />
-            </Button>
-          </Left>
-          <Body>
-            <Title style={styles.headerText}>医生信息</Title>
-          </Body>
-          <Right/>
+        <Header>
+            <Left>
+                <Button
+                  transparent
+                  onPress={() => {
+                    const { dispatch } = this.props;
+                    dispatch(NavigationActions.back());
+                  }}
+                >
+                  <Icon style={{ paddingHorizontal: 12, color: '#fff', fontSize: 26 }} name='arrow-back' />
+                </Button>
+            </Left>
+            <Body>
+                <Title style={styles.headerText}>医生信息</Title>
+            </Body>
+            <Right />
         </Header>
         <StatusBar barStyle="dark-content" />
         <Content
@@ -293,7 +476,9 @@ class Home extends React.Component<IProps, IState> {
           style={styles.body}
           contentContainerStyle={styles.bodyContent}
         >
-          <Card noShadow style={styles.formCard}>
+          <Card noShadow style={[styles.formCard,{
+            paddingVertical: 20,
+          }]}>
             <CardItem
               button
               onPress={async () => {
@@ -304,31 +489,61 @@ class Home extends React.Component<IProps, IState> {
               }}
               >
               <Left>
+                <Body style={{
+                  marginLeft: 0,
+                }}>
+                  <View style={styles.itemHeader}>
+                    <Text style={styles.nameText}>
+                      {doctorInfo.name}
+                    </Text>
+                    <View style={{ width: 30, }}></View>
+                    <Text style={[styles.note, styles.span]}>
+                      {doctorInfo.professionalTitle}
+                    </Text>
+                  </View>
+
+                  <View style={{
+                    marginTop: 19,
+                    flexDirection: 'row',
+                  }}>
+                    <Text style={[styles.note, {
+                      flexGrow: 1,
+                      fontSize: 13,
+                      color: '#666666'
+                    }]}>
+                    {doctorInfo.hospitalName}
+                    </Text>
+                    <Text style={[styles.note, {
+                      flexGrow: 1,
+                      fontSize: 13,
+                      textAlign:'center',
+                      color: '#666666'
+                    }]}>
+                    {doctorInfo.medicalDepartment}
+                    </Text>
+                    <Text  style={[styles.note, {
+                      flexGrow: 1,
+                      fontSize: 13,
+                      textAlign:'right',
+                      color: '#666666'
+                    }]}>
+                      已预约：{appointment.registrationCount || 0}
+                    </Text>
+
+                  </View>
+                </Body>
                 <FastImage
                   style={{
-                    width: 48,
-                    height: 48,
-                    marginRight: 16,
-                    borderRadius: 24,
+                    width: 57.5,
+                    height: 57.5,
+                    marginLeft: 25,
+                    borderRadius: 0,
                     alignContent: 'center',
                     justifyContent: 'center',
                   }}
                   source={{ uri: doctorInfo.avatar }}
                   resizeMode={FastImage.resizeMode.contain}
                 />
-                <Body>
-                  <View style={styles.itemHeader}>
-                    <Text style={styles.nameText}>
-                      {doctorInfo.name}
-                    </Text>
-                    <Text style={[styles.note, styles.span]}>
-                      {doctorInfo.professionalTitle}
-                    </Text>
-                  </View>
-
-                  <Text style={styles.note}>{doctorInfo.hospitalName}  {doctorInfo.medicalDepartment}</Text>
-                  <Text  style={[styles.note, styles.strong]}>已预约：{appointment.registrationCount || 0}</Text>
-                </Body>
               </Left>
             </CardItem>
           </Card>

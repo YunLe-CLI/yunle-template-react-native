@@ -178,7 +178,7 @@ class Home extends React.Component<IProps, IState> {
                   <View style={[styles.cellWrap, { width: widthArr[cellIndex] }]}>
                     {
                       cellIndex === 0 ? undefined : <>
-                        <Text style={styles.tableHeaderText}>周{utils[moment(item.date).day()+1]}</Text>
+                        <Text style={styles.tableHeaderText}>周{utils[moment(cellData).day()+1]}</Text>
                         <Text style={styles.headerCellSpanText}>{moment(cellData).format('MM-DD')}</Text>
                       </>
                     }

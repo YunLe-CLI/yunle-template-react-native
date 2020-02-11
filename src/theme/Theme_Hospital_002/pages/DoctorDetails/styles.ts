@@ -11,7 +11,7 @@ export default StyleSheet.create({
     borderBottomWidth: 0,
   },
   headerText: {
-    color: '#192038',
+    color: '#fff',
   },
   body: {
     backgroundColor: '#F9FBFF',
@@ -64,7 +64,7 @@ export default StyleSheet.create({
   formItemTitle: {
     fontSize: 16,
     fontWeight: '500',
-    color: '#404E66',
+    color: '#333333',
     lineHeight: 22.5,
   },
   formItemMoney: {
@@ -75,7 +75,7 @@ export default StyleSheet.create({
     marginRight: 16,
     fontSize: 14,
     fontWeight: '400',
-    color: '#8193AE',
+    color: '#666666',
     lineHeight: 22,
   },
   ipt: {

@@ -97,9 +97,9 @@ class Home extends React.Component<IProps, IState> {
                   <Right />
               </Header>
               <StatusBar barStyle="dark-content" />
-              <Content style={{ backgroundColor: '#F9FBFF' }}
+              <Content style={{ backgroundColor: '#F9FAFF' }}
                        contentContainerStyle={{
-                           padding: 16,
+                          //  padding: 16,
                        }}
               >
                   <Card noShadow style={styles.card}>
@@ -107,7 +107,11 @@ class Home extends React.Component<IProps, IState> {
                           list.map((item: DOCTOR_ITEM) => {
                               const { selected } = this.state;
                               const isSelect: boolean = selected && item.id === selected.id
-                              return <CardItem
+                              return <View key={item.id} style={{
+                                backgroundColor: '#fff',
+                                paddingBottom: 20,
+                                marginBottom: 10,
+                              }}><CardItem
                                 button
                                 onPress={async () => {
                                     this.props.dispatch(NavigationActions.navigate({
@@ -118,21 +122,15 @@ class Home extends React.Component<IProps, IState> {
                                         },
                                     }))
                                 }}
-                                key={item.id}>
+                                style={{
+                                  paddingLeft: 20,
+                                  paddingRight: 20,
+                                }}
+                              >
                                   <Left>
-                                      <FastImage
-                                        style={{
-                                            width: 48,
-                                            height: 48,
-                                            marginRight: 16,
-                                            borderRadius: 24,
-                                            alignContent: 'center',
-                                            justifyContent: 'center',
-                                        }}
-                                        source={{ uri: item.avatar}}
-                                        resizeMode={FastImage.resizeMode.contain}
-                                      />
-                                      <Body>
+                                      <Body style={{
+                                        marginLeft: 0,
+                                      }}>
                                           <View style={styles.itemHeader}>
                                               <Text style={styles.nameText}>
                                                   {item.name}
@@ -140,13 +138,44 @@ class Home extends React.Component<IProps, IState> {
                                               <Text style={[styles.note, styles.span]}>
                                                   {item.professionalTitle}
                                               </Text>
+                                              <Text style={[styles.note, styles.span, {
+                                                flexGrow: 1,
+                                                textAlign: 'right'
+                                              }]}>
+                                                挂号费：
+                                                <Text style={[styles.note, styles.span, {
+                                                  color: 'red'
+                                                }]}>{item.registrationFee}</Text>
+                                                元
+                                              </Text>
                                           </View>
 
-                                          <Text style={styles.note}> {item.hospitalName} {item.medicalDepartment}</Text>
-                                          <Text  numberOfLines={2} style={[styles.note, styles.strong]}>擅长：{item.skillsIntro}</Text>
+                                          <Text style={[styles.note, {
+                                            marginTop: 10,
+                                            fontSize: 13,
+                                            color: '#666666',
+                                          }]}> {item.hospitalName} {item.medicalDepartment}</Text>
                                       </Body>
+                                      <FastImage
+                                        style={{
+                                            width: 57.5,
+                                            height: 57.5,
+                                            marginLeft: 5,
+                                            borderRadius: 0,
+                                            alignContent: 'center',
+                                            justifyContent: 'center',
+                                        }}
+                                        source={{ uri: item.avatar}}
+                                        resizeMode={FastImage.resizeMode.contain}
+                                      />
                                   </Left>
                               </CardItem>
+                              <Text  numberOfLines={1} style={[styles.note, styles.strong, {
+                                paddingHorizontal: 20,
+                                color: '#999999',
+                                fontSize: 13,
+                              }]}>擅长：{item.skillsIntro}</Text>
+                            </View>
                           })
                       }
                   </Card>
