@@ -28,7 +28,7 @@ export interface IModelType extends Model{
 
 const initState: IModelState = {
   token: undefined,
-  token: "lviKDAUNP7UjsKjPSSLZ//BMJ/CVOxBpbGfXRA4WULJryZHJjgSc8YBRHSSWk8zuZKgUEX8VNvyr/ut4Xuwr8IpL5cko8PfGnJv60iGAwQm+o7hlzosmUHOfSBOFBxOzatkM1dYhR/lZ6PseF/iZM7beIEcFLGuuow9ypsmYLxA6OO+pGmn+Tu/bxUP3u1r9ZdCELx+KbO3G+xvuFXekcw=="
+  // token: "lviKDAUNP7UjsKjPSSLZ//BMJ/CVOxBpbGfXRA4WULJryZHJjgSc8YBRHSSWk8zuZKgUEX8VNvyr/ut4Xuwr8IpL5cko8PfGnJv60iGAwQm+o7hlzosmUHOfSBOFBxOzatkM1dYhR/lZ6PseF/iZM7beIEcFLGuuow9ypsmYLxA6OO+pGmn+Tu/bxUP3u1r9ZdCELx+KbO3G+xvuFXekcw=="
 }
 
 const authModel: IModelType = {
