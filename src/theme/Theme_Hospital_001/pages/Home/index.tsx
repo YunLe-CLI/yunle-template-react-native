@@ -135,7 +135,7 @@ class Home extends React.Component<IProps, IState> {
 
   async getIsMe(item: MAKE_ITEM) {
     try {
-      const { id } = this.props.user;
+      const { id } = this.props.user || {};
       const res = await ROOM_MESSAGE({ mettingNo: item.metaData.MeetingNo  })
       if (res.code === 0) {
         const { nextId, kickId } = res.data;
