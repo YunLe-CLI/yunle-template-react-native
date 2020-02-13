@@ -34,7 +34,7 @@ import LinearGradient from "react-native-linear-gradient";
 
 import { withGoToRoomModal } from '../../components/GoToRoomModal';
 
-import { today_courses, mine_courses } from '../../services/api';
+import { today_courses, mine_courses, signins } from '../../services/api';
 
 const { MainViewController = {} } = NativeModules || {};
 const { SDKLeaveRoom } = MainViewController || {};
@@ -167,7 +167,17 @@ class Home extends React.Component<IProps, IState> {
       })
     }
   }
-
+  async signins(courseId: string) {
+    try {
+      const res = await signins({courseId});
+      console.log('mine_courses', res)
+    } catch (e) {
+  
+    } finally {
+        await this.today_courses();
+        await this.mine_courses();
+    }
+  }
 
   renderItem = (data: Courses) => {
     const { coursewares = {}, teacher = {}, status, signin } = data;
@@ -225,6 +235,7 @@ class Home extends React.Component<IProps, IState> {
                 <View style={styles.itemBox_3}>
                   <TouchableOpacity
                     onPress={() => {
+                      this.signins(data.id);
                       this.props.dispatch(NavigationActions.navigate({
                         routeName: 'Room',
                         params: {

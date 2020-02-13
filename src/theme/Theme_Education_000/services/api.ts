@@ -43,7 +43,7 @@ export async function mine_courses({}, token): Promise<any> {
  * api doc url: http://eolinker.class100.com/#/home/project/inside/api/detail?groupID=-1&apiID=1004&projectName=%E4%BA%91%E8%A7%86%E8%AE%AF%E7%9B%B4%E6%92%ADdemo&projectID=74
  * @param params
  */
-export async function signins(query: { courseId: string }, token): Promise<any> {
+export async function signins(query: { courseId: string }): Promise<any> {
   return request({
     url: await getOrigin('https://yunshixun-live.dev.class100.com/api/v1/signins', 'app'),
     method: 'POST',

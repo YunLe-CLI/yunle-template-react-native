@@ -40,7 +40,7 @@ import LinearGradient from "react-native-linear-gradient";
 
 import { withGoToRoomModal } from '../../components/GoToRoomModal';
 
-import { today_courses, mine_courses } from '../../services/api';
+import { today_courses, mine_courses, signins } from '../../services/api';
 import homeIcon from '@/theme/Theme_Education_003/pages/Home/assets/home_icon_slices/icon.png';
 import {getStatusBarHeight} from "react-native-status-bar-height";
 
@@ -165,6 +165,18 @@ class Home extends React.Component<IProps, IState> {
     }
   }
 
+  async signins(courseId: string) {
+    try {
+      const res = await signins({courseId});
+      console.log('mine_courses', res)
+    } catch (e) {
+  
+    } finally {
+        await this.today_courses();
+        await this.mine_courses();
+    }
+  }
+
 
   renderItem = (data: Courses, index) => {
     const { coursewares = {}, teacher = {}, status, signin, playbackURL } = data;
@@ -221,6 +233,7 @@ class Home extends React.Component<IProps, IState> {
               }}>
                 <TouchableOpacity
                   onPress={() => {
+                    this.signins(data.id);
                     this.props.dispatch(NavigationActions.navigate({
                       routeName: 'Room',
                       params: {

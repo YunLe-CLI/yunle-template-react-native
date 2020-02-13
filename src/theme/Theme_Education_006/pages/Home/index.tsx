@@ -34,7 +34,7 @@ import LinearGradient from "react-native-linear-gradient";
 
 import { withGoToRoomModal } from '../../components/GoToRoomModal';
 
-import { today_courses, mine_courses } from '../../services/api';
+import { today_courses, mine_courses, signins } from '../../services/api';
 
 const { MainViewController = {} } = NativeModules || {};
 const { SDKLeaveRoom } = MainViewController || {};

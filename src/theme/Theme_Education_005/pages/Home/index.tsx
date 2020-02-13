@@ -30,7 +30,7 @@ import LinearGradient from "react-native-linear-gradient";
 
 import { withGoToRoomModal } from '../../components/GoToRoomModal';
 
-import { today_courses, mine_courses } from '../../services/api';
+import { today_courses, mine_courses, signins } from '../../services/api';
 import Oval from './assets/Oval.png';
 import Modal from 'react-native-modal';
 
@@ -153,6 +153,18 @@ class Home extends React.Component<IProps, IState> {
         allCourses: docs,
         siginInfo
       })
+    }
+  }
+
+  async signins(courseId: string) {
+    try {
+      const res = await signins({courseId});
+      console.log('mine_courses', res)
+    } catch (e) {
+  
+    } finally {
+        await this.today_courses();
+        await this.mine_courses();
     }
   }
 
@@ -297,6 +309,7 @@ class Home extends React.Component<IProps, IState> {
                         style={[styles.btnContent, { borderWidth: 0, }]}
                         rounded transparent
                         onPress={() => {
+                          this.signins(data.id);
                           this.props.dispatch(NavigationActions.navigate({
                             routeName: 'Room',
                             params: {
