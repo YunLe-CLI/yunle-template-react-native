@@ -75,8 +75,8 @@ class LoginProvider extends React.Component<IProps, IState> {
     isVisible: false,
     loginName: undefined,
     password: undefined,
-    // loginName: '17708105213',
-    // password: '123456',
+    // loginName: '15308405673',
+    // password: 'SFyw5733',
   }
 
   reloadNavigation = () => {

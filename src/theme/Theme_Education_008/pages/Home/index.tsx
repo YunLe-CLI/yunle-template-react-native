@@ -660,7 +660,7 @@ class Home extends React.Component<IProps, IState> {
               fontSize: 14,
               lineHeight: 23,
               fontWeight: '400',
-            }}>上课数：{siginInfo.allInfoTitle || 0}</Text>
+            }}>上课数：{siginInfo.finishedCount || 0}</Text>
           </FooterTab>
         </Footer>
       </Container>

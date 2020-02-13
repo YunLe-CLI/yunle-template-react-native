@@ -157,7 +157,7 @@ class Home extends React.Component<IProps, IState> {
   async signins(courseId: string) {
     try {
       const res = await signins({courseId});
-      console.log('mine_courses', res)
+      console.log('signins', res)
     } catch (e) {
 
     } finally {
@@ -517,7 +517,7 @@ class Home extends React.Component<IProps, IState> {
                     resizeMode={FastImage.resizeMode.contain}
                   />
                   <Text style={styles.userName}>
-                    {user.username || '游客'}
+                    {user.userName || '游客'}
                   </Text>
                 </View>
               </ImageBackground>

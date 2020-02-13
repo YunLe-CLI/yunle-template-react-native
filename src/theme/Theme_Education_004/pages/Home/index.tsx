@@ -483,7 +483,7 @@ class Home extends React.Component<IProps, IState> {
                   resizeMode={FastImage.resizeMode.contain}
                 />
                 <Text style={styles.userName}>
-                  {user.username || '游客'}
+                  {user.userName || '游客'}
                 </Text>
               </View>
             </View>
