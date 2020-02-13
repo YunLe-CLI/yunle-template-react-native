@@ -27,7 +27,7 @@ export interface IModelType extends Model{
 }
 
 const initState: IModelState = {
-  token: "nS7/3Ol6gFDATpn1jN7G9FpGacdSVEnWUZJjrnO83ckk6JAhCiucwMe8hHjJlwNRAYGhU6FGLYNHgoOvabDQmVCUg3cb54XZRYj5voHjJnoWNAVpQO3GOsO+o6xcHQvaG+VrDS60cc/ox6/20Uk4lUqYWQ55dCRMGeM6SvLlnhnyGk7Stk7t5RzZwVHNmrMsM35HZ3qBHcerhzQTj/utHQ==" || undefined,
+  token: undefined,
 }
 
 const authModel: IModelType = {

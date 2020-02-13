@@ -1,5 +1,5 @@
 import React from 'react';
-import {FlatList, Text, View} from 'react-native';
+import {Dimensions, FlatList, Text, View} from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import {Container, Header, Left, Body, Right, Title, Icon, Button, List, ListItem, Content} from 'native-base';
 import { connect } from 'react-redux';
@@ -76,7 +76,7 @@ class Home extends React.Component<IProps, IState> {
                       }}>
                           <View style={{ flex: 1, flexGrow: 1, }}>
                               <Text numberOfLines={1} style={styles.titleText}>
-                                  {courses.title}
+                                  {data.title}
                               </Text>
                           </View>
                       </View>
@@ -147,8 +147,8 @@ class Home extends React.Component<IProps, IState> {
           showsVerticalScrollIndicator={false}
           renderItem={({ item, index, section }) => {
               return <View style={{
-                  flex: 1,
                   marginLeft: 9,
+                  width: (Dimensions.get('window').width - 32 - 9) /2,
                   overflow: 'hidden'
               }} key={JSON.stringify(item)}>
                   {this.renderItem(item)}

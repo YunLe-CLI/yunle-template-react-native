@@ -302,6 +302,7 @@ class Home extends React.Component<IProps, IState> {
                     style={[styles.btnContent, { borderWidth: 0, }]}
                     transparent
                     onPress={() => {
+                      this.signins(data.id);
                       this.props.dispatch(NavigationActions.navigate({
                         routeName: 'Room',
                         params: {
@@ -330,6 +331,7 @@ class Home extends React.Component<IProps, IState> {
                     style={[styles.btnContent, { borderWidth: 0, }]}
                     transparent
                     onPress={async () => {
+                      this.signins(data.id);
                       this.props.dispatch(NavigationActions.navigate({
                         routeName: 'VideoBack',
                         params: {
@@ -410,15 +412,15 @@ class Home extends React.Component<IProps, IState> {
       showsVerticalScrollIndicator={false}
       renderItem={({ item, index, section }) => {
         return <View style={{
-          flex: 1,
-          marginLeft: 9,
-          overflow: 'hidden'
+          marginLeft: 9, 
+          overflow: 'hidden',
+          width: (Dimensions.get('window').width - 32 - 9) /2
         }} key={JSON.stringify(item)}>
           {this.renderItem(item)}
         </View>
       }}
       data={list || []}
-      ItemSeparatorComponent={() => <View style={{ height: 12 }} />}
+      ItemSeparatorComponent={() => <View style={{ height: 12, width: 12, }} />}
       ListEmptyComponent={() => {
         return <View />
       }}
@@ -540,6 +542,27 @@ class Home extends React.Component<IProps, IState> {
             </Tab>
           </Tabs>
         </View>
+        <Footer style={styles.footerWrap}>
+             <View>
+                <FastImage
+                  style={{
+                    marginTop: -29,
+                    width: 58,
+                    height: 58,
+                    alignContent: 'center',
+                    justifyContent: 'center',
+                  }}
+                  source={userImg}
+                  resizeMode={FastImage.resizeMode.contain}
+                />
+                <Text numberOfLines={1} style={{
+                  color: '#192038',
+                  marginTop: 6,
+                  fontSize: 12,
+                  textAlign: 'center'
+                }}>{user.userName}</Text>
+             </View>
+        </Footer>
       </Container>
     );
   }

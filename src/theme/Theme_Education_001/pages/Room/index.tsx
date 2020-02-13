@@ -431,7 +431,7 @@ class Home extends React.Component<IProps, IState> {
             const i = await SDKSetAudio();
             console.log(i)
             this.setState({
-                audioType: !this.state.audioType,
+                audioType: i,
             })
         } catch (e) {
             alert(e)
@@ -444,6 +444,9 @@ class Home extends React.Component<IProps, IState> {
         const width = Dimensions.get('window').width;
         const videoWidth = width/3;
         const info = usersInfo[item] || {};
+        if (info.isHostUser) {
+            return null;
+        }
         return <View style={{
             flexDirection: 'row',
             flexWrap: 'wrap'
@@ -737,7 +740,7 @@ class Home extends React.Component<IProps, IState> {
                                               this.setState({
                                                   shareType: true,
                                               })
-                                              this.props.handleShowYSXLocalShareModal(data, () => {
+                                              this.props.handleShowYSXLocalShareModal(1, () => {
                                                   this.setState({
                                                       shareType: false,
                                                   })

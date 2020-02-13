@@ -293,11 +293,43 @@ class Home extends React.Component<IProps, IState> {
           <View>
             <View style={styles.itemBox_4}>
               {
-                type !== 3 ? (
+                type !== 3 && type !== 1 ? (
                   <View style={[styles.btnWrap]}>
                     <LinearGradient
                       start={{x: 0, y: 0}} end={{x: 1, y: 1}}
                       colors={['#C6CCD8', '#C6CCD8']}
+                      style={[
+                        styles.linearGradientBtn,
+                        {
+                          opacity: type === 1 ? 1 : 0.4
+                        }
+                      ]}
+                    >
+                      <Button
+                        style={[styles.btnContent, { borderWidth: 0, }]}
+                        rounded transparent
+                        onPress={() => {
+                          // this.signins(data.id);
+                          // this.props.dispatch(NavigationActions.navigate({
+                          //   routeName: 'Room',
+                          //   params: {
+                          //     metaData: data.metaData,
+                          //   },
+                          // }))
+                        }}
+                      >
+                        <Text style={[styles.btnText, { color: '#fff' }]}>开始上课</Text>
+                      </Button>
+                    </LinearGradient>
+                  </View>
+                ) : undefined
+              }
+              {
+                type === 1 ? (
+                  <View style={[styles.btnWrap]}>
+                    <LinearGradient
+                      start={{x: 0, y: 0}} end={{x: 1, y: 1}}
+                      colors={['#FE3D00', '#FE3D00']}
                       style={[
                         styles.linearGradientBtn,
                         {
@@ -529,7 +561,7 @@ class Home extends React.Component<IProps, IState> {
                 resizeMode={FastImage.resizeMode.contain}
               />
               <Text style={styles.userName}>
-                {user.username || '游客'}
+                {user.userName || '游客'}
               </Text>
             </View>
           </ImageBackground>
@@ -582,24 +614,16 @@ class Home extends React.Component<IProps, IState> {
           }}
           style={{
             margin: 0,
-            paddingLeft: 0,
-            paddingRight: 0,
-            marginLeft: 0,
-            marginRight: 0,
-            margin: 0,
-            flex: 1,
+            alignSelf: 'flex-end',
+            width: '100%',
             justifyContent: 'flex-end',
           }}
         >
-          <TouchableOpacity
-            onPress={() => {
-              this.closeModel()
-            }}
-            activeOpacity={1}
-            style={styles.containerModal}>
-            <View style={styles.datePickerWrap}>
+          <View style={styles.datePickerWrap}>
               <List>
-                <ListItem noBorder>
+                <ListItem
+                style={[{marginLeft: 0,}]}
+                 noBorder>
                   <Body style={{
                     flexGrow: 1,
                   }}>
@@ -616,6 +640,7 @@ class Home extends React.Component<IProps, IState> {
                 <ListItem
                   noBorder
                   button
+                  style={[{marginLeft: 0,}, this.state.active === 0 ? { backgroundColor: '#F8F6F9' } : {}]}
                   onPress={() => {
                     this.setState({
                       active: 0,
@@ -638,6 +663,7 @@ class Home extends React.Component<IProps, IState> {
                 <ListItem
                   noBorder
                   button
+                  style={[{marginLeft: 0,}, this.state.active === 1 ? { backgroundColor: '#F8F6F9' } : {}]}
                   onPress={() => {
                     this.setState({
                       active: 1,
@@ -660,7 +686,6 @@ class Home extends React.Component<IProps, IState> {
               </List>
               <SafeAreaView />
             </View>
-          </TouchableOpacity>
         </Modal>
       </Container>
     );

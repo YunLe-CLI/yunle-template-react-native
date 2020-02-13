@@ -329,6 +329,7 @@ class Home extends React.Component<IProps, IState> {
                     style={[styles.btnContent, { borderWidth: 0, }]}
                     rounded transparent
                     onPress={() => {
+                      this.signins(data.id);
                       this.props.dispatch(NavigationActions.navigate({
                         routeName: 'Room',
                         params: {

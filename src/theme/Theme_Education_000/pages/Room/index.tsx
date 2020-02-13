@@ -385,7 +385,7 @@ class Home extends React.Component<IProps, IState> {
 
     async initSDK() {
         try {
-            await SDKAuth('Iratlr8ZCaVgyPJ5O8xcaNzSUYcEMFd9y1nm', 'ft7jnlQj28pqasbbBqTlRdR1LdbzUaqabgIv');
+            await SDKAuth('CDxp0JymWh0j0H2EkOat88m69cfxbcWJytLV', 'Sc0kQUDPrHYcmLMIuz8hKwCnpGwdeeoD127v');
         } catch (e) {
             console.log(e)
         }
@@ -435,9 +435,9 @@ class Home extends React.Component<IProps, IState> {
     handleSDKSetAudio = async () => {
         try {
             const i = await SDKSetAudio();
-            console.log(i)
+            console.log('handleSDKSetAudio',i)
             this.setState({
-                audioType: !this.state.audioType,
+                audioType: i,
             })
         } catch (e) {
             alert(e)
@@ -450,6 +450,9 @@ class Home extends React.Component<IProps, IState> {
         const width = Dimensions.get('window').width;
         const videoWidth = 100;
         const info = usersInfo[item] || {};
+        if (info.isHostUser) {
+            return null;
+        }
         return <View style={{
             flexDirection: 'row',
             flexWrap: 'wrap'
@@ -752,7 +755,7 @@ class Home extends React.Component<IProps, IState> {
                                           this.setState({
                                               shareType: true,
                                           })
-                                          this.props.handleShowYSXLocalShareModal(data, () => {
+                                          this.props.handleShowYSXLocalShareModal(1, () => {
                                               this.setState({
                                                   shareType: false,
                                               })

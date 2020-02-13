@@ -316,7 +316,7 @@ class Home extends React.Component<IProps, IState> {
 
     async initSDK() {
         try {
-            await SDKAuth('Iratlr8ZCaVgyPJ5O8xcaNzSUYcEMFd9y1nm', 'ft7jnlQj28pqasbbBqTlRdR1LdbzUaqabgIv');
+            await SDKAuth('CDxp0JymWh0j0H2EkOat88m69cfxbcWJytLV', 'Sc0kQUDPrHYcmLMIuz8hKwCnpGwdeeoD127v');
         } catch (e) {
             console.log(e)
         }
@@ -368,7 +368,7 @@ class Home extends React.Component<IProps, IState> {
             const i = await SDKSetAudio();
             console.log(i)
             this.setState({
-                audioType: !this.state.audioType,
+                audioType: i,
             })
         } catch (e) {
             alert(e)

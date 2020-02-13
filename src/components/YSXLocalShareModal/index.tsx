@@ -67,12 +67,15 @@ class YSXLocalShareModalProvider extends React.Component<{}, IState> {
       isModalVisible: false,
       selected: undefined,
     })
-    this.onCallBack = undefined;
+    if (this.onCallBack) {
+      this.onCallBack();
+      this.onCallBack = undefined;
+    }
   };
 
 
   async componentDidMount() {
-
+      console.log(this.refView, 112123123)
   }
 
   componentWillUnmount(): void {
@@ -81,6 +84,7 @@ class YSXLocalShareModalProvider extends React.Component<{}, IState> {
 
   render() {
     const { isModalVisible, isModalNotVisible, updateURI } = this.state;
+
     return (
       <YSXLocalShareModalContext.Provider value={{
         handleShowYSXLocalShareModal: async (id, onCallBack) => {
@@ -115,7 +119,7 @@ class YSXLocalShareModalProvider extends React.Component<{}, IState> {
         >
           <View style={styles.container}>
             <StatusBar barStyle="dark-content" />
-            <View style={{
+            <View ref={e => this.refView = e} style={{
               borderRadius: 3,
               overflow: 'hidden',
               backgroundColor: '#fff',
@@ -131,9 +135,7 @@ class YSXLocalShareModalProvider extends React.Component<{}, IState> {
             }}>
               <Button
                 onPress={() => {
-                  this.setState({
-                    isModalVisible: false,
-                  })
+                  this.closeModel()
                 }}
                 style={{
                 justifyContent: 'center',
