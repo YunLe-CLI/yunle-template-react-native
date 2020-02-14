@@ -330,6 +330,7 @@ class Home extends React.Component<IProps, IState> {
                     rounded transparent
                     onPress={() => {
                       this.signins(data.id);
+                      alert(data.id)
                       this.props.dispatch(NavigationActions.navigate({
                         routeName: 'Room',
                         params: {

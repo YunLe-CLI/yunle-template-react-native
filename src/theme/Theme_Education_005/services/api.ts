@@ -48,7 +48,7 @@ export async function signins(query: { courseId: string }, token): Promise<any> 
     url: await getOrigin('https://yunshixun-live.dev.class100.com/api/v1/signins', 'app'),
     method: 'POST',
     data: {
-      data: query.courseId,
+      courseId: query.courseId,
     }
   });
 }
