@@ -158,6 +158,13 @@ class Home extends React.Component<IProps, IState> {
                     const { type, data } = reminder;
                     try {
                         switch (type) {
+                            case "SDK_MY_AUDIO_STSATE_CHANGE": {
+                                this.getUsers();
+                                this.setState({
+                                    audioType: !reminder.isMyAudioMuted,
+                                })
+                                break;
+                            }
                             case 'SDK_AUTH': {
                                 if (data === 0) {
                                     this.setState({
