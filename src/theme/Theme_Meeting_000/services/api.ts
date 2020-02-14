@@ -1,5 +1,5 @@
 import {Platform} from "react-native";
-import request from '@/utils/request'
+import request from './request'
 import {ENVIRONMENT} from "@/utils/env";
 import _ from 'lodash';
 import moment from "moment";
