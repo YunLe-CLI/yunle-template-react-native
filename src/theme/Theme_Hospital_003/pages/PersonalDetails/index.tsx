@@ -66,7 +66,7 @@ class Home extends React.Component<IProps, IState> {
         "idCard":this.state.idCard,// 身份证
         "birthdate":moment(this.state.birthdate).format('X') - 0,// 生日
         "gender":this.state.gender - 0,// 性别（1-男 2-女）
-        "age":this.state.age - 0,// 年龄
+        "age":this.state.age ? this.state.age - 0 : 0,// 年龄
         "medicalHistory":this.state.medicalHistory,// 病史
       })
       if (res.code === 0) {
@@ -100,8 +100,9 @@ class Home extends React.Component<IProps, IState> {
           "idCard":data.idCard,// 身份证
           "birthdate":data.birthdate,// 生日
           "gender":data.gender - 0,// 性别（1-男 2-女）
-          "age": data.age + '',// 年龄
+          "age": data.age ? data.age + '' : '',// 年龄
           "medicalHistory": data.medicalHistory,// 病史
+          mobile: data.mobile
         })
       } else {
         throw userRes.msg
@@ -150,10 +151,10 @@ class Home extends React.Component<IProps, IState> {
 
         <CardItem style={styles.formItem}>
           <Text style={styles.formItemLabel}><Text style={{ color: '#FD8C8C' }}>*</Text>手机号</Text>
-          <Input value={this.state.phone} style={styles.ipt} placeholder="请输入手机号" placeholderTextColor={"#9C9EB9"}
+          <Input value={this.state.mobile} style={styles.ipt} placeholder="请输入手机号" placeholderTextColor={"#9C9EB9"}
                  onChangeText={(value) => {
                    this.setState({
-                     phone: value,
+                    mobile: value,
                    })
                  }}
           />

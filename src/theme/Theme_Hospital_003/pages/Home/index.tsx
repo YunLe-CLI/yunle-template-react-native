@@ -453,12 +453,7 @@ class Home extends React.Component<IProps, IState> {
               this.setState({
                 department,
               }, () => {
-                this.props.dispatch(NavigationActions.navigate({
-                  routeName: 'DoctorList',
-                  params: {
-                    department
-                  },
-                }))
+                
               })
             })
           }}
@@ -692,25 +687,53 @@ class Home extends React.Component<IProps, IState> {
             justifyContent: 'center',
             alignItems: 'center'
           }}>
-            <Button
-              onPress={() => {
-                this.setState({
-                  active: 0,
-                })
-              }}
-              full style={styles.btnTab}>
-              <Text style={[styles.btnTabText, active === 0 ? styles.activeBtnTabText : {}]}>我的预约</Text>
-            </Button>
-            <View style={styles.line} />
-            <Button
-              onPress={() => {
-                this.setState({
-                  active: 1,
-                })
-              }}
-              full style={styles.btnTab}>
-              <Text style={[styles.btnTabText, active === 1 ? styles.activeBtnTabText : {}]}>挂号预约</Text>
-            </Button>
+            {
+              this.state.active === 0 ? (
+                <Button
+                  onPress={() => {
+                    this.setState({
+                      active: 1,
+                    })
+                  }}
+                  full style={styles.btnTab}>
+                  <Text style={[styles.btnTabText, active === 0 ? styles.activeBtnTabText : {}]}>挂号预约</Text>
+                </Button>
+              ) : (
+                <>
+                <Button
+                  onPress={() => {
+                    this.setState({
+                      segmentActive: 0,
+                    })
+                    this.props.dispatch(NavigationActions.navigate({
+                      routeName: 'DoctorList',
+                      params: {
+                        department: this.state.department
+                      },
+                    }))
+                  }}
+                  full style={styles.btnTab}>
+                  <Text style={[styles.btnTabText, active === 0 ? styles.activeBtnTabText : {}]}>挂号</Text>
+                </Button>
+                <View style={styles.line} />
+                <Button
+                  onPress={() => {
+                    this.setState({
+                      segmentActive: 1,
+                    })
+                    this.props.dispatch(NavigationActions.navigate({
+                      routeName: 'DoctorList',
+                      params: {
+                        department: this.state.department
+                      },
+                    }))
+                  }}
+                  full style={styles.btnTab}>
+                  <Text style={[styles.btnTabText, active === 1 ? styles.activeBtnTabText : {}]}>预约</Text>
+                </Button>
+                </>
+              )
+            }
           </FooterTab>
         </Footer>
       </Container>

@@ -468,8 +468,14 @@ class Home extends React.Component<IProps, IState> {
           }}
           button style={styles.formItem}>
           <Text style={styles.formItemLabel}>选择科室</Text>
-          <Text style={[styles.ipt, department ? { color: '#404E66' } : {}]}>{department || '请选择'}</Text>
-          <Right>
+          <Body>
+
+          </Body>
+          <Right style={{
+            flexDirection: 'row',
+            justifyContent: 'flex-end'
+          }}>
+            <Text style={[styles.ipt, department ? { color: '#404E66' } : {}]}>{department || '请选择'}</Text>
             <Icon style={{ fontSize: 16, color: '#999999' }} name="arrow-forward" />
           </Right>
         </CardItem>
@@ -483,8 +489,14 @@ class Home extends React.Component<IProps, IState> {
           }}
           button style={styles.formItem}>
           <Text style={styles.formItemLabel}>医生职称</Text>
-          <Text style={[styles.ipt, level ? { color: '#404E66' } : {}]}>{level || '请选择'}</Text>
-          <Right>
+          <Body>
+
+          </Body>
+          <Right style={{
+            flexDirection: 'row',
+            justifyContent: 'flex-end'
+          }}>
+            <Text style={[styles.ipt, level ? { color: '#404E66' } : {}]}>{level || '请选择'}</Text>
             <Icon style={{ fontSize: 16, color: '#999999' }} name="arrow-forward" />
           </Right>
         </CardItem>

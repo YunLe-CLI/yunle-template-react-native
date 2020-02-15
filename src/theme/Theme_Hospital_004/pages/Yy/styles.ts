@@ -197,7 +197,7 @@ export default StyleSheet.create({
   },
   ipt: {
     flex: 1,
-    marginRight: -100,
+    marginRight: 5,
     flexGrow: 2,
     fontSize: 15,
     fontWeight: '400',

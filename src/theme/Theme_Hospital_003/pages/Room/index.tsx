@@ -613,7 +613,7 @@ class Home extends React.Component<IProps, IState> {
                      this.state.inRoom ? (
                         <Header>
                             <Left>
-                                {/* <Button
+                                <Button
                                     transparent
                                     onPress={() => {
                                         const { dispatch } = this.props;
@@ -621,7 +621,7 @@ class Home extends React.Component<IProps, IState> {
                                     }}
                                 >
                                     <Icon style={{ paddingHorizontal: 12, color: '#fff', fontSize: 26 }} name='arrow-back' />
-                                </Button> */}
+                                </Button>
                             </Left>
                             <Body style={{
                                     flexGrow: 1,
@@ -648,7 +648,7 @@ class Home extends React.Component<IProps, IState> {
                                                 alignContent: 'center',
                                                 justifyContent: 'center',
                                             }}
-                                            source={this.state.audioType ? audio_IMG_1 : audio_IMG_1}
+                                            source={this.state.audioType ? audio_IMG_1 : audio_IMG_2}
                                             resizeMode={FastImage.resizeMode.contain}
                                             />
                                         </Button>
@@ -664,7 +664,7 @@ class Home extends React.Component<IProps, IState> {
                                                 alignContent: 'center',
                                                 justifyContent: 'center',
                                             }}
-                                            source={this.state.videoType ? video_1 : video_1}
+                                            source={this.state.videoType ? video_1 : video_2}
                                             resizeMode={FastImage.resizeMode.contain}
                                             />
                                         </Button>

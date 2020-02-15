@@ -154,12 +154,8 @@ class Home extends React.Component<IProps, IState> {
     const { params = {} } = navigation.state;
     const doctorInfo:DOCTOR_ITEM = params.doctorInfo || {};
     const { registrations = [] } = appointment;
-    const tableData1 = [
-      '上午',
-    ];
-    const tableData2 = [
-      '下午',
-    ];
+    const tableData1 = [];
+    const tableData2 = [];
     const widthArr = [62.5]
     const tableHead = [''];
     registrations.forEach((item: REGISTRATIONS_ITEM) => {
@@ -180,12 +176,8 @@ class Home extends React.Component<IProps, IState> {
           NODE_PM = ({...cItem, date: item.date, remainCount: cItem.remainCount });
         }
       })
-      if (NODE_AM) {
-        tableData1.push(NODE_AM);
-      }
-      if (NODE_PM) {
-        tableData2.push(NODE_PM);
-      }
+      tableData1.push(NODE_AM);
+      tableData2.push(NODE_PM);
     });
     return <View style={{
 
@@ -305,7 +297,7 @@ class Home extends React.Component<IProps, IState> {
               <View style={styles.startWrap}><Text style={{
                   fontSize: 13,
                   color: '#E9B631'
-                }}>剩余{tableData2[index].remainCount}</Text></View>
+              }}>剩余{tableData2[index].remainCount}</Text></View>
             </TouchableOpacity>: null}
               </View>
               <View style={{

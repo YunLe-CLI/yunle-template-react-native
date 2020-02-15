@@ -68,6 +68,7 @@ class Home extends React.Component<IProps, IState> {
         "gender":this.state.gender - 0,// 性别（1-男 2-女）
         "age":this.state.age - 0,// 年龄
         "medicalHistory":this.state.medicalHistory,// 病史
+        mobile: user.mobile
       })
       if (res.code === 0) {
         this.props.dispatch(NavigationActions.navigate({
@@ -267,6 +268,21 @@ class Home extends React.Component<IProps, IState> {
           contentContainerStyle={styles.bodyContent}
         >
           {this.renderForm()}
+          <View style={styles.btnWrap}>
+              <Button
+                full
+                transparent
+                onPress={async () => {
+                  this.postData()
+                }}
+                style={styles.submitButton}
+                textStyle={{
+                  color: '#fff'
+                }}
+              >
+                <Title style={{ color: '#fff' }}>完成</Title>
+              </Button>
+          </View>
         </Content>
       </Container>
     );

@@ -244,9 +244,10 @@ class Home extends React.Component<IProps, IState> {
     if (this.state.segmentActive === 1) {
       list = [...tableData2];
     }
+    console.log(list)
     return <View style={styles.scrollView}>
       {
-        tableData1.map((item = {}) => {
+        list.map((item = {}) => {
           return <CardItem
             key={JSON.stringify(item)}
             style={{
@@ -289,7 +290,6 @@ class Home extends React.Component<IProps, IState> {
                     <Text style={styles.start}>剩余{item.remainCount || 0}</Text>
                   </TouchableOpacity> : null
               }
-              
             </Right>      
           </CardItem>
         })
