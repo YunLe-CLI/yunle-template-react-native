@@ -77,12 +77,12 @@ class SelectDepartmentModalProvider extends React.Component<{}, IState> {
   render() {
     const { isModalVisible, isModalNotVisible, updateURI } = this.state;
     const list = [
+      '营养科',
+      '康复医学科',
       '内科',
-      '外科',
-      '妇产科',
-      '皮肤性病科',
-      '骨科',
-      '耳鼻喉科',
+      '麻醉科',
+      '急诊医学科',
+      '重症医学科',
     ]
     return (
       <SelectDepartmentModalContext.Provider value={{

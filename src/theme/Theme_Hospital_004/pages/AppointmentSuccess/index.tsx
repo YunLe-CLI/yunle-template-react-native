@@ -140,7 +140,7 @@ class Home extends React.Component<IProps, IState> {
         <CardItem style={styles.formItem}>
           <Text style={styles.formItemLabel}>手机号码</Text>
           <Text style={styles.ipt}>
-            {user.mobile}
+          {user.mobile}
           </Text>
         </CardItem>
         <CardItem style={styles.formItem}>

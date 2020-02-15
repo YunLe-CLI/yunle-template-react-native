@@ -102,7 +102,7 @@ class Home extends React.Component<IProps, IState> {
         <CardItem style={styles.formItem}>
           <Text style={styles.formItemLabel}>身份证号</Text>
           <Text style={styles.ipt}>
-            123456789098765432
+          {user.idCard}
           </Text>
         </CardItem>
         <CardItem style={styles.formItem}>
