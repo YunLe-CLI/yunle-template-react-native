@@ -74,10 +74,10 @@ class Home extends React.Component<IProps, IState> {
           },
         }))
         return;
-      }
-      throw res.msg
+      } 
+      throw res
     } catch (e) {
-      alert(e)
+      alert(JSON.stringify(e))
     }
   }
 
@@ -112,13 +112,13 @@ class Home extends React.Component<IProps, IState> {
      const data = aliSign(signData, sign)
      console.log('支付宝支付', signData, data)
      XPay.alipay(data, (res)=> {
-        alert(res)
+        // alert(res)
      })
     // XPay.wxPay(params,(res)=> {
     //   alert(JSON.stringify(res))
     //   // this.postData()
     // })
-    // this.postData()
+    this.postData()
     return;
     try {
       if (payType === 'wx') {

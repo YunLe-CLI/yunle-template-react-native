@@ -35,7 +35,7 @@ export interface IState {
 
 @(connect(({ user }) => {
   return {
-    user,
+    user: user.info,
     postType: home.postType
   }
 }) as any)

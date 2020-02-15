@@ -36,7 +36,7 @@ export interface IState {
 @(connect(({ user, home }) => {
   return {
     postType: home.postType,
-    user
+    user: user.info,
   }
 }) as any)
 class Home extends React.Component<IProps, IState> {
