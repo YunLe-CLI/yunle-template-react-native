@@ -260,7 +260,7 @@ class Home extends React.Component<IProps, IState> {
               <Text>
                 {moment(item.date).format('MM-DD')}
                 <View style={{ width: 10 }} />
-                周{utils[moment(item.date).day()+1]}
+                周{utils[moment(item.date).day()]}
               </Text>
             </Left> 
             <Right>

@@ -285,7 +285,7 @@ class Home extends React.Component<IProps, IState> {
                   fontSize: 13,
                   color: '#333333'
                 }}>
-                  周{utils[moment(item.date).day()+1]}
+                  周{utils[moment(item.date).day()]}
                   <View style={{ width: 10, }}></View>
                   {/* {moment(item.date).format('MM-DD')} */}
                 </Text>
@@ -322,7 +322,7 @@ class Home extends React.Component<IProps, IState> {
               <View style={styles.startWrap}><Text style={{
                   fontSize: 13,
                   color: '#5277F1'
-                }}>剩余{tableData2[index].remainCount}</Text></View>
+                }}>剩余{tableData2[index].remainCount || 0}</Text></View>
             </TouchableOpacity>: null}
               </View>
               <View style={{
@@ -466,7 +466,7 @@ class Home extends React.Component<IProps, IState> {
                 </Button>
             </Left>
             <Body>
-                <Title style={styles.headerText}>医生信息</Title>
+                <Title style={styles.headerText}>查看医生祥情</Title>
             </Body>
             <Right />
         </Header>

@@ -181,7 +181,7 @@ class Home extends React.Component<IProps, IState> {
         <CardItem style={styles.formItem}>
           <Text style={styles.formItemLabel}>手机号</Text>
           <Text style={styles.ipt}>
-            {user.name}
+          {user.mobile}
           </Text>
         </CardItem>
 

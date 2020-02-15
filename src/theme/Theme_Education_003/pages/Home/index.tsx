@@ -341,7 +341,7 @@ class Home extends React.Component<IProps, IState> {
                           }))
                         }}
                       >
-                        <Text style={[styles.btnText, { color: '#fff' }]}>进入课堂</Text>
+                        <Text style={[styles.btnText, { color: '#fff' }]}>进入视频课堂</Text>
                       </Button>
                     </LinearGradient>
                   </View>
@@ -403,7 +403,7 @@ class Home extends React.Component<IProps, IState> {
   renderTabList() {
     let list = []
     if (this.state.todayCourses && this.state.todayCourses.length) {
-      list = list.concat({ title: "今日课程", data: this.state.todayCourses })
+      list = list.concat({ title: "今天课程", data: this.state.todayCourses })
     }
     list = list.concat({ title: "全部课程", data: [...this.state.allCourses] })
     return <SectionList

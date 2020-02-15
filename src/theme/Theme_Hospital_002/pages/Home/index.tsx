@@ -592,7 +592,7 @@ class Home extends React.Component<IProps, IState> {
   }
 
   render() {
-    const { active } = this.state;
+    const { active, registrations = [] } = this.state;
     const { user = {} } = this.props;
     return (
       <Container style={styles.container}>
@@ -630,26 +630,10 @@ class Home extends React.Component<IProps, IState> {
         >
           <Header transparent>
               <Left>
-                {
-                  this.state.active ? (
-                    <Button
-                      transparent
-                      onPress={() => {
-                          // const { dispatch } = this.props;
-                          // dispatch(NavigationActions.back());
-                          this.setState({
-                            active: 0,
-                          })
-                      }}
-                  >
-                      <Icon style={{ paddingHorizontal: 12, color: '#fff', fontSize: 26 }} name='arrow-back' />
-                  </Button>
-                  ) : null
-                }
-                  
+               
               </Left>
               <Body>
-                  <Title style={{ color: '#fff' }}>{this.state.active === 0 ? '我的预约' : '挂号预约'}</Title>
+                  <Title style={{ color: '#fff' }}>{this.state.active === 0 ? '挂号预约' : '挂号预约'}</Title>
               </Body>
               <Right />
           </Header>
@@ -676,9 +660,7 @@ class Home extends React.Component<IProps, IState> {
                 resizeMode={FastImage.resizeMode.contain}
               />
             </View>
-            {
-              this.state.active === 0 ? (
-                <>
+            <>
                 <Text style={{
                   color: '#fff',
                   fontSize: 15,
@@ -694,12 +676,9 @@ class Home extends React.Component<IProps, IState> {
                 就诊量：<Text style={{
                   fontSize: 11,
                   color: '#5277F1'
-                }}>120</Text>
+                }}>{registrations.length || 0}</Text>
                 </Text>
                 </>
-              ) : null
-            }
-            
           </View>
         </ImageBackground>
         <View
@@ -737,7 +716,7 @@ class Home extends React.Component<IProps, IState> {
                         paddingRight: 0,
                         fontSize: 15,
                         fontWeight: '500'
-                      }]}>我的预约</Text>
+                      }]}>今日预约</Text>
                     </View>
                 </Button>
                 <View style={styles.line} />
@@ -761,7 +740,7 @@ class Home extends React.Component<IProps, IState> {
                         paddingRight: 0,
                         fontSize: 15,
                         fontWeight: '500'
-                      }]}>挂号预约</Text>
+                      }]}>全部预约</Text>
                     </View>
                 </Button>
               </View>
@@ -793,9 +772,7 @@ class Home extends React.Component<IProps, IState> {
             </Tab>
           </Tabs>
         </View>
-        {
-          this.state.active === 0 ? (
-            <Footer style={styles.footerWrap}>
+        <Footer style={styles.footerWrap}>
               <FooterTab style={{
                 justifyContent: 'center',
                 alignItems: 'center'
@@ -821,8 +798,6 @@ class Home extends React.Component<IProps, IState> {
                 </Button>
               </FooterTab>
             </Footer>
-          ) : null
-        }
       </Container>
     );
   }

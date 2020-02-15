@@ -262,7 +262,7 @@ class SelectDoctorModalProvider extends React.Component<{}, IState> {
                                     color: '#F86358'
                                   } : {}
                                 ]}>
-                                  周{utils[moment(item.date).day()+1]}
+                                  周{utils[moment(item.date).day()]}
                                 </Text>
                                 <View>
                                   {
@@ -315,7 +315,7 @@ class SelectDoctorModalProvider extends React.Component<{}, IState> {
                                   color: '#F86358'
                                 } : {}
                               ]}>
-                                周{utils[moment(item.date).day()+1]}
+                                周{utils[moment(item.date).day()]}
                               </Text>
                               <View>
                                 {
