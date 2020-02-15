@@ -162,7 +162,7 @@ class Home extends React.Component<IProps, IState> {
                 },
               }))
             }}>
-              <View style={styles.startWrap}><Text style={styles.start}>已预约{data[0].remainCount}</Text></View>
+              <View style={styles.startWrap}><Text style={styles.start}>已预约{data[0].remainCount || 0}</Text></View>
             </TouchableOpacity>)
           }
           if (cItem.remainCount === 0) {

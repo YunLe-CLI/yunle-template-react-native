@@ -268,7 +268,7 @@ class SelectDoctorModalProvider extends React.Component<{}, IState> {
                                   {
                                     item.remainCount > 0 ? (<Text style={[styles.font, styles.end, JSON.stringify(item) === JSON.stringify(select) ? {
                                       color: '#F86358'
-                                    } : {}]}>剩余{item.remainCount}</Text>) : undefined
+                                    } : {}]}>剩余{item.remainCount || 0}</Text>) : undefined
                                   }
                                   {
                                     item.remainCount=== 0 ? (<Text style={[styles.font, styles.end, JSON.stringify(item) === JSON.stringify(select) ? {
@@ -319,7 +319,7 @@ class SelectDoctorModalProvider extends React.Component<{}, IState> {
                               </Text>
                               <View>
                                 {
-                                  item.remainCount > 0 ? (<Text style={[styles.font, styles.end]}>剩余1{item.remainCount}</Text>) : undefined
+                                  item.remainCount > 0 ? (<Text style={[styles.font, styles.end]}>剩余{item.remainCount || 0}</Text>) : undefined
                                 }
                                 {
                                   item.remainCount=== 0 ? (<Text style={[styles.font, styles.end]}>挂满</Text>) : undefined

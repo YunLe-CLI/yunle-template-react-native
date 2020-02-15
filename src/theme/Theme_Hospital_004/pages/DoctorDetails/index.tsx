@@ -258,7 +258,7 @@ class Home extends React.Component<IProps, IState> {
           >
             <Left>
               <Text>
-                {moment(item.date).format('YY-MM')}
+                {moment(item.date).format('MM-DD')}
                 <View style={{ width: 10 }} />
                 周{utils[moment(item.date).day()+1]}
               </Text>
@@ -286,7 +286,7 @@ class Home extends React.Component<IProps, IState> {
                       },
                     }))
                   }}>
-                    <Text style={styles.start}>剩余{item.remainCount}</Text>
+                    <Text style={styles.start}>剩余{item.remainCount || 0}</Text>
                   </TouchableOpacity> : null
               }
               

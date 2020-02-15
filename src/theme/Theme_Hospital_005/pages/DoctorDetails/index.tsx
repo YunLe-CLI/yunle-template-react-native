@@ -187,7 +187,7 @@ class Home extends React.Component<IProps, IState> {
                 },
               }))
             }}>
-              <Text style={styles.start}>剩余{data[0].remainCount}</Text>
+              <Text style={styles.start}>剩余{data[0].remainCount || 0}</Text>
             </TouchableOpacity>)
           }
           if (cItem.remainCount === 0) {
