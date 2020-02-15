@@ -108,7 +108,7 @@ class Home extends React.Component<IProps, IState> {
       const { id } = this.props.user;
       const res = await ROOM_MESSAGE({ mettingNo: item.metaData.MeetingNo  })
       if (res.code === 0) {
-        const { nextId, kickId } = res.data;
+        const { nextId, kickId } = res.data || {};
         if (id === nextId) {
           this.props.handleShowGoToRoomModal(item)
         }
@@ -219,7 +219,7 @@ class Home extends React.Component<IProps, IState> {
                 this.props.dispatch(NavigationActions.navigate({
                   routeName: 'Room',
                   params: {
-                    metaData: data.metaData,
+                    id: data.id, metaData: data.metaData,
                   },
                 }))
               }}
@@ -286,7 +286,7 @@ class Home extends React.Component<IProps, IState> {
                       this.props.dispatch(NavigationActions.navigate({
                         routeName: 'Room',
                         params: {
-                          metaData: data.metaData,
+                          id: data.id, metaData: data.metaData,
                         },
                       }))
                     }}

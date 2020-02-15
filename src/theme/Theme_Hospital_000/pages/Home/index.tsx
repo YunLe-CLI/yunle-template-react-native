@@ -99,6 +99,10 @@ class Home extends React.Component<IProps, IState> {
     this.setIntervalEvent = setInterval(() => {
       this.componentDidMount()
     }, 1000 * 60)
+    // this.props.dispatch(NavigationActions.navigate({
+    //   routeName: 'AppointmentDetails',
+    //   params: {},
+    // }))
   }
 
   componentWillUnmount(): void {
@@ -122,13 +126,10 @@ class Home extends React.Component<IProps, IState> {
           let isOpenInfo: MAKE_ITEM | undefined = undefined;
           data.today.map((item: MAKE_ITEM) => {
             if (item.status === 3) {
-              isOpenInfo = item;
+              this.getIsMe(item)
             }
             isOpenInfo = item;
           })
-          if (isOpenInfo) {
-            this.getIsMe(isOpenInfo)
-          }
         }
       }
 
@@ -142,8 +143,12 @@ class Home extends React.Component<IProps, IState> {
       const { id } = this.props.user;
       const res = await ROOM_MESSAGE({ mettingNo: item.metaData.MeetingNo  })
       if (res.code === 0) {
-        const { nextId, kickId } = res.data;
+        const { nextId, kickId } = res.data || {};
+        console.log('nextId', nextId, "id", id)
         if (id === nextId) {
+          this.props.handleShowGoToRoomModal(item)
+        }
+        if (item.position === 0) {
           this.props.handleShowGoToRoomModal(item)
         }
         if (kickId === id) {
@@ -243,6 +248,9 @@ class Home extends React.Component<IProps, IState> {
         </View>
         <View style={styles.itemBoxContent}>
           <TouchableOpacity
+            style={{
+              flex: 1,
+            }}
             onPress={() => {
               this.props.dispatch(NavigationActions.navigate({
                 routeName: 'Room',

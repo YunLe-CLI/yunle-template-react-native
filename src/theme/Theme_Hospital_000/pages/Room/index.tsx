@@ -9,6 +9,7 @@ import {
     Animated,
     Easing,
     TouchableOpacity,
+    Alert,
 } from 'react-native';
 import {NavigationActions, NavigationEvents} from 'react-navigation';
 import {
@@ -29,7 +30,7 @@ import { connect } from 'react-redux';
 import styles from './styles';
 import { withAlertModal } from '@/theme/Theme_Hospital_000/components/AlertModal'
 import { withLoginModal } from '../../components/LoginModal'
-import {META_DATA} from '../../services/api';
+import {META_DATA, ROOM_MESSAGE} from '../../services/api';
 
 import _ from 'lodash';
 import FastImage from 'react-native-fast-image';
@@ -128,9 +129,47 @@ class Home extends React.Component<IProps, IState> {
         } catch (e) {
 
         }
+        this.getInfoTime = setInterval(() => {
+            if (this) {
+                this.getIsMe();
+            } else {
+                
+            }
+            
+        }, 1000 * 10)
     }
 
+    async getIsMe() {
+        try {
+            const { navigation, exams } = this.props;
+            const { params = {} } = navigation.state;
+          const { id } = this.props.user || {};
+          const res = await ROOM_MESSAGE({ mettingNo: params.metaData.MeetingNo  })
+          console.log(params.metaData, res,111111)
+          if (res.code === 0) {
+            const { nextId, kickId } = res.data || {};
+            if (kickId === id) {
+              // 离开房间
+              this.showAlert('就诊已结束，祝您身体健康', () => {
+                this.goBack();
+                }, () => {
+                    this.goBack();
+                })
+            }
+          } else {
+              throw '';
+          }
+        } catch (e) {
+          alert('就诊已结束')
+          this.goBack();
+        }
+      }
+
     componentWillUnmount(): void {
+        if (this.getInfoTime) {
+            clearInterval(this.getInfoTime)
+            this.getInfoTime = undefined;
+        }
         try {
             StatusBar.setHidden(false);
             if (this.subscription) {

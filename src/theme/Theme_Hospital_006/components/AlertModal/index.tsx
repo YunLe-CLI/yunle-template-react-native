@@ -119,13 +119,13 @@ class  AlertModalProvider extends React.Component<{}, IState> {
                       full
                       bordered
                       onPress={async () => {
+                        this.closeModel();
                         this.setState({
                           isNotRemind: true,
                         }, () => {
                           if (typeof this.onClearCallback === 'function') {
                             this.onClearCallback()
                           }
-                          this.closeModel();
                         })
                       }}
                       style={styles.btn}
@@ -138,10 +138,10 @@ class  AlertModalProvider extends React.Component<{}, IState> {
                       full
                       bordered
                       onPress={async () => {
+                        this.closeModel();
                         if (typeof this.onOkCallback === 'function') {
                           this.onOkCallback()
                         }
-                        this.closeModel();
                       }}
                       style={styles.btn}
                   >

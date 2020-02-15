@@ -129,13 +129,10 @@ class Home extends React.Component<IProps, IState> {
           let isOpenInfo: MAKE_ITEM | undefined = undefined;
           data.today.map((item: MAKE_ITEM) => {
             if (item.status === 3) {
-              isOpenInfo = item;
+              this.getIsMe(item)
             }
             isOpenInfo = item;
           })
-          if (isOpenInfo) {
-            this.getIsMe(isOpenInfo)
-          }
         }
       }
 
@@ -149,8 +146,12 @@ class Home extends React.Component<IProps, IState> {
       const { id } = this.props.user;
       const res = await ROOM_MESSAGE({ mettingNo: item.metaData.MeetingNo  })
       if (res.code === 0) {
-        const { nextId, kickId } = res.data;
+        const { nextId, kickId } = res.data || {};
+        console.log('nextId', nextId, "id", id)
         if (id === nextId) {
+          this.props.handleShowGoToRoomModal(item)
+        }
+        if (item.position === 0) {
           this.props.handleShowGoToRoomModal(item)
         }
         if (kickId === id) {
@@ -269,7 +270,7 @@ class Home extends React.Component<IProps, IState> {
                         this.props.dispatch(NavigationActions.navigate({
                           routeName: 'Room',
                           params: {
-                            metaData: data.metaData,
+                            id: data.id, metaData: data.metaData,
                           },
                         }))
                       }}
@@ -338,11 +339,12 @@ class Home extends React.Component<IProps, IState> {
               this.props.dispatch(NavigationActions.navigate({
                 routeName: 'Room',
                 params: {
-                  metaData: data.metaData,
+                  id: data.id, metaData: data.metaData,
                 },
               }))
             }}
             style={{
+              flex: 1,
               flexDirection: 'row'
             }}
           >
