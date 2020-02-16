@@ -52,6 +52,7 @@ class Home extends React.Component<IProps, IState> {
             {
                 marginTop: 16,
                 width: width  - 16*2,
+                height: width  - 16*2,
                 paddingBottom: 20,
                 // borderWidth: 1,
                 // borderColor: '#EBEBEB',
@@ -129,7 +130,7 @@ class Home extends React.Component<IProps, IState> {
                       paddingHorizontal: 16,
                   }}>
                       {
-                          ([...this.state.list,...this.state.list,]).map((item: fileType, index) => {
+                          ([...this.state.list]).map((item: fileType, index) => {
                               return this.renderItem(item, index, this.state.list.length)
                           })
                       }

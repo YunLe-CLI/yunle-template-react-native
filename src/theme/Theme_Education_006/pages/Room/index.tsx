@@ -791,10 +791,10 @@ class Home extends React.Component<IProps, IState> {
                                                 <Button
                                                   style={styles.btnWrap}
                                                   onPress={() => {
-                                                    // this.goBack();
-                                                      this.showAlert(`是否退出`, () => {
-                                                          this.goBack();
-                                                      })
+                                                    this.goBack();
+                                                    //   this.showAlert(`是否退出`, () => {
+                                                    //       this.goBack();
+                                                    //   })
                                                   }}>
                                                     <FastImage
                                                       style={{
