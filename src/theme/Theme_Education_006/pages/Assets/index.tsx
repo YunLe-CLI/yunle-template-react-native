@@ -50,10 +50,9 @@ class Home extends React.Component<IProps, IState> {
         return <View key={JSON.stringify(item)} style={[
             styles.itemBox,
             {
-                marginLeft: 16,
                 marginTop: 16,
                 width: width  - 16*2,
-                height: width  - 32,
+                paddingBottom: 20,
                 // borderWidth: 1,
                 // borderColor: '#EBEBEB',
             }
@@ -125,12 +124,12 @@ class Home extends React.Component<IProps, IState> {
               <Content>
                   <View style={{
                       flexDirection: 'row',
-                    justifyContent: 'center',
+                       justifyContent: 'space-between',
                       flexWrap: 'wrap',
-                      marginLeft: -16,
+                      paddingHorizontal: 16,
                   }}>
                       {
-                          (this.state.list).map((item: fileType, index) => {
+                          ([...this.state.list,...this.state.list,]).map((item: fileType, index) => {
                               return this.renderItem(item, index, this.state.list.length)
                           })
                       }

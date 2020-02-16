@@ -238,7 +238,7 @@ class Home extends React.Component<IProps, IState> {
   }
 
   render() {
-    const { active, siginInfo = {} } = this.state;
+    const { active, siginInfo = {}, allCourses = [] } = this.state;
     const { user = {} } = this.props;
     return (
       <Container style={styles.container}>
@@ -318,7 +318,7 @@ class Home extends React.Component<IProps, IState> {
                 fontSize: 16,
                 lineHeight: 28,
                 fontWeight: '500',
-              }}>上课数：{siginInfo.finishedCount || '未知'}</Text>
+              }}>上课数：{allCourses.length || '0'}</Text>
             </View>
           </Content>
         </ImageBackground>

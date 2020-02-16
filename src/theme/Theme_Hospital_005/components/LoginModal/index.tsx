@@ -78,8 +78,8 @@ class LoginProvider extends React.Component<IProps, IState> {
     isVisible: false,
     mobile: undefined,
     password: undefined,
-    // mobile: '18200000006',
-    // password: '123456',
+    mobile: '17708105213',
+    password: 'EJqo6376',
   }
 
   reloadNavigation = () => {

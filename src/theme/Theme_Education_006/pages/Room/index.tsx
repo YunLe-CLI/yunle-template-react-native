@@ -29,7 +29,7 @@ import {
 } from 'native-base';
 import { connect } from 'react-redux';
 import styles from './styles';
-import { withAlertModal } from '@/theme/Theme_Education_005/components/AlertModal'
+import { withAlertModal } from '@/theme/Theme_Education_006/components/AlertModal'
 import { withLoginModal } from '../../components/LoginModal'
 import {META_DATA} from '../../services/api';
 
@@ -99,7 +99,7 @@ class Home extends React.Component<IProps, IState> {
         SDK_AUTH: false,
         SDK_LOGIN: false,
         rotateVal: new Animated.Value(0),
-        inRoom: false,
+        inRoom: true,
         userList: [],
         usersInfo: {},
         audioType: true,
@@ -617,15 +617,15 @@ class Home extends React.Component<IProps, IState> {
             return (usersInfo[id] || {}).isMyself
         })
         console.log(meUser, "主持人");
-        const list_1 = [];
-        const list_2 = [];
-        this.state.userList.forEach((item, index) => {
-            if (index%2 === 0) {
-                list_1.push(item)
-            } else {
-                list_2.push(item)
-            }
-        })
+        const list_1 = this.state.userList.slice(0,3);
+        const list_2 = this.state.userList.slice(3);
+        // this.state.userList.forEach((item, index) => {
+        //     if (index%2 === 0) {
+        //         list_1.push(item)
+        //     } else {
+        //         list_2.push(item)
+        //     }
+        // })
         return (
             <Container style={styles.container}>
                 <NavigationEvents
@@ -791,6 +791,7 @@ class Home extends React.Component<IProps, IState> {
                                                 <Button
                                                   style={styles.btnWrap}
                                                   onPress={() => {
+                                                    // this.goBack();
                                                       this.showAlert(`是否退出`, () => {
                                                           this.goBack();
                                                       })
