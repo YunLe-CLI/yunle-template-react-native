@@ -32,7 +32,8 @@ import icon_check_default from './assets/icon_check_default_slices/icon_check_de
 
 import {DOCTOR_ITEM, MAKE_POST} from '../../services/api';
 import { SafeAreaView } from 'react-native-safe-area-context';
-
+import aliSign from '@/utils/aliSign';
+import moment from 'moment';
 export interface IProps {}
 
 export interface IState {

@@ -32,7 +32,8 @@ import icon_check_default from './assets/icon_check_default_slices/icon_check_de
 import {DOCTOR_ITEM, MAKE_POST} from '../../services/api';
 import bg from '@/theme/Theme_Hospital_006/components/LoginModal/assets/bg/bg.png';
 import {getStatusBarHeight} from "react-native-status-bar-height";
-
+import aliSign from '@/utils/aliSign';
+import moment from 'moment';
 export interface IProps {}
 
 export interface IState {

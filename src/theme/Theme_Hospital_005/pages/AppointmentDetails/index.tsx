@@ -30,7 +30,8 @@ import icon_check_active from './assets/icon_check_active_slices/icon_check_acti
 import icon_check_default from './assets/icon_check_default_slices/icon_check_default.png';
 
 import {DOCTOR_ITEM, MAKE_POST} from '../../services/api';
-
+import aliSign from '@/utils/aliSign';
+import moment from 'moment';
 export interface IProps {}
 
 export interface IState {

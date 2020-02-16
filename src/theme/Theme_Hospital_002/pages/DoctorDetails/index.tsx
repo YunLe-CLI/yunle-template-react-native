@@ -322,7 +322,7 @@ class Home extends React.Component<IProps, IState> {
               <View style={styles.startWrap}><Text style={{
                   fontSize: 13,
                   color: '#5277F1'
-                }}>剩余{tableData2[index].remainCount || 0}</Text></View>
+                }}>剩余{tableData1[index].remainCount || 0}</Text></View>
             </TouchableOpacity>: null}
               </View>
               <View style={{

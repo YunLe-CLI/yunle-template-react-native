@@ -126,7 +126,7 @@ class Home extends React.Component<IProps, IState> {
           <Text style={[styles.formItemTitle, styles.formItemMoney, {
             fontSize: 12,
             color: '#fff'
-          }]}>挂号费：￥<Text style={[styles.formItemTitle, styles.formItemMoney, {
+          }]}>挂号费：<Text style={[styles.formItemTitle, styles.formItemMoney, {
             fontSize: 12,
             color: '#FF3B0E'
           }]}>{doctorInfo.registrationFee}</Text>元</Text>
@@ -168,10 +168,11 @@ class Home extends React.Component<IProps, IState> {
       console.log(1111, data, 111);
 
       (data || [{}, {}]).forEach((cItem: REGISTRATIONS_ITEM_INFO) => {
-       
+        // 上午
         if (cItem.timeslot === 1) {
           NODE_AM = ({...cItem, date: item.date, remainCount: cItem.remainCount });
         }
+        // 下得
         if (cItem.timeslot === 2) {
           NODE_PM = ({...cItem, date: item.date, remainCount: cItem.remainCount });
         }
@@ -297,7 +298,7 @@ class Home extends React.Component<IProps, IState> {
               <View style={styles.startWrap}><Text style={{
                   fontSize: 13,
                   color: '#E9B631'
-              }}>剩余{tableData2[index].remainCount}</Text></View>
+              }}>剩余{tableData1[index].remainCount}</Text></View>
             </TouchableOpacity>: null}
               </View>
               <View style={{
