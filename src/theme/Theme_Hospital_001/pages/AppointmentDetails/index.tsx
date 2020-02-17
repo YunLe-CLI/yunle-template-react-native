@@ -64,18 +64,25 @@ class Home extends React.Component<IProps, IState> {
         remark: this.state.remark,
         patientId: user.id,
       })
-      if (res.code === 0) {
-        this.props.dispatch(StackActions.replace({
-          routeName: 'AppointmentSuccess',
-          params: {
-            doctorInfo,
-            time,
-            remark: this.state.remark,
-          },
-        }))
-        return;
-      }
-      throw res.msg
+      // if (res.code === 0) {
+      //   this.props.dispatch(StackActions.replace({
+      //     routeName: 'AppointmentSuccess',
+      //     params: {
+      //       doctorInfo,
+      //       time,
+      //       remark: this.state.remark,
+      //     },
+      //   }))
+      //   return;
+      // }
+      // throw res.msg
+      this.props.dispatch(StackActions.replace({
+        routeName: 'AppointmentSuccess',
+        params: {
+          doctorInfo,
+          time
+        },
+      }))
     } catch (e) {
       alert(e)
     }
