@@ -566,8 +566,8 @@ class Home extends React.Component<IProps, IState> {
                   <YSXVideo
                     uid={userID}
                     style={{
-                        width: 100,
-                        height: 100,
+                        width: 120,
+                        height: 151,
                     }}
                   />
                 ) : undefined

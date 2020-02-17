@@ -93,8 +93,8 @@ class Home extends React.Component<IProps, IState> {
     const { payType } = this.state;
     //这些参数都是由后台生成的
      //设置    支付宝URL Schemes
-     XPay.setAlipayScheme('ysxdemo0000')
-    //  XPay.setAlipayScheme('ysxdemo0000hospital000')
+    //  XPay.setAlipayScheme('ysxdemo0000')
+     XPay.setAlipayScheme('ysxdemo0000hospital000')
      //支付宝开启沙箱模式 仅限安卓
      XPay.setAlipaySandbox('isSandBox')
      //支付宝支付
@@ -119,16 +119,21 @@ class Home extends React.Component<IProps, IState> {
       sign_type: "RSA"
     }
 
-     let data = await nativeSign(signData, sign, '')
+    try { 
+      let data = await nativeSign(signData, sign, '')
      
-     console.log('signDATA: 1: ', data)
-     const testData = `app_id=2016082201783549&biz_content={"timeout_express"%3A"30m"%2C"seller_id"%3A""%2C"product_code"%3A"QUICK_MSECURITY_PAY"%2C"total_amount"%3A"0.01"%2C"subject"%3A"%E6%8C%82%E5%8F%B7%E8%B4%B9"%2C"body"%3A"%E6%8C%82%E5%8F%B7%E8%B4%B9"%2C"out_trade_no"%3A"OGC770WYALP8W0F"}&charset=utf-8&method=alipay.trade.app.pay&sign_type=RSA&timestamp=2020-02-16 22%3A30%3A49&version=1.0&sign=Lsvlb0yNbPJr7IDPYvcy8I6Rb46GvlzTCwmCp4GMtSuagLQKxMrmRNTUmO9%2F3R2SmwlCR0I5SOQBJwazuTymWoAEv5WoBmjZrq9IEtdAacDLCw3vFF2O4U7ouwSgVb4ri3S6beBrx%2BiKm8XgL7lPKdLdG0VLNMtd6B%2BcxMWQQZYJ0EGl7kIxAcWGpRKPuRZ9mgji3rPzqc588FOlEo2vlAhmG5MRmq%2FBJfjyTUhRniOTsVjfT11c2joTWEyQE44GGLBIekYt%2BUm46RopYDrv%2BlK%2Bae40lmY1vSm8yrTlvRQaRh4kQmV3JgvyxTl5oZAz4WYM2GP0N26Pp3bN10Sg4g%3D%3D`
-     console.log('signDATA: 2: ', testData)
-    //  data = testData;
-     XPay.alipay(data, (res)=> {
-        // alert(res)
-     })
-    this.postData()
+      console.log('signDATA: 1: ', data)
+      const testData = `app_id=2016082201783549&biz_content={"timeout_express"%3A"30m"%2C"seller_id"%3A""%2C"product_code"%3A"QUICK_MSECURITY_PAY"%2C"total_amount"%3A"0.01"%2C"subject"%3A"%E6%8C%82%E5%8F%B7%E8%B4%B9"%2C"body"%3A"%E6%8C%82%E5%8F%B7%E8%B4%B9"%2C"out_trade_no"%3A"OGC770WYALP8W0F"}&charset=utf-8&method=alipay.trade.app.pay&sign_type=RSA&timestamp=2020-02-16 22%3A30%3A49&version=1.0&sign=Lsvlb0yNbPJr7IDPYvcy8I6Rb46GvlzTCwmCp4GMtSuagLQKxMrmRNTUmO9%2F3R2SmwlCR0I5SOQBJwazuTymWoAEv5WoBmjZrq9IEtdAacDLCw3vFF2O4U7ouwSgVb4ri3S6beBrx%2BiKm8XgL7lPKdLdG0VLNMtd6B%2BcxMWQQZYJ0EGl7kIxAcWGpRKPuRZ9mgji3rPzqc588FOlEo2vlAhmG5MRmq%2FBJfjyTUhRniOTsVjfT11c2joTWEyQE44GGLBIekYt%2BUm46RopYDrv%2BlK%2Bae40lmY1vSm8yrTlvRQaRh4kQmV3JgvyxTl5oZAz4WYM2GP0N26Pp3bN10Sg4g%3D%3D`
+      console.log('signDATA: 2: ', testData)
+     //  data = testData;
+      XPay.alipay(data, (res)=> {
+         // alert(res)
+      })
+     } catch (e) {
+        alert(e);
+     } finally {
+      this.postData();
+     }
     return;
     try {
       if (payType === 'wx') {
