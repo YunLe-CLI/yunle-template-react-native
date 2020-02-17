@@ -82,8 +82,10 @@ export interface USER_INO {
     }
 }
 
-@(connect(({ auth }) => {
+
+@(connect(({ auth, user }) => {
     return {
+        user: user.info,
         token: auth.token,
     }
 }) as any)
@@ -148,7 +150,7 @@ class Home extends React.Component<IProps, IState> {
           const res = await ROOM_MESSAGE({ mettingNo: params.metaData.MeetingNo  })
           if (res.code === 0) {
             const { nextId, kickId } = res.data || {};
-            if (kickId === id) {
+            if (nextId !== id) {
               // 离开房间
               this.showAlert('就诊已结束，祝您身体健康', () => {
                 this.goBack();

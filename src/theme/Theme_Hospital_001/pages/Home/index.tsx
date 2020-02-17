@@ -140,10 +140,10 @@ class Home extends React.Component<IProps, IState> {
         if (id === nextId) {
           this.props.handleShowGoToRoomModal(item)
         }
-        if (item.position === 0) {
-          this.props.handleShowGoToRoomModal(item)
-        }
-        if (kickId === id) {
+        // if (item.position === 0) {
+        //   this.props.handleShowGoToRoomModal(item)
+        // }
+        if (nextId !== id) {
           // 离开房间
           // SDKLeaveRoom();
           // alert('已完成')

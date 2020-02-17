@@ -269,7 +269,7 @@ class LoginProvider extends React.Component<IProps, IState> {
                             alignContent: 'center',
                             justifyContent: 'center',
                           }}
-                          source={logoImg}
+                          source={require('./assets/user/index.png')}
                           resizeMode={FastImage.resizeMode.contain}
                         />
                         <Input value={this.state.mobile}
@@ -307,7 +307,7 @@ class LoginProvider extends React.Component<IProps, IState> {
                             alignContent: 'center',
                             justifyContent: 'center',
                           }}
-                          source={logoImg}
+                          source={require('./assets/pwd/index.png')}
                           resizeMode={FastImage.resizeMode.contain}
                         />
                         <Input 

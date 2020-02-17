@@ -155,7 +155,7 @@ class Home extends React.Component<IProps, IState> {
           <Text style={styles.formItemLabel}>
           <Text style={{ color: '#FE0E07' }}>*</Text>
             手机号</Text>
-          <Input value={this.state.phone} style={styles.ipt} placeholder="请输入身份证号" placeholderTextColor={"#9C9EB9"}
+          <Input value={this.state.phone} style={styles.ipt} placeholder="请输入手机号" placeholderTextColor={"#9C9EB9"}
                  onChangeText={(value) => {
                    this.setState({
                     phone: value,

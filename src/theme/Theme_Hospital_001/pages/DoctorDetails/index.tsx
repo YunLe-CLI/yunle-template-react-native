@@ -162,7 +162,7 @@ class Home extends React.Component<IProps, IState> {
             </TouchableOpacity>)
           }
           if (cItem.remainCount === 0) {
-            NODE = (<Text style={styles.end}>挂满</Text>);
+            NODE = (<Text style={styles.end}></Text>);
           }
           if (cItem.timeslot === 1) {
             NODE_AM = (NODE);

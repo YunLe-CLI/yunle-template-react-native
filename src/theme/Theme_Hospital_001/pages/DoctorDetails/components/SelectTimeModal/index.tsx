@@ -278,7 +278,7 @@ class SelectDoctorModalProvider extends React.Component<{}, IState> {
                                   {
                                     item.remainCount !== 0 && !item.remainCount ? (<Text style={[styles.font, styles.end, JSON.stringify(item) === JSON.stringify(select) ? {
                                       color: '#F86358'
-                                    } : {}]}>挂满</Text>) : undefined
+                                    } : {}]}></Text>) : undefined
                                   }
                                 </View>
                               </ListItem>

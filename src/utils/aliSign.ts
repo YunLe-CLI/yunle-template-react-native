@@ -43,7 +43,7 @@ function  sign(object, privateKey) {
   return sortedQuery;
 }
 
-export const nativeSign = async (object, key: string, key2: string = null) => {
+export async function nativeSign(object, key: string, key2: string = null) {
   
   // Add default sign_type
   if (!object.sign_type || object.sign_type.length === 0) {

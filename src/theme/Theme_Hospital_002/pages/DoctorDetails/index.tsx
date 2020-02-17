@@ -172,10 +172,8 @@ class Home extends React.Component<IProps, IState> {
     const doctorInfo:DOCTOR_ITEM = params.doctorInfo || {};
     const { registrations = [] } = appointment;
     const tableData1 = [
-      '上午',
     ];
     const tableData2 = [
-      '下午',
     ];
     const widthArr = [62.5]
     const tableHead = [''];

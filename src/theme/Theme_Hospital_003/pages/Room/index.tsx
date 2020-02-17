@@ -81,8 +81,9 @@ export interface USER_INO {
     }
 }
 
-@(connect(({ auth }) => {
+@(connect(({ auth, user }) => {
     return {
+        user: user.info,
         token: auth.token,
     }
 }) as any)
@@ -129,6 +130,7 @@ class Home extends React.Component<IProps, IState> {
         } catch (e) {
 
         }
+        this.getIsMe();
         this.getInfoTime = setInterval(() => {
             if (this) {
                 this.getIsMe();
@@ -137,9 +139,10 @@ class Home extends React.Component<IProps, IState> {
             }
             
         }, 1000 * 10)
+     
     }
 
-    async getIsMe() {
+    getIsMe = async () => {
         try {
             const { navigation, exams } = this.props;
             const { params = {} } = navigation.state;
@@ -147,13 +150,14 @@ class Home extends React.Component<IProps, IState> {
           const res = await ROOM_MESSAGE({ mettingNo: params.metaData.MeetingNo  })
           if (res.code === 0) {
             const { nextId, kickId } = res.data || {};
-            if (kickId === id) {
+
+            if (nextId !== id) {
               // 离开房间
               this.showAlert('就诊已结束，祝您身体健康', () => {
                 this.goBack();
             }, () => {
                 this.goBack();
-            })
+            }, true)
             }
           } else {
             throw '';
@@ -366,12 +370,13 @@ class Home extends React.Component<IProps, IState> {
         }
     }
 
-    showAlert(text, onOk, onClear) {
+    showAlert(text, onOk, onClear, oneBtn) {
         if (this.props.handleShowAlertModal) {
             this.props.handleShowAlertModal({
                 text,
                 onOk,
                 onClear,
+                oneBtn
             })
         }
     }

@@ -43,7 +43,7 @@ class  AlertModalProvider extends React.Component<{}, IState> {
     text: '',
   };
 
-  showModel = (text: string, onOk, onClear) => {
+  showModel = (text: string, onOk, onClear, oneBtn) => {
     this.onOkCallback = undefined;
     this.onClearCallback = undefined;
     if (onOk) {
@@ -55,12 +55,14 @@ class  AlertModalProvider extends React.Component<{}, IState> {
     this.setState({
       isModalVisible: true,
       text,
+      oneBtn
     });
   };
 
   closeModel = () => {
     this.setState({
       isModalVisible: false,
+      oneBtn: false,
     }, () => {
       this.onOkCallback = undefined;
       this.onClearCallback = undefined;
@@ -81,7 +83,7 @@ class  AlertModalProvider extends React.Component<{}, IState> {
     return (
       <AlertModalContext.Provider value={{
         handleShowAlertModal: async (config: {text: string, onOk: () => {}, onClear: () => {}}) => {
-          this.showModel(config.text, config.onOk, config.onClear)
+          this.showModel(config.text, config.onOk, config.onClear, conig.oneBtn)
         }
       }}>
         {this.props.children}
@@ -115,25 +117,29 @@ class  AlertModalProvider extends React.Component<{}, IState> {
                   </Text>
                 </View>
                 <View style={styles.btnWrap}>
-                  <Button
-                      full
-                      bordered
-                      onPress={async () => {
-                        this.setState({
-                          isNotRemind: true,
-                        }, () => {
-                          this.closeModel();
-                          if (typeof this.onClearCallback === 'function') {
-                            this.onClearCallback()
-                          }
-                        })
-                      }}
-                      style={[styles.btn, {
-                        backgroundColor: '#7D899B'
-                      }]}
-                  >
-                    <Text style={[styles.btnText]}>取消</Text>
-                  </Button>
+                  {
+                    !this.state.oneBtn ? (
+                      <Button
+                        full
+                        bordered
+                        onPress={async () => {
+                          this.setState({
+                            isNotRemind: true,
+                          }, () => {
+                            this.closeModel();
+                            if (typeof this.onClearCallback === 'function') {
+                              this.onClearCallback()
+                            }
+                          })
+                        }}
+                        style={[styles.btn, {
+                          backgroundColor: '#7D899B'
+                        }]}
+                      >
+                        <Text style={[styles.btnText]}>取消</Text>
+                      </Button>
+                    ) : null
+                  }
                   <Button
                       transparent
                       full

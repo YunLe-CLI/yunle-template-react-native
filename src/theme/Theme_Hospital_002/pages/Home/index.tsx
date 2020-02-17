@@ -149,10 +149,10 @@ class Home extends React.Component<IProps, IState> {
         if (id === nextId) {
           this.props.handleShowGoToRoomModal(item)
         }
-        if (item.position === 0) {
-          this.props.handleShowGoToRoomModal(item)
-        }
-        if (kickId === id) {
+        // if (item.position === 0) {
+        //   this.props.handleShowGoToRoomModal(item)
+        // }
+        if (nextId !== id) {
           // 离开房间
           // SDKLeaveRoom();
           // alert('已完成')
@@ -264,13 +264,24 @@ class Home extends React.Component<IProps, IState> {
                   }}>
                     {typeText}
                   </Text>
-                  <Text  style={{
-                    flexGrow: 1,
-                    textAlign: 'center'
-                  }}>
-                    {data.timeslot === 1 ? '上午' : ''}
-                    {data.timeslot === 2 ? '下午' : ''}
-                  </Text>
+                  {
+                    this.state.isToday ? (
+                      <Text  style={{
+                        flexGrow: 1,
+                        textAlign: 'center'
+                      }}>
+                        {data.timeslot === 1 ? '上午' : ''}
+                        {data.timeslot === 2 ? '下午' : ''}
+                      </Text>
+                    ) : (
+                      <Text  style={{
+                        flexGrow: 1,
+                        textAlign: 'center'
+                      }}>
+                        {moment(data.date).format('YYYY年MM月DD日')}
+                      </Text>
+                    )
+                  }
                   <View style={{
                     flexGrow: 1,
                   }}>
