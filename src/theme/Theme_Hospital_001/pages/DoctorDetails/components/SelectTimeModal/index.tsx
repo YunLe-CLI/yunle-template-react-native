@@ -325,7 +325,7 @@ class SelectDoctorModalProvider extends React.Component<{}, IState> {
                                   item.remainCount=== 0 ? (<Text style={[styles.font, styles.end]}>挂满</Text>) : undefined
                                 }
                                 {
-                                  item.remainCount !== 0 && !item.remainCount ? (<Text style={[styles.font, styles.end]}>挂满</Text>) : undefined
+                                  item.remainCount !== 0 && !item.remainCount ? (<Text style={[styles.font, styles.end]}></Text>) : undefined
                                 }
                               </View>
                             </ListItem>

@@ -137,6 +137,8 @@ class Home extends React.Component<IProps, IState> {
       let NODE_PM = '';
       if (data && _.isArray(data) && data.length) {
         data.forEach((cItem: REGISTRATIONS_ITEM_INFO) => {
+          const amNum = (data[0] || {}).remainCount;
+          const pmNum = (data[1] || {}).remainCount;
           if (cItem.remainCount > 0) {
             NODE = (<TouchableOpacity onPress={() => {
               this.props.dispatch(NavigationActions.navigate({
@@ -149,7 +151,10 @@ class Home extends React.Component<IProps, IState> {
                 },
               }))
             }}>
-              <Text style={styles.start}>剩余{data[0].remainCount}</Text>
+              <Text style={styles.start}>
+                {cItem.timeslot === 1 && amNum ? `剩余${amNum}` : undefined}
+                {cItem.timeslot === 2 && pmNum ? `剩余${pmNum}` : undefined}
+              </Text>
             </TouchableOpacity>)
           }
           if (cItem.remainCount === 0) {

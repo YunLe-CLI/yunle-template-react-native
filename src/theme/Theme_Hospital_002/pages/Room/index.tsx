@@ -94,7 +94,7 @@ class Home extends React.Component<IProps, IState> {
         SDK_AUTH: false,
         SDK_LOGIN: false,
         rotateVal: new Animated.Value(0),
-        inRoom: false,
+        inRoom: true,
         userList: [],
         usersInfo: {},
         audioType: true,
@@ -568,8 +568,8 @@ class Home extends React.Component<IProps, IState> {
                   <YSXVideo
                     uid={userID}
                     style={{
-                        width: 100,
-                        height: 100,
+                        width: 125.5,
+                        height: 151.5,
                     }}
                   />
                 ) : undefined

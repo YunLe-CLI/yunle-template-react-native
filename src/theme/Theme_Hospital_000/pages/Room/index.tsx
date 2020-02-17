@@ -149,7 +149,7 @@ class Home extends React.Component<IProps, IState> {
           console.log(params.metaData, res,111111)
           if (res.code === 0) {
             const { nextId, kickId } = res.data || {};
-            if (nextId == id) {
+            if (nextId !== id) {
               // 离开房间
               this.showAlert('就诊已结束，祝您身体健康', () => {
                 this.goBack();
