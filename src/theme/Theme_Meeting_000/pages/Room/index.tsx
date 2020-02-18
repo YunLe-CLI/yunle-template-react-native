@@ -55,6 +55,7 @@ const { SDKLeaveRoom, SDKEndRoom } = MainViewController || {};
 export interface IProps {}
 
 export interface IState {
+    isMeHost: boolean;
     SDK_AUTH: boolean;
     SDK_LOGIN: boolean;
     inRoom: boolean;
@@ -88,6 +89,7 @@ export interface USER_INO {
 class Home extends React.Component<IProps, IState> {
 
     state = {
+        isMeHost: false,
         SDK_AUTH: false,
         SDK_LOGIN: false,
         rotateVal: new Animated.Value(0),
@@ -293,6 +295,14 @@ class Home extends React.Component<IProps, IState> {
         try {
             const userInfo = await SDKGetUserInfo(userID);
             console.log('userInfo: ', userInfo)
+    //         "isHostUser": boolean,
+    // "isMyself": boolean,
+            
+            if (userInfo.isHostUser && userInfo.isMyself) {
+                this.setState({
+                    isMeHost: true,
+                })
+            }
             this.setState({
                 usersInfo: {
                   ...this.state.usersInfo,
@@ -557,33 +567,36 @@ class Home extends React.Component<IProps, IState> {
                                     resizeMode={FastImage.resizeMode.contain}
                                 />
                             </Button>
+                            {
+                                this.state.isMeHost ? (
+                                <Button
+                                    style={styles.btnWrap}
+                                    transparent
+                                    onPress={() => {
+                                        this.showAlert('是否结束会议？', () => {
+                                            try {
+                                                SDKEndRoom();
+                                            } catch (e) {
 
-                            <Button
-                                style={styles.btnWrap}
-                                transparent
-                                onPress={() => {
-                                    this.showAlert('是否结束会议？', () => {
-                                        try {
-                                            SDKEndRoom();
-                                        } catch (e) {
-
-                                        }
-                                        const { dispatch } = this.props;
-                                        dispatch(NavigationActions.back());
-                                    })
-                                }}
-                            >
-                                <FastImage
-                                    style={{
-                                        width: 18,
-                                        height: 18,
-                                        alignContent: 'center',
-                                        justifyContent: 'center',
+                                            }
+                                            const { dispatch } = this.props;
+                                            dispatch(NavigationActions.back());
+                                        })
                                     }}
-                                    source={closeIMG}
-                                    resizeMode={FastImage.resizeMode.contain}
-                                />
-                            </Button>
+                                >
+                                    <FastImage
+                                        style={{
+                                            width: 18,
+                                            height: 18,
+                                            alignContent: 'center',
+                                            justifyContent: 'center',
+                                        }}
+                                        source={closeIMG}
+                                        resizeMode={FastImage.resizeMode.contain}
+                                    />
+                                </Button>
+                                ) : (null)
+                            }
                         </View>
                     </Left>
                     <Body style={{

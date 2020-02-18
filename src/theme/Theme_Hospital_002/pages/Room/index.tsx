@@ -94,7 +94,7 @@ class Home extends React.Component<IProps, IState> {
         SDK_AUTH: false,
         SDK_LOGIN: false,
         rotateVal: new Animated.Value(0),
-        inRoom: true,
+        inRoom: false,
         userList: [],
         usersInfo: {},
         audioType: true,
