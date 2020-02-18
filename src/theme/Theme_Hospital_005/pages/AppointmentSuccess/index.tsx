@@ -62,7 +62,20 @@ class Home extends React.Component<IProps, IState> {
       <CardItem style={[styles.formItem, {
           backgroundColor: 'transparent'
         }]}>
-          <Text style={styles.formItemTitle}>{this.props.postType || '挂号'}信息</Text>
+          <View>
+            <Text style={styles.formItemTitle}>{this.props.postType || '挂号'}信息</Text>
+            <View style={{
+                position: 'absolute',
+                left: 0,
+                bottom: 2,
+                right: 0,
+                height: 3,
+                opacity: .7,
+                backgroundColor: '#24CFBC'
+              }}>
+
+            </View>
+          </View>
         </CardItem>
         <View style={[styles.formItem, {
           paddingVertical: 0,
@@ -116,7 +129,20 @@ class Home extends React.Component<IProps, IState> {
       <CardItem style={[styles.formItem, {
           backgroundColor: 'transparent'
         }]}>
-          <Text style={styles.formItemTitle}>就诊人信息</Text>
+          <View>
+            <Text style={styles.formItemTitle}>就诊人信息</Text>
+            <View style={{
+                position: 'absolute',
+                left: 0,
+                bottom: 2,
+                right: 0,
+                height: 3,
+                opacity: .7,
+                backgroundColor: '#24CFBC'
+              }}>
+
+            </View>
+          </View>
         </CardItem>
         <View style={[styles.formItem, {
           paddingVertical: 0,

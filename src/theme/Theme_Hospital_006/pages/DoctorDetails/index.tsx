@@ -162,7 +162,15 @@ class Home extends React.Component<IProps, IState> {
                 },
               }))
             }}>
-              <View style={styles.startWrap}><Text style={styles.start}>已预约{data[0].remainCount || 0}</Text></View>
+              <View style={styles.startWrap}><Text style={styles.start}>
+                {
+                  cItem.timeslot === 1 ? (
+                    `预约数${data[0].remainCount || 0}`
+                  ) : (
+                    `预约数${data[1].remainCount || 0}`
+                  )
+                }
+               </Text></View>
             </TouchableOpacity>)
           }
           if (cItem.remainCount === 0) {
@@ -207,7 +215,7 @@ class Home extends React.Component<IProps, IState> {
                   <View style={[styles.cellWrap, { width: widthArr[cellIndex] }]}>
                     {
                       cellIndex === 0 ? undefined : <>
-                        <Text style={styles.tableHeaderText}>周{utils[moment(cellData).day()+1]}</Text>
+                        <Text style={styles.tableHeaderText}>周{utils[moment(cellData).day()]}</Text>
                         {/*<Text style={styles.headerCellSpanText}>{moment(cellData).format('MM-DD')}</Text>*/}
                       </>
                     }
@@ -478,7 +486,7 @@ class Home extends React.Component<IProps, IState> {
                         {doctorInfo.name}
                       </Text>
                       <View style={{ width: 20, }}></View>
-                      <Text  style={[styles.nameText]}>已预约 {appointment.registrationCount || 0} 次</Text>
+                      <Text  style={[styles.nameText]}>预约数 {appointment.registrationCount || 0} 次</Text>
 
                     </View>
                     <View style={{
@@ -487,9 +495,10 @@ class Home extends React.Component<IProps, IState> {
                     }}>
                       <Text style={styles.note}>{doctorInfo.hospitalName}</Text>
                       <Text style={[styles.note, styles.span]}>
-                        {doctorInfo.professionalTitle}
+                        {doctorInfo.medicalDepartment}
                       </Text>
-                      <Text style={styles.note}>{doctorInfo.hospitalName}  {doctorInfo.professionalTitle}</Text>
+                      <View style={{width: 10,}}></View>
+                      <Text style={styles.note}>{doctorInfo.professionalTitle}</Text>
                     </View>
 
                   </Body>

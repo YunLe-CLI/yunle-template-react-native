@@ -80,7 +80,20 @@ class Home extends React.Component<IProps, IState> {
         <CardItem style={[styles.formItem, {
           backgroundColor: 'transparent'
         }]}>
-          <Text style={styles.formItemTitle}>医生介绍</Text>
+          <View>
+            <Text style={styles.formItemTitle}>医生介绍</Text>
+            <View style={{
+                position: 'absolute',
+                left: 0,
+                bottom: 2,
+                right: 0,
+                height: 3,
+                opacity: .7,
+                backgroundColor: '#24CFBC'
+              }}>
+
+            </View>
+          </View>
         </CardItem>
         <CardItem style={[styles.formItem, {
           paddingVertical: 21,
@@ -102,7 +115,20 @@ class Home extends React.Component<IProps, IState> {
         <CardItem style={[styles.formItem, {
           backgroundColor: 'transparent'
         }]}>
-          <Text style={styles.formItemTitle}>擅长疾病</Text>
+          <View>
+            <Text style={styles.formItemTitle}>擅长疾病</Text>
+            <View style={{
+                position: 'absolute',
+                left: 0,
+                bottom: 2,
+                right: 0,
+                height: 3,
+                opacity: .7,
+                backgroundColor: '#24CFBC'
+              }}>
+
+            </View>
+          </View>
         </CardItem>
         <CardItem style={[styles.formItem, {
           paddingVertical: 21,
@@ -128,7 +154,20 @@ class Home extends React.Component<IProps, IState> {
         <CardItem style={[styles.formItem, styles.spaceBetween, {
           backgroundColor: 'transparent'
         }]}>
-          <Text style={styles.formItemTitle}>出诊信息</Text>
+          <View>
+            <Text style={styles.formItemTitle}>出诊信息</Text>
+            <View style={{
+                position: 'absolute',
+                left: 0,
+                bottom: 2,
+                right: 0,
+                height: 3,
+                opacity: .7,
+                backgroundColor: '#24CFBC'
+              }}>
+
+            </View>
+          </View>
           <Text style={[styles.formItemTitle, styles.formItemMoney]}>挂号费：￥{doctorInfo.registrationFee}</Text>
         </CardItem>
         <CardItem  style={[styles.formItem, {

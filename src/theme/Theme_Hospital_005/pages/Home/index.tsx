@@ -262,7 +262,7 @@ class Home extends React.Component<IProps, IState> {
               <View>
               <Title style={styles.itemBodyTitle}>
                 {
-                  moment(data.date).format('YYYY年MM月DD日')
+                  this.state.isToday ? ' ' : moment(data.date).format('YYYY年MM月DD日')
                 }
                 <View style={{ width: 10, }} />
                 {data.timeslot === 1 ? '上午' : ''}
@@ -519,24 +519,107 @@ class Home extends React.Component<IProps, IState> {
     const { handleShowSelectDepartmentModal, handleShowSelectLevelModal } = this.props;
     return <Content contentContainerStyle={styles.formContent}>
       <Card noShadow style={styles.formCard}>
-        <CardItem style={[styles.formItem, styles.center]}>
-          <Segment style={styles.segmentWrap}>
-            <Button
-              onPress={() => {
-                this.setState({
-                  segmentActive: 0,
-                })
-              }}
-              style={styles.segmentBtn} active={segmentActive === 0} first><Text style={styles.segmentBtnText}>挂号当日</Text></Button>
-            <Button
-              onPress={() => {
-                this.setState({
-                  segmentActive: 1,
-                })
-              }}
-              style={styles.segmentBtn} active={segmentActive === 1} last><Text style={styles.segmentBtnText}>预约挂号</Text></Button>
-          </Segment>
-        </CardItem>
+        <View style={{
+          flexDirection: 'row',
+        }}>
+          <TouchableOpacity 
+          activeOpacity={1}
+          onPress={() => {
+            this.setState({
+              segmentActive: 0,
+            })
+          }}
+          style={{
+            flexGrow: 1,
+            height: 50,
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: '#F7F7F7'
+          }}>
+            {
+              segmentActive === 0 ? <View style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                backgroundColor: '#fff',
+                overflow: 'hidden',
+              }}>
+                <View style={{
+                  position: 'absolute',
+                  top: 0,
+                  right: -23,
+                  bottom: 0,
+                  width: 50,
+                  height: 50,
+                }}>
+                  <FastImage
+                    style={{
+                      width: 50,
+                      height: 50,
+                      alignContent: 'center',
+                      justifyContent: 'center',
+                    }}
+                    source={require('./assets/zj2.png')}
+                    resizeMode={FastImage.resizeMode.contain}
+                  />
+                </View>
+              </View> : null
+            }
+            <Text>
+            挂号当日
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity 
+          activeOpacity={1}
+          onPress={() => {
+            this.setState({
+              segmentActive: 1,
+            })
+          }}
+          style={{
+            flexGrow: 1,
+            height: 50,
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: '#F7F7F7'
+          }}>
+            {
+              segmentActive === 1 ? <View style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                backgroundColor: '#fff'
+              }}>
+                <View style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: -15,
+                  bottom: 0,
+                  width: 50,
+                  height: 50,
+                }}>
+                  <FastImage
+                    style={{
+                      width: 50,
+                      height: 50,
+                      alignContent: 'center',
+                      justifyContent: 'center',
+                    }}
+                    source={require('./assets/zj.png')}
+                    resizeMode={FastImage.resizeMode.contain}
+                  />
+                </View>
+              </View> : null
+            }
+            <Text>
+            预约挂号
+            </Text>
+          </TouchableOpacity>
+        </View>
 
         <CardItem
           onPress={() => {

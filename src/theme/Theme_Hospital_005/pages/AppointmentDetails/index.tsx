@@ -166,7 +166,25 @@ class Home extends React.Component<IProps, IState> {
         <CardItem style={[styles.formItem, {
           backgroundColor: 'transparent'
         }]}>
-          <Text style={styles.formItemTitle}>{postType || '挂号'}信息</Text>
+          <View>
+            <Text style={styles.formItemTitle}>
+              {postType || '挂号'}信息
+                
+            </Text>
+            <View style={{
+                position: 'absolute',
+                left: 0,
+                bottom: 2,
+                right: 0,
+                height: 3,
+                opacity: .7,
+                backgroundColor: '#24CFBC'
+              }}>
+
+            </View>
+          </View>
+          
+          
         </CardItem>
         <View style={[styles.formItem, {
           paddingVertical: 0,
@@ -188,29 +206,33 @@ class Home extends React.Component<IProps, IState> {
             overflow: 'hidden',
           }}>
           <CardItem style={styles.formItem}>
-            <Text style={styles.formItemLabel}>医生姓名</Text>
-            <Text style={styles.ipt}>
-              {doctorInfo.name}
-            </Text>
-          </CardItem>
-          <CardItem style={styles.formItem}>
-            <Text style={styles.formItemLabel}>医生职称</Text>
-            <Text style={styles.ipt}>
-              {doctorInfo.professionalTitle}
-            </Text>
-          </CardItem>
-          <CardItem style={styles.formItem}>
             <Text style={styles.formItemLabel}>所在医院</Text>
             <Text style={styles.ipt}>
               {doctorInfo.hospitalName}
             </Text>
           </CardItem>
+
+          <CardItem style={styles.formItem}>
+            <Text style={styles.formItemLabel}>
+              医生姓名
+            </Text>
+            <Text style={styles.ipt}>
+              {doctorInfo.name}
+            </Text>
+          </CardItem>
+          {/* <CardItem style={styles.formItem}>
+            <Text style={styles.formItemLabel}>医生职称</Text>
+            <Text style={styles.ipt}>
+              {doctorInfo.professionalTitle}
+            </Text>
+          </CardItem>
+          
           <CardItem style={styles.formItem}>
             <Text style={styles.formItemLabel}>就诊科室</Text>
             <Text style={styles.ipt}>
               {doctorInfo.medicalDepartment}
             </Text>
-          </CardItem>
+          </CardItem> */}
           <CardItem style={styles.formItem}>
             <Text style={styles.formItemLabel}>就诊时间</Text>
             <Text style={styles.ipt}>
@@ -227,7 +249,20 @@ class Home extends React.Component<IProps, IState> {
         <CardItem style={[styles.formItem, {
           backgroundColor: 'transparent'
         }]}>
-          <Text style={styles.formItemTitle}>就诊人信息</Text>
+          <View>
+            <Text style={styles.formItemTitle}>就诊人信息</Text>
+            <View style={{
+                  position: 'absolute',
+                  left: 0,
+                  bottom: 2,
+                  right: 0,
+                  height: 3,
+                  opacity: .7,
+                  backgroundColor: '#24CFBC'
+                }}>
+
+            </View>
+          </View>
         </CardItem>
         <View style={[styles.formItem, {
           paddingVertical: 0,
@@ -290,7 +325,22 @@ class Home extends React.Component<IProps, IState> {
       <CardItem style={[styles.formItem, {
           backgroundColor: 'transparent'
         }]}>
-          <Text style={styles.formItemTitle}>支付信息</Text>
+          <View style={{
+            marginRight: 10,
+          }}>
+            <Text style={styles.formItemTitle}>支付信息</Text>
+            <View style={{
+                  position: 'absolute',
+                  left: 0,
+                  bottom: 2,
+                  right: 0,
+                  height: 3,
+                  opacity: .7,
+                  backgroundColor: '#24CFBC'
+                }}>
+
+            </View>
+          </View>
           <Text style={[styles.formItemTitle, styles.formItemMoney]}>{this.props.postType || '挂号'}费：￥{doctorInfo.registrationFee}</Text>
         </CardItem>
         <View style={[styles.formItem, {

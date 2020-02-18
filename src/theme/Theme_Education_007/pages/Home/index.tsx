@@ -260,6 +260,11 @@ class Home extends React.Component<IProps, IState> {
                   <View style={[styles.typeWrap,
 
                   ]}>
+                    {/* <Text style={[styles.checkText,
+            check === 1 ? styles.checkEndText : {}]}>
+            { check === 1 ? '已签到' : undefined }
+            { check !== 1 ? '未签到' : undefined }
+          </Text> */}
                     <Text style={[
                       styles.type,
                       type === -1 ? { color: '#4426DB' } : {},
@@ -319,6 +324,7 @@ class Home extends React.Component<IProps, IState> {
                     style={[styles.btnContent, { borderWidth: 0, }]}
                     transparent
                     onPress={() => {
+                      this.signins(data.id);
                       this.props.dispatch(NavigationActions.navigate({
                         routeName: 'Room',
                         params: {
@@ -367,11 +373,17 @@ class Home extends React.Component<IProps, IState> {
 
     const todayList = {
       title: "今日预约",
-      data: todayCourses,
+      data: allCourses.filter((data) => {
+        const { signin } = data;
+        return signin;
+      }),
     };
     const registrationsList = {
       title: "全部预约",
-      data: allCourses,
+      data: allCourses.filter((data) => {
+        const { signin } = data;
+        return !signin;
+      }),
     };
     let list = []
     if (type === '今日课程') {
@@ -384,6 +396,8 @@ class Home extends React.Component<IProps, IState> {
         registrationsList,
       ]
     }
+    
+    
     return <SectionList
       style={{
         flexGrow: 1,

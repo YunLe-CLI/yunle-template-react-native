@@ -181,7 +181,7 @@ export default StyleSheet.create({
     height: 53,
   },
   formContent: {
-    marginTop: 52,
+    marginTop: 10,
     paddingHorizontal: 16,
     paddingVertical: 6,
   },

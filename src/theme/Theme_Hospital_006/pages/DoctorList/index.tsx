@@ -189,7 +189,7 @@ class Home extends React.Component<IProps, IState> {
                                       <Body>
                                           <View style={styles.itemHeader}>
                                               <Text style={styles.nameText}>
-                                                  {item.name}   累计 {item.cs || 0} 次
+                                                  {item.name}   累计 {parseInt(Math.random() * 200) || 0} 次
                                               </Text>
                                             <Text style={styles.nameText}>
                                               挂号费{item.registrationFee}元
