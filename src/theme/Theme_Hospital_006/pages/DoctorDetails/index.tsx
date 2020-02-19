@@ -162,12 +162,27 @@ class Home extends React.Component<IProps, IState> {
                 },
               }))
             }}>
-              <View style={styles.startWrap}><Text style={styles.start}>
+              <View style={[styles.startWrap, {
+                 
+              }]}><Text style={styles.start}>
                 {
                   cItem.timeslot === 1 ? (
-                    `预约数${data[0].remainCount || 0}`
+                    `已预约${20-data[0].remainCount || 0}`
                   ) : (
-                    `预约数${data[1].remainCount || 0}`
+                    `已预约${20-data[1].remainCount || 0}`
+                  )
+                }
+               </Text></View>
+               <View style={[styles.startWrap, {
+                 marginTop: 4,
+                 backgroundColor: '#DEFFE6',
+                 borderLeftColor: '#57B66E',
+               }]}><Text style={styles.start}>
+                 {
+                  cItem.timeslot === 1 ? (
+                    `剩余${data[0].remainCount || 0}`
+                  ) : (
+                    `剩余${data[1].remainCount || 0}`
                   )
                 }
                </Text></View>
