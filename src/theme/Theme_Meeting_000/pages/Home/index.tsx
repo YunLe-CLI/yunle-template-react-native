@@ -404,7 +404,14 @@ class Home extends React.Component<IProps, IState> {
                     transparent
                     rounded
                     onPress={async () => {
-                      this.props.handleShowCancelModal({ startTime: data.startTime, endTime: data.endTime });
+                      this.props.handleShowCancelModal({ startTime: data.startTime, endTime: data.endTime }, async () => {
+                        try {
+                          const res = await CLOSE_MEETING({ id: data.id })
+                          this.componentDidMount()
+                        } catch (e) {
+
+                        }
+                      });
                     }}
                     style={[
                       styles.btnDefault,

@@ -70,12 +70,13 @@ class CancelModalProvider extends React.Component<{}, IState> {
     const { isModalVisible, isModalNotVisible, updateURI } = this.state;
     return (
       <CheckAppUpdateContext.Provider value={{
-        handleShowCancelModal: async ({ startTime, endTime }) => { {
+        handleShowCancelModal: async ({ startTime, endTime }, onCallBack) => { {
           this.showModel()
           this.setState({
             startTime,
             endTime
           })
+          this.onCallBack = onCallBack;
         } }
       }}>
         {this.props.children}
@@ -136,6 +137,9 @@ class CancelModalProvider extends React.Component<{}, IState> {
                       bordered
                       onPress={async () => {
                         this.closeModel();
+                        if (this.onCallBack) {
+                          this.onCallBack()
+                        }
                       }}
                       style={styles.btn}
                   >
