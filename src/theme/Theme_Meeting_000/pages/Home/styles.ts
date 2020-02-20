@@ -102,11 +102,11 @@ export default StyleSheet.create({
     backgroundColor: '#FFC862',
   },
   itemIconText00: {
-    backgroundColor: '#FFC862',
+    backgroundColor: '#118DF0',
     color: '#fff',
   },
   itemIconText01: {
-    backgroundColor: '#118DF0',
+    backgroundColor: '#FFC862',
     color: '#fff',
   },
   itemIconText02: {

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Dimensions, ImageBackground, NativeModules, SectionList, StatusBar, TouchableOpacity, View} from 'react-native';
+import {Dimensions, ImageBackground, NativeModules, SectionList, StatusBar, TouchableOpacity, View, Alert} from 'react-native';
 import { connect } from 'react-redux';
 import {
   Card,
@@ -49,6 +49,7 @@ const { MainViewController = {} } = NativeModules || {};
 const { SDKLeaveRoom } = MainViewController || {};
 
 import AddressList from '../AddressList';
+import { user } from '@/theme/Theme_Default/models';
 
 export interface IProps {}
 
@@ -115,17 +116,13 @@ class Home extends React.Component<IProps, IState> {
           today: data,
           // registrations: data.registrations,
         })
-        if (data.today) {
-          let isOpenInfo: MAKE_ITEM | undefined = undefined;
-          data.today.map((item: MEETING_ITEM) => {
+        console.log(data, 99999999)
+        if (data) {
+          data.map((item: MEETING_ITEM) => {
             if (item.status === 1) {
-              isOpenInfo = item;
+              this.getIsMe(item)
             }
-            isOpenInfo = item;
           })
-          if (isOpenInfo) {
-            this.getIsMe(isOpenInfo)
-          }
         }
       }
 
@@ -149,13 +146,17 @@ class Home extends React.Component<IProps, IState> {
     }
   }
 
-  async getIsMe(item: MEETING_ITEM) {
+  getIsMe = async (item: MEETING_ITEM) => {
     try {
-      const { id } = this.props.user;
-      const res = await ROOM_MESSAGE({ mettingNo: item.metaData.MeetingNo  })
+      const { userId } = this.props.user;
+      console.log('getIsMe', item)
+      this.props.handleShowGoToRoomModal(item)
+      // const res = await ROOM_MESSAGE({ mettingNo: item.metaData.MeetingNo  })
+      // console.log('getIsMe', res)
+      return
       if (res.code === 0) {
         const { nextId, kickId } = res.data || {};
-        if (id === nextId) {
+        if (userId === nextId) {
           this.props.handleShowGoToRoomModal(item)
         }
         if (nextId !== id) {
@@ -165,7 +166,7 @@ class Home extends React.Component<IProps, IState> {
         }
       }
     } catch (e) {
-
+      console.log('getIsMe', e)
       // alert('已完成')
       // alert(e)
     }
@@ -188,8 +189,9 @@ class Home extends React.Component<IProps, IState> {
   }
 
   renderItem(data: MEETING_ITEM) {
+    const { user } = this.props;
     let type = data.status;
-    console.log('type: sss', type)
+    console.log('getIsMe', user)
     let icon = icon_live_slices_0;
     let iconText = styles.itemIconText00;
     let typeText = '未开始';
@@ -216,7 +218,7 @@ class Home extends React.Component<IProps, IState> {
       case 3: {
         icon = icon_live_slices_2;
         iconText = styles.itemIconText02;
-        typeText = '结束';
+        typeText = '已结束';
         break;
       }
       default: {
@@ -226,6 +228,8 @@ class Home extends React.Component<IProps, IState> {
       }
     }
     const participants:Array[USER_INFO] = data.participants || [];
+    const presenter = data.presenter || {};
+    console.log(user.userId, presenter.id)
     return <Card style={styles.itemBox}>
       <CardItem button onPress={() => {
         // this.props.dispatch(NavigationActions.navigate({
@@ -247,6 +251,7 @@ class Home extends React.Component<IProps, IState> {
               this.props.dispatch(NavigationActions.navigate({
                 routeName: 'Room',
                 params: {
+                  presenter,
                   id: data.id, metaData: data.metaData,
                 },
               }))
@@ -268,7 +273,7 @@ class Home extends React.Component<IProps, IState> {
           <View style={[styles.itemBoxFooter]}>
             <View style={styles.itemBodyBtnWrap}>
               {
-                (type === 1 || type === 2) ? <LinearGradient
+                ((type === 1 || type === 2) && presenter.id === user.userId) ? <LinearGradient
                   start={{x: 0, y: 0}} end={{x: 1, y: 1}}
                   colors={['#fff', '#fff']}
                   style={[
@@ -317,6 +322,7 @@ class Home extends React.Component<IProps, IState> {
                       this.props.dispatch(NavigationActions.navigate({
                         routeName: 'Room',
                         params: {
+                          presenter,
                           id: data.id, metaData: data.metaData,
                         },
                       }))
@@ -334,7 +340,7 @@ class Home extends React.Component<IProps, IState> {
                 </LinearGradient> : undefined
               }
               {
-                (type === 2) ? <LinearGradient
+                (type === 2 && presenter.id === user.userId) ? <LinearGradient
                   start={{x: 0, y: 0}} end={{x: 1, y: 1}}
                   colors={['#FF3B0E', '#FF3B0E']}
                   style={[
@@ -372,11 +378,11 @@ class Home extends React.Component<IProps, IState> {
     const { today, registrations } = this.state;
     const { user = {} } = this.props;
     const todayList = {
-      title: "今日预约",
+    title: "今日会议",
       data: today,
     };
     const registrationsList = {
-      title: "全部预约",
+      title: "全部会议",
       data: registrations,
     };
     let list = [

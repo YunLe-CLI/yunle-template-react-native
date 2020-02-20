@@ -43,7 +43,7 @@ class  AlertModalProvider extends React.Component<{}, IState> {
     text: '',
   };
 
-  showModel = (text: string, onOk, onClear) => {
+  showModel = (text: string, onOk, onClear, onBtn = false) => {
     this.onOkCallback = undefined;
     this.onClearCallback = undefined;
     if (onOk) {
@@ -55,6 +55,7 @@ class  AlertModalProvider extends React.Component<{}, IState> {
     this.setState({
       isModalVisible: true,
       text,
+      onBtn
     });
   };
 
@@ -62,8 +63,8 @@ class  AlertModalProvider extends React.Component<{}, IState> {
     this.setState({
       isModalVisible: false,
     }, () => {
-      this.onOkCallback = undefined;
-      this.onClearCallback = undefined;
+      // this.onOkCallback = undefined;
+      // this.onClearCallback = undefined;
     })
   };
 
@@ -81,7 +82,7 @@ class  AlertModalProvider extends React.Component<{}, IState> {
     return (
       <AlertModalContext.Provider value={{
         handleShowAlertModal: async (config: {text: string, onOk: () => {}, onClear: () => {}}) => {
-          this.showModel(config.text, config.onOk, config.onClear)
+          this.showModel(config.text, config.onOk, config.onClear, config.onBtn)
         }
       }}>
         {this.props.children}
@@ -115,35 +116,42 @@ class  AlertModalProvider extends React.Component<{}, IState> {
                   </Text>
                 </View>
                 <View style={styles.btnWrap}>
+                  {
+                    !this.state.onBtn ? (
+                      <>
+                      <Button
+                        full
+                        bordered
+                        onPress={async () => {
+                          this.setState({
+                            isNotRemind: true,
+                          }, () => {
+                            if (typeof this.onClearCallback === 'function') {
+                              this.onClearCallback()
+                            }
+                            this.closeModel();
+                          })
+                        }}
+                        style={styles.btn}
+                      >
+                        <Text style={[styles.btnText]}>取消</Text>
+                      </Button>
+                      <View style={{ width: 1, height: 50, backgroundColor: '#F2F2F2' }} />
+                      </>
+                    ) : null
+                  }
+                  
                   <Button
-                      full
-                      bordered
-                      onPress={async () => {
-                        this.setState({
-                          isNotRemind: true,
-                        }, () => {
-                          if (typeof this.onClearCallback === 'function') {
-                            this.onClearCallback()
-                          }
-                          this.closeModel();
-                        })
-                      }}
-                      style={styles.btn}
-                  >
-                    <Text style={[styles.btnText]}>取消</Text>
-                  </Button>
-                  <View style={{ width: 1, height: 50, backgroundColor: '#F2F2F2' }} />
-                  <Button
-                      transparent
-                      full
-                      bordered
-                      onPress={async () => {
-                        if (typeof this.onOkCallback === 'function') {
-                          this.onOkCallback()
-                        }
-                        this.closeModel();
-                      }}
-                      style={styles.btn}
+                    transparent
+                    full
+                    bordered
+                    onPress={async () => {
+                      if (typeof this.onOkCallback === 'function') {
+                        this.onOkCallback()
+                      }
+                      this.closeModel();
+                    }}
+                    style={styles.btn}
                   >
                     <Text style={[styles.btnText, styles.okText]}>确定</Text>
                   </Button>

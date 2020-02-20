@@ -256,3 +256,21 @@ export async function USER_LIST(query: USER_LIST_REQ): Promise<USER_LIST_RES> {
     params: query,
   });
 }
+
+export interface CLOSE_MEETING_REQ {
+  id: number;
+}
+export interface CLOSE_MEETING_RES {
+  "code": number;
+  "success": boolean;
+}
+export async function CLOSE_MEETING(query: CLOSE_MEETING_REQ): Promise<CLOSE_MEETING_RES> {
+  const url = `https://meeting-api.dev.class100.com/api/v1/meeting/${query.id}/over`;
+  return request({
+    url: url,
+    method: 'GET',
+    params: query,
+  });
+}
+
+

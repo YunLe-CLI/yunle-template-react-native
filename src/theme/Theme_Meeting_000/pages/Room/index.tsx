@@ -9,6 +9,7 @@ import {
     Animated,
     Easing,
     TouchableOpacity,
+    Alert,
 } from 'react-native';
 import {NavigationActions, NavigationEvents} from 'react-navigation';
 import {
@@ -29,7 +30,7 @@ import { connect } from 'react-redux';
 import styles from './styles';
 import { withAlertModal } from '@/theme/Theme_Meeting_000/components/AlertModal'
 import { withLoginModal } from '../../components/LoginModal'
-import {META_DATA} from '../../services/api';
+import {META_DATA, CLOSE_MEETING} from '../../services/api';
 
 import _ from 'lodash';
 import FastImage from 'react-native-fast-image';
@@ -81,8 +82,9 @@ export interface USER_INO {
     }
 }
 
-@(connect(({ auth }) => {
+@(connect(({ auth, user = {} }) => {
     return {
+        user: user.info,
         token: auth.token,
     }
 }) as any)
@@ -241,7 +243,7 @@ class Home extends React.Component<IProps, IState> {
                                             this.goBack();
                                         }, () => {
                                             this.goBack();
-                                        })
+                                        }, true)
                                     }
                                     default: {
                                         this.showAlert(`错误code: ${data}`, () => {
@@ -328,12 +330,13 @@ class Home extends React.Component<IProps, IState> {
         }
     }
 
-    showAlert(text, onOk, onClear) {
+    showAlert(text, onOk, onClear, onBtn) {
         if (this.props.handleShowAlertModal) {
             this.props.handleShowAlertModal({
                 text,
                 onOk,
                 onClear,
+                onBtn
             })
         }
     }
@@ -471,6 +474,10 @@ class Home extends React.Component<IProps, IState> {
 
     render() {
         const { bigVideoUserID } = this.state;
+        const { navigation, exams } = this.props;
+        const { params = {} } = navigation.state;
+        const metaData: META_DATA = params.metaData || {};
+        const presenter =  params.presenter || {};
         return (
             <Container style={styles.container}>
                 <NavigationEvents
@@ -568,16 +575,27 @@ class Home extends React.Component<IProps, IState> {
                                 />
                             </Button>
                             {
-                                this.state.isMeHost ? (
+                                // this.state.isMeHost ? (
+                                presenter.id == user.userId ? (
                                 <Button
                                     style={styles.btnWrap}
                                     transparent
                                     onPress={() => {
-                                        this.showAlert('是否结束会议？', () => {
+                                        if (presenter.id !== user.userId) {
+                                            return
+                                        }
+                                        this.showAlert('是否结束会议？', async () => {
                                             try {
-                                                SDKEndRoom();
+                                                console.log("CLOSE_MEETING", CLOSE_MEETING)
+                                                const res = await CLOSE_MEETING({ id: metaData.Id })
+                                                console.log("CLOSE_MEETING", JSON.stringify(res));
+                                                if(SDKEndRoom) {
+                                                    SDKEndRoom();
+                                                }
                                             } catch (e) {
-
+                                                console.log("CLOSE_MEETING", e); 
+                                            } finally {
+                                                
                                             }
                                             const { dispatch } = this.props;
                                             dispatch(NavigationActions.back());

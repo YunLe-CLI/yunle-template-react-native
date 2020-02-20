@@ -191,7 +191,7 @@ class Me extends React.Component<IProps, IState> {
                 const isSelectIndex = selectList.findIndex((selectI: DEPARTMENTS_ITEM) => {
                   return selectI.id === item.id
                 });
-                console.log(isSelectIndex, 'isSelect')
+                console.log(name.split('>'), 'isSelect')
                 return <ListItem
                   key={item.id}
                   onPress={() => {
@@ -243,7 +243,11 @@ class Me extends React.Component<IProps, IState> {
                     </View>
                   </Content>
                   <Right>
-                    <Icon name="arrow-forward" />
+                    {
+                      (name.split('>')).length<3 ? (
+                        <Icon name="arrow-forward" />
+                      ) : null
+                    }
                   </Right>
                 </ListItem>
               })

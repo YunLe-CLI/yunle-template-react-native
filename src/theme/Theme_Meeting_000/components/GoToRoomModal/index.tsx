@@ -11,6 +11,7 @@ import LinearGradient from "react-native-linear-gradient";
 import {NavigationActions} from "react-navigation";
 import {connect} from 'react-redux';
 import {MAKE_ITEM} from '@/services/api';
+import moment from 'moment';
 
 export const GoToRoomContext = createContext({
   handleShowGoToRoomModal: () => {}
@@ -73,6 +74,8 @@ class GoToRoomModalProvider extends React.Component<{}, IState> {
 
   render() {
     const { isModalVisible, room } = this.state;
+    const presenter = room.presenter || {}
+    const participants = room.participants || [];
     return (
       <GoToRoomContext.Provider value={{
         handleShowGoToRoomModal: async (data: MAKE_ITEM) => {
@@ -122,13 +125,15 @@ class GoToRoomModalProvider extends React.Component<{}, IState> {
                     会议姓名：{room.name}
                   </Text>
                   <Text style={styles.infoText}>
-                    会议时间：{room.medicalDepartment}
+                    会议时间：{moment(room.startTime).format('YYYY-MM-DD HH:mm:ss')}
                   </Text>
                   <Text style={styles.infoText}>
-                    发起人：{room.professionalTitle}
+                    发起人：{presenter.name}
                   </Text>
                   <Text style={styles.infoText}>
-                    参会人：{room.hospitalName}
+                    参会人：{participants.map((i) => {
+                      return i.name || ''
+                    }).join(',')}
                   </Text>
                 </View>
                 <View style={styles.btnWrap}>
@@ -162,6 +167,7 @@ class GoToRoomModalProvider extends React.Component<{}, IState> {
                           this.props.dispatch(NavigationActions.navigate({
                             routeName: 'Room',
                             params: {
+                              presenter,
                               metaData: room.metaData,
                             },
                           }))
