@@ -39,11 +39,12 @@ import LinearGradient from "react-native-linear-gradient";
 
 import { withCancelModal } from '../../components/CancelModal';
 import { withGoToRoomModal } from '../../components/GoToRoomModal';
+import { withAlertModal } from '@/theme/Theme_Meeting_000/components/AlertModal'
 
 import YSXVideo from '@/theme/Theme_Meeting/components/YSXVideo';
 
 
-import { MEETING_TODAY, MEETING_ALL, MEETING_ITEM, MAKE_ITEM, ROOM_MESSAGE } from '../../services/api';
+import { MEETING_TODAY, MEETING_ALL, MEETING_ITEM, MAKE_ITEM, CLOSE_MEETING } from '../../services/api';
 
 const { MainViewController = {} } = NativeModules || {};
 const { SDKLeaveRoom } = MainViewController || {};
@@ -150,7 +151,9 @@ class Home extends React.Component<IProps, IState> {
     try {
       const { userId } = this.props.user;
       console.log('getIsMe', item)
-      this.props.handleShowGoToRoomModal(item)
+      if (this.focus) {
+        this.props.handleShowGoToRoomModal(item)
+      }
       // const res = await ROOM_MESSAGE({ mettingNo: item.metaData.MeetingNo  })
       // console.log('getIsMe', res)
       return
@@ -188,10 +191,20 @@ class Home extends React.Component<IProps, IState> {
     }
   }
 
+  showAlert(text, onOk, onClear, onBtn) {
+    if (this.props.handleShowAlertModal) {
+        this.props.handleShowAlertModal({
+            text,
+            onOk,
+            onClear,
+            onBtn
+        })
+    }
+}
+
   renderItem(data: MEETING_ITEM) {
     const { user } = this.props;
     let type = data.status;
-    console.log('getIsMe', user)
     let icon = icon_live_slices_0;
     let iconText = styles.itemIconText00;
     let typeText = '未开始';
@@ -229,7 +242,7 @@ class Home extends React.Component<IProps, IState> {
     }
     const participants:Array[USER_INFO] = data.participants || [];
     const presenter = data.presenter || {};
-    console.log(user.userId, presenter.id)
+
     return <Card style={styles.itemBox}>
       <CardItem button onPress={() => {
         // this.props.dispatch(NavigationActions.navigate({
@@ -273,7 +286,45 @@ class Home extends React.Component<IProps, IState> {
           <View style={[styles.itemBoxFooter]}>
             <View style={styles.itemBodyBtnWrap}>
               {
-                ((type === 1 || type === 2) && presenter.id === user.userId) ? <LinearGradient
+                ((type === 1) && presenter.userId === user.userId) ? <LinearGradient
+                  start={{x: 0, y: 0}} end={{x: 1, y: 1}}
+                  colors={['#fff', '#fff']}
+                  style={[
+                    styles.linearGradientBtn,
+                    styles.clearButton,
+                  ]}
+                >
+                  <Button
+                    full
+                    transparent
+                    rounded
+                    onPress={async () => {
+                      try {
+                        this.showAlert('是否关闭会议', async() => {
+                            const res = await CLOSE_MEETING({ id: data.id })
+                            this.componentDidMount()
+                        }, async() => {
+                         
+                        })
+                       
+                      } catch(e) {
+
+                      }
+                    }}
+                    style={[
+                      styles.btnDefault,
+                      styles.submitButton
+                    ]}
+                    textStyle={{
+                      color: '#fff'
+                    }}
+                  >
+                    <Title style={[styles.btnText, { color: 'rgba(0,0,0,0.85)' }]}>关闭会议</Title>
+                  </Button>
+                </LinearGradient> : undefined
+              }
+              {
+                ((type === 2) && presenter.userId === user.userId) ? <LinearGradient
                   start={{x: 0, y: 0}} end={{x: 1, y: 1}}
                   colors={['#fff', '#fff']}
                   style={[
@@ -340,7 +391,7 @@ class Home extends React.Component<IProps, IState> {
                 </LinearGradient> : undefined
               }
               {
-                (type === 2 && presenter.id === user.userId) ? <LinearGradient
+                (type === 2 && presenter.userId === user.userId) ? <LinearGradient
                   start={{x: 0, y: 0}} end={{x: 1, y: 1}}
                   colors={['#FF3B0E', '#FF3B0E']}
                   style={[
@@ -353,7 +404,7 @@ class Home extends React.Component<IProps, IState> {
                     transparent
                     rounded
                     onPress={async () => {
-                      this.props.handleShowCancelModal();
+                      this.props.handleShowCancelModal({ startTime: data.startTime, endTime: data.endTime });
                     }}
                     style={[
                       styles.btnDefault,
@@ -506,6 +557,7 @@ class Home extends React.Component<IProps, IState> {
 
         <NavigationEvents
             onWillFocus={async payload => {
+              this.focus = true;
               try {
                 const { navigation, exams } = this.props;
                 const { params = {} } = navigation.state;
@@ -520,13 +572,14 @@ class Home extends React.Component<IProps, IState> {
               await this.componentDidMount();
             }}
             onDidFocus={async payload => {
-
+              this.focus = true;
             }}
             onWillBlur={payload => {
+              this.focus = false;
               this.componentWillUnmount()
             }}
             onDidBlur={payload => {
-
+              this.focus = false;
             }}
         />
         <View
@@ -613,4 +666,4 @@ class Home extends React.Component<IProps, IState> {
     );
   }
 }
-export default withGoToRoomModal(withCancelModal(Home));
+export default withAlertModal(withGoToRoomModal(withCancelModal(Home)));

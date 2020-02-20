@@ -6,6 +6,7 @@ import _ from "lodash";
 import {Button, Text} from 'native-base';
 
 import nativeAutoUpdate, { handleDownload } from "@/utils/native-auto-update";
+import moment from 'moment';
 
 export const CheckAppUpdateContext = createContext({
   handleShowCancelModal: () => {}
@@ -69,7 +70,13 @@ class CancelModalProvider extends React.Component<{}, IState> {
     const { isModalVisible, isModalNotVisible, updateURI } = this.state;
     return (
       <CheckAppUpdateContext.Provider value={{
-        handleShowCancelModal: async () => { this.showModel() }
+        handleShowCancelModal: async ({ startTime, endTime }) => { {
+          this.showModel()
+          this.setState({
+            startTime,
+            endTime
+          })
+        } }
       }}>
         {this.props.children}
         <Modal
@@ -99,7 +106,12 @@ class CancelModalProvider extends React.Component<{}, IState> {
                   </Text>
                   <Text style={styles.infoText}>
                     是否确认取消
-                    2020年1月3日14:00-15:00的会议？
+                  </Text>
+                  <Text style={styles.infoText}>
+                    {moment(this.state.startTime).format('YYYY年MM月DD日HH:mm')}
+                    -
+                    {moment(this.state.endTime).format('HH:mm')}
+                    的会议？
                   </Text>
                 </View>
                 <View style={styles.btnWrap}>

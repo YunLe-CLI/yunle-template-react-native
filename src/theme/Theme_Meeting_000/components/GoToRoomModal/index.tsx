@@ -168,6 +168,7 @@ class GoToRoomModalProvider extends React.Component<{}, IState> {
                             routeName: 'Room',
                             params: {
                               presenter,
+                              id: room.id,
                               metaData: room.metaData,
                             },
                           }))

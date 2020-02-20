@@ -474,7 +474,7 @@ class Home extends React.Component<IProps, IState> {
 
     render() {
         const { bigVideoUserID } = this.state;
-        const { navigation, exams } = this.props;
+        const { navigation, exams, user } = this.props;
         const { params = {} } = navigation.state;
         const metaData: META_DATA = params.metaData || {};
         const presenter =  params.presenter || {};
@@ -576,18 +576,18 @@ class Home extends React.Component<IProps, IState> {
                             </Button>
                             {
                                 // this.state.isMeHost ? (
-                                presenter.id == user.userId ? (
+                                presenter.userId == user.userId ? (
                                 <Button
                                     style={styles.btnWrap}
                                     transparent
                                     onPress={() => {
-                                        if (presenter.id !== user.userId) {
+                                        if (presenter.userId !== user.userId) {
                                             return
                                         }
                                         this.showAlert('是否结束会议？', async () => {
                                             try {
                                                 console.log("CLOSE_MEETING", CLOSE_MEETING)
-                                                const res = await CLOSE_MEETING({ id: metaData.Id })
+                                                const res = await CLOSE_MEETING({ id: params.id })
                                                 console.log("CLOSE_MEETING", JSON.stringify(res));
                                                 if(SDKEndRoom) {
                                                     SDKEndRoom();
