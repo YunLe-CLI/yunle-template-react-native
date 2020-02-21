@@ -167,10 +167,20 @@ class Home extends React.Component<IProps, IState> {
             this.subscription = AppEmitter.addListener(
                 'onYSXSDKChange',
                 (reminder = {}) => {
-                    console.log(reminder)
+                    console.log('reminder', reminder)
                     const { type, data } = reminder;
                     try {
                         switch (type) {
+                            case "SDK_ENDED_REASON": {
+                                if (data === 2) {
+                                    this.showAlert('会议已结束', () => {
+                                        this.goBack();
+                                    }, () => {
+                                        this.goBack();
+                                    }, true)
+                                }
+                                break;
+                            }
                             case "SDK_MY_AUDIO_STSATE_CHANGE": {
                                 this.getUsers();
                                 this.setState({
@@ -408,7 +418,9 @@ class Home extends React.Component<IProps, IState> {
                           style={{
                               width: videoWidth,
                               height: videoWidth,
-                              backgroundColor: '#000'
+                              backgroundColor: '#000',
+                            //   borderWidth: 1,
+                            //   borderColor: item.isHostUser ? 'red' : '#000',
                           }}
                         >
                             <YSXVideo
@@ -419,7 +431,10 @@ class Home extends React.Component<IProps, IState> {
                               }}
                             />
                             <View style={styles.userNameWrap}>
-                                <Text style={styles.userNameText}>{info.userName || info.userID || item || '加载中...'}</Text>
+                                <Text style={styles.userNameText}>
+                                    {info.userName || info.userID || item || '加载中...'}
+                                    {/* {item.isHostUser ? '主持人' : null} */}
+                                </Text>
                             </View>
                         </View>
                     </TouchableOpacity>
@@ -589,6 +604,7 @@ class Home extends React.Component<IProps, IState> {
                                                 console.log("CLOSE_MEETING", CLOSE_MEETING)
                                                 const res = await CLOSE_MEETING({ id: params.id })
                                                 console.log("CLOSE_MEETING", JSON.stringify(res));
+                                                // SDKLeaveRoom()
                                                 if(SDKEndRoom) {
                                                     SDKEndRoom();
                                                 }

@@ -115,7 +115,7 @@ class Me extends React.PureComponent<IProps, IState> {
           params: {},
         }))
       } else {
-        throw res.msg
+        throw JSON.stringify(res)
       }
     } catch (e) {
       alert(e)

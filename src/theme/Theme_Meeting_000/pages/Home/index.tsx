@@ -202,7 +202,7 @@ class Home extends React.Component<IProps, IState> {
     }
 }
 
-  renderItem(data: MEETING_ITEM) {
+  renderItem(data: MEETING_ITEM, isToday: boolean) {
     const { user } = this.props;
     let type = data.status;
     let icon = icon_live_slices_0;
@@ -271,12 +271,20 @@ class Home extends React.Component<IProps, IState> {
             }}
           >
           <Title style={styles.itemBodyTitle}>
-            {moment(data.startTime).format('YYYY.MM.DD HH:mm')}
-            -{moment(data.endTime).format('HH:mm')}
+            {
+              isToday ? 
+              (
+                `${moment(data.startTime).format('HH:mm')}-${moment(data.endTime).format('HH:mm')}`
+              ) : (
+                `${moment(data.startTime).format('YYYY.MM.DD HH:mm')}-${moment(data.endTime).format('HH:mm')}`
+              )
+            }
+            <View style={{ width: 10 }}></View>
+            {data.name}
           </Title>
           </TouchableOpacity>
           <Text style={[styles.itemBodyText, styles.itemBodyText001]}>
-            发起人：{data.name}
+            发起人：{presenter.name}
           </Text>
           <Text style={[styles.itemBodyText, styles.itemBodyText001]}>
             参会人：{(participants).map((u: USER_INFO) => {
@@ -529,7 +537,7 @@ class Home extends React.Component<IProps, IState> {
             return this.allInfo()
           }
           return <View key={JSON.stringify(item)}>
-            {this.renderItem(item)}
+            {this.renderItem(item, section.title === '今日会议')}
           </View>
         }}
         renderSectionHeader={({ section: { title } }) => {
