@@ -167,9 +167,9 @@ class Home extends React.Component<IProps, IState> {
               }]}><Text style={styles.start}>
                 {
                   cItem.timeslot === 1 ? (
-                    `已预约${20-data[0].remainCount || 0}`
+                    `已预约${20-(data[0] || {}).remainCount || 0}`
                   ) : (
-                    `已预约${20-data[1].remainCount || 0}`
+                    `已预约${20-(data[1] || {}).remainCount || 0}`
                   )
                 }
                </Text></View>
@@ -180,9 +180,9 @@ class Home extends React.Component<IProps, IState> {
                }]}><Text style={styles.start}>
                  {
                   cItem.timeslot === 1 ? (
-                    `剩余${data[0].remainCount || 0}`
+                    `剩余${(data[0] || {}).remainCount || 0}`
                   ) : (
-                    `剩余${data[1].remainCount || 0}`
+                    `剩余${(data[1] || {}).remainCount || 0}`
                   )
                 }
                </Text></View>
