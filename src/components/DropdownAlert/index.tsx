@@ -10,13 +10,13 @@ export function withDropdownAlert(WrappedComponent: React.ReactNode) {
   return class extends React.Component {
     render() {
       return <>
-        <DropdownAlertContext.Consumer>
+        <DropdownAlertConsumer>
           {
             ({ showAlert }) => {
               return <WrappedComponent {...this.props} showAlert={showAlert} />;
             }
           }
-        </DropdownAlertContext.Consumer>
+        </DropdownAlertConsumer>
       </>
     }
   }
@@ -39,7 +39,6 @@ class DropdownAlertProvider extends React.Component<{}> {
   showAlert = (info: infoType) => {
     this.dropDownAlertRef.alertWithType(info.type, info.title, info.message)
   }
-
 
   render() {
     return (

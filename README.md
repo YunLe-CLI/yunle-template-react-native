@@ -48,7 +48,13 @@
 >
 > [支付(微信&支付宝) `react-native-puti-pay`](https://github.com/puti94/react-native-puti-pay)
 >
-### 提示
->  android
->  友盟sdk与支付宝sdk utdid冲突
->  删除`android/app/libs/utdid4all-1.1.5.3_proguard.jar` 就行
+>
+### fix
+ 修改 `node_modules/native-base/dist/src/basic/Tabs/index.js`
+ 
+ 替换
+ 
+ `_this.scrollView.scrollTo({x:_this.props.initialPage*_this.state.containerWidth,animated:false});`
+
+
+`if (_this.scrollView && _this.scrollView.scrollTo) { _this.scrollView.scrollTo({x:_this.props.initialPage*_this.state.containerWidth,animated:false}); }`

@@ -166,7 +166,7 @@ class CheckAppUpdateProvider extends React.Component<{}, IState> {
                         justifyContent: 'center',
                       }}
                   >
-                    <Text style={{ color: 'rgba(250, 28, 48, 1)' }}>下次再说</Text>
+                    <Text style={{ color: '#11CD8F' }}>下次再说</Text>
                   </Button>
                   <View style={{ width: 10, }} />
                   <Button

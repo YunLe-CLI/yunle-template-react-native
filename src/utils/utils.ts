@@ -364,3 +364,21 @@ export function checkAppVersion(remoteVersion: IAppInfo): boolean {
   }
   return isUpdate
 }
+
+export interface IActiveRoute {
+  key: string;
+  routeName: string;
+}
+export function getActiveRoute(navigationState: any): IActiveRoute {
+  if (!navigationState) {
+    return ''
+  }
+  const route = navigationState.routes[navigationState.index]
+  if (route.routes) {
+    return getActiveRoute(route)
+  }
+  return {
+    key: route.key,
+    routeName: route.routeName,
+  }
+}

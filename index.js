@@ -13,5 +13,4 @@ import {name as appName} from './app.json';
 console.disableYellowBox = true;
 
 
-
 AppRegistry.registerComponent(appName, () => App);

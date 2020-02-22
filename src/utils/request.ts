@@ -7,18 +7,12 @@ import { store } from '@/index';
 // 添加响应拦截器
 axios.interceptors.response.use(function (response) {
   // 对响应数据做点什么
-  console.log('response: ', response)
-// 退出登录
-  if (_.get(response, 'data.code') === -1 && store.dispatch) {
-    store.dispatch({
+  // 退出登录
+  console.log('global.dvaStore', global.dvaStore)
+  if (_.get(response, 'data.code') === -1 && _.isFunction(_.get(global, 'dvaStore.dispatch'))) {
+    global.dvaStore.dispatch({
       type: 'auth/logout'
     });
-    // 退出登录
-    if (_.get(response, 'data.code') === -1 && store.dispatch) {
-      store.dispatch({
-        type: 'auth/logout'
-      });
-    }
   }
   return response.data || {};
 }, function (error) {
@@ -34,7 +28,7 @@ axios.interceptors.response.use(function (response) {
 export default async function request(config: AxiosRequestConfig, token?: string | undefined): Promise<any> {
   let AUTH_TOKEN = undefined;
   try {
-    const allState = await store.getState();
+    const allState = await global.dvaStore.getState();
     AUTH_TOKEN = token || _.get(allState, 'auth.token');
   } catch (e) {
     AUTH_TOKEN = token || undefined;
