@@ -5,7 +5,7 @@ import LottieView from 'lottie-react-native';
 import styles from "./styles";
 import animateData from './assets/12131-christmas-snow-loading.json';
 import {NavigationActions} from "react-navigation";
-import {UrlProcessUtil} from "@/utils/utils";
+import {UrlProcessUtil} from "@Global/utils/utils";
 import { withLoginModal } from '../../components/LoginModal'
 
 export interface IProps {}

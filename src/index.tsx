@@ -9,25 +9,25 @@ import RNBootSplash from 'react-native-bootsplash';
 import Orientation from 'react-native-orientation-locker';
 import codePush from "react-native-code-push";
 import _ from 'lodash';
-import dva from '@/utils/dva';
-import createModels from '@/models';
-import {UrlProcessUtil, getEnv} from '@/utils/utils';
-import LoadingSpinnerProvider, {withLoadingSpinner} from '@/components/LoadingSpinner';
-import DropdownAlertProvider from '@/components/DropdownAlert';
-import IsTester from '@/components/isTester';
-import Loading from '@/components/Loading';
-import CheckAppUpdateProvider from '@/components/CheckAppUpdate';
-import CheckCodePushProvider from '@/components/CheckCodePush';
-import SelectThemeModalProvider, {withSelectThemeModal} from '@/components/SelectThemeModal';
-import { IAppModelState } from '@/models';
-import ErrorView from '@/components/ErrorView';
+import dva from '@Global/utils/dva';
+import createModels from '@Global/models';
+import {UrlProcessUtil, getEnv} from '@Global/utils/utils';
+import LoadingSpinnerProvider, {withLoadingSpinner} from '@Global/components/LoadingSpinner';
+import DropdownAlertProvider from '@Global/components/DropdownAlert';
+import IsTester from '@Global/components/isTester';
+import Loading from '@Global/components/Loading';
+import CheckAppUpdateProvider from '@Global/components/CheckAppUpdate';
+import CheckCodePushProvider from '@Global/components/CheckCodePush';
+import SelectThemeModalProvider, {withSelectThemeModal} from '@Global/components/SelectThemeModal';
+import { IAppModelState } from '@Global/models';
+import ErrorView from '@Global/components/ErrorView';
 
-import getTheme from '@/utils/native-base-theme/components';
-import platform from '@/utils/native-base-theme/variables/platform';
-import {setJSExceptionHandler} from "@/utils/globalErrorHandle";
-import { BUILD_TYPE } from '@/utils/env'
+import getTheme from '@Global/utils/native-base-theme/components';
+import platform from '@Global/utils/native-base-theme/variables/platform';
+import {setJSExceptionHandler} from "@Global/utils/globalErrorHandle";
+import { BUILD_TYPE } from '@Global/utils/env'
 
-import * as themes from '@/theme';
+import * as themes from '@Theme';
 import moment from 'moment';
 
 global.dvaStore = undefined;

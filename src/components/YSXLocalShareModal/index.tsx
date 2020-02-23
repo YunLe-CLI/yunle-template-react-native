@@ -5,7 +5,7 @@ import Modal from "react-native-modal";
 
 import { Button, Text, Container} from 'native-base';
 import AsyncStorage from "@react-native-community/async-storage";
-import YSXLocalShareView from '@/components/YSXLocalShare'
+import YSXLocalShareView from '@Global/components/YSXLocalShare'
 export const YSXLocalShareModalContext = createContext({
   handleShowYSXLocalShareModal: (id: number, onCallBack: () => void) => {},
   handleHideYSXLocalShareModal: () => {}

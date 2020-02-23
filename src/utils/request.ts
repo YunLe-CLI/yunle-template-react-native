@@ -2,7 +2,7 @@ import axios, {AxiosRequestConfig} from 'axios';
 import {Platform} from 'react-native';
 import _ from 'lodash';
 import DeviceInfo from 'react-native-device-info';
-import { store } from '@/index';
+import { store } from '@Global/index';
 
 // 添加响应拦截器
 axios.interceptors.response.use(function (response) {

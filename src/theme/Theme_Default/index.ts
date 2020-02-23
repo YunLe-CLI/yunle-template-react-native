@@ -1,5 +1,5 @@
-import * as models from './models';
-import createRouter from './router';
+import * as models from '@Theme/Theme_Default/models';
+import createRouter from '@Theme/Theme_Default/router';
 
 export default {
   id: 'Theme_Default',
@@ -7,5 +7,5 @@ export default {
   router: createRouter(),
   models: Object.values(models),
   author: '大狗吱',
-  preview: require('./doc/preview.jpg'),
+  preview: require('@Theme/Theme_Default/doc/preview.jpg'),
 }

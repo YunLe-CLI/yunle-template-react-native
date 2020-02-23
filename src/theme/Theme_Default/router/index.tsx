@@ -21,7 +21,7 @@ import Splash from '../pages/Splash';
 import BottomTab from '../router/BottomTab.router';
 
 import LoginProvider from '../components/LoginModal';
-import { getActiveRoute } from '@/utils/utils';
+import { getActiveRoute } from '@Global/utils/utils';
 
 
 const MainRouter = createAnimatedSwitchNavigator(

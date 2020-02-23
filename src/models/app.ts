@@ -1,6 +1,6 @@
 import { Reducer } from 'redux';
 import { Model, Effect, EffectWithType } from 'dva';
-import { ENVIRONMENT, BUILD_TYPE } from '@/utils/env';
+import { ENVIRONMENT, BUILD_TYPE } from '@Global/utils/env';
 
 export interface IModelState {
   orientation: string;

@@ -10,7 +10,7 @@ import ImageView from 'react-native-image-view';
 import iconLeft from './assets/icon_left_slices/icon_left.png';
 import AsyncStorage from "@react-native-community/async-storage";
 
-import * as themes from '@/theme';
+import * as themes from '@Global/theme';
 import moment from 'moment';
 
 export const SelectThemeModalContext = createContext({

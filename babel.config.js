@@ -12,7 +12,9 @@ module.exports = {
     ["module-resolver", {
       "root": ["./src"],
       "alias": {
-        "@": "./src"
+        "@": "./src",
+        "@Global": "./src",
+        "@Theme": "./src/theme",
       }
     }]
   ],

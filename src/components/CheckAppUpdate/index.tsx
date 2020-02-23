@@ -5,7 +5,7 @@ import Modal from "react-native-modal";
 import _ from "lodash";
 import {Button, Text} from 'native-base';
 
-import nativeAutoUpdate, { handleDownload } from "@/utils/native-auto-update";
+import nativeAutoUpdate, { handleDownload } from "@Global/utils/native-auto-update";
 
 export const CheckAppUpdateContext = createContext({
   handleCheck: () => {}

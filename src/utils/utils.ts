@@ -3,14 +3,14 @@ import RNFS, { LibraryDirectoryPath, ExternalDirectoryPath } from 'react-native-
 import CameraRoll from "@react-native-community/cameraroll";
 import isAbsoluteUrl from "is-absolute-url";
 import compareVersions from 'compare-versions';
-import { uriPrefix } from "@/utils/config";
+import { uriPrefix } from "@Global/utils/config";
 import AsyncStorage from '@react-native-community/async-storage';
 import {NavigationActions} from "react-navigation";
 import Permissions, { PERMISSIONS, RESULTS } from 'react-native-permissions';
-import ShareUtile from "@/utils/umeng/ShareUtil";
+import ShareUtile from "@Global/utils/umeng/ShareUtil";
 import DeviceInfo from 'react-native-device-info';
 import _ from 'lodash';
-import { ENVIRONMENT } from '@/utils/env';
+import { ENVIRONMENT } from '@Global/utils/env';
 
 export async function getOrigin(url: string, type: string = 'app'): Promise<string> {
   // eslint-disable-next-line

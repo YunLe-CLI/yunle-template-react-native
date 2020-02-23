@@ -8,7 +8,7 @@ import CodePush from 'react-native-code-push';
 import Draggable from 'react-native-draggable';
 import _ from 'lodash';
 import AsyncStorage from "@react-native-community/async-storage";
-import {withSelectThemeModal} from '@/components/SelectThemeModal';
+import {withSelectThemeModal} from '@Global/components/SelectThemeModal';
 import ActionButton from 'react-native-action-button';
 
 interface IProps {}

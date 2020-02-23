@@ -1,7 +1,7 @@
 import { Platform, Linking } from "react-native";
 import RNFetchBlob from 'rn-fetch-blob';
-import { getOnlineAppVersion } from '@/services/api'
-import {checkAppVersion, showMsg} from "@/utils/utils";
+import { getOnlineAppVersion } from '@Global/services/api'
+import {checkAppVersion, showMsg} from "@Global/utils/utils";
 import moment from "moment";
 import Permissions, {PERMISSIONS, RESULTS} from "react-native-permissions";
 

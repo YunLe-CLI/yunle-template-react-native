@@ -1,6 +1,6 @@
 import { createStackNavigator } from "react-navigation-stack";
 import * as routerConf from "../pages";
-import { getActiveRoute } from '@/utils/utils';
+import { getActiveRoute } from '@Global/utils/utils';
 
 const HomeStack = createStackNavigator(
     {

@@ -1,5 +1,5 @@
 import {Platform} from "react-native";
-import { ENVIRONMENT } from '@/utils/env';
+import { ENVIRONMENT } from '@Global/utils/env';
 
 export const uriPrefix = Platform.OS == 'android' ? 'xiaoshangye://xiaoshangye/' : 'xiaoshangye://';
 

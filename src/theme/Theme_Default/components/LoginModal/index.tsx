@@ -21,9 +21,9 @@ import LinearGradient from 'react-native-linear-gradient';
 import styles from './styles';
 import FastImage from 'react-native-fast-image';
 import logoImg from './assets/logo_slices/logo.jpg';
-import { withDropdownAlert } from '@/components/DropdownAlert';
-import { withLoadingSpinner } from '@/components/LoadingSpinner';
-import { getActiveRoute } from '@/utils/utils';
+import { withDropdownAlert } from '@Global/components/DropdownAlert';
+import { withLoadingSpinner } from '@Global/components/LoadingSpinner';
+import { getActiveRoute } from '@Global/utils/utils';
 
 import { LOGIN, PATIENTS_DETAILS } from '../../services/api';
 import _ from 'lodash';

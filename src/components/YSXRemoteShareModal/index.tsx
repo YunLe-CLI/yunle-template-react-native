@@ -5,7 +5,7 @@ import Modal from "react-native-modal";
 
 import { Button, Text, Container} from 'native-base';
 import AsyncStorage from "@react-native-community/async-storage";
-import YSXRemoteShareView from '@/components/YSXRemoteShare'
+import YSXRemoteShareView from '@Global/components/YSXRemoteShare'
 export const YSXRemoteShareModalContext = createContext({
   handleShowYSXRemoteShareModal: (id: number, onCallBack: () => void) => {},
   handleHideYSXRemoteShareModal: () => {}

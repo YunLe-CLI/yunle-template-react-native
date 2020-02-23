@@ -4,7 +4,7 @@ import { NavigationActions } from 'react-navigation';
 import {Container, Header, Left, Body, Right, Title, Icon, Button, List, ListItem, Content} from 'native-base';
 import { connect } from 'react-redux';
 import styles from './styles';
-import { withCheckAppUpdate } from '@/components/CheckAppUpdate'
+import { withCheckAppUpdate } from '@Global/components/CheckAppUpdate'
 import { withLoginModal } from '../../components/LoginModal'
 
 export interface IProps {}
