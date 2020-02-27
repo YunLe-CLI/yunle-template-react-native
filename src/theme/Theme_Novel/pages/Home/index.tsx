@@ -3,12 +3,13 @@ import { connect } from 'react-redux';
 import {
   Content,
   Container,
+  Header,
+  Title,
   List,
   ListItem,
   Left,
   Right,
   Body,
-  Thumbnail,
   Text,
   Card,
   CardItem,
@@ -142,6 +143,24 @@ class Home extends React.Component<IProps, IState> {
 
             }}
         />
+        <Header>
+            <Left>
+                
+            </Left>
+            <Body>
+                <Title>首页</Title>
+            </Body>
+            <Right>
+              <Button
+                transparent
+                onPress={() => {
+                    
+                }}
+              >
+                <Icon style={{ paddingHorizontal: 12, color: '#fff', fontSize: 26 }} name='add' />
+              </Button>
+            </Right>
+        </Header>
         <Content>
           <List>
             {(this.state.list || []).map((item: SEARCH_ITEM) => {
