@@ -1,19 +1,28 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {
-  Body,
-  Button,
   Content,
+  Container,
+  List,
+  ListItem,
+  Left,
+  Right,
+  Body,
+  Thumbnail,
   Text,
-  Container, Header, Icon, Left, Right, Title,
+  Card,
+  CardItem,
+  Button,
+  Icon,
 } from 'native-base';
 import FastImage from 'react-native-fast-image';
 import _ from 'lodash';
-import moment from 'moment';
 import styles from './styles';
-import {NavigationActions, NavigationEvents} from 'react-navigation';
+import { NavigationEvents } from 'react-navigation';
+import { search, SEARCH_ITEM } from '@Theme/Theme_Novel/services/api'
 
 import CustomFlatList from '@Theme/Theme_Novel/components/CustomFlatList'
+import { cateItemHeight } from '../../utils/DimensionsUtil';
 
 export interface IProps {}
 
@@ -30,8 +39,19 @@ class Home extends React.Component<IProps, IState> {
   }
 
   state = {
-
+    list: [],
   };
+
+  async componentDidMount() {
+    const data = await search({
+      searchKey: "a",
+      searchPage: 1,
+    });
+    console.log(data, 333)
+    this.setState({
+      list: data || [],
+    })
+  }
 
   /**
      * 获取目录长度
@@ -122,29 +142,76 @@ class Home extends React.Component<IProps, IState> {
 
             }}
         />
-        <CustomFlatList
-          ref={(ref) => {
-              this._flatRef = ref
-          }}
-          articles={[
-            {
-              bookName: 'bookName',
-              bookUrl: 'bookUrl', 
-              chapterName: 'chapterName', 
-              currentChapterNum: 10, 
-              pageNum: 1, 
-              totalPage: 1, 
-              chapterContent: `随着前端工程化的日益成熟，代码规范化对于开发效率的提升起着很大的作用，包括后期的维护，统一的规范能节省交接的时间成本，而规范包括目录结构、代码质量（命名、注释、JS规范、CSS规范、缩进等）`
-            },
-          ]}
-          isFetching={this.isFetching}
-          setCurrentArticle={this.setCurrentArticle}
-          prevArticle={this.prevArticle}
-          scrollIndexByBookmark={this._scrollIndexByBookmark}
-          fetchArticles={this.fetchArticles}
-          reFetchArticle={this._reFetchArticle}
-          catalogDataLength={this._getBookCatalogLength()}
-        />
+        <Content>
+          <List>
+            {(this.state.list || []).map((item: SEARCH_ITEM) => {
+              return (
+                <Card style={{flex: 0}}>
+                  <CardItem>
+                    <Left>
+                      <FastImage
+                        style={{
+                          width: 189 * .4,
+                          height: 272 * .4,
+                          alignContent: 'center',
+                          justifyContent: 'center',
+                          borderRadius: 10,
+                          backgroundColor: '#eee'
+                        }}
+                        source={{uri: item.ruleSearchCoverUrl }}
+                        resizeMode={FastImage.resizeMode.contain}
+                      />
+                      <Body style={{
+                        flexGrow: 1,
+                        alignItems: 'flex-start',
+                        justifyContent: 'flex-start'
+                      }}>
+                        <Text style={{
+                          marginBottom: 10
+                        }}  numberOfLines={1}>{item.ruleSearchName}</Text>
+                        <Text style={{
+                          marginBottom: 10
+                        }} numberOfLines={1} note>{item.ruleSearchAuthor}</Text>
+                        <Text numberOfLines={2} note>{item.ruleSearchIntroduce}</Text>
+                      </Body>
+                    </Left>
+                  </CardItem>
+                </Card>
+              )
+              return (
+                <ListItem 
+                style={{
+                  marginBottom: 10,
+                }}>
+                  <Left>
+                    {/* <Thumbnail style={{
+                      borderRadius: 3,
+                      backgroundColor: '#eee'
+                    }} square source={{ uri: item.ruleSearchCoverUrl }} /> */}
+                    <FastImage
+                      style={{
+                        width: 189 * .4,
+                        height: 272 * .4,
+                        alignContent: 'center',
+                        justifyContent: 'center',
+                        borderRadius: 10,
+                        backgroundColor: '#eee'
+                      }}
+                      source={{uri: item.ruleSearchCoverUrl }}
+                      resizeMode={FastImage.resizeMode.contain}
+                    />
+                  </Left>
+                  <Body style={{
+                  }}>
+                    <Text numberOfLines={1}>{item.ruleSearchName}</Text>
+                    <Text numberOfLines={1} note>{item.ruleSearchAuthor}</Text>
+                    <Text numberOfLines={1} note>{item.ruleSearchIntroduce}</Text>
+                  </Body>
+                </ListItem>
+              )
+            })}
+          </List>
+        </Content>
       </Container>
     );
   }

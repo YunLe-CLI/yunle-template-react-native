@@ -84,7 +84,7 @@ class CustomFlatList extends React.Component {
         return (
             <FlatList
                 debug={false}
-                scrollEnabled={false}
+                scrollEnabled={true}
                 ref={(ref) => {
                     this._flatRef = ref
                 }}
