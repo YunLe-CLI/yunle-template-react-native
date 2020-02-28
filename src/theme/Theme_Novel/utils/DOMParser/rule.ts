@@ -1,3 +1,5 @@
+import { template } from "@babel/core"
+
 export default {
 	"bookSourceGroup": "\u79fb\u52a8",
 	"bookSourceName": "\u7b14\u8da3\u9601\u79fb\u52a8\u7248",

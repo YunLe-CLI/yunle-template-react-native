@@ -165,7 +165,7 @@ class Home extends React.Component<IProps, IState> {
           <List>
             {(this.state.list || []).map((item: SEARCH_ITEM) => {
               return (
-                <Card style={{flex: 0}}>
+                <Card key={JSON.stringify(item)} style={{flex: 0}}>
                   <CardItem>
                     <Left>
                       <FastImage
