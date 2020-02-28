@@ -20,7 +20,7 @@ import {
 import FastImage from 'react-native-fast-image';
 import _ from 'lodash';
 import styles from './styles';
-import { NavigationEvents } from 'react-navigation';
+import { NavigationEvents, NavigationActions } from 'react-navigation';
 import { search, SEARCH_ITEM } from '@Theme/Theme_Novel/services/api'
 
 import CustomFlatList from '@Theme/Theme_Novel/components/CustomFlatList'
@@ -55,70 +55,16 @@ class Home extends React.Component<IProps, IState> {
     })
   }
 
-  /**
-     * 获取目录长度
-     * @returns {number}
-     * @private
-     */
-  _getBookCatalogLength = () => {
-      
-    return 0
-  };
-
-   /**
-     * 通过点击目录获取文章数据
-     * @param num
-     */
-  fetchArticleByCatalog = (num) => {
-      
-  };
-  /**
-     * 获取文章数据
-     */
-  fetchArticles = () => {
-
-  };
-
-  /**
-     * 重新获取文章
-     * @param url 文章url
-     * @private
-     */
-  _reFetchArticle = (url = this.lastRequestUrl) => {
-      
-  };
-
-  /**
-     * 翻到下一页
-     */
-  turnToNextPage = () => {
-    if (this.currentIndex < this.articles.length - 1) {
-        this.currentIndex++;
-        // this._scrollToIndex();
-    } else {
-        // ToastUtil.showShort('正在加载下一页数据')
-    }
-  };
-
-  /**
-   * 翻到上一页
-   */
-  turnToPrePage = () => {
-      if (this.currentIndex < this.articles.length && this.currentIndex > 0) {
-          this.currentIndex--;
-          // this._scrollToIndex();
-      } else {
-          // ToastUtil.showShort(I18n.t('onTop'))
-      }
-  };
-
-  setCurrentArticle = (article) => {
-    this.currentArticle = article;
-  };
-
   renderBook = ({ item }) => {
     return <Card style={{flex: 0}}>
-    <CardItem>
+    <CardItem button onPress={() => {
+      this.props.dispatch(NavigationActions.navigate({
+        routeName: 'BookContent',
+        params: {
+          bookInfo: item,
+        },
+      }));
+    }}>
       <Left>
         <FastImage
           style={{
@@ -172,7 +118,7 @@ class Home extends React.Component<IProps, IState> {
 
             }}
             onWillBlur={payload => {
-              this.componentWillUnmount()
+             
             }}
             onDidBlur={payload => {
 
@@ -183,7 +129,7 @@ class Home extends React.Component<IProps, IState> {
                 
             </Left>
             <Body>
-                <Title>首页</Title>
+                <Title>狗吱阅读</Title>
             </Body>
             <Right>
               <Button

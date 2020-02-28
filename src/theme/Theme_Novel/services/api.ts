@@ -34,9 +34,7 @@ export async function search(query: SEARCH_REQ): Promise<Array<SEARCH_ITEM>> {
     try {
       let $ = cheerio.load(html)
       // const ruleSearchList = rule.ruleSearchList.split('@');
-      console.log('ruleSearchUrl', $)
       const list = $('.hot_sale1');
-      console.log(1111, list.length)
       if (list && list.length) {
         list.each(function(index, element) {
           const el = $(element);
@@ -61,3 +59,92 @@ export async function search(query: SEARCH_REQ): Promise<Array<SEARCH_ITEM>> {
     return bookList
   });
 }
+
+export interface GET_BOOK_INFO_REQ {
+  ruleSearchNoteUrl: string;
+}
+export interface GET_BOOK_INFO_RES {
+  ruleChapterUrl: string;
+}
+/**
+ * 获取小说祥情
+ * api doc url:
+ * @param params
+ */
+export async function getBookInfo(query: GET_BOOK_INFO_REQ): Promise<GET_BOOK_INFO_RES> {
+  const url = `${rule.bookSourceUrl}${query.ruleSearchNoteUrl}`;
+  return getHtml({
+    url,
+    method: 'GET'
+  }).then((html) => {
+    let bookChapter = {
+      ruleChapterUrl: '',
+    }
+    try {
+      let $ = cheerio.load(html)
+      const rule_chapter = rule.ruleChapterUrl.split('@');
+      const content = $('.recommend1');
+      if (content) {
+        console.log('getChapterList: ', content)
+        const el = $(content);
+        const ruleChapterUrl = $(el.find("h2")[1]).find('a').attr('href');
+        console.log('getChapterList: ', ruleChapterUrl)
+        bookChapter = {
+          ...bookChapter,
+          ruleChapterUrl,
+        }
+      }
+    } catch (e) {
+      alert(e)
+    }
+    return bookChapter
+  });
+}
+
+
+
+export interface GET_CHAPTER_LIST_REQ {
+  ruleChapterUrl: string;
+}
+export interface GET_CHAPTER_LIST_RES {
+  ruleChapterName: string;
+  ruleContentUrl: string;
+}
+/**
+ * 获取小说目录
+ * api doc url:
+ * @param params
+ */
+export async function getChapterList(query: GET_CHAPTER_LIST_REQ): Promise<Array<GET_CHAPTER_LIST_RES>> {
+  const url = `${rule.bookSourceUrl}${query.ruleChapterUrl}`;
+  return getHtml({
+    url,
+    method: 'GET'
+  }).then((html) => {
+    let list = []
+    try {
+      let $ = cheerio.load(html)
+      const rule_chapter_list = rule.ruleChapterList.split('@');
+      const content = $('#chapterlist');
+      const htmlList = content.find('p')
+      if (htmlList) {
+        console.log('111111: ', Array.isArray(htmlList) )
+        htmlList.each(function(index, element) {
+          const el = $(element);
+          const ruleChapterName = el.find('a').text();
+          const ruleContentUrl = el.find('a').attr('href');
+          if (ruleChapterName && ruleContentUrl) {
+            list.push({
+              ruleChapterName,
+              ruleContentUrl,
+            })
+          }
+        })
+      }
+    } catch (e) {
+      alert(e)
+    }
+    return list
+  });
+}
+
