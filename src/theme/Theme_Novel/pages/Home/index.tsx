@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { FlatList, View } from 'react-native';
 import {
   Content,
   Container,
@@ -115,6 +116,40 @@ class Home extends React.Component<IProps, IState> {
     this.currentArticle = article;
   };
 
+  renderBook = ({ item }) => {
+    return <Card style={{flex: 0}}>
+    <CardItem>
+      <Left>
+        <FastImage
+          style={{
+            width: 189 * .4,
+            height: 272 * .4,
+            alignContent: 'center',
+            justifyContent: 'center',
+            borderRadius: 10,
+            backgroundColor: '#eee'
+          }}
+          source={{uri: item.ruleSearchCoverUrl }}
+          resizeMode={FastImage.resizeMode.contain}
+        />
+        <Body style={{
+          flexGrow: 1,
+          alignItems: 'flex-start',
+          justifyContent: 'flex-start'
+        }}>
+          <Text style={{
+            marginBottom: 10
+          }}  numberOfLines={1}>{item.ruleSearchName}</Text>
+          <Text style={{
+            marginBottom: 10
+          }} numberOfLines={1} note>{item.ruleSearchAuthor}</Text>
+          <Text numberOfLines={2} note>{item.ruleSearchIntroduce}</Text>
+        </Body>
+      </Left>
+    </CardItem>
+  </Card>
+  }
+
   render() {
     return (
       <Container style={styles.container}>
@@ -161,76 +196,16 @@ class Home extends React.Component<IProps, IState> {
               </Button>
             </Right>
         </Header>
-        <Content>
-          <List>
-            {(this.state.list || []).map((item: SEARCH_ITEM) => {
-              return (
-                <Card key={JSON.stringify(item)} style={{flex: 0}}>
-                  <CardItem>
-                    <Left>
-                      <FastImage
-                        style={{
-                          width: 189 * .4,
-                          height: 272 * .4,
-                          alignContent: 'center',
-                          justifyContent: 'center',
-                          borderRadius: 10,
-                          backgroundColor: '#eee'
-                        }}
-                        source={{uri: item.ruleSearchCoverUrl }}
-                        resizeMode={FastImage.resizeMode.contain}
-                      />
-                      <Body style={{
-                        flexGrow: 1,
-                        alignItems: 'flex-start',
-                        justifyContent: 'flex-start'
-                      }}>
-                        <Text style={{
-                          marginBottom: 10
-                        }}  numberOfLines={1}>{item.ruleSearchName}</Text>
-                        <Text style={{
-                          marginBottom: 10
-                        }} numberOfLines={1} note>{item.ruleSearchAuthor}</Text>
-                        <Text numberOfLines={2} note>{item.ruleSearchIntroduce}</Text>
-                      </Body>
-                    </Left>
-                  </CardItem>
-                </Card>
-              )
-              return (
-                <ListItem 
-                style={{
-                  marginBottom: 10,
-                }}>
-                  <Left>
-                    {/* <Thumbnail style={{
-                      borderRadius: 3,
-                      backgroundColor: '#eee'
-                    }} square source={{ uri: item.ruleSearchCoverUrl }} /> */}
-                    <FastImage
-                      style={{
-                        width: 189 * .4,
-                        height: 272 * .4,
-                        alignContent: 'center',
-                        justifyContent: 'center',
-                        borderRadius: 10,
-                        backgroundColor: '#eee'
-                      }}
-                      source={{uri: item.ruleSearchCoverUrl }}
-                      resizeMode={FastImage.resizeMode.contain}
-                    />
-                  </Left>
-                  <Body style={{
-                  }}>
-                    <Text numberOfLines={1}>{item.ruleSearchName}</Text>
-                    <Text numberOfLines={1} note>{item.ruleSearchAuthor}</Text>
-                    <Text numberOfLines={1} note>{item.ruleSearchIntroduce}</Text>
-                  </Body>
-                </ListItem>
-              )
-            })}
-          </List>
-        </Content>
+        <FlatList
+          contentContainerStyle={{
+              paddingHorizontal: 16,
+              paddingVertical: 20,
+          }}
+          data={this.state.list || []}
+          keyExtractor={(item, index) => JSON.stringify(item)}
+          renderItem={this.renderBook}
+          showsHorizontalScrollIndicator={false}
+        />
       </Container>
     );
   }
