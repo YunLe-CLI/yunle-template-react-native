@@ -144,38 +144,15 @@ class Home extends React.Component<IProps, IState> {
     this.currentArticle = article;
   };
 
-  renderBook = ({ item }) => {
-    return <Card style={{flex: 0}}>
-    <CardItem>
+  renderItem = ({ item }) => {
+    return <ListItem>
       <Left>
-        <FastImage
-          style={{
-            width: 189 * .4,
-            height: 272 * .4,
-            alignContent: 'center',
-            justifyContent: 'center',
-            borderRadius: 10,
-            backgroundColor: '#eee'
-          }}
-          source={{uri: item.ruleSearchCoverUrl }}
-          resizeMode={FastImage.resizeMode.contain}
-        />
-        <Body style={{
-          flexGrow: 1,
-          alignItems: 'flex-start',
-          justifyContent: 'flex-start'
-        }}>
-          <Text style={{
-            marginBottom: 10
-          }}  numberOfLines={1}>{item.ruleSearchName}</Text>
-          <Text style={{
-            marginBottom: 10
-          }} numberOfLines={1} note>{item.ruleSearchAuthor}</Text>
-          <Text numberOfLines={2} note>{item.ruleSearchIntroduce}</Text>
-        </Body>
+        <Text>{item.ruleChapterName}</Text>
       </Left>
-    </CardItem>
-  </Card>
+      <Right>
+        <Icon name="arrow-forward" />
+      </Right>
+    </ListItem>
   }
 
   render() {
@@ -225,22 +202,14 @@ class Home extends React.Component<IProps, IState> {
               
             </Right>
           </Header>
-          <Content>
-            <List>
-              {
-                chapterList.map((item: GET_CHAPTER_LIST_RES) => {
-                  return <ListItem selected>
-                  <Left>
-                    <Text>{item.ruleChapterName}</Text>
-                  </Left>
-                  <Right>
-                    <Icon name="arrow-forward" />
-                  </Right>
-                </ListItem>
-                })
-              }
-            </List>
-          </Content>
+          <FlatList
+            contentContainerStyle={{
+            }}
+            data={chapterList || []}
+            keyExtractor={(item, index) => JSON.stringify(item)}
+            renderItem={this.renderItem}
+            showsHorizontalScrollIndicator={false}
+          />
           {/* <CustomFlatList
             ref={(ref) => {
                 this._flatRef = ref
