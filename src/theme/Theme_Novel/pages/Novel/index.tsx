@@ -46,6 +46,8 @@ class Home extends React.Component<IProps, IState> {
     bookInfo: {},
     chapterList: [],
     bookContent: '',
+    chapterName: '',
+    contentUrlNext: ''
   };
 
   async componentDidMount() {
@@ -59,15 +61,22 @@ class Home extends React.Component<IProps, IState> {
   async init(bookInfo: SEARCH_ITEM, rule: RULE_TYPE) {
     console.log(bookInfo)
     console.log(rule)
-    const book = await this.getBookContent(bookInfo, rule);
+    const book = await this.getBookContent(bookInfo.ruleContentUrl, rule);
   }
 
-  async getBookContent(bookInfo: GET_CHAPTER_LIST_RES, rule: RULE_TYPE) {
-    const res = await getBookContent({ruleContentUrl: bookInfo.ruleContentUrl });
+  async getBookContent(ruleContentUrl: string, rule?: RULE_TYPE) {
+    const res = await getBookContent({ ruleContentUrl });
     console.log('getBookInfo: ', res)
-    const { ruleBookContent } = res;
+    const { ruleBookContent, ruleContentUrlNext } = res;
     this.setState({
       bookContent: ruleBookContent,
+      contentUrlNext: ruleContentUrlNext,
+    }, () => {
+      console.log('_flatRef', this._flatRef)
+      if (this._flatRef && this._flatRef._flatRef) {
+        console.log('_flatRef', this._flatRef)
+        this._flatRef._flatRef.scrollToOffset({animated: true, viewPosition: 0, index: 0});
+      }
     })
     return res;
   }
@@ -109,12 +118,7 @@ class Home extends React.Component<IProps, IState> {
      * 翻到下一页
      */
   turnToNextPage = () => {
-    if (this.currentIndex < this.articles.length - 1) {
-        this.currentIndex++;
-        // this._scrollToIndex();
-    } else {
-        // ToastUtil.showShort('正在加载下一页数据')
-    }
+    this.getBookContent(this.state.contentUrlNext)
   };
 
   /**
@@ -180,13 +184,15 @@ class Home extends React.Component<IProps, IState> {
               {
                 bookName: 'bookName',
                 bookUrl: 'bookUrl', 
-                chapterName: 'chapterName', 
+                chapterName: this.state.chapterName, 
                 currentChapterNum: 10, 
                 pageNum: 1, 
                 totalPage: 1, 
                 chapterContent: this.state.bookContent
               },
             ]}
+            bookContent={this.state.bookContent}
+            turnToNextPage={this.turnToNextPage}
             isFetching={this.isFetching}
             setCurrentArticle={this.setCurrentArticle}
             prevArticle={this.prevArticle}

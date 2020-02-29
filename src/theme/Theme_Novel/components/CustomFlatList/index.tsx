@@ -2,7 +2,7 @@ import React from "react";
 import {ActivityIndicator, FlatList, Platform, StyleSheet, Text, TouchableOpacity, View} from 'react-native'
 import {HEIGHT, WIDTH} from "@Theme/Theme_Novel/utils/DimensionsUtil";
 import Loading from "./Loading";
-
+import novelUtils from '@Theme/Theme_Novel/utils/DOMParser/utils';
 export class Article {
     constructor(bookName, bookUrl, chapterName, currentChapterNum, pageNum, totalPage, chapterContent) {
         this.bookName = bookName;
@@ -81,6 +81,8 @@ class CustomFlatList extends React.Component {
 
     render() {
         // console.log('articles',this.props.articles)
+        const list = novelUtils.handleContent(this.props.bookContent);
+        console.log('novelUtils', list)
         return (
             <FlatList
                 debug={false}
@@ -95,13 +97,30 @@ class CustomFlatList extends React.Component {
                         </View>
                     )
                 }}
-                data={this.props.articles}
+                data={list}
                 extraData={[this.props.prevAricle]}
                 // getItemLayout={this._getItemLayout}
                 renderItem={this._renderItem}
                 onViewableItemsChanged={this._onViewableItemsChanged}
                 viewabilityConfig={VIEWABILITY_CONFIG}
                 keyExtractor={this._keyExtractor}
+                ListFooterComponent={() => {
+                    return <TouchableOpacity
+                    style={styles.reFetchButton}
+                    onPress={() => {
+                        this.props.turnToNextPage()
+                    }}
+                >
+                    <View style={{
+                        flexDirection: 'row',
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                    }}>
+                        <Text style={styles.reFetchText}>下一页</Text>
+             
+                    </View>
+                </TouchableOpacity>
+                }}
             />
         )
     }
@@ -146,12 +165,10 @@ class CustomFlatList extends React.Component {
         }
     };
 
-    _renderItem = (info: { item: Article, index: number }) => {
+    _renderItem = (info: { item: string, index: number }) => {
         return (
             <View
                 style={styles.itemContainer}>
-                <Text
-                    style={[{color: this.state.color}, styles.itemTitle]}>{this.toggleChineseText(info.item.chapterName)}</Text>
                 <Text
                     allowFontScaling={false} //控制字体是否要根据系统的“字体大小”辅助选项来进行缩放,默认true
                     style={[{
@@ -160,53 +177,8 @@ class CustomFlatList extends React.Component {
                         lineHeight:this.getLineHeight(),
                         textAlign:'center'
                     }, styles.articleText]}>
-                    {this.toggleChineseText(info.item.chapterContent)}
+                    {this.toggleChineseText(info.item)}
                 </Text>
-                {
-                    this.props.catalogDataLength === info.item.currentChapterNum && info.index === this.props.articles.length - 1
-                        ?
-                        <Text
-                            style={[
-                                styles.noMoreChapter,
-                                {color: this.state.color}
-                            ]}
-                        >没有更多章节了</Text>
-                        :
-                        <View style={styles.reFetchContainer}>
-                            {info.index === this.props.articles.length - 1
-                                ?
-                                <TouchableOpacity
-                                    style={styles.reFetchButton}
-                                    onPress={() => {
-                                        this.props.reFetchArticle()
-                                    }}
-                                >
-                                    {
-                                        this.props.isFetching
-                                            ?
-                                            <View style={{
-                                                flexDirection: 'row',
-                                                justifyContent: 'center',
-                                                alignItems: 'center'
-                                            }}>
-                                                <Text style={styles.reFetchText}>下一页</Text>
-                                                <ActivityIndicator
-                                                    animating={true}
-                                                    color="#fff"
-                                                    size="small"
-                                                />
-                                            </View>
-
-                                            :
-                                            <Text style={styles.reFetchText}>上一页</Text>
-                                    }
-                                </TouchableOpacity>
-                                :
-                                null
-                            }
-                        </View>
-                }
-
             </View>
         )
     };

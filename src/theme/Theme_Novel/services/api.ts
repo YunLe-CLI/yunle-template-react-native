@@ -153,6 +153,7 @@ export interface GET_BOOK_CONTENT_REQ {
 }
 export interface GET_BOOK_CONTENT_RES {
   ruleBookContent: string;
+  ruleContentUrlNext: string;
 }
 /**
  * 获取小说章节祥情
@@ -166,14 +167,21 @@ export async function getBookContent(query: GET_BOOK_CONTENT_REQ): Promise<GET_B
     method: 'GET'
   }).then((html) => {
     let data = ''
+    let ruleContentUrlNext = '';
     try {
       let $ = cheerio.load(html)
       const rule_chapter_list = rule.ruleBookContent.split('@');
       const content = $('#chaptercontent').find('br').replaceWith('\n');
       data = $('#chaptercontent').text();
+      // const ruleContentUrlNext = rule.ruleContentUrlNext.split('@')
+      ruleContentUrlNext =  $('#pt_next').attr('href');
     } catch (e) {
       alert(e)
     }
-    return { ruleBookContent: data }
+    console.log('ruleContentUrlNext', ruleContentUrlNext)
+    return { 
+      ruleBookContent: data,
+      ruleContentUrlNext,
+    }
   });
 }
