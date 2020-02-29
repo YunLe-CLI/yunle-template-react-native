@@ -10,7 +10,7 @@ export interface RULE_TYPE {
 	"ruleChapterName": string // 目录列表的章节名称
 	"ruleChapterUrl": string; // 书籍页面里的目录地址
 	"ruleContentUrl": string; // 目录列表的章节链接
-	"ruleContentUrlNext": "id.pt_next@href", // 下一页
+	"ruleContentUrlNext": string, // 下一页
 	"ruleSearchAuthor": string; // 搜索里的作者
 	"ruleSearchCoverUrl": string; // 搜索里的书封面
 	"ruleSearchIntroduce": string; // 搜索里的书简介
