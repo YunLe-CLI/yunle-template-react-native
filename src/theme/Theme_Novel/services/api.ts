@@ -148,3 +148,32 @@ export async function getChapterList(query: GET_CHAPTER_LIST_REQ): Promise<Array
   });
 }
 
+export interface GET_BOOK_CONTENT_REQ {
+  ruleContentUrl: string;
+}
+export interface GET_BOOK_CONTENT_RES {
+  ruleBookContent: string;
+}
+/**
+ * 获取小说章节祥情
+ * api doc url:
+ * @param params
+ */
+export async function getBookContent(query: GET_BOOK_CONTENT_REQ): Promise<GET_BOOK_CONTENT_RES> {
+  const url = `${rule.bookSourceUrl}${query.ruleContentUrl}`;
+  return getHtml({
+    url,
+    method: 'GET'
+  }).then((html) => {
+    let data = ''
+    try {
+      let $ = cheerio.load(html)
+      const rule_chapter_list = rule.ruleBookContent.split('@');
+      const content = $('#chaptercontent').find('br').replaceWith('\n');
+      data = $('#chaptercontent').text();
+    } catch (e) {
+      alert(e)
+    }
+    return { ruleBookContent: data }
+  });
+}

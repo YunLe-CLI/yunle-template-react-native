@@ -21,7 +21,7 @@ import FastImage from 'react-native-fast-image';
 import _ from 'lodash';
 import styles from './styles';
 import { NavigationEvents, NavigationActions } from 'react-navigation';
-import { search, SEARCH_ITEM, getBookInfo, getChapterList, GET_CHAPTER_LIST_RES } from '@Theme/Theme_Novel/services/api'
+import { search, SEARCH_ITEM, getBookContent, GET_CHAPTER_LIST_RES } from '@Theme/Theme_Novel/services/api'
 import { RULE_TYPE } from '@Theme/Theme_Novel/utils/DOMParser/rule';
 import CustomFlatList from '@Theme/Theme_Novel/components/CustomFlatList'
 import { cateItemHeight } from '../../utils/DimensionsUtil';
@@ -45,6 +45,7 @@ class Home extends React.Component<IProps, IState> {
   state = {
     bookInfo: {},
     chapterList: [],
+    bookContent: '',
   };
 
   async componentDidMount() {
@@ -58,28 +59,16 @@ class Home extends React.Component<IProps, IState> {
   async init(bookInfo: SEARCH_ITEM, rule: RULE_TYPE) {
     console.log(bookInfo)
     console.log(rule)
-    const book = await this.getBookInfo(bookInfo, rule);
-    const chapterList = await this.getChapterList(book.ruleChapterUrl, rule);
+    const book = await this.getBookContent(bookInfo, rule);
   }
 
-  async getBookInfo(bookInfo: SEARCH_ITEM, rule: RULE_TYPE) {
-    const res = await getBookInfo({ruleSearchNoteUrl: bookInfo.ruleSearchNoteUrl });
+  async getBookContent(bookInfo: GET_CHAPTER_LIST_RES, rule: RULE_TYPE) {
+    const res = await getBookContent({ruleContentUrl: bookInfo.ruleContentUrl });
     console.log('getBookInfo: ', res)
+    const { ruleBookContent } = res;
     this.setState({
-      bookInfo: {
-        ...bookInfo,
-        ...res,
-      },
+      bookContent: ruleBookContent,
     })
-    return res;
-  }
-
-  async getChapterList(ruleChapterUrl: string, rule: RULE_TYPE) {
-    const res = await getChapterList({ruleChapterUrl});
-    this.setState({
-      chapterList: res,
-    })
-    console.log('getChapterList: ', res)
     return res;
   }
 
@@ -145,14 +134,7 @@ class Home extends React.Component<IProps, IState> {
   };
 
   renderItem = ({ item }) => {
-    return <ListItem onPress={() => {
-      this.props.dispatch(NavigationActions.navigate({
-        routeName: 'Novel',
-        params: {
-          bookInfo: item,
-        },
-      }));
-    }}>
+    return <ListItem>
       <Left>
         <Text>{item.ruleChapterName}</Text>
       </Left>
@@ -190,34 +172,7 @@ class Home extends React.Component<IProps, IState> {
 
             }}
         />
-          <Header>
-            <Left>
-              <Button
-                transparent
-                onPress={() => {
-                    const { dispatch } = this.props;
-                    dispatch(NavigationActions.back());
-                }}
-              >
-                <Icon style={{ paddingHorizontal: 12, color: '#fff', fontSize: 26 }} name='arrow-back' />
-              </Button>
-            </Left>
-            <Body>
-                <Title>{bookInfo.ruleSearchName}</Title>
-            </Body>
-            <Right>
-              
-            </Right>
-          </Header>
-          <FlatList
-            contentContainerStyle={{
-            }}
-            data={chapterList || []}
-            keyExtractor={(item, index) => JSON.stringify(item)}
-            renderItem={this.renderItem}
-            showsHorizontalScrollIndicator={false}
-          />
-          {/* <CustomFlatList
+          <CustomFlatList
             ref={(ref) => {
                 this._flatRef = ref
             }}
@@ -229,7 +184,7 @@ class Home extends React.Component<IProps, IState> {
                 currentChapterNum: 10, 
                 pageNum: 1, 
                 totalPage: 1, 
-                chapterContent: `随着前端工程化的日益成熟，代码规范化对于开发效率的提升起着很大的作用，包括后期的维护，统一的规范能节省交接的时间成本，而规范包括目录结构、代码质量（命名、注释、JS规范、CSS规范、缩进等）`
+                chapterContent: this.state.bookContent
               },
             ]}
             isFetching={this.isFetching}
@@ -239,7 +194,7 @@ class Home extends React.Component<IProps, IState> {
             fetchArticles={this.fetchArticles}
             reFetchArticle={this._reFetchArticle}
             catalogDataLength={this._getBookCatalogLength()}
-          /> */}
+          />
       </Container>
     );
   }

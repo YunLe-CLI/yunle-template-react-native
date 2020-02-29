@@ -97,7 +97,7 @@ class CustomFlatList extends React.Component {
                 }}
                 data={this.props.articles}
                 extraData={[this.props.prevAricle]}
-                getItemLayout={this._getItemLayout}
+                // getItemLayout={this._getItemLayout}
                 renderItem={this._renderItem}
                 onViewableItemsChanged={this._onViewableItemsChanged}
                 viewabilityConfig={VIEWABILITY_CONFIG}
@@ -222,7 +222,7 @@ class CustomFlatList extends React.Component {
 
 const styles = StyleSheet.create({
     itemContainer: {
-        height: HEIGHT,
+        // height: HEIGHT,
         width: WIDTH,
         justifyContent: 'center',
     },
