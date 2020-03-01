@@ -8,6 +8,8 @@ import _ from 'lodash';
 import moment from "moment";
 import rule from '@Theme/Theme_Novel/utils/DOMParser/rule';
 
+import { getNodeContent } from '@Theme/Theme_Novel/utils/DOMParser/utils';
+
 export interface SEARCH_REQ {
   searchKey: string;
   searchPage: number;
@@ -32,30 +34,23 @@ export async function search(query: SEARCH_REQ): Promise<Array<SEARCH_ITEM>> {
   }).then((html) => {
     const bookList = []
     try {
-      let $ = cheerio.load(html)
-      // const ruleSearchList = rule.ruleSearchList.split('@');
-      const list = $('.hot_sale1');
+      const $ = cheerio.load(html)
+      const list = getNodeContent($, rule.ruleSearchList, true);
       if (list && list.length) {
         list.each(function(index, element) {
           const el = $(element);
-          const ruleSearchAuthor = el.find(".author").text();
-          const ruleSearchCoverUrl = el.find(".lazy").attr('data-original');
-          const ruleSearchIntroduce = el.find(".review").text();
-          const ruleSearchName = el.find(".title").text();
-          const ruleSearchNoteUrl = el.find("a").attr('href');
           bookList.push({
-            ruleSearchAuthor,
-            ruleSearchCoverUrl,
-            ruleSearchIntroduce,
-            ruleSearchName,
-            ruleSearchNoteUrl,
+            ruleSearchAuthor: getNodeContent(el, rule.ruleSearchAuthor),
+            ruleSearchCoverUrl: getNodeContent(el, rule.ruleSearchCoverUrl),
+            ruleSearchIntroduce: getNodeContent(el, rule.ruleSearchIntroduce),
+            ruleSearchName: getNodeContent(el, rule.ruleSearchName),
+            ruleSearchNoteUrl: getNodeContent(el, rule.ruleSearchNoteUrl),
           })
-      });
+        });
       }
     } catch (e) {
       alert(e)
     }
-    
     return bookList
   });
 }

@@ -7,6 +7,8 @@
 import {
   Dimensions,
   } from 'react-native';
+import _ from 'lodash';
+import SwipeRow from '@/theme/Theme_Default/components/native-base-theme/components/SwipeRow';
 
 
 export default {
@@ -107,4 +109,82 @@ export default {
     // console.log((m - 1) * 375);
     return array
   },
+  
+  
 };
+
+export function rule2cssSelectors(rule: string) {
+  let type = 'dom'; // textNodes || dom || attr
+  const _rule = rule;
+  const ruleList = _rule.split('@');
+  // console.log('ruleList', ruleList)
+  const cssSelectors = ruleList.map((item) => {
+    const d = item.split('.');
+    console.log('ruleList 2', d)
+    const tmp = d.map((cItem, index, arr) => {
+      if (cItem === 'id') {
+        return '#'
+      } else if (cItem === 'class') {
+        return '.'
+      } else if (cItem === 'tag') {
+        return ' '
+      } else if (_.isNumber(parseInt(cItem)) && !_.isNaN(parseInt(cItem)) ) {
+        console.log('ruleList 3', parseInt(cItem))
+        return `[${cItem}]`
+      }
+      return cItem.replace(' ', '.')
+    })
+    return tmp.join('');
+  })
+  
+  if (cssSelectors[cssSelectors.length - 1]) {
+    const endSelect = cssSelectors[cssSelectors.length - 1];
+    type = 'dom';
+    if (endSelect === 'textNodes') {
+      cssSelectors.pop()
+      type = 'text';
+    }
+    if (endSelect === 'href') {
+      cssSelectors.pop()
+      type = 'href';
+    }
+    if (endSelect.indexOf('data-') > -1) {
+      cssSelectors.pop()
+      type = endSelect;
+    }
+  }
+  const returnRule = {
+    type,
+    cssSelector: cssSelectors.join(' '),
+  }
+  console.log('ruleList', returnRule);
+  return returnRule
+}
+
+export function getNodeContent(node: any, rule: string, root?: boolean) {
+  let content = '';
+  const _rule = rule2cssSelectors(rule);
+  switch (_rule.type) {
+    case 'dom': {
+      if (root) {
+        content = node(_rule.cssSelector);
+      } else {
+        content = node.find(_rule.cssSelector);
+      }
+      break;
+    }
+    case 'text': {
+      content = node.find(_rule.cssSelector).text();
+      break;
+    }
+    case 'href': {
+      content = node.find(_rule.cssSelector).attr('href');
+      break;
+    }
+    default: {
+      content = node.find(_rule.cssSelector).attr(_rule.type);
+    }
+  }
+  console.log('content, content', content, rule)
+  return content;
+}
