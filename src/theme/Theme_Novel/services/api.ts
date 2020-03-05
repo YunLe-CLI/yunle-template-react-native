@@ -1,11 +1,7 @@
-import {Platform, Alert} from "react-native";
-import request from '../utils/request'
 // @ts-ignore
 import cheerio from 'cheerio';
 import getHtml from '../utils/DOMParser'
-import {ENVIRONMENT} from "@Global/utils/env";
 import _ from 'lodash';
-import moment from "moment";
 import rule from '@Theme/Theme_Novel/utils/DOMParser/rule';
 
 import { getNodeContent } from '@Theme/Theme_Novel/utils/DOMParser/utils';

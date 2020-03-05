@@ -8,8 +8,6 @@ import {
   Dimensions,
   } from 'react-native';
 import _ from 'lodash';
-import SwipeRow from '@/theme/Theme_Default/components/native-base-theme/components/SwipeRow';
-
 
 export default {
   size: {
@@ -109,82 +107,102 @@ export default {
     // console.log((m - 1) * 375);
     return array
   },
-  
-  
 };
 
+export const htmlAll = ["a","abbr","acronym","address","applet","area","article","aside","audio","b","base","basefont","bdi","bdo","big","blockquote","body","br","button","canvas","caption","center","cite","code","col","colgroup","command","datalist","dd","del","details","dfn","dialog","dir","div","dl","dt","em","embed","fieldset","figcaption","figure","font","footer","form","frame","frameset","h1"," to h6","head","header","hr","html","i","iframe","img","input","ins","kbd","keygen","label","legend","li","link","main","map","mark","menu","meta","meter","nav","noframes","noscript","object","ol","optgroup","option","output","p","param","pre","progress","q","rp","rt","ruby","s","samp","script","section","select","small","source","span","strike","strong","style","sub","summary","sup","table","tbody","td","textarea","tfoot","th","thead","time","title","tr","track","tt","u","ul","var","video","wbr"];
+
+
+console.log(
+  'rule2cssSelectors',
+  // rule2cssSelectors(`tag.td.1@tag.a@text|tag.p.3@tag.a@text`),
+  rule2cssSelectors(`class.lazy ddd@data-original`),
+)
+
 export function rule2cssSelectors(rule: string) {
-  let type = 'dom'; // textNodes || dom || attr
   const _rule = rule;
-  const ruleList = _rule.split('@');
-  // console.log('ruleList', ruleList)
-  const cssSelectors = ruleList.map((item) => {
-    const d = item.split('.');
-    console.log('ruleList 2', d)
-    const tmp = d.map((cItem, index, arr) => {
-      if (cItem === 'id') {
-        return '#'
-      } else if (cItem === 'class') {
-        return '.'
-      } else if (cItem === 'tag') {
-        return ' '
-      } else if (_.isNumber(parseInt(cItem)) && !_.isNaN(parseInt(cItem)) ) {
-        console.log('ruleList 3', parseInt(cItem))
-        return `[${cItem}]`
+  const ruleList = _rule.split('|');
+  return ruleList.map((ruleItem) => {
+    let ruleObj =  {
+      type: '',
+      cssSelector: '',
+      endEnvet: '',
+      replace: '',
+    }
+    let type = 'dom'; // text || dom || attr
+    
+    const ruleString = ruleItem.replace(/\@/g, ' ')
+    .replace(/\s+/g, 'class.')
+    .replace(/\#/, ' __REPLACE__')
+    .replace(/id\./g, '#')
+    .replace(/class\./g, '.')
+    .replace(/tag\./g, ' ')
+    .replace(/\.\d/g, "[$&]")
+    .replace(/\[\./g, "[")
+    .replace(/(^\s*)/g, "");
+
+    const cssSelectors = ruleString.split(' ') || [];
+    if (cssSelectors[cssSelectors.length - 1]) {
+      const endSelect = cssSelectors[cssSelectors.length - 1];
+      type = 'dom';
+      if (endSelect.indexOf('__REPLACE__')) {
+        cssSelectors.pop()
+        ruleObj.replace = endSelect.replace('__REPLACE__', '');
       }
-      return cItem.replace(' ', '.')
-    })
-    return tmp.join('');
+      if (endSelect === 'textNodes' || endSelect === 'text' || endSelect === 'html') {
+        cssSelectors.pop()
+        type = 'text';
+      }
+      if (endSelect === 'href') {
+        cssSelectors.pop()
+        type = 'href';
+      }
+      if (endSelect === 'src') {
+        cssSelectors.pop()
+        type = 'src';
+      }
+      if (endSelect.indexOf('data-') > -1) {
+        cssSelectors.pop()
+        type = endSelect;
+      }
+    }
+
+    ruleObj.type = type;
+    ruleObj.cssSelector = cssSelectors.join(' ');
+ 
+    return ruleObj
   })
-  
-  if (cssSelectors[cssSelectors.length - 1]) {
-    const endSelect = cssSelectors[cssSelectors.length - 1];
-    type = 'dom';
-    if (endSelect === 'textNodes') {
-      cssSelectors.pop()
-      type = 'text';
-    }
-    if (endSelect === 'href') {
-      cssSelectors.pop()
-      type = 'href';
-    }
-    if (endSelect.indexOf('data-') > -1) {
-      cssSelectors.pop()
-      type = endSelect;
-    }
-  }
-  const returnRule = {
-    type,
-    cssSelector: cssSelectors.join(' '),
-  }
-  console.log('ruleList', returnRule);
-  return returnRule
 }
 
 export function getNodeContent(node: any, rule: string, root?: boolean) {
-  let content = '';
-  const _rule = rule2cssSelectors(rule);
-  switch (_rule.type) {
-    case 'dom': {
-      if (root) {
-        content = node(_rule.cssSelector);
-      } else {
-        content = node.find(_rule.cssSelector);
+  let contents = [];
+  const _rule = rule2cssSelectors(rule) || [];
+  contents = _rule.map((ruleItem) => {
+    let content;
+    switch (ruleItem.type) {
+      case 'dom': {
+        if (root) {
+          content = node(ruleItem.cssSelector);
+        } else {
+          content = node.find(ruleItem.cssSelector);
+        }
+        break;
       }
-      break;
+      case 'text': {
+        content = node.find(ruleItem.cssSelector).text();
+        break;
+      }
+      case 'href': {
+        content = node.find(ruleItem.cssSelector).attr('href');
+        break;
+      }
+      default: {
+        content = node.find(ruleItem.cssSelector).attr(ruleItem.type);
+      }
     }
-    case 'text': {
-      content = node.find(_rule.cssSelector).text();
-      break;
-    }
-    case 'href': {
-      content = node.find(_rule.cssSelector).attr('href');
-      break;
-    }
-    default: {
-      content = node.find(_rule.cssSelector).attr(_rule.type);
-    }
-  }
-  console.log('content, content', content, rule)
-  return content;
+    return content;
+  })
+  console.log('getNodeContent', _rule);
+
+  return contents[0]
+  
 }
