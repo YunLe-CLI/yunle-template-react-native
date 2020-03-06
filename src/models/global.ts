@@ -1,41 +1,43 @@
 import { Reducer } from 'redux';
-import { Model, Effect, EffectWithType } from 'dva';
+import { Subscription, Effect } from 'dva';
 import { ENVIRONMENT, BUILD_TYPE } from '@Global/utils/env';
+import { ConnectState } from './connect.d';
 
-export interface IModelState {
+export interface GlobalModelState {
   orientation: string;
   appState: string;
   appReloadNum: boolean;
-};
+}
 
-export interface IModelType extends Model{
-    namespace: string;
-    state: IModelState;
-    effects: {
-      clearCache: Effect | EffectWithType;
-      appReloadAsync: Effect | EffectWithType;
-    };
-    reducers: {
-      clearCacheHandle: Reducer<any>;
-      appReload: Reducer<any>;
-      orientationChange: Reducer<any>;
-      appStateChange: Reducer<any>;
-      setENV: Reducer<any>;
-    };
-};
 
-const initState: IModelState = {
+export interface GlobalModelType {
+  namespace: 'global';
+  state: GlobalModelState;
+  effects: {
+    clearCache: Effect;
+  };
+  reducers: {
+    clearCacheHandle: Reducer<GlobalModelState>;
+    appReload: Reducer<GlobalModelState>;
+    orientationChange: Reducer<GlobalModelState>;
+    appStateChange: Reducer<GlobalModelState>;
+    setENV: Reducer<GlobalModelState>;
+  };
+  subscriptions: { setup: Subscription };
+}
+
+const INIT_STATE: GlobalModelState = {
   appState: 'active',
   orientation: 'PORTRAIT',
   appReloadNum: false,
 };
 
-const AppModel: IModelType = {
-    namespace: 'app',
-    state: { ...initState },
+const GlobalModel: GlobalModelType = {
+    namespace: 'global',
+    state: { ...INIT_STATE },
     reducers: {
       clearCacheHandle() {
-        return { ...initState }
+        return { ...INIT_STATE }
       },
       setENV(state, { payload }) {
         return {
@@ -58,11 +60,8 @@ const AppModel: IModelType = {
         *clearCache({ payload = {} }, { put }) {
           yield put({ type: 'clearCacheHandle' });
         },
-        *appReloadAsync({ payload = {} }, { put, select }) {
-          yield put({ type: 'appReload', appReload: payload.appReload || true });
-          return yield put(({ app }) => app.appReload);
-        },
     },
+    subscriptions: {},
 };
 
-export default AppModel;
+export default GlobalModel;

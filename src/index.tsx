@@ -11,6 +11,7 @@ import codePush from "react-native-code-push";
 import _ from 'lodash';
 import dva from '@Global/utils/dva';
 import createModels from '@Global/models';
+import { ConnectState } from '@Global/connect';
 import {UrlProcessUtil, getEnv} from '@Global/utils/utils';
 import LoadingSpinnerProvider, {withLoadingSpinner} from '@Global/components/LoadingSpinner';
 import DropdownAlertProvider from '@Global/components/DropdownAlert';
@@ -81,13 +82,13 @@ function createApp(config: ICreateApp) {
       ENV: string;
     }
 
-    @(connect((state: IAppModelState) => {
+    @(connect((state: ConnectState) => {
       return {
         appReload: _.get(state, 'app.appReload', false),
         ENV: _.get(state, 'app.ENV', {}),
         appProps: state,
       }
-    }) as any)
+    }))
     class Main extends Component<IMProps> {
       constructor(props: IMProps) {
         super(props)
@@ -99,7 +100,7 @@ function createApp(config: ICreateApp) {
         const initial = Orientation.getInitialOrientation();
         if (dispatch) {
           dispatch({
-            type: 'app/orientationChange',
+            type: 'global/orientationChange',
             orientation: initial,
           })
         }
@@ -138,7 +139,7 @@ function createApp(config: ICreateApp) {
             console.log('this.props.appReload', this.props.appReload, prevProps.appReload)
             this.forceUpdateNum += 1;
             await this.props.dispatch({
-              type:"app/appReload",
+              type:"global/appReload",
               appReload: false,
             });
             this.setState({
@@ -186,7 +187,7 @@ function createApp(config: ICreateApp) {
         const { dispatch } = this.props;
         if (dispatch) {
           dispatch({
-            type: 'app/appStateChange',
+            type: 'global/appStateChange',
             appState: nextAppState,
           });
         }
@@ -195,7 +196,7 @@ function createApp(config: ICreateApp) {
       _onOrientationDidChange = async (orientation: string) => {
         const { dispatch } = this.props;
         dispatch({
-          type: 'app/orientationChange',
+          type: 'global/orientationChange',
           orientation,
         })
       };
@@ -204,7 +205,7 @@ function createApp(config: ICreateApp) {
         const { dispatch } = this.props;
         const env = await getEnv();
         await dispatch({
-          type: 'app/changeENV',
+          type: 'global/changeENV',
           payload: env,
         });
       };
