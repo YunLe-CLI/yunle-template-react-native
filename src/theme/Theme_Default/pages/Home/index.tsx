@@ -2,60 +2,41 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {
   Body,
-  Button,
   Content,
-  Text,
-  Container, Header, Icon, Left, Right, Title,
+  Container, Header, 
+  Left, Right, Title,
 } from 'native-base';
-import FastImage from 'react-native-fast-image';
 import _ from 'lodash';
-import moment from 'moment';
+import { NavigationEvents } from 'react-navigation';
+import { ConnectProps, ConnectState } from '@Theme/Theme_Default/models/connect';
 import styles from './styles';
-import {NavigationActions, NavigationEvents} from 'react-navigation';
 
-export interface IProps {}
+export interface IProps extends ConnectProps {
+  user: {}
+}
 
 export interface IState {}
 
-@(connect(({ user = {} }) => {
-  return {
-    user: user.info || {},
-  }
-}) as any)
-class Home extends React.Component<IProps, IState> {
-  constructor(props: IProps) {
-    super(props);
-  }
 
+class Home extends React.Component<IProps, IState> {
   state = {
 
   };
-
+  componentDidMount() {
+    console.log('props: ', this.props)
+  }
   render() {
-    const { active } = this.state;
-    const { user = {} } = this.props;
     return (
       <Container style={styles.container}>
         <NavigationEvents
-            onWillFocus={async payload => {
-              try {
-                const { navigation, exams } = this.props;
-                const { params = {} } = navigation.state;
-                if (_.isNumber(params.active)) {
-                  this.setState({
-                    active: params.active
-                  })
-                }
-              } catch (e) {
-
-              }
-              await this.componentDidMount();
+            onWillFocus={payload => {
+            
             }}
-            onDidFocus={async payload => {
+            onDidFocus={payload => {
 
             }}
             onWillBlur={payload => {
-              this.componentWillUnmount()
+              
             }}
             onDidBlur={payload => {
 
@@ -75,4 +56,8 @@ class Home extends React.Component<IProps, IState> {
     );
   }
 }
-export default Home;
+export default (connect(({ user }: ConnectState) => {
+  return {
+    user,
+  }
+}))(Home);

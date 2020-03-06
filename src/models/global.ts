@@ -1,7 +1,6 @@
 import { Reducer } from 'redux';
 import { Subscription, Effect } from 'dva';
 import { ENVIRONMENT, BUILD_TYPE } from '@Global/utils/env';
-import { ConnectState } from './connect.d';
 
 export interface GlobalModelState {
   orientation: string;
@@ -9,9 +8,8 @@ export interface GlobalModelState {
   appReloadNum: boolean;
 }
 
-
 export interface GlobalModelType {
-  namespace: 'global';
+  namespace: 'global',
   state: GlobalModelState;
   effects: {
     clearCache: Effect;
@@ -61,7 +59,9 @@ const GlobalModel: GlobalModelType = {
           yield put({ type: 'clearCacheHandle' });
         },
     },
-    subscriptions: {},
+    subscriptions: {
+      setup: () => {}
+    },
 };
 
 export default GlobalModel;

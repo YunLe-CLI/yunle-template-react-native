@@ -34,7 +34,11 @@ export const LoginContext = createContext({
   closeLoginModal: () => {},
 })
 export const LoginConsumer = LoginContext.Consumer;
-export let LOGIN_MODAL_THIS = null;
+export interface LOGIN_MODAL_THIS_TYPE {
+  openLogin?: () => void;
+  closeLogin?: () => void;
+};
+export let LOGIN_MODAL_THIS: LOGIN_MODAL_THIS_TYPE = {};
 export function withLoginModal(WrappedComponent: React.ReactNode) {
   return class extends React.Component {
     render() {

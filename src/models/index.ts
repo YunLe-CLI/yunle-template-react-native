@@ -1,6 +1,5 @@
 import global from '@/models/global';
 import { IModelState as appState } from '@/models/global';
-
 export interface IAppModelState {
   global: appState,
 }

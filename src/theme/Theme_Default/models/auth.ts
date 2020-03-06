@@ -1,36 +1,32 @@
 import { Reducer } from 'redux';
-import { Model, Effect, EffectWithType } from 'dva';
-import {NavigationActions} from "react-navigation";
+import { Effect, Subscription } from 'dva';
 import { LOGIN_MODAL_THIS } from "../components/LoginModal";
 
-export interface IModelState {
+export interface AuthModelState {
   token: string | undefined;
 };
 
-export interface IModelType extends Model{
-    namespace: string;
-    state: IModelState;
+export interface AuthModelType {
+    namespace: 'auth';
+    state: AuthModelState;
     effects: {
-      clearCache: Effect | EffectWithType;
-      checkLogin: Effect | EffectWithType;
-      login: Effect | EffectWithType;
-      logout: Effect | EffectWithType;
-      openModal: Effect | EffectWithType;
-      closeModal: Effect | EffectWithType;
+      clearCache: Effect;
+      checkLogin:Effect;
+      login: Effect;
+      logout: Effect;
     };
     reducers: {
-      clearCacheHandle: Reducer<IModelState>;
-      updateState: Reducer<IModelState>;
-      setIsLogin: Reducer<IModelState>;
-      setToken: Reducer<IModelState>;
+      clearCacheHandle: Reducer<AuthModelState>;
+      setToken: Reducer<AuthModelState>;
     };
+    subscriptions: { setup: Subscription };
 }
 
-const initState: IModelState = {
+const initState: AuthModelState = {
   token: undefined,
 }
 
-const authModel: IModelType = {
+const authModel: AuthModelType = {
     namespace: 'auth',
     state: { ...initState },
     reducers: {
@@ -49,7 +45,7 @@ const authModel: IModelType = {
         yield put({ type: 'clearCacheHandle' });
       },
       *checkLogin({ payload = {} }, { put, select }) {
-        const token = yield select(({ auth }: { auth: IModelState }) => auth.token);
+        const token = yield select(({ auth }: { auth: AuthModelState }) => auth.token);
         let isLogin = !!token;
         return isLogin
       },
@@ -62,7 +58,9 @@ const authModel: IModelType = {
         });
         try {
           const { closeLogin } = LOGIN_MODAL_THIS;
-          closeLogin();
+          if (closeLogin) {
+            closeLogin();
+          }
         } catch (e) {
 
         }
@@ -74,12 +72,17 @@ const authModel: IModelType = {
         });
         try {
           const { openLogin } = LOGIN_MODAL_THIS;
-          openLogin();
+          if (openLogin) {
+            openLogin();
+          }
         } catch (e) {
           console.log(e)
         }
         return true;
       },
+    },
+    subscriptions: {
+      setup: () => {}
     },
 }
 

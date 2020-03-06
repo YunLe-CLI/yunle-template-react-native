@@ -1,10 +1,10 @@
 import { Reducer } from 'redux';
 import { Model, Effect, EffectWithType } from 'dva';
-import { bindPhone, bindWx, postFeedback, getUserInfo } from '@Global/services/api';
+import { bindPhone, bindWx, postFeedback, getUserInfo } from '@/services/global';
 import { getToken } from "@Global/utils/utils";
 import _ from 'lodash';
 import {touristsAccount} from '@Global/utils/config';
-import { PATIENTS_INFO } from '@Global/services/api';
+import { PATIENTS_INFO } from '@/services/global';
 
 export interface IModelState {
   isTouristsAccount: boolean;

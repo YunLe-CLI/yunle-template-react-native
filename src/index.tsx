@@ -11,6 +11,7 @@ import codePush from "react-native-code-push";
 import _ from 'lodash';
 import dva from '@Global/utils/dva';
 import createModels from '@Global/models';
+import { Dispatch } from 'redux';
 import { ConnectState } from '@Global/connect';
 import {UrlProcessUtil, getEnv} from '@Global/utils/utils';
 import LoadingSpinnerProvider, {withLoadingSpinner} from '@Global/components/LoadingSpinner';
@@ -80,6 +81,7 @@ function createApp(config: ICreateApp) {
     interface IMProps {
       appReload: boolean;
       ENV: string;
+      dispatch: Dispatch;
     }
 
     @(connect((state: ConnectState) => {

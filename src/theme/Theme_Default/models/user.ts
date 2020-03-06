@@ -1,38 +1,33 @@
 import { Reducer } from 'redux';
-import { Model, Effect, EffectWithType } from 'dva';
-import { bindPhone, bindWx, postFeedback, getUserInfo } from '@Global/services/api';
-import { getToken } from "@Global/utils/utils";
+import { Effect, Subscription } from 'dva';
 import _ from 'lodash';
 import {touristsAccount} from '@Global/utils/config';
-import { PATIENTS_INFO } from '@Global/services/api';
 
-export interface IModelState {
+export interface UserModelState {
   isTouristsAccount: boolean;
-  info: PATIENTS_INFO | undefined;
+  info: {} | undefined;
 };
 
-export interface IModelType extends Model{
-    namespace: string;
-    state: IModelState;
+export interface UserModelType {
+    namespace: 'user',
+    state: UserModelState;
     effects: {
-      clearCache: Effect | EffectWithType;
-      getUser: Effect | EffectWithType;
-      postFeedback: Effect | EffectWithType;
-      bindWx: Effect | EffectWithType;
-      bindPhone: Effect | EffectWithType;
+      clearCache: Effect;
+      setUserAsync: Effect;
     };
     reducers: {
-      clearCacheHandle: Reducer<IModelState>;
-      setUser: Reducer<IModelState>;
+      clearCacheHandle: Reducer<UserModelState>;
+      setUser: Reducer<UserModelState>;
     };
+    subscriptions: { setup: Subscription };
 }
 
-const initState: IModelState = {
+const initState: UserModelState = {
   isTouristsAccount: false,
   info: undefined,
 }
 
-const userModel: IModelType = {
+const userModel: UserModelType = {
     namespace: 'user',
     state: {...initState},
     reducers: {
@@ -53,10 +48,13 @@ const userModel: IModelType = {
       *clearCache({ payload = {} }, { put }) {
         yield put({ type: 'clearCacheHandle' });
       },
-      *setUserAsync({ payload = {} }, { put, select }) {
+      *setUserAsync({ payload = {} }, { put }) {
         yield put({ type: 'setUser', payload: { user: payload.user }});
-        return yield select(({ user }) => user.info);
+
       },
+    },
+    subscriptions: {
+      setup: () => {}
     },
 }
 

@@ -6,7 +6,7 @@
     "esModuleInterop": true,
     "isolatedModules": true,
     "jsx": "react-native",
-    "lib": ["es6"],
+    "lib": ["es6", "es2017"],
     "moduleResolution": "node",
     "noEmit": true,
     "incremental": true,
@@ -24,8 +24,13 @@
     "paths": {
       "@/*": ["./src/*"],
       "@Global/*": ["./src/*"],
-      "@Theme/*": ["./src/theme/*"],
+      "@Theme/*": ["./src/theme/*"]
     }
   },
-  "exclude": ["node_modules", "babel.config.js", "metro.config.js", "jest.config.js"]
+  "exclude": [
+    "node_modules", 
+    "babel.config.js", 
+    "metro.config.js", 
+    "jest.config.js"
+  ]
 }
