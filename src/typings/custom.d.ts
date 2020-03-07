@@ -1,10 +1,6 @@
 declare module "*.svg" {
-  // import { SvgProps } from "react-native-svg";
-  // const content: React.FC<SvgProps>;
-  // export default content;
-  const content: {
-    [propName: string]: any;
-  };
+  import { SvgProps } from "react-native-svg";
+  const content: React.FC<SvgProps>;
   export default content;
 }
 
@@ -35,3 +31,4 @@ declare module "*.gif" {
   };
   export default content;
 }
+declare const REACT_APP_ENV: 'test' | 'dev' | 'pre' | false;
