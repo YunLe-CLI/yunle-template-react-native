@@ -1,5 +1,6 @@
 import * as models from '@Theme/Theme_Default/models';
 import createRouter from '@Theme/Theme_Default/router';
+import locales from '@Theme/Theme_Default/locales';
 
 export default {
   id: 'Theme_Default',
@@ -8,4 +9,5 @@ export default {
   models: Object.values(models),
   author: '大狗吱',
   preview: require('@Theme/Theme_Default/doc/preview.jpg'),
+  locales: locales,
 }

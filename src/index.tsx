@@ -9,6 +9,7 @@ import RNBootSplash from 'react-native-bootsplash';
 import Orientation from 'react-native-orientation-locker';
 import codePush from "react-native-code-push";
 import _ from 'lodash';
+import './global';
 import dva from '@Global/utils/dva';
 import createModels from '@Global/models';
 import { Dispatch } from 'redux';
@@ -41,6 +42,7 @@ export interface ICreateApp {
   name: string;
   router: {};
   models: [],
+  locales: {},
 }
 
 function createApp(config: ICreateApp) {
@@ -49,7 +51,7 @@ function createApp(config: ICreateApp) {
     const PERSIST_KEY = config.id;
     const router = config.router;
     const models = createModels(config.models);
-
+    const initLocale = i18n.setI18nConfig('zh-CN', config.locales);
     const persistConfig = {
       key: PERSIST_KEY,
       storage: AsyncStorage,
@@ -279,7 +281,7 @@ let codePushOptions = {
 export default class RootView extends PureComponent {
 
   state = {
-    themeID: 'Theme_Novel',
+    themeID: 'Theme_Default',
   }
 
   componentDidMount() {
@@ -319,7 +321,16 @@ export default class RootView extends PureComponent {
   }
 
   async selectTheme(themeID: string) {
+    let nowThemeID = 'Theme_Default';
+    supportedThemes = Object.values(themes)
+    if (themeID && supportedThemes.findIndex((id) => themeID === id) > -1) {
+      nowThemeID = themeID;
+    } else {
+      // auto set
+      nowThemeID = 'Theme_Default'
+    }
     await AsyncStorage.setItem('__THEME_ID__', themeID);
+    console.log(themeID)
     setTimeout(() => {
       codePush.restartApp();
     }, 300)

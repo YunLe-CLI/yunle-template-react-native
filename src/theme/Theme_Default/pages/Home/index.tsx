@@ -45,12 +45,12 @@ class Home extends React.Component<IProps, IState> {
         <Header>
           <Left />
           <Body>
-            <Title>首页</Title>
+            <Title>{$t('pages.Home.home')}</Title>
           </Body>
           <Right />
         </Header>
         <Content>
-
+        <Title>{$t('pages.Home.home')}</Title>
         </Content>
       </Container>
     );
