@@ -180,7 +180,7 @@ function createApp(config: ICreateApp) {
           this.setState({
             initLoading: false,
           }, () => {
-            RNBootSplash.hide({ duration: 300 });
+            RNBootSplash.hide({ duration: 250 });
           });
         }
       }

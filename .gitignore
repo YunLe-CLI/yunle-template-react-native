@@ -68,3 +68,10 @@ buck-out/
 /ios/Pods/
 /ios/Podfile.lock
 android/*.hprof
+
+
+./src/assets/bootsplash/bootsplash_logo.png
+./src/assets/bootsplash/bootsplash_logo@1,5x.png
+./src/assets/bootsplash/bootsplash_logo@2x.png
+./src/assets/bootsplash/bootsplash_logo@3x.png
+./src/assets/bootsplash/bootsplash_logo@4x.png

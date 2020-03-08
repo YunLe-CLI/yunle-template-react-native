@@ -46,7 +46,8 @@
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
-  [RNBootSplash show:@"LaunchScreen" inView:rootView]; // react-native-bootsplash
+  
+  [RNBootSplash initWithStoryboard:@"BootSplash" rootView:rootView];
 
   /** start 友盟分享 **/
   /* 打开调试日志 */
@@ -72,7 +73,8 @@
   /** start 友盟统计 **/
   [MobClick setScenarioType:E_UM_NORMAL];
   /** start 友盟统计 **/
-
+  [RNBootSplash initialShow];
+  
   return YES;
 }
 

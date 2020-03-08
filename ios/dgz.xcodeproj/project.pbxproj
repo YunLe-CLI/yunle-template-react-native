@@ -17,6 +17,7 @@
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* dgzTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* dgzTests.m */; };
+		A7D097FA241499BB00899519 /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7D097F9241499BB00899519 /* BootSplash.storyboard */; };
 		B856A680EBB2CEFFF039113D /* libPods-dgzTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B8D6EB4235E0DFEE014BABE /* libPods-dgzTests.a */; };
 		C30C7F8C232663A200E21E9C /* iconfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C30C7F8B232663A200E21E9C /* iconfont.ttf */; };
 		C33A66B8230138310016CFD8 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C33A66B7230138310016CFD8 /* UserNotifications.framework */; };
@@ -112,6 +113,7 @@
 		9E532D6BB980DC3F91A5AB2C /* Pods-dgz-tvOS.debug production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgz-tvOS.debug production.xcconfig"; path = "Target Support Files/Pods-dgz-tvOS/Pods-dgz-tvOS.debug production.xcconfig"; sourceTree = "<group>"; };
 		A66F5ED68C3D182F269E37BD /* Pods-dgz-tvOS.debug qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgz-tvOS.debug qa.xcconfig"; path = "Target Support Files/Pods-dgz-tvOS/Pods-dgz-tvOS.debug qa.xcconfig"; sourceTree = "<group>"; };
 		A700C4B12390CC8400BEFBBD /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		A7D097F9241499BB00899519 /* BootSplash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = BootSplash.storyboard; path = dgz/BootSplash.storyboard; sourceTree = "<group>"; };
 		AC50AB3222B78B631C949D3F /* Pods-dgz.releaseqa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgz.releaseqa.xcconfig"; path = "Target Support Files/Pods-dgz/Pods-dgz.releaseqa.xcconfig"; sourceTree = "<group>"; };
 		AEEA128E4E113BDB0AB83F2B /* Pods-dgzTests.releaseqa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgzTests.releaseqa.xcconfig"; path = "Target Support Files/Pods-dgzTests/Pods-dgzTests.releaseqa.xcconfig"; sourceTree = "<group>"; };
 		B85C0093EE6916B43D5143FD /* libPods-dgz-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-dgz-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -251,6 +253,7 @@
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
+				A7D097F9241499BB00899519 /* BootSplash.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				C3A5FCAD23715484007CA4CE /* AppInfo.h */,
 				C3A5FCAE23715484007CA4CE /* AppInfo.m */,
@@ -615,6 +618,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7D097FA241499BB00899519 /* BootSplash.storyboard in Resources */,
 				C30C7F8C232663A200E21E9C /* iconfont.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
@@ -1041,7 +1045,7 @@
 					"$(PROJECT_DIR)/UMComponent/UMShare/SocialLibraries/Sina",
 					"$(PROJECT_DIR)/UMComponent/UMShare/SocialLibraries/QQ",
 				);
-				MARKETING_VERSION = 0.0.13;
+				MARKETING_VERSION = 0.0.14;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1087,7 +1091,7 @@
 					"$(PROJECT_DIR)/UMComponent/UMShare/SocialLibraries/Sina",
 					"$(PROJECT_DIR)/UMComponent/UMShare/SocialLibraries/QQ",
 				);
-				MARKETING_VERSION = 0.0.13;
+				MARKETING_VERSION = 0.0.14;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1106,7 +1110,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 64AE1DFE0F9207E62696FCD3 /* Pods-dgz-tvOS.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -1135,7 +1139,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 49139FA8133B491848DA138F /* Pods-dgz-tvOS.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -1409,7 +1413,7 @@
 					"$(PROJECT_DIR)/UMComponent/UMShare/SocialLibraries/Sina",
 					"$(PROJECT_DIR)/UMComponent/UMShare/SocialLibraries/QQ",
 				);
-				MARKETING_VERSION = 0.0.13;
+				MARKETING_VERSION = 0.0.14;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1455,7 +1459,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 52C3B53066AEF9FA182D49DB /* Pods-dgz-tvOS.debugproduction.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -1587,7 +1591,7 @@
 					"$(PROJECT_DIR)/UMComponent/UMShare/SocialLibraries/Sina",
 					"$(PROJECT_DIR)/UMComponent/UMShare/SocialLibraries/QQ",
 				);
-				MARKETING_VERSION = 0.0.13;
+				MARKETING_VERSION = 0.0.14;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1629,7 +1633,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C34E32C16EBDF2FF362EF2ED /* Pods-dgz-tvOS.releaseproduction.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -1770,7 +1774,7 @@
 					"$(PROJECT_DIR)/UMComponent/UMShare/SocialLibraries/Sina",
 					"$(PROJECT_DIR)/UMComponent/UMShare/SocialLibraries/QQ",
 				);
-				MARKETING_VERSION = 0.0.13;
+				MARKETING_VERSION = 0.0.14;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1816,7 +1820,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 21888D8F852EB22293232443 /* Pods-dgz-tvOS.debugqa.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -1948,7 +1952,7 @@
 					"$(PROJECT_DIR)/UMComponent/UMShare/SocialLibraries/Sina",
 					"$(PROJECT_DIR)/UMComponent/UMShare/SocialLibraries/QQ",
 				);
-				MARKETING_VERSION = 0.0.13;
+				MARKETING_VERSION = 0.0.14;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1990,7 +1994,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6DA76A3F15847E4714733876 /* Pods-dgz-tvOS.releaseqa.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
