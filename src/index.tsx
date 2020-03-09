@@ -290,7 +290,6 @@ export default class RootView extends PureComponent {
 
   async componentDidUpdate() {
     const themeID = await AsyncStorage.getItem('__THEME_ID__') || this.state.themeID;
-    console.log(!this[themeID])
     if (!this[themeID]) {
       this.createThemeNode()
     }
@@ -298,26 +297,21 @@ export default class RootView extends PureComponent {
 
   async createThemeNode() {
     const themeID = await AsyncStorage.getItem('__THEME_ID__') || this.state.themeID;
-    const nowTheme = _.findLast(THEMES, (item) => {
-      return item.id === themeID
-    });
-    if (nowTheme) {
-      await AsyncStorage.setItem('__THEME_ID__', themeID);
-      this[themeID] = createApp(nowTheme);
-      this.setState({
-        themeID: themeID,
-        time: moment().format('X')
-      });
+    let nowThemeID = 'Theme_Default';
+    supportedThemes = Object.values(themes)
+    if (themeID && supportedThemes.findIndex((id) => themeID === id) > -1) {
+      nowThemeID = themeID;
     } else {
-      const nowTheme = _.findLast(THEMES, (item) => {
-        return item.id === this.state.themeID
-      });
-      this[themeID] = createApp(nowTheme);
-      this.setState({
-        themeID: themeID,
-        time: moment().format('X')
-      });
+      // auto set
+      nowThemeID = 'Theme_Default'
     }
+    await AsyncStorage.setItem('__THEME_ID__', nowThemeID);
+    const nowTheme = themes[nowThemeID];
+    this[nowThemeID] = createApp(nowTheme);
+    this.setState({
+      themeID: nowThemeID,
+      time: moment().format('X')
+    });
   }
 
   async selectTheme(themeID: string) {
