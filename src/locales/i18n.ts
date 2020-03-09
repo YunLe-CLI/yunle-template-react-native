@@ -6,11 +6,9 @@ import _ from 'lodash';
 // 缓存翻译的结果
 export const translate = _.memoize(
   (key, config) => {
-    console.log(key, 1231231)
     return i18n.t('pages.Home.home', config)
   },
   (key, config) => {
-    console.log(key, 1231231, 2222)
     return (config ? key + JSON.stringify(config) : key)
   },
 );

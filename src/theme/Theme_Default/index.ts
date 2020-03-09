@@ -8,6 +8,6 @@ export default {
   router: createRouter(),
   models: Object.values(models),
   author: '大狗吱',
-  preview: require('@Theme/Theme_Default/doc/preview.jpg'),
+  preview: require('@Theme/Theme_Default/assets/preview.jpg'),
   locales: locales,
 }
