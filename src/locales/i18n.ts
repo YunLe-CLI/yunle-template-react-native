@@ -26,7 +26,7 @@ export let supportedLanguages = Object.keys(translationGetters);
 
 // language: e.g. en,zh-CN, auto set most fit language if omitted
 // ret language that actually applied
-export const setI18nConfig = (language, themeLocales = {}) => {
+export const setI18nConfig = (language: string, themeLocales = any) => {
   let targetLng = null;
   translationGetters = _.merge(translationGetters, themeLocales);
   supportedLanguages = Object.keys(translationGetters);

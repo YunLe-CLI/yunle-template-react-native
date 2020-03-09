@@ -1,7 +1,6 @@
 import { Reducer } from 'redux';
 import { Effect, Subscription } from 'dva';
 import _ from 'lodash';
-import {touristsAccount} from '@Global/utils/config';
 
 export interface UserModelState {
   isTouristsAccount: boolean;

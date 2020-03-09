@@ -1,6 +1,6 @@
 import {Platform} from "react-native";
-import request from '@Global/utils/request'
-import {ENVIRONMENT} from "@Global/utils/env";
+import request from '@/services/request'
+// import {ENVIRONMENT} from "@Global/utils/env";
 import _ from 'lodash';
 import moment from "moment";
 import api from './global.d';
@@ -16,7 +16,7 @@ export async function getOnlineAppVersion(): Promise<api.VERSION_INFO> {
     url: url,
     method: 'GET'
   }).then((data: api.onlineVersion) => {
-    const res = _.get(data, `${Platform.OS}.${ENVIRONMENT}`, {}) || {};
+    const res = _.get(data, `${Platform.OS}.${global.$config.environment}`, {}) || {};
     return res
   });
 }

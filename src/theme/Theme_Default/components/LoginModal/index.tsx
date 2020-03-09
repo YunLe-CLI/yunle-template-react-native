@@ -164,6 +164,8 @@ class LoginProvider extends React.Component<IProps, IState> {
 
   render() {
     LOGIN_MODAL_THIS = this;
+    const width = Dimensions.get('window').width;
+    const height = Dimensions.get('window').height;
     return (
       <LoginContext.Provider
         value={{
@@ -195,13 +197,13 @@ class LoginProvider extends React.Component<IProps, IState> {
             // });
           }}
         >
-          <View style={{ flex: 1 }}>
+          <View style={{ flex: 1, backgroundColor: '#373940' }}>
             <ImageBackground
               style={{
-                width: Dimensions.get('window').width,
-                height: Dimensions.get('window').height,
+                width,
+                height,
               }}
-              source={pic_loginbg}>
+              source={{uri: `https://bing.ioliu.cn/v1/rand?w=${width}&h=${height}`}}>
               <Container style={styles.container}>
                 <Content
                   disableKBDismissScroll
