@@ -1,7 +1,7 @@
 import { Reducer } from 'redux';
 import { Model, Effect, EffectWithType } from 'dva';
 import _ from 'lodash';
-import { PATIENTS_INFO } from '@/services/global';
+import { PATIENTS_INFO } from '@/services/api';
 
 export interface IModelState {
   isTouristsAccount: boolean;

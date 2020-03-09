@@ -3,7 +3,7 @@ import request from '@/services/request'
 // import {ENVIRONMENT} from "@Global/utils/env";
 import _ from 'lodash';
 import moment from "moment";
-import api from './global.d';
+import api from './api.d';
 
 /**
  * 获取app版本
