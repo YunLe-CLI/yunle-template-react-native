@@ -76,7 +76,7 @@
     "react-native-device-info": "^5.5.3",
     "react-native-draggable": "^3.0.0",
     "react-native-dropdownalert": "^4.2.0",
-    "react-native-fast-image": "^8.1.0",
+    "react-native-fast-image": "8.1.2",
     "react-native-file-viewer": "^2.0.2",
     "react-native-flash-message": "^0.1.15",
     "react-native-fs": "2.16.6",
