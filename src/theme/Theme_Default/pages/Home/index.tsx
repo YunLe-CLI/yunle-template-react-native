@@ -57,7 +57,7 @@ class Home extends React.Component<IProps, IState> {
           <Card>
             <CardItem>
               <Left>
-                <Thumbnail source={{uri: `https://bing.ioliu.cn/v1/rand?w=${600}&h=${100}`}} />
+                <Thumbnail source={{uri: `https://bing.ioliu.cn/v1/rand?w=${300}&h=${300}`}} />
                 <Body>
                   <Text>NativeBase</Text>
                   <Text note>GeekyAnts</Text>
@@ -65,7 +65,7 @@ class Home extends React.Component<IProps, IState> {
               </Left>
             </CardItem>
             <CardItem cardBody>
-              <Image source={{uri: `https://bing.ioliu.cn/v1/rand?w=${600}&h=${100}`}} style={{height: 200, width: null, flex: 1}}/>
+              <Image source={{uri: 'https://bing.ioliu.cn/v1/rand' }} style={{height: 200, width: null, flex: 1}}/>
             </CardItem>
             <CardItem>
               <Left>
