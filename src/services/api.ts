@@ -1,21 +1,36 @@
 import {Platform} from "react-native";
 import request from '@/services/request'
-// import {ENVIRONMENT} from "@Global/utils/env";
 import _ from 'lodash';
 import moment from "moment";
-import api from './api.d';
+
+export interface VERSION_INFO {
+  "version": string;
+  "build": string;
+  "download": string;
+}
+
+export interface VERSION_LIST {
+  "qa": VERSION_INFO;
+  "debug": VERSION_INFO;
+  "production": VERSION_INFO;
+}
+
+export interface onlineVersion {
+  "ios": VERSION_LIST;
+  "android": VERSION_LIST;
+} 
 
 /**
  * 获取app版本
  * api doc url:
  * @param params
  */
-export async function getOnlineAppVersion(): Promise<api.VERSION_INFO> {
+export async function getOnlineAppVersion(): Promise<VERSION_INFO> {
   const url = `https://dagouzhi.oss-cn-qingdao.aliyuncs.com/com.dagouzhi.app.temp/app.version.update.info.json?time=${moment().format("X")}`;
   return request({
     url: url,
     method: 'GET'
-  }).then((data: api.onlineVersion) => {
+  }).then((data: onlineVersion) => {
     const res = _.get(data, `${Platform.OS}.${global.$config.environment}`, {}) || {};
     return res
   });
