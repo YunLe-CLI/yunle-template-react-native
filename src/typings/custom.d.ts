@@ -31,4 +31,11 @@ declare module "*.gif" {
   };
   export default content;
 }
+
+declare module "*.json" {
+	const value: any;
+	export default value;
+}
+
+
 declare const REACT_APP_ENV: 'test' | 'dev' | 'pre' | false;

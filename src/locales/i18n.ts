@@ -41,7 +41,9 @@ export const setI18nConfig = (language: string, themeLocales: any) => {
   }
 
   // clear translation cache
-  translate.cache.clear();
+  if (translate.cache && translate.cache.clear) {
+    translate.cache.clear();
+  }
   // update layout direction
   I18nManager.forceRTL(targetLng.isRTL);
 

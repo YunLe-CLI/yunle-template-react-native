@@ -31,7 +31,7 @@ export async function getOnlineAppVersion(): Promise<VERSION_INFO> {
     url: url,
     method: 'GET'
   }).then((data: onlineVersion) => {
-    const res = _.get(data, `${Platform.OS}.${global.$config.environment}`, {}) || {};
+    const res = _.get(data, `${Platform.OS}.${$config.environment}`, {}) || {};
     return res
   });
 }
