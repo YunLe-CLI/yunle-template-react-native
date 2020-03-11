@@ -47,6 +47,7 @@ export interface ICreateApp {
 interface IMProps extends ConnectProps {
   appReload: boolean;
   ENV: string;
+  appProps: ConnectState
 }
 
 function createApp(config: ICreateApp) {
@@ -112,11 +113,11 @@ function createApp(config: ICreateApp) {
 
       forceUpdateNum: number = 0;
 
-      static getDerivedStateFromError(error) {
+      static getDerivedStateFromError() {
         return { isError: true };
       }
 
-      componentDidCatch (err, info) {
+      componentDidCatch (err: any, info: any) {
         this.setState({
           errorInfo: err || info,
         })
@@ -210,9 +211,8 @@ function createApp(config: ICreateApp) {
       }
 
       render() {
-        const { ENV, appProps } = this.props;
+        const { appProps } = this.props;
         const { initLoading, forceUpdate, isError, errorInfo } = this.state;
-        console.log(this.props)
         return (
           <View style={{ flex: 1, flexGrow: 1, }}>
             <View style={{ flexGrow: 1, }}>
@@ -233,11 +233,11 @@ function createApp(config: ICreateApp) {
     const MainView = connect((state: ConnectState) => {
       return {
         appReload: _.get(state, 'app.appReload', false),
-        ENV: _.get(state, 'app.ENV', {}),
         appProps: state,
       }
     })(withSelectThemeModal(withLoadingSpinner(Main)));
-    class App extends PureComponent {
+
+    class App extends React.Component {
       render() {
         // todo: 临时写法
         global.dvaStore = dvaApp._store;
