@@ -1,6 +1,6 @@
 import { Reducer } from 'redux';
 import { Subscription, Effect } from 'dva';
-import { Mode, eventEmitter } from 'react-native-dark-mode'
+import { Mode, eventEmitter, initialMode } from 'react-native-dark-mode'
 import { ENVIRONMENT, BUILD_TYPE } from '@Global/utils/env';
 
 export interface GlobalModelState {
@@ -31,7 +31,7 @@ const INIT_STATE: GlobalModelState = {
   appState: 'active',
   orientation: 'PORTRAIT',
   appReloadNum: false,
-  mode: 'light',
+  mode: initialMode,
 };
 
 const GlobalModel: GlobalModelType = {
@@ -68,7 +68,7 @@ const GlobalModel: GlobalModelType = {
     },
     subscriptions: {
       setup: ({ dispatch }) => {
-        if (global.$APP_INIT) {
+        if (!global.$APP_INIT) {
           global.$APP_INIT = true;
           eventEmitter.on('currentModeChanged', newMode => {
             console.log('Switched to', newMode, 'mode')
