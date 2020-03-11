@@ -61,6 +61,7 @@ function createApp(config: ICreateApp) {
       key: PERSIST_KEY,
       storage: AsyncStorage,
       blacklist: [
+        'global',
         'router',
       ],
     };

@@ -16,7 +16,7 @@ import { ConnectProps, ConnectState } from '../../models/connect';
 import styles from './styles';
 
 export interface IProps extends ConnectProps {
-  user: {}
+  global: {}
 }
 
 export interface IState {}
@@ -30,6 +30,7 @@ class Home extends React.Component<IProps, IState> {
     console.log('props: ', this.props)
   }
   render() {
+    const { global } = this.props;
     return (
       <Container style={styles.container}>
         <NavigationEvents
@@ -49,7 +50,7 @@ class Home extends React.Component<IProps, IState> {
         <Header>
           <Left />
           <Body>
-            <Title>{$t('pages.Home.home')}</Title>
+          <Title>{$t('pages.Home.home')} ({global.mode})</Title>
           </Body>
           <Right />
         </Header>
@@ -90,8 +91,8 @@ class Home extends React.Component<IProps, IState> {
     );
   }
 }
-export default (connect(({ user }: ConnectState) => {
+export default (connect(({ global }: ConnectState) => {
   return {
-    user,
+    global,
   }
 }))(Home);
