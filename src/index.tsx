@@ -1,5 +1,5 @@
-import React, {Component, PureComponent, ReactNode} from 'react';
-import {AppState, Linking, View, Text} from 'react-native';
+import React, {Component, PureComponent } from 'react';
+import { AppState, Linking, View } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { persistStore, persistReducer, REHYDRATE } from 'redux-persist';
 import { StyleProvider } from 'native-base';
@@ -12,9 +12,8 @@ import _ from 'lodash';
 import './global';
 import dva from '@Global/utils/dva';
 import createModels from '@Global/models';
-import { Dispatch } from 'redux';
-import { ConnectState } from '@Global/connect';
-import {UrlProcessUtil, getEnv} from '@Global/utils/utils';
+import { ConnectState, ConnectProps } from '@Global/models/connect';
+import { UrlProcessUtil } from '@Global/utils/utils';
 import LoadingSpinnerProvider, {withLoadingSpinner} from '@Global/components/LoadingSpinner';
 import DropdownAlertProvider from '@Global/components/DropdownAlert';
 import IsTester from '@Global/components/isTester';
@@ -22,27 +21,32 @@ import Loading from '@Global/components/Loading';
 import CheckAppUpdateProvider from '@Global/components/CheckAppUpdate';
 import CheckCodePushProvider from '@Global/components/CheckCodePush';
 import SelectThemeModalProvider, {withSelectThemeModal} from '@Global/components/SelectThemeModal';
-import { IAppModelState } from '@Global/models';
 import ErrorView from '@Global/components/ErrorView';
 
 import getTheme from '@Global/utils/native-base-theme/components';
 import platform from '@Global/utils/native-base-theme/variables/platform';
 import {setJSExceptionHandler} from "@Global/utils/globalErrorHandle";
-import { BUILD_TYPE } from '@Global/utils/env'
-
-import * as themes from '@Theme';
 import moment from 'moment';
 
-global.dvaStore = undefined;
+import * as themes from '@Theme/index';
 
-const THEMES = Object.values(themes);
+global.dvaStore = undefined;
 
 export interface ICreateApp {
   id: string;
   name: string;
-  router: {};
+  router: {
+    Router: any;
+    routerReducer: any;
+    routerMiddleware: any;
+  };
   models: [],
   locales: {},
+}
+
+interface IMProps extends ConnectProps {
+  appReload: boolean;
+  ENV: string;
 }
 
 function createApp(config: ICreateApp) {
@@ -51,7 +55,7 @@ function createApp(config: ICreateApp) {
     const PERSIST_KEY = config.id;
     const router = config.router;
     const models = createModels(config.models);
-    const initLocale = i18n.setI18nConfig('zh-CN', config.locales);
+    i18n.setI18nConfig('zh-CN', config.locales);
     const persistConfig = {
       key: PERSIST_KEY,
       storage: AsyncStorage,
@@ -80,19 +84,6 @@ function createApp(config: ICreateApp) {
       return persistor
     };
 
-    interface IMProps {
-      appReload: boolean;
-      ENV: string;
-      dispatch: Dispatch;
-    }
-
-    @(connect((state: ConnectState) => {
-      return {
-        appReload: _.get(state, 'app.appReload', false),
-        ENV: _.get(state, 'app.ENV', {}),
-        appProps: state,
-      }
-    }))
     class Main extends Component<IMProps> {
       constructor(props: IMProps) {
         super(props)
@@ -170,12 +161,12 @@ function createApp(config: ICreateApp) {
           await this.initLinking();
           AppState.addEventListener('change', this._handleAppStateChange);
           Orientation.addOrientationListener(this._onOrientationDidChange);
-          // setJSExceptionHandler((e) => {
-          //   this.setState({
-          //     isError: true,
-          //     errorInfo: e,
-          //   })
-          // }, BUILD_TYPE === 'release');
+          setJSExceptionHandler((e) => {
+            this.setState({
+              isError: true,
+              errorInfo: e,
+            })
+          }, $config.buildType === 'release');
         } catch (e) {
 
         } finally {
@@ -207,7 +198,7 @@ function createApp(config: ICreateApp) {
 
       initENV = async () => {
         const { dispatch } = this.props;
-        const env = await getEnv();
+        const env = $config.environment;
         await dispatch({
           type: 'global/changeENV',
           payload: env,
@@ -239,7 +230,13 @@ function createApp(config: ICreateApp) {
         );
       }
     }
-    const MainView = withSelectThemeModal(withLoadingSpinner(Main));
+    const MainView = connect((state: ConnectState) => {
+      return {
+        appReload: _.get(state, 'app.appReload', false),
+        ENV: _.get(state, 'app.ENV', {}),
+        appProps: state,
+      }
+    })(withSelectThemeModal(withLoadingSpinner(Main)));
     class App extends PureComponent {
       render() {
         // todo: 临时写法
@@ -268,14 +265,14 @@ function createApp(config: ICreateApp) {
     }
     APP_NODE = dvaApp.start(<App />);
   } catch (e) {
-    alert(e)
+   
   }
   return APP_NODE;
 }
 
 let codePushOptions = {
   checkFrequency : codePush.CheckFrequency.MANUAL,
-  updateDialog: false,
+  updateDialog: undefined,
 };
 @codePush(codePushOptions)
 export default class RootView extends PureComponent {
@@ -298,8 +295,8 @@ export default class RootView extends PureComponent {
   async createThemeNode() {
     const themeID = await AsyncStorage.getItem('__THEME_ID__') || this.state.themeID;
     let nowThemeID = 'Theme_Default';
-    supportedThemes = Object.values(themes)
-    if (themeID && supportedThemes.findIndex((id) => themeID === id) > -1) {
+    const supportedThemes = Object.values(themes)
+    if (themeID && supportedThemes.findIndex((item) => themeID === item.id) > -1) {
       nowThemeID = themeID;
     } else {
       // auto set
@@ -316,14 +313,14 @@ export default class RootView extends PureComponent {
 
   async selectTheme(themeID: string) {
     let nowThemeID = 'Theme_Default';
-    supportedThemes = Object.values(themes)
-    if (themeID && supportedThemes.findIndex((id) => themeID === id) > -1) {
+    const supportedThemes = Object.values(themes)
+    if (themeID && supportedThemes.findIndex((item) => themeID === item.id) > -1) {
       nowThemeID = themeID;
     } else {
       // auto set
       nowThemeID = 'Theme_Default'
     }
-    await AsyncStorage.setItem('__THEME_ID__', themeID);
+    await AsyncStorage.setItem('__THEME_ID__', nowThemeID);
     console.log(themeID)
     setTimeout(() => {
       codePush.restartApp();

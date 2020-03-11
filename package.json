@@ -72,6 +72,7 @@
     "react-native-camera": "^3.19.0",
     "react-native-code-push": "6.1.0",
     "react-native-collapsible": "^1.5.1",
+    "react-native-dark-mode": "^0.2.2",
     "react-native-date-picker": "2.7.8",
     "react-native-device-info": "^5.5.3",
     "react-native-draggable": "^3.0.0",

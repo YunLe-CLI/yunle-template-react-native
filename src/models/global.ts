@@ -1,11 +1,13 @@
 import { Reducer } from 'redux';
 import { Subscription, Effect } from 'dva';
+import { Mode, eventEmitter } from 'react-native-dark-mode'
 import { ENVIRONMENT, BUILD_TYPE } from '@Global/utils/env';
 
 export interface GlobalModelState {
   orientation: string;
   appState: string;
   appReloadNum: boolean;
+  mode: Mode;
 }
 
 export interface GlobalModelType {
@@ -20,6 +22,7 @@ export interface GlobalModelType {
     orientationChange: Reducer<GlobalModelState>;
     appStateChange: Reducer<GlobalModelState>;
     setENV: Reducer<GlobalModelState>;
+    setMode: Reducer<GlobalModelState>;
   };
   subscriptions: { setup: Subscription };
 }
@@ -28,6 +31,7 @@ const INIT_STATE: GlobalModelState = {
   appState: 'active',
   orientation: 'PORTRAIT',
   appReloadNum: false,
+  mode: 'light',
 };
 
 const GlobalModel: GlobalModelType = {
@@ -52,6 +56,9 @@ const GlobalModel: GlobalModelType = {
       },
       appReload(state, { appReload }) {
         return { ...state, appReload: !!appReload }
+      },
+      setMode(state, { mode }) {
+        return { ...state, mode }
       }
     },
     effects: {
@@ -60,7 +67,18 @@ const GlobalModel: GlobalModelType = {
         },
     },
     subscriptions: {
-      setup: () => {}
+      setup: ({ dispatch }) => {
+        if (global.$APP_INIT) {
+          global.$APP_INIT = true;
+          eventEmitter.on('currentModeChanged', newMode => {
+            console.log('Switched to', newMode, 'mode')
+            dispatch({
+              type: 'setMode',
+              mode: newMode,
+            })
+          });
+        }
+      }
     },
 };
 
