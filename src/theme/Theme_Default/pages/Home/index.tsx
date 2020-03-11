@@ -55,6 +55,9 @@ class Home extends React.Component<IProps, IState> {
           <Right />
         </Header>
         <Content style={{ padding: 15, }}>
+          <Text>
+            {JSON.stringify(global)}
+          </Text>
           <Card>
             <CardItem>
               <Left>

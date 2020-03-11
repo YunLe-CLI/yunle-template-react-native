@@ -1,4 +1,5 @@
 declare var global: {
+	dvaStore: any; 
 	i18n: {
 	 setI18nConfig: (language: string, themeLocales: any) => string;
 	 supportedLanguages: string[];
@@ -9,7 +10,7 @@ declare var global: {
 	 buildType: string;
  	};
  	$token: string | undefined;
-  [key: string]: any; 
+	[key: string]: any;
 };
 
 declare namespace $config {

@@ -1,11 +1,13 @@
 import { Reducer } from 'redux';
+import { AppState, AppStateStatus } from 'react-native';
 import { Subscription, Effect } from 'dva';
 import { Mode, eventEmitter, initialMode } from 'react-native-dark-mode'
+import Orientation, { OrientationType } from 'react-native-orientation-locker';
 import { ENVIRONMENT, BUILD_TYPE } from '@Global/utils/env';
 
 export interface GlobalModelState {
-  orientation: string;
-  appState: string;
+  orientation: OrientationType;
+  appState: AppStateStatus;
   appReloadNum: boolean;
   mode: Mode;
 }
@@ -29,7 +31,7 @@ export interface GlobalModelType {
 
 const INIT_STATE: GlobalModelState = {
   appState: 'active',
-  orientation: 'PORTRAIT',
+  orientation: Orientation.getInitialOrientation(),
   appReloadNum: false,
   mode: initialMode,
 };
@@ -68,16 +70,30 @@ const GlobalModel: GlobalModelType = {
     },
     subscriptions: {
       setup: ({ dispatch }) => {
-        if (!global.$APP_INIT) {
-          global.$APP_INIT = true;
-          eventEmitter.on('currentModeChanged', newMode => {
-            console.log('Switched to', newMode, 'mode')
-            dispatch({
-              type: 'setMode',
-              mode: newMode,
-            })
+        function appStateListener(nextAppState: AppStateStatus) {
+          dispatch({
+            type: 'appStateChange',
+            appState: nextAppState,
           });
         }
+        function darkModeListener(newMode: Mode) {
+          dispatch({
+            type: 'setMode',
+            mode: newMode,
+          })
+        }
+        function orientationListener(orientation: OrientationType) {
+          dispatch({
+            type: 'orientationChange',
+            orientation,
+          })
+        }
+        eventEmitter.removeAllListeners('currentModeChanged');
+        AppState.removeEventListener('change', appStateListener);
+        Orientation.removeAllListeners();
+        eventEmitter.on('currentModeChanged', darkModeListener);
+        AppState.addEventListener('change', appStateListener);
+        Orientation.addOrientationListener(orientationListener);
       }
     },
 };

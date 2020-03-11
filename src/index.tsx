@@ -1,12 +1,11 @@
 import React, {Component, PureComponent } from 'react';
-import { AppState, Linking, View } from 'react-native';
+import { Linking, View } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { persistStore, persistReducer, REHYDRATE } from 'redux-persist';
 import { StyleProvider } from 'native-base';
 import { PersistGate } from 'redux-persist/integration/react';
 import { connect } from "react-redux";
 import RNBootSplash from 'react-native-bootsplash';
-import Orientation from 'react-native-orientation-locker';
 import codePush from "react-native-code-push";
 import _ from 'lodash';
 import './global';
@@ -29,8 +28,6 @@ import {setJSExceptionHandler} from "@Global/utils/globalErrorHandle";
 import moment from 'moment';
 
 import * as themes from '@Theme/index';
-
-global.dvaStore = undefined;
 
 export interface ICreateApp {
   id: string;
@@ -90,17 +87,8 @@ function createApp(config: ICreateApp) {
       constructor(props: IMProps) {
         super(props)
         codePush.disallowRestart(); // 禁止重启
-        const { dispatch } = props;
         // @ts-ignore
         UrlProcessUtil.dispatch = props.dispatch;
-        Orientation.lockToPortrait();
-        const initial = Orientation.getInitialOrientation();
-        if (dispatch) {
-          dispatch({
-            type: 'global/orientationChange',
-            orientation: initial,
-          })
-        }
       }
 
       state = {
@@ -153,16 +141,12 @@ function createApp(config: ICreateApp) {
       }
 
       componentWillUnmount() {
-        AppState.removeEventListener('change', this._handleAppStateChange);
         Linking.removeEventListener('url', ({url}) => UrlProcessUtil.handleOpenURL(url));
       }
 
       async init() {
         try {
-          await this.initENV();
           await this.initLinking();
-          AppState.addEventListener('change', this._handleAppStateChange);
-          Orientation.addOrientationListener(this._onOrientationDidChange);
           setJSExceptionHandler((e) => {
             this.setState({
               isError: true,
@@ -179,33 +163,6 @@ function createApp(config: ICreateApp) {
           });
         }
       }
-
-      _handleAppStateChange = async (nextAppState: string) => {
-        const { dispatch } = this.props;
-        if (dispatch) {
-          dispatch({
-            type: 'global/appStateChange',
-            appState: nextAppState,
-          });
-        }
-      };
-
-      _onOrientationDidChange = async (orientation: string) => {
-        const { dispatch } = this.props;
-        dispatch({
-          type: 'global/orientationChange',
-          orientation,
-        })
-      };
-
-      initENV = async () => {
-        const { dispatch } = this.props;
-        const env = $config.environment;
-        await dispatch({
-          type: 'global/changeENV',
-          payload: env,
-        });
-      };
 
       initLinking = async () => {
         Linking.addEventListener('url', ({url}) => UrlProcessUtil.handleOpenURL(url));
@@ -240,8 +197,6 @@ function createApp(config: ICreateApp) {
 
     class App extends React.Component {
       render() {
-        // todo: 临时写法
-        global.dvaStore = dvaApp._store;
         return (
           <PersistGate
             persistor={createPersist(dvaApp._store)}
