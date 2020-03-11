@@ -128,7 +128,7 @@ function createApp(config: ICreateApp) {
         codePush.allowRestart();// 在加载完了，允许重启
       }
 
-      async componentDidUpdate(prevProps: Readonly<IMProps>, prevState: Readonly<{}>, snapshot?: any): void {
+      async componentDidUpdate(prevProps: Readonly<IMProps>, prevState: Readonly<{}>, snapshot?: any) {
         // // todo: 暂时 当appReload改变强置刷新
         try {
           if (this.props.appReload !== prevProps.appReload && this.props.appReload) {

@@ -1,6 +1,6 @@
 const noop = () => {};
 
-export const setJSExceptionHandler = (customHandler = noop, allowedInDevMode = false) => {
+export const setJSExceptionHandler = (customHandler:(err: any)=>void = noop, allowedInDevMode = false) => {
     if (typeof allowedInDevMode !== "boolean" || typeof customHandler !== "function") {
         return;
     }
