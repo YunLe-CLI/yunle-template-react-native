@@ -1,20 +1,17 @@
 import React from 'react';
 import {Linking, View} from 'react-native';
 import { connect } from 'react-redux';
-import LottieView from 'lottie-react-native';
 import styles from "./styles";
-import animateData from './assets/12131-christmas-snow-loading.json';
 import {NavigationActions} from "react-navigation";
 import {UrlProcessUtil} from "@Global/utils/utils";
-import { withLoginModal } from '../../components/LoginModal'
+import { withLoginModal, ILoginProvider } from '../../components/LoginModal'
+import { ConnectProps, ConnectState } from '../../models/connect';
 
-export interface IProps {}
+interface IProps extends ConnectProps, ILoginProvider {
+  token: string | undefined;
+}
 
-@(connect() as any)
 class Splash extends React.PureComponent<IProps, {}> {
-  constructor(props: IProps) {
-    super(props);
-  }
 
   componentDidMount() {
     this.init();
@@ -32,7 +29,7 @@ class Splash extends React.PureComponent<IProps, {}> {
     let IS_LOGIN = false;
     try {
       const { dispatch } = this.props;
-      IS_LOGIN = await dispatch({
+      const IS_LOGIN = await dispatch({
         type: 'auth/checkLogin'
       });
       if (IS_LOGIN) {
@@ -83,4 +80,8 @@ class Splash extends React.PureComponent<IProps, {}> {
 }
 
 
-export default withLoginModal(Splash);
+export default (connect(({ auth }: ConnectState) => {
+  return {
+    token: auth.token,
+  }
+}))(withLoginModal(Splash));

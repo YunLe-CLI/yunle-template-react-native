@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import {Platform, BackHandler, ToastAndroid, View} from 'react-native';
+import { Platform, BackHandler, ToastAndroid } from 'react-native';
 import {
   NavigationActions,
 } from 'react-navigation';
@@ -14,8 +14,9 @@ import {
 } from 'react-navigation-redux-helpers';
 
 import { connect } from 'react-redux';
-import getTheme from '../components/native-base-theme/components';
-import platform from '../components/native-base-theme/variables/platform';
+import { ConnectState } from '../models/connect';
+import getTheme from '../utils/native-base-theme/components';
+import platform from '../utils/native-base-theme/variables/platform';
 
 import Splash from '../pages/Splash';
 import BottomTab from '../router/BottomTab.router';
@@ -71,6 +72,7 @@ export default function createRouter() {
     dispatch: any;
     router: any;
     theme?: any;
+    token: undefined | string;
   }
 
   let lastBackPressed: any = undefined;
@@ -90,7 +92,7 @@ export default function createRouter() {
       forceUpdate: false,
     }
 
-    componentDidUpdate(prevProps: Readonly<IMProps>, prevState: Readonly<{}>): void {
+    componentDidUpdate(prevProps: Readonly<IRouterProps>, prevState: Readonly<{}>): void {
       // // todo: 暂时 当token改变强置刷新
       try {
         console.log('token this', this.props.token)
@@ -148,16 +150,16 @@ export default function createRouter() {
     }
   }
 
-  interface IConnectProps {
+  interface IConnectState extends ConnectState {
     router: any;
   }
   return {
     routerReducer,
     routerMiddleware,
-    Router: connect((state: IConnectProps) => {
+    Router: connect((state: IConnectState) => {
       return {
         router: state.router,
-        token: _.get(state, 'auth.token'),
+        token: state.auth.token,
       }
     })(Router),
   }

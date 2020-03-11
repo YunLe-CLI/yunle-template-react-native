@@ -14,5 +14,5 @@ export interface ConnectState {
 export interface ConnectProps<T = {}> {
   screenProps?: unknown;
   navigation?: NavigationScreenProp<any,any>;
-  dispatch?: Dispatch<AnyAction>;
+  dispatch: Dispatch<AnyAction>;
 }

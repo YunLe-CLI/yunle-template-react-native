@@ -12,7 +12,7 @@ import {
 } from 'native-base';
 import _ from 'lodash';
 import { NavigationEvents } from 'react-navigation';
-import { ConnectProps, ConnectState } from '@Theme/Theme_Default/models/connect';
+import { ConnectProps, ConnectState } from '../../models/connect';
 import styles from './styles';
 
 export interface IProps extends ConnectProps {

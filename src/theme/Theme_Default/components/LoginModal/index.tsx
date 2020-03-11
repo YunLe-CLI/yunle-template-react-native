@@ -69,6 +69,10 @@ export interface IState {
   password: string | undefined;
 }
 
+export interface ILoginProvider {
+  openLoginModal: () => void;
+  closeLoginModal: () => void;
+}
 @(connect(({ router }) => {
   return {
     router
