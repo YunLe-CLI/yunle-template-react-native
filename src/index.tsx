@@ -28,6 +28,7 @@ import {setJSExceptionHandler} from "@Global/utils/globalErrorHandle";
 import moment from 'moment';
 
 import * as themes from '@Theme/index';
+const themesMemoize = _.memoize(_.values);
 
 export interface ICreateApp {
   id: string;
@@ -251,7 +252,7 @@ export default class RootView extends PureComponent {
   async createThemeNode() {
     const themeID = await AsyncStorage.getItem('__THEME_ID__') || this.state.themeID;
     let nowThemeID = 'Theme_Default';
-    const supportedThemes = Object.values(themes)
+    const supportedThemes = themesMemoize(themes)
     if (themeID && supportedThemes.findIndex((item) => themeID === item.id) > -1) {
       nowThemeID = themeID;
     } else {
@@ -269,7 +270,7 @@ export default class RootView extends PureComponent {
 
   async selectTheme(themeID: string) {
     let nowThemeID = 'Theme_Default';
-    const supportedThemes = Object.values(themes)
+    const supportedThemes = themesMemoize(themes)
     if (themeID && supportedThemes.findIndex((item) => themeID === item.id) > -1) {
       nowThemeID = themeID;
     } else {
