@@ -13,6 +13,7 @@ import dva from '@Global/utils/dva';
 import createModels from '@Global/models';
 import { ConnectState, ConnectProps } from '@Global/models/connect';
 import { UrlProcessUtil } from '@Global/utils/utils';
+import MinProgramProvider from '@Global/components/MinProgram';
 import LoadingSpinnerProvider, {withLoadingSpinner} from '@Global/components/LoadingSpinner';
 import DropdownAlertProvider from '@Global/components/DropdownAlert';
 import IsTester from '@Global/components/isTester';
@@ -209,7 +210,9 @@ function createApp(config: ICreateApp) {
                   <CheckAppUpdateProvider>
                     <CheckCodePushProvider>
                       <SelectThemeModalProvider>
-                        <MainView />
+                        <MinProgramProvider>
+                          <MainView />
+                        </MinProgramProvider>
                       </SelectThemeModalProvider>
                     </CheckCodePushProvider>
                   </CheckAppUpdateProvider>

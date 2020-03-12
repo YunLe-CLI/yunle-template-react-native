@@ -12,10 +12,11 @@ import {
 } from 'native-base';
 import _ from 'lodash';
 import { NavigationEvents } from 'react-navigation';
+import { withMinProgram, withMinProgramProps } from '@Global/components/MinProgram';
 import { ConnectProps, ConnectState } from '../../models/connect';
 import styles from './styles';
 
-export interface IProps extends ConnectProps {
+export interface IProps extends ConnectProps, withMinProgramProps {
   global: {}
 }
 
@@ -58,37 +59,11 @@ class Home extends React.Component<IProps, IState> {
           <Text>
             {JSON.stringify(global)}
           </Text>
-          <Card>
-            <CardItem>
-              <Left>
-                <Thumbnail source={{uri: `https://bing.ioliu.cn/v1/rand?w=${300}&h=${300}`}} />
-                <Body>
-                  <Text>NativeBase</Text>
-                  <Text note>GeekyAnts</Text>
-                </Body>
-              </Left>
-            </CardItem>
-            <CardItem cardBody>
-              <Image source={{uri: 'https://bing.ioliu.cn/v1/rand' }} style={{height: 200, width: null, flex: 1}}/>
-            </CardItem>
-            <CardItem>
-              <Left>
-                <Button transparent>
-                  <Icon active name="thumbs-up" />
-                  <Text>12 Likes</Text>
-                </Button>
-              </Left>
-              <Body>
-                <Button transparent>
-                  <Icon active name="chatbubbles" />
-                  <Text>4 Comments</Text>
-                </Button>
-              </Body>
-              <Right>
-                <Text>11h ago</Text>
-              </Right>
-            </CardItem>
-          </Card>
+          <Button onPress={() => {
+            this.props.openMinProgram()
+          }}>
+            <Text>打开狗吱小程序</Text>
+          </Button>
         </Content>
       </Container>
     );
@@ -98,4 +73,4 @@ export default (connect(({ global }: ConnectState) => {
   return {
     global,
   }
-}))(Home);
+}))(withMinProgram(Home));
