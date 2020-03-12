@@ -1,17 +1,11 @@
 import React, {createContext} from 'react';
 import {
   Dimensions,
-  ImageBackground,
   View,
 } from 'react-native';
 import {
   Header,
-  Container,
-  Content,
   Button,
-  Item,
-  Input, Form,
-  Title,
   Left,
   Body,
   Right,
@@ -20,14 +14,13 @@ import {
 } from 'native-base';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import {NavigationActions, StackActions } from "react-navigation";
 import Modal from "react-native-modal";
+import Icon from 'react-native-vector-icons/Entypo';
 import WebView from 'react-native-webview';
 import styles from './styles';
 import FastImage from 'react-native-fast-image';
 import { withDropdownAlert } from '@Global/components/DropdownAlert';
 import { withLoadingSpinner } from '@Global/components/LoadingSpinner';
-import { getActiveRoute } from '@Global/utils/utils';
 
 import _ from 'lodash';
 
@@ -52,7 +45,11 @@ export function withMinProgram(WrappedComponent: React.ReactNode) {
         <MinProgramContext.Consumer>
           {
             ({ openMinProgram, closeMinProgram }) => {
-              return <WrappedComponent {...this.props} openMinProgram={openMinProgram} closeMinProgram={closeMinProgram} />;
+              return <WrappedComponent
+                {...this.props}
+                openMinProgram={openMinProgram} 
+                closeMinProgram={closeMinProgram} 
+              />;
             }
           }
         </MinProgramContext.Consumer>
@@ -77,15 +74,11 @@ export interface IMinProgramProvider {
   openLoginModal: () => void;
   closeLoginModal: () => void;
 }
-@(connect(({ router }) => {
-  return {
-    router
-  }
-}) as any)
+
 class MinProgramProvider extends React.Component<IProps, IState> {
 
   state: IState = {
-    isVisible: false,
+    isVisible: true,
   }
 
   openMinProgram = () => {
@@ -155,19 +148,18 @@ class MinProgramProvider extends React.Component<IProps, IState> {
                 <Segment style={{
                   backgroundColor:'transparent'
                 }}>
-                  <Button style={{
-                    width: 40,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }} first>
-                    <FastImage
-                      style={{
-                        width: 20,
-                        height: 20,
-                        borderRadius: 10,
-                      }}
-                      source={require('./assets/gengduo.png')}
-                      resizeMode={FastImage.resizeMode.contain}
+                  <Button 
+                    style={{
+                      width: 40,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }} 
+                    first
+                  >
+                    <Icon 
+                      size={20}
+                      color={'#fff'}
+                      name="dots-three-horizontal"
                     />
                   </Button>
                   <Button 
@@ -180,20 +172,25 @@ class MinProgramProvider extends React.Component<IProps, IState> {
                       this.closeMinProgram()
                     }}
                   >
-                    <FastImage
-                      style={{
-                        width: 20,
-                        height: 20,
-                        borderRadius: 10,
-                      }}
-                      source={require('./assets/center.png')}
-                      resizeMode={FastImage.resizeMode.contain}
+                    <Icon 
+                      size={20}
+                      color={'#fff'}
+                      name="vinyl"
                     />
                   </Button>
                 </Segment>
               </Right>
             </Header>
-            <WebView style={{ flex: 1, flexGrow: 1, width, height, backgroundColor: '#fff' }} source={{ uri: 'https://dagouzhi.com/' }} />
+            <WebView 
+              style={{ 
+                flex: 1, 
+                flexGrow: 1, 
+                width, 
+                height, 
+                backgroundColor: '#fff' 
+              }} 
+              source={{ uri: 'https://jakearchibald.github.io/isserviceworkerready/demos/navigator.serviceWorker/' }}
+            />
           </View>
         </Modal>
       </MinProgramContext.Provider>
