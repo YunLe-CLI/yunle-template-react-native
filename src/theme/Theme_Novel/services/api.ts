@@ -32,6 +32,7 @@ export async function search(query: SEARCH_REQ): Promise<Array<SEARCH_ITEM>> {
       console.log(html)
       const $ = cheerio.load(html)
       const list = getNodeContent($, rule.ruleSearchList, true);
+      console.log(list, 9999)
       if (list && list.length) {
         list.each(function(index, element) {
           const el = $(element);

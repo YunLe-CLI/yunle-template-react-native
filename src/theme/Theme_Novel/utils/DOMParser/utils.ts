@@ -130,21 +130,22 @@ export function rule2cssSelectors(rule: string) {
     }
     let type = 'dom'; // text || dom || attr
     
-    const ruleString = ruleItem.replace(/\@/g, ' ')
+    const ruleString = ruleItem.replace(/\@/g, '__S__')
     .replace(/\s+/g, 'class.')
-    .replace(/\#/, ' __REPLACE__')
+    .replace(/#/, ' __REPLACE__')
     .replace(/id\./g, '#')
     .replace(/class\./g, '.')
     .replace(/tag\./g, ' ')
     .replace(/\.\d/g, "[$&]")
     .replace(/\[\./g, "[")
-    .replace(/(^\s*)/g, "");
-
+    .replace(/(^\s*)/g, "")
+    .replace(/__S__/g, " ")
+    console.log(111111, ruleString)
     const cssSelectors = ruleString.split(' ') || [];
     if (cssSelectors[cssSelectors.length - 1]) {
       const endSelect = cssSelectors[cssSelectors.length - 1];
       type = 'dom';
-      if (endSelect.indexOf('__REPLACE__')) {
+      if (endSelect.indexOf('__REPLACE__') > -1) {
         cssSelectors.pop()
         ruleObj.replace = endSelect.replace('__REPLACE__', '');
       }
@@ -168,7 +169,7 @@ export function rule2cssSelectors(rule: string) {
 
     ruleObj.type = type;
     ruleObj.cssSelector = cssSelectors.join(' ');
- 
+    
     return ruleObj
   })
 }
