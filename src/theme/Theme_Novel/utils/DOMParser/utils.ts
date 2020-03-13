@@ -130,17 +130,23 @@ export function rule2cssSelectors(rule: string) {
     }
     let type = 'dom'; // text || dom || attr
     
-    const ruleString = ruleItem.replace(/\@/g, '__S__')
+    const ruleString = ruleItem.replace(/\@/g, '__SEPARATOR__')
     .replace(/\s+/g, 'class.')
-    .replace(/#/, ' __REPLACE__')
+    .replace(/#/, '__REPLACE__')
+    // 替换id
     .replace(/id\./g, '#')
+    // 替换class
     .replace(/class\./g, '.')
+    // 替换tag
     .replace(/tag\./g, ' ')
     .replace(/\.\d/g, "[$&]")
     .replace(/\[\./g, "[")
+    // 替换前后空格
     .replace(/(^\s*)/g, "")
-    .replace(/__S__/g, " ")
-    console.log(111111, ruleString)
+    .replace(/(\s)$/g, "")
+    // 分隔
+    .replace(/__SEPARATOR__/g, " ");
+
     const cssSelectors = ruleString.split(' ') || [];
     if (cssSelectors[cssSelectors.length - 1]) {
       const endSelect = cssSelectors[cssSelectors.length - 1];

@@ -62,7 +62,7 @@
     "lottie-react-native": "^3.3.2",
     "md5": "^2.2.1",
     "moment": "^2.24.0",
-    "native-base": "^2.13.8",
+    "native-base": "2.13.12",
     "qs": "^6.9.1",
     "react": "^16.13.0",
     "react-content-loader": "5.0.2",

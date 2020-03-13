@@ -1,3 +1,4 @@
+// import rules from './ruleList';
 
 // export interface RULE_TYPE {
 // 	"bookSourceGroup":  string; // 书源分组
@@ -79,11 +80,42 @@ const list:Array<RULE_TYPE> = [
 		"ruleSearchUrl": "https://m.biqugetv.com/search.php?keyword=searchKey&t=searchPage",
 		"serialNumber": 0,
 		"weight": 0
-	}
+	},
+	{
+		"bookSourceGroup":"A级",
+		"bookSourceName":"58小说网",
+		"bookSourceUrl":"http://www.58xs.tw",
+		"enable":true,
+		"httpUserAgent":"",
+		"loginUrl":"",
+		"ruleBookAuthor":"",
+		"ruleBookContent":"id.content@textNodes",
+		"ruleBookKind":"",
+		"ruleBookLastChapter":"",
+		"ruleBookName":"",
+		"ruleBookUrlPattern":"",
+		"ruleChapterList":"id.list@tag.dd",
+		"ruleChapterName":"tag.a@text",
+		"ruleChapterUrl":"",
+		"ruleChapterUrlNext":"",
+		"ruleContentUrl":"tag.a@href",
+		"ruleContentUrlNext":"",
+		"ruleCoverUrl":"",
+		"ruleFindUrl":"",
+		"ruleIntroduce":"id.intro@tag.p.0@textNodes",
+		"ruleSearchAuthor":"class.result-game-item-info.0@tag.p.0@tag.span.1@text",
+		"ruleSearchCoverUrl":"class.result-game-item-pic.0@tag.img.0@src",
+		"ruleSearchKind":"class.result-game-item-info.0@tag.p.1@tag.span.1@text",
+		"ruleSearchLastChapter":"class.result-game-item-info.0@tag.p.3@tag.a.0@text",
+		"ruleSearchList":"class.result-item",
+		"ruleSearchName":"class.result-item-title result-game-item-title.0@tag.a.0@text",
+		"ruleSearchNoteUrl":"class.result-item-title result-game-item-title.0@tag.a.0@href",
+		"ruleSearchUrl":"http://www.58xs.tw/search.php?keyword=searchKey&page=searchPage",
+		"serialNumber":0,
+		"weight":0
+	},
 ]
 
 const currentRule:RULE_TYPE  = list[0]
-
-global.CURRENT_RULE = currentRule;
 
 export default currentRule;
