@@ -1,5 +1,6 @@
 declare var global: {
 	dvaStore: any; 
+	$selectApp: (appID: string) => void;
 	i18n: {
 	 setI18nConfig: (language: string, themeLocales: any) => string;
 	 supportedLanguages: string[];

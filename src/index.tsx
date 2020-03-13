@@ -1,5 +1,5 @@
 import React, {Component, PureComponent } from 'react';
-import { Linking, View } from 'react-native';
+import { Linking, View, Alert } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { persistStore, persistReducer, REHYDRATE } from 'redux-persist';
 import { StyleProvider } from 'native-base';
@@ -23,13 +23,13 @@ import CheckCodePushProvider from '@Global/components/CheckCodePush';
 import SelectThemeModalProvider, {withSelectThemeModal} from '@Global/components/SelectThemeModal';
 import ErrorView from '@Global/components/ErrorView';
 
-import getTheme from '@Global/utils/native-base-theme/components';
-import platform from '@Global/utils/native-base-theme/variables/platform';
+import getTheme from '@Global/utils/themes/dark/components';
+import platform from '@Global/utils/themes/dark/variables/platform';
 import {setJSExceptionHandler} from "@Global/utils/globalErrorHandle";
 import moment from 'moment';
 
-import * as themes from '@Theme/index';
-const themesMemoize = _.memoize(_.values);
+import * as themes from '@/Apps/index';
+const appsMemoize = _.memoize(_.values);
 
 export interface ICreateApp {
   id: string;
@@ -236,61 +236,64 @@ let codePushOptions = {
 };
 @codePush(codePushOptions)
 export default class RootView extends PureComponent {
+  
+  constructor(props: any) {
+    super(props);
+    global['$selectApp'] = this.selectApp;
+  }
 
   state = {
-    themeID: 'Theme_Default',
+    defaultAppID: 'app_Default',
+    appID: 'app_Default',
   }
 
   componentDidMount() {
-    this.createThemeNode();
+    this.createAppNode();
   }
 
   async componentDidUpdate() {
-    const themeID = await AsyncStorage.getItem('__THEME_ID__') || this.state.themeID;
-    if (!this[themeID]) {
-      this.createThemeNode()
+    const appID = await AsyncStorage.getItem('__APP_ID__') || this.state.appID;
+    if (!this[appID]) {
+      this.createAppNode()
     }
   }
 
-  async createThemeNode() {
-    const themeID = await AsyncStorage.getItem('__THEME_ID__') || this.state.themeID;
-    let nowThemeID = 'Theme_Default';
-    const supportedThemes = themesMemoize(themes)
-    if (themeID && supportedThemes.findIndex((item) => themeID === item.id) > -1) {
-      nowThemeID = themeID;
-    } else {
-      // auto set
-      nowThemeID = 'Theme_Default'
-    }
-    await AsyncStorage.setItem('__THEME_ID__', nowThemeID);
-    const nowTheme = themes[nowThemeID];
-    this[nowThemeID] = createApp(nowTheme);
+  async createAppNode() {
+    const appID = await AsyncStorage.getItem('__APP_ID__');
+    const nowAppID = this.getAppID(appID);
+    const app = themes[nowAppID];
+    this[nowAppID] = createApp(app);
     this.setState({
-      themeID: nowThemeID,
+      appID: nowAppID,
       time: moment().format('X')
+    }, () => {
+      AsyncStorage.setItem('__THEME_ID__', this.state.appID);
     });
   }
 
-  async selectTheme(themeID: string) {
-    let nowThemeID = 'Theme_Default';
-    const supportedThemes = themesMemoize(themes)
-    if (themeID && supportedThemes.findIndex((item) => themeID === item.id) > -1) {
-      nowThemeID = themeID;
-    } else {
-      // auto set
-      nowThemeID = 'Theme_Default'
-    }
+  async selectApp(themeID: string) {
+    const nowThemeID = this.getAppID(themeID);
     await AsyncStorage.setItem('__THEME_ID__', nowThemeID);
-    console.log(themeID)
     setTimeout(() => {
       codePush.restartApp();
     }, 300)
   }
 
+  getAppID = (appID: string | null) => {
+    let nowAppID = this.state.defaultAppID;
+    const supportedApps = appsMemoize(themes)
+    if (appID && supportedApps.findIndex((item) => appID === item.id) > -1) {
+      nowAppID = appID;
+    } else {
+      // 设置默认app id
+      nowAppID = this.state.defaultAppID;
+    }
+    return nowAppID;
+  }
+
   render() {
-    global.ROOTVIEW = this;
-    const { themeID } = this.state;
-    const NODE = this[themeID];
-    return themeID && NODE ? <NODE /> : <Loading />
+    const { appID } = this.state;
+    const NODE = this[appID];
+    return appID && NODE ? <NODE /> : <Loading />
   }
 };

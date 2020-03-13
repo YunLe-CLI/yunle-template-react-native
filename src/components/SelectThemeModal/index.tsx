@@ -9,7 +9,7 @@ import {CheckBox, Card,CardItem, Button, Text, Content, Header, Left, Icon, Body
 import iconLeft from './assets/icon_left_slices/icon_left.png';
 import AsyncStorage from "@react-native-community/async-storage";
 
-import * as themes from '@Global/theme';
+import * as themes from '@/Apps';
 import moment from 'moment';
 
 export const SelectThemeModalContext = createContext({
@@ -79,13 +79,9 @@ class SelectThemeModalProvider extends React.Component<{}, IState> {
     this.closeModel();
   }
 
-  onSelect = async (theme) => {
+  onSelect = async (theme: any) => {
     try {
-      if (theme) {
-        if (global.ROOTVIEW && _.isFunction(global.ROOTVIEW.createThemeNode)) {
-          global.ROOTVIEW.selectTheme(theme.id)
-        }
-      }
+      global.$selectApp(theme.id);
     } catch (e) {
     }
   }
