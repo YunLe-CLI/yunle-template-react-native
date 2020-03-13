@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 
 
-sexport default class ErrorBoundary extends Component {
+export default class ErrorBoundary extends Component {
   state = { hasError: false }
 
-  static getDerivedStateFromError (error) {
+  static getDerivedStateFromError () {
     return { hasError: true }
   }
 

@@ -12,7 +12,7 @@ export const CheckAppUpdateContext = createContext({
 })
 export const CheckAppUpdateConsumer = CheckAppUpdateContext.Consumer
 
-export function withCheckAppUpdate(WrappedComponent: React.ReactNode) {
+export function withCheckAppUpdate(WrappedComponent: new() => React.Component<any, any>) {
   return class extends React.Component {
     render() {
       return <>
@@ -62,7 +62,7 @@ class CheckAppUpdateProvider extends React.Component<{}, IState> {
         try {
           handleDownload(uri);
         } catch (e) {
-          alert(e)
+          // alert(e)
         }
       }
     })

@@ -1,12 +1,11 @@
 import React, { createContext } from 'react';
-import {Image, TouchableOpacity, StatusBar, View} from 'react-native';
+import { TouchableOpacity, StatusBar, View } from 'react-native';
 import styles from './styles';
 import Modal from "react-native-modal";
 import _ from "lodash";
 import FastImage from 'react-native-fast-image';
 
-import {CheckBox, Card,CardItem, Thumbnail, Button, Text, Content, Header, Left, Icon, Body, Title, Right, List, ListItem, Container} from 'native-base';
-import ImageView from 'react-native-image-view';
+import {CheckBox, Card,CardItem, Button, Text, Content, Header, Left, Icon, Body, Title, Right, List, Container} from 'native-base';
 import iconLeft from './assets/icon_left_slices/icon_left.png';
 import AsyncStorage from "@react-native-community/async-storage";
 
@@ -14,11 +13,11 @@ import * as themes from '@Global/theme';
 import moment from 'moment';
 
 export const SelectThemeModalContext = createContext({
-  handleShowSelectThemeModal: () => {}
+  handleShowSelectThemeModal: (onCallBack: Function) => {}
 })
 export const SelectThemeModalConsumer = SelectThemeModalContext.Consumer
 
-export function withSelectThemeModal(WrappedComponent: React.ReactNode) {
+export function withSelectThemeModal(WrappedComponent: new() => React.Component<any, any>) {
   return class extends React.Component {
     render() {
       return <>
@@ -36,9 +35,8 @@ export function withSelectThemeModal(WrappedComponent: React.ReactNode) {
 
 export interface IState {
   isModalVisible: boolean;
-  isNotRemind: boolean;
-  isModalNotVisible: boolean;
-  updateURI: undefined | string;
+  selected: string | undefined | null;
+  images: any[];
 }
 class SelectThemeModalProvider extends React.Component<{}, IState> {
 
@@ -52,7 +50,6 @@ class SelectThemeModalProvider extends React.Component<{}, IState> {
     isModalVisible: false,
     selected: undefined,
     images: [],
-    isImageViewVisible: false,
   };
 
   showModel = () => {
@@ -67,7 +64,7 @@ class SelectThemeModalProvider extends React.Component<{}, IState> {
       isModalVisible: false,
       selected: undefined,
     })
-    this.onCallBack = undefined;
+    this.onCallBack = () => {};
   };
 
 
@@ -93,7 +90,7 @@ class SelectThemeModalProvider extends React.Component<{}, IState> {
     }
   }
 
-  renderItem(item) {
+  renderItem(item: any) {
     const { selected } = this.state;
     return  <TouchableOpacity
         key={JSON.stringify(item.id)}
@@ -153,36 +150,6 @@ class SelectThemeModalProvider extends React.Component<{}, IState> {
                 width: 200,
                 height: 200,
               }}
-              onPress={() => {
-                if (typeof item.preview === 'string') {
-                  Image.getSize(item.preview, (width, height) => {
-                    this.setState({
-                      isImageViewVisible: true,
-                      images: [
-                        {
-                          source: item.preview,
-                          title: item.name,
-                          width: width,
-                          height: height,
-                        },
-                      ]
-                    })
-                  });
-                } else {
-                  const { width, height }  = Image.resolveAssetSource(item.preview)
-                  this.setState({
-                    isImageViewVisible: true,
-                    images: [
-                      {
-                        source: item.preview,
-                        title: item.name,
-                        width: width,
-                        height: height,
-                      },
-                    ]
-                  })
-                }
-              }}
             >
               <FastImage
                 style={{
@@ -218,7 +185,7 @@ class SelectThemeModalProvider extends React.Component<{}, IState> {
   }
 
   render() {
-    const { isModalVisible, isModalNotVisible, updateURI } = this.state;
+    const { isModalVisible } = this.state;
     const list = Object.values(themes) || [];
     return (
       <SelectThemeModalContext.Provider value={{
@@ -294,17 +261,6 @@ class SelectThemeModalProvider extends React.Component<{}, IState> {
               </List>
             </Content>
           </Container>
-          <ImageView
-            images={this.state.images}
-            imageIndex={0}
-            isVisible={this.state.isImageViewVisible}
-            onClose={() => {
-              this.setState({
-                isImageViewVisible: false,
-              })
-            }}
-            renderFooter={() => (<View/>)}
-          />
         </Modal>
       </SelectThemeModalContext.Provider>
     );

@@ -24,7 +24,7 @@ class ErrorView extends React.PureComponent<IProps, IState> {
         CodePush.restartApp();
       }, 300);
     } catch (e) {
-      alert(e)
+      // alert(e)
     }
   }
 

@@ -12,17 +12,12 @@ import {
   Text,
   Segment,
 } from 'native-base';
-import { Dispatch } from 'redux';
-import { connect } from 'react-redux';
+import _ from 'lodash';
 import Modal from "react-native-modal";
 import Icon from 'react-native-vector-icons/Entypo';
 import WebView from 'react-native-webview';
 import styles from './styles';
-import FastImage from 'react-native-fast-image';
-import { withDropdownAlert } from '@Global/components/DropdownAlert';
-import { withLoadingSpinner } from '@Global/components/LoadingSpinner';
 
-import _ from 'lodash';
 
 export const MinProgramContext = createContext({
   openMinProgram: () => {},
@@ -38,7 +33,7 @@ export interface withMinProgramProps {
   openMinProgram: () => void;
   closeMinProgram: () => void;
 }
-export function withMinProgram(WrappedComponent: React.ReactNode) {
+export function withMinProgram(WrappedComponent: new() => React.Component<any, any>) {
   return class extends React.Component {
     render() {
       return <>
@@ -59,12 +54,7 @@ export function withMinProgram(WrappedComponent: React.ReactNode) {
 }
 
 export interface IProps {
-  navigation: any;
-  dispatch: Dispatch<any>;
-  login: (p: { mobile: string; smsCode: string; }) => boolean;
-  sendMSG: (mobile: string) => boolean;
-  getUser: () => Promise<any>;
-  skipBindWeChat: boolean;
+
 }
 export interface IState {
   isVisible: boolean;
@@ -78,7 +68,7 @@ export interface IMinProgramProvider {
 class MinProgramProvider extends React.Component<IProps, IState> {
 
   state: IState = {
-    isVisible: true,
+    isVisible: false,
   }
 
   openMinProgram = () => {
@@ -128,12 +118,7 @@ class MinProgramProvider extends React.Component<IProps, IState> {
           }}
           hideModalContentWhileAnimating
           onBackButtonPress={() => {
-            // this.props.dispatch({
-            //   type: 'auth/login',
-            //   payload: {
-            //     visible: true,
-            //   }
-            // });
+       
           }}
         >
           <View style={{ flex: 1, backgroundColor: '#373940' }}>
@@ -198,4 +183,4 @@ class MinProgramProvider extends React.Component<IProps, IState> {
   }
 }
 
-export default withLoadingSpinner(withDropdownAlert(MinProgramProvider));
+export default MinProgramProvider;

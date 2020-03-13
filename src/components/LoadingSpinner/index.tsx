@@ -2,12 +2,12 @@ import React, { createContext } from 'react';
 import Spinner from './lib';
 
 export const LoadingSpinnerContext = createContext({
-  showLoading: () => {},
+  showLoading: (text: string) => {},
   hiddenLoading: () => {}
 })
 export const LoadingSpinnerConsumer = LoadingSpinnerContext.Consumer
 
-export function withLoadingSpinner(WrappedComponent: React.ReactNode) {
+export function withLoadingSpinner(WrappedComponent: new() => React.Component<any, any>) {
   return class extends React.Component {
     render() {
       return <>

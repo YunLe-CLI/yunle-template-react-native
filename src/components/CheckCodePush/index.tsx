@@ -4,7 +4,7 @@ import styles from './styles';
 import Modal from "react-native-modal";
 import _ from "lodash";
 import {Button, Text} from 'native-base';
-import codePush, {DownloadProgress, RemotePackage} from 'react-native-code-push'
+import codePush, {DownloadProgress, RemotePackage } from 'react-native-code-push'
 import * as Progress from 'react-native-progress';
 
 export const CheckCodePushContext = createContext({
@@ -13,7 +13,7 @@ export const CheckCodePushContext = createContext({
 
 export const CheckCodePushConsumer = CheckCodePushContext.Consumer
 
-export function withCheckCodePush(WrappedComponent: React.ReactNode) {
+export function withCheckCodePush(WrappedComponent: new() => React.Component<any, any>) {
   return class extends React.Component {
     render() {
       return <>
@@ -96,7 +96,7 @@ class CheckCodePushProvider extends React.Component<{}, IState> {
 
   handleUpdate = async () => {
     codePush.sync({
-      updateDialog: false,
+      updateDialog: undefined,
       mandatoryInstallMode: codePush.InstallMode.ON_NEXT_RESUME
     }, (status) => {
       switch (status) {
