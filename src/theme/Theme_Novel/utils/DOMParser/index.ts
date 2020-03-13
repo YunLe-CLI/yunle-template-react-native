@@ -16,5 +16,5 @@ axios.interceptors.response.use(function (response) {
  */
 export default async function request(config: AxiosRequestConfig): Promise<any> {
   const html = await axios(config);
-  return html;
+  return html.data;
 }

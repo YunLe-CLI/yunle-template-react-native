@@ -1,4 +1,3 @@
-// @ts-ignore
 import cheerio from 'cheerio';
 import getHtml from '../utils/DOMParser'
 import _ from 'lodash';
@@ -30,6 +29,7 @@ export async function search(query: SEARCH_REQ): Promise<Array<SEARCH_ITEM>> {
   }).then((html) => {
     const bookList = []
     try {
+      console.log(html)
       const $ = cheerio.load(html)
       const list = getNodeContent($, rule.ruleSearchList, true);
       if (list && list.length) {
@@ -45,7 +45,7 @@ export async function search(query: SEARCH_REQ): Promise<Array<SEARCH_ITEM>> {
         });
       }
     } catch (e) {
-      alert(e)
+      alert(`${JSON.stringify(e)}123`)
     }
     return bookList
   });
@@ -86,7 +86,7 @@ export async function getBookInfo(query: GET_BOOK_INFO_REQ): Promise<GET_BOOK_IN
         }
       }
     } catch (e) {
-      alert(e)
+      alert(`${JSON.stringify(e)}123`)
     }
     return bookChapter
   });
@@ -133,7 +133,7 @@ export async function getChapterList(query: GET_CHAPTER_LIST_REQ): Promise<Array
         })
       }
     } catch (e) {
-      alert(e)
+      alert(`${JSON.stringify(e)}123`)
     }
     return list
   });
@@ -167,7 +167,7 @@ export async function getBookContent(query: GET_BOOK_CONTENT_REQ): Promise<GET_B
       // const ruleContentUrlNext = rule.ruleContentUrlNext.split('@')
       ruleContentUrlNext =  $('#pt_next').attr('href');
     } catch (e) {
-      alert(e)
+      alert(`${JSON.stringify(e)}123`)
     }
     console.log('ruleContentUrlNext', ruleContentUrlNext)
     return { 
