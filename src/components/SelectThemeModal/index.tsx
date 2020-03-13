@@ -83,6 +83,7 @@ class SelectThemeModalProvider extends React.Component<{}, IState> {
     try {
       global.$selectApp(theme.id);
     } catch (e) {
+      console.log(e)
     }
   }
 

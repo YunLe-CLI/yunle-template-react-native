@@ -239,7 +239,8 @@ export default class RootView extends PureComponent {
   
   constructor(props: any) {
     super(props);
-    global['$selectApp'] = this.selectApp;
+    this.getAppID = this.getAppID.bind(this);
+    this.selectApp = this.selectApp.bind(this);
   }
 
   state = {
@@ -271,15 +272,15 @@ export default class RootView extends PureComponent {
     });
   }
 
-  async selectApp(themeID: string) {
-    const nowThemeID = this.getAppID(themeID);
-    await AsyncStorage.setItem('__THEME_ID__', nowThemeID);
+  async selectApp(appID: string) {
+    const nowAppID = this.getAppID(appID);
+    await AsyncStorage.setItem('__APP_ID__', nowAppID);
     setTimeout(() => {
       codePush.restartApp();
     }, 300)
   }
 
-  getAppID = (appID: string | null) => {
+  getAppID(appID: string | null) {
     let nowAppID = this.state.defaultAppID;
     const supportedApps = appsMemoize(themes)
     if (appID && supportedApps.findIndex((item) => appID === item.id) > -1) {
@@ -294,6 +295,7 @@ export default class RootView extends PureComponent {
   render() {
     const { appID } = this.state;
     const NODE = this[appID];
+    global['$selectApp'] = this.selectApp;
     return appID && NODE ? <NODE /> : <Loading />
   }
 };
