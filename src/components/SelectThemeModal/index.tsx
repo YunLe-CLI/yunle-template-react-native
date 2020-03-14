@@ -151,7 +151,7 @@ class SelectThemeModalProvider extends React.Component<{}, IState> {
               }}>
                 <CheckBox
                   onPress={() => {
-                    this.onSelect(info);
+                    this.onSelect(item);
                   }}
                   checked={JSON.stringify(item) === JSON.stringify(this.props.theme)} />
               </View>
@@ -166,19 +166,19 @@ class SelectThemeModalProvider extends React.Component<{}, IState> {
             }}
             cardBody>
               {
-                colos.map((item) => {
+                colos.map((colorItem) => {
                   return (
-                    <View key={JSON.stringify(item)}>
+                    <View key={JSON.stringify(colorItem)}>
                       <Button rounded 
                         style={{
                           margin: 5,
                           marginHorizontal: 10,
                           width: 50,
                           height: 50,
-                          backgroundColor: item.color,
+                          backgroundColor: colorItem.color,
                         }}
                         onPress={() => {
-                          this.onSelect(info);
+                          this.onSelect(item);
                         }}
                       />
                       <Text style={{
@@ -186,7 +186,7 @@ class SelectThemeModalProvider extends React.Component<{}, IState> {
                         fontSize: 10,
                         paddingBottom: 5,
                         }}>
-                          {item.name}
+                          {colorItem.name}
                       </Text>
                     </View>
                   )
