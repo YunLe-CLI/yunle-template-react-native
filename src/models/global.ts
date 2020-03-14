@@ -85,7 +85,7 @@ const GlobalModel: GlobalModelType = {
           });
           dispatch({
             type: 'theme/setTheme',
-            theme: themes[newMode],
+            theme: newMode,
           });
         }
         function orientationListener(orientation: OrientationType) {
