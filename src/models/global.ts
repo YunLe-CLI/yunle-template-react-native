@@ -3,7 +3,6 @@ import { AppState, AppStateStatus } from 'react-native';
 import { Subscription, Effect } from 'dva';
 import { Mode, eventEmitter, initialMode } from 'react-native-dark-mode'
 import Orientation, { OrientationType } from 'react-native-orientation-locker';
-import { clearThemeCache } from 'native-base-shoutem-theme';
 
 import { ENVIRONMENT, BUILD_TYPE } from '@Global/utils/env';
 import themes from '@Global/utils/themes';
@@ -13,7 +12,6 @@ export interface GlobalModelState {
   appState: AppStateStatus;
   appReloadNum: boolean;
   mode: Mode;
-  theme: any;
 }
 
 export interface GlobalModelType {
@@ -29,7 +27,6 @@ export interface GlobalModelType {
     appStateChange: Reducer<GlobalModelState>;
     setENV: Reducer<GlobalModelState>;
     setMode: Reducer<GlobalModelState>;
-    setTheme: Reducer<GlobalModelState>;
   };
   subscriptions: { setup: Subscription };
 }
@@ -39,7 +36,6 @@ const INIT_STATE: GlobalModelState = {
   orientation: Orientation.getInitialOrientation(),
   appReloadNum: false,
   mode: initialMode,
-  theme: themes[initialMode],
 };
 
 const GlobalModel: GlobalModelType = {
@@ -68,9 +64,6 @@ const GlobalModel: GlobalModelType = {
       setMode(state, { mode }) {
         return { ...state, mode }
       },
-      setTheme(state, { theme }) {
-        return { ...state, theme }
-      }
     },
     effects: {
         *clearCache({ payload = {} }, { put }) {
@@ -90,9 +83,8 @@ const GlobalModel: GlobalModelType = {
             type: 'setMode',
             mode: newMode,
           });
-          clearThemeCache();
           dispatch({
-            type: 'setTheme',
+            type: 'theme/setTheme',
             theme: themes[newMode],
           });
         }

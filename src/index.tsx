@@ -2,7 +2,7 @@ import React, {Component, PureComponent } from 'react';
 import { Linking, View } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { persistStore, persistReducer, REHYDRATE } from 'redux-persist';
-import { Root, StyleProvider } from 'native-base';
+import { Root, StyleProvider, Button, Text } from 'native-base';
 import { PersistGate } from 'redux-persist/integration/react';
 import { connect } from "react-redux";
 import RNBootSplash from 'react-native-bootsplash';
@@ -24,7 +24,7 @@ import CheckCodePushProvider from '@Global/components/CheckCodePush';
 import SelectThemeModalProvider, {withSelectThemeModal} from '@Global/components/SelectThemeModal';
 import ErrorView from '@Global/components/ErrorView';
 
-import themes, { getTheme } from '@Global/utils/themes';
+import { getTheme } from '@Global/utils/themes';
 import {setJSExceptionHandler} from "@Global/utils/globalErrorHandle";
 import moment from 'moment';
 
@@ -210,7 +210,7 @@ function createApp(config: ICreateApp) {
         appReload: _.get(state, 'app.appReload', false),
         appProps: state,
         mode: state.global.mode,
-        theme: state.global.theme,
+        theme: state.theme.theme,
       }
     })(withSelectThemeModal(withLoadingSpinner(Main)));
 

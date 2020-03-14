@@ -163,7 +163,7 @@ export default function createRouter() {
         router: state.router,
         token: state.auth.token,
         mode: state.global.mode,
-        getTheme: state.global.theme,
+        theme: state.theme.theme,
       }
     })(Router),
   }

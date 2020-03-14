@@ -1,11 +1,13 @@
 import { AnyAction, Dispatch } from 'redux';
 import { NavigationScreenProp } from 'react-navigation';
 import { GlobalModelState } from './global';
+import { ThemeModelState } from './theme';
 
 export { GlobalModelState };
 
 export interface ConnectState {
   global: GlobalModelState;
+  theme: ThemeModelState;
 }
 
 /**

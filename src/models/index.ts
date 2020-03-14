@@ -1,8 +1,6 @@
-import global from '@/models/global';
-import { IModelState as appState } from '@/models/global';
-export interface IAppModelState {
-  global: appState,
-}
+import globalModel from '@/models/global';
+import themeModel from '@/models/theme';
+
 export default function createModels(models: any[]) {
-  return [].concat(global, models)
+  return [].concat(globalModel, themeModel, models)
 }

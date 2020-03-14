@@ -15,7 +15,7 @@ import {
 import { Mode } from 'react-native-dark-mode';
 import { connect } from 'react-redux';
 import { ConnectState } from '../models/connect';
-import themes, { getTheme } from '@Global/utils/themes';
+import { getTheme } from '@Global/utils/themes';
 
 import Splash from '../pages/Splash';
 import BottomTab from './BottomTab.router';
@@ -163,7 +163,7 @@ export default function createRouter() {
         router: state.router,
         token: state.auth.token,
         mode: state.global.mode,
-        getTheme: state.global.theme,
+        theme: state.theme.theme,
       }
     })(Router),
   }
