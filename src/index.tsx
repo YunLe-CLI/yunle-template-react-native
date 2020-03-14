@@ -21,6 +21,7 @@ import IsTester from '@Global/components/isTester';
 import Loading from '@Global/components/Loading';
 import CheckAppUpdateProvider from '@Global/components/CheckAppUpdate';
 import CheckCodePushProvider from '@Global/components/CheckCodePush';
+import SelectAppModalProvider, {withSelectAppModal} from '@Global/components/SelectAppModal';
 import SelectThemeModalProvider, {withSelectThemeModal} from '@Global/components/SelectThemeModal';
 import ErrorView from '@Global/components/ErrorView';
 
@@ -183,18 +184,20 @@ function createApp(config: ICreateApp) {
                   <CheckAppUpdateProvider>
                     <CheckCodePushProvider>
                       <SelectThemeModalProvider>
-                        <MinProgramProvider>
-                          <View style={{ flex: 1, flexGrow: 1, }}>
-                            <View style={{ flexGrow: 1, }}>
-                              {
-                                isError ? (<ErrorView errorInfo={errorInfo} />) : (
-                                  !initLoading && !forceUpdate ? <router.Router {...appProps} /> : undefined
-                                )
-                              }
+                        <SelectAppModalProvider>
+                          <MinProgramProvider>
+                            <View style={{ flex: 1, flexGrow: 1, }}>
+                              <View style={{ flexGrow: 1, }}>
+                                {
+                                  isError ? (<ErrorView errorInfo={errorInfo} />) : (
+                                    !initLoading && !forceUpdate ? <router.Router {...appProps} /> : undefined
+                                  )
+                                }
+                              </View>
+                              {!initLoading && $config.environment ? <IsTester /> : undefined }
                             </View>
-                            {!initLoading && $config.environment ? <IsTester /> : undefined }
-                          </View>
-                        </MinProgramProvider>
+                          </MinProgramProvider>
+                        </SelectAppModalProvider>
                       </SelectThemeModalProvider>
                     </CheckCodePushProvider>
                   </CheckAppUpdateProvider>
@@ -212,7 +215,7 @@ function createApp(config: ICreateApp) {
         mode: state.global.mode,
         theme: state.theme.theme,
       }
-    })(withSelectThemeModal(withLoadingSpinner(Main)));
+    })(withSelectThemeModal((withSelectAppModal(withLoadingSpinner(Main)))));
 
     class App extends React.Component {
       render() {

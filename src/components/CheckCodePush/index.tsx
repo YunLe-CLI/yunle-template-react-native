@@ -195,7 +195,7 @@ class CheckCodePushProvider extends React.Component<{}, IState> {
                     justifyContent: 'center',
                   }}
               >
-                <Text style={{ color: '#11CD8F' }}>下次再说</Text>
+                <Text>下次再说</Text>
               </Button>
               <View style={{ width: 10, }} />
               <Button
@@ -212,7 +212,7 @@ class CheckCodePushProvider extends React.Component<{}, IState> {
                     justifyContent: 'center'
                   }}
               >
-                <Text style={{ color: '#fff' }}>立即加载</Text>
+                <Text>立即加载</Text>
               </Button>
             </View>
           </View>
@@ -252,7 +252,7 @@ class CheckCodePushProvider extends React.Component<{}, IState> {
                   justifyContent: 'center',
                 }}
             >
-              <Text style={{ color: '#11CD8F' }}>后台下载</Text>
+              <Text>后台下载</Text>
             </Button>
           </View>
         </View>
@@ -291,7 +291,7 @@ class CheckCodePushProvider extends React.Component<{}, IState> {
                     justifyContent: 'center',
                   }}
               >
-                <Text style={{ color: '#11CD8F' }}>下次再说</Text>
+                <Text>下次再说</Text>
               </Button>
               <View style={{ width: 10, }} />
               <Button
@@ -308,7 +308,7 @@ class CheckCodePushProvider extends React.Component<{}, IState> {
                     justifyContent: 'center'
                   }}
               >
-                <Text style={{ color: '#fff' }}>立即重启</Text>
+                <Text>立即重启</Text>
               </Button>
             </View>
         </View>
@@ -338,7 +338,7 @@ class CheckCodePushProvider extends React.Component<{}, IState> {
                   justifyContent: 'center'
                 }}
             >
-              <Text style={{ color: '#fff' }}>知道了</Text>
+              <Text>知道了</Text>
             </Button>
           </View>
         </View>

@@ -12,22 +12,22 @@ import AsyncStorage from "@react-native-community/async-storage";
 import * as themes from '@/Apps';
 import moment from 'moment';
 
-export const SelectThemeModalContext = createContext({
-  handleShowSelectThemeModal: (onCallBack: Function) => {}
+export const SelectAppModalContext = createContext({
+  handleShowSelectAppModal: (onCallBack: Function) => {}
 })
-export const SelectThemeModalConsumer = SelectThemeModalContext.Consumer
+export const SelectAppModalConsumer = SelectAppModalContext.Consumer
 
-export function withSelectThemeModal(WrappedComponent: new() => React.Component<any, any>) {
+export function withSelectAppModal(WrappedComponent: new() => React.Component<any, any>) {
   return class extends React.Component {
     render() {
       return <>
-        <SelectThemeModalConsumer>
+        <SelectAppModalConsumer>
           {
-            ({ handleShowSelectThemeModal }) => {
-              return <WrappedComponent  {...this.props} handleShowSelectThemeModal={handleShowSelectThemeModal} />
+            ({ handleShowSelectAppModal }) => {
+              return <WrappedComponent  {...this.props} handleShowSelectAppModal={handleShowSelectAppModal} />
             }
           }
-        </SelectThemeModalConsumer>
+        </SelectAppModalConsumer>
       </>
     }
   }
@@ -38,7 +38,7 @@ export interface IState {
   selected: string | undefined | null;
   images: any[];
 }
-class SelectThemeModalProvider extends React.Component<{}, IState> {
+class SelectAppModalProvider extends React.Component<{}, IState> {
 
   constructor(props: {}) {
     super(props);
@@ -185,8 +185,8 @@ class SelectThemeModalProvider extends React.Component<{}, IState> {
     const { isModalVisible } = this.state;
     const list = Object.values(themes) || [];
     return (
-      <SelectThemeModalContext.Provider value={{
-        handleShowSelectThemeModal: async (onCallBack) => {
+      <SelectAppModalContext.Provider value={{
+        handleShowSelectAppModal: async (onCallBack) => {
           this.showModel();
           this.onCallBack = onCallBack;
         }
@@ -214,7 +214,7 @@ class SelectThemeModalProvider extends React.Component<{}, IState> {
           }}
         >
           <Container style={styles.container}>
-            <Header transparent>
+            <Header>
               <Left>
                 <Button
                   transparent
@@ -236,7 +236,7 @@ class SelectThemeModalProvider extends React.Component<{}, IState> {
                 </Button>
               </Left>
               <Body>
-                <Title style={styles.title}>主题列表</Title>
+                <Title style={styles.title}>app列表</Title>
               </Body>
               <Right />
             </Header>
@@ -259,9 +259,9 @@ class SelectThemeModalProvider extends React.Component<{}, IState> {
             </Content>
           </Container>
         </Modal>
-      </SelectThemeModalContext.Provider>
+      </SelectAppModalContext.Provider>
     );
   }
 }
 
-export default SelectThemeModalProvider
+export default SelectAppModalProvider

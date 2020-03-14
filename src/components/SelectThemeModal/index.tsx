@@ -4,12 +4,12 @@ import styles from './styles';
 import Modal from "react-native-modal";
 import _ from "lodash";
 import FastImage from 'react-native-fast-image';
-
+import { connect } from "react-redux";
 import {CheckBox, Card,CardItem, Button, Text, Content, Header, Left, Icon, Body, Title, Right, List, Container} from 'native-base';
 import iconLeft from './assets/icon_left_slices/icon_left.png';
 import AsyncStorage from "@react-native-community/async-storage";
-
-import * as themes from '@/Apps';
+import { ConnectState, ConnectProps } from '@Global/models/connect';
+import themes from '@Global/utils/themes';
 import moment from 'moment';
 
 export const SelectThemeModalContext = createContext({
@@ -69,54 +69,80 @@ class SelectThemeModalProvider extends React.Component<{}, IState> {
 
 
   async componentDidMount() {
-    const themeID = await AsyncStorage.getItem('__THEME_ID__');
-    this.setState({
-      selected: themeID,
-    })
+  
   }
 
   componentWillUnmount(): void {
     this.closeModel();
   }
 
-  onSelect = async (theme: any) => {
-    try {
-      global.$selectApp(theme.id);
-    } catch (e) {
-      console.log(e)
-    }
+  onSelect = async (theme: string) => {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'theme/setTheme',
+      theme: theme
+    })
+    // this.closeModel();
   }
 
-  renderItem(item: any) {
-    const { selected } = this.state;
+  renderItem(item: string) {
+    const info = themes[item];
+    const colos = [];
+    if (info.brandPrimary) {
+      colos.push({
+        name: 'brandPrimary',
+        color: info.brandPrimary,
+      })
+    }
+    if (info.brandInfo) {
+      colos.push({
+        name: 'brandInfo',
+        color: info.brandInfo,
+      })
+    }
+    if (info.brandSuccess) {
+      colos.push({
+        name: 'brandSuccess',
+        color: info.brandSuccess,
+      })
+    }
+    if (info.brandDanger) {
+      colos.push({
+        name: 'brandDanger',
+        color: info.brandDanger,
+      })
+    }
+    if (info.brandWarning) {
+      colos.push({
+        name: 'brandWarning',
+        color: info.brandWarning,
+      })
+    }
+    if (info.brandDark) {
+      colos.push({
+        name: 'brandDark',
+        color: info.brandDark,
+      })
+    }
+    if (info.brandLight) {
+      colos.push({
+        name: 'brandLight',
+        color: info.brandLight,
+      })
+    }
     return  <TouchableOpacity
-        key={JSON.stringify(item.id)}
+        key={JSON.stringify(item)}
         onPress={() => {
-          this.setState({
-            selectedID: item.id,
-          }, () => {
-            this.onSelect(item)
-            this.closeModel();
-          })
+          this.onSelect(item);
         }}
     >
         <Card>
-          <CardItem>
+          <CardItem style={{
+          backgroundColor: '#eee'
+        }}>
             <Left>
-              <FastImage
-                style={{
-                  width: 50,
-                  height: 50,
-                  alignContent: 'center',
-                  justifyContent: 'center',
-                  borderRadius: 10,
-                }}
-                source={{uri: 'https://dagouzhi.oss-cn-qingdao.aliyuncs.com/com.dagouzhi.app.temp/App%20Store.jpg'}}
-                resizeMode={FastImage.resizeMode.contain}
-              />
               <Body>
-                <Text>{item.name}</Text>
-                <Text note>{item.author}</Text>
+                <Text>{item}</Text>
               </Body>
             </Left>
             <Right>
@@ -125,14 +151,9 @@ class SelectThemeModalProvider extends React.Component<{}, IState> {
               }}>
                 <CheckBox
                   onPress={() => {
-                    this.setState({
-                      selectedID: item.id,
-                    }, () => {
-                      this.onSelect(item)
-                      this.closeModel();
-                    })
+                    this.onSelect(info);
                   }}
-                  checked={JSON.stringify(item.id) === JSON.stringify(selected)} />
+                  checked={JSON.stringify(item) === JSON.stringify(this.props.theme)} />
               </View>
             </Right>
           </CardItem>
@@ -140,25 +161,31 @@ class SelectThemeModalProvider extends React.Component<{}, IState> {
             style={{
               justifyContent: 'center',
               alignItems: 'center',
+              flexWrap: 'wrap',
+              backgroundColor: '#eee'
             }}
             cardBody>
-            <TouchableOpacity
-              style={{
-                width: 200,
-                height: 200,
-              }}
-            >
-              <FastImage
-                style={{
-                  width: '100%',
-                  height: 200,
-                  alignContent: 'center',
-                  justifyContent: 'center',
-                }}
-                source={item.preview ? item.preview : null}
-                resizeMode={FastImage.resizeMode.contain}
-              />
-            </TouchableOpacity>
+              {
+                colos.map((item) => {
+                  return (
+                    <View key={JSON.stringify(item)}>
+                      <Button rounded style={{
+                        margin: 5,
+                        marginHorizontal: 10,
+                        width: 50,
+                        height: 50,
+                        backgroundColor: item.color,
+                      }}/>
+                      <Text style={{
+                        textAlign: 'center',
+                        fontSize: 10,
+                        }}>
+                          {item.name}
+                      </Text>
+                    </View>
+                  )
+                })
+              }
           </CardItem>
           <CardItem>
             <Left>
@@ -183,7 +210,7 @@ class SelectThemeModalProvider extends React.Component<{}, IState> {
 
   render() {
     const { isModalVisible } = this.state;
-    const list = Object.values(themes) || [];
+    const list = Object.keys(themes) || [];
     return (
       <SelectThemeModalContext.Provider value={{
         handleShowSelectThemeModal: async (onCallBack) => {
@@ -214,7 +241,7 @@ class SelectThemeModalProvider extends React.Component<{}, IState> {
           }}
         >
           <Container style={styles.container}>
-            <Header transparent>
+            <Header>
               <Left>
                 <Button
                   transparent
@@ -236,7 +263,7 @@ class SelectThemeModalProvider extends React.Component<{}, IState> {
                 </Button>
               </Left>
               <Body>
-                <Title style={styles.title}>主题列表</Title>
+                <Title>主题列表</Title>
               </Body>
               <Right />
             </Header>
@@ -251,7 +278,6 @@ class SelectThemeModalProvider extends React.Component<{}, IState> {
                 {
                   list.map((item) => {
                     const { selected } = this.state;
-                    const isSelect = JSON.stringify(item.id) === JSON.stringify(selected)
                     return this.renderItem(item);
                   })
                 }
@@ -264,4 +290,8 @@ class SelectThemeModalProvider extends React.Component<{}, IState> {
   }
 }
 
-export default SelectThemeModalProvider
+export default connect((state: ConnectState) => {
+  return {
+    theme: state.theme.theme,
+  }
+})(SelectThemeModalProvider)

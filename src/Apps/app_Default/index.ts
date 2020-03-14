@@ -4,7 +4,7 @@ import locales from './locales';
 
 export default {
   id: 'app_Default',
-  name: '默认主题',
+  name: '默认app',
   router: createRouter(),
   models: Object.values(models),
   author: '大狗吱',
