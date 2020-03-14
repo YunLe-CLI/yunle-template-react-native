@@ -56,14 +56,14 @@ class Home extends React.Component<IProps, IState> {
           <Right />
         </Header>
         <Content style={{ padding: 15, }}>
-          <Text>
-            {JSON.stringify(global)}
-          </Text>
           <Button onPress={() => {
             this.props.openMinProgram()
           }}>
             <Text>打开狗吱小程序</Text>
           </Button>
+          <Text>
+            {JSON.stringify(global)}
+          </Text>
         </Content>
       </Container>
     );

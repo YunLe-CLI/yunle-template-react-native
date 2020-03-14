@@ -1,13 +1,12 @@
 import _ from 'lodash';
-import lightGetTheme from './light/components';
-import lightPlatform from './light/variables/platform';
+import dark from './variables/dark';
+import light from './variables/light';
 
-import darkGetTheme from './dark/components';
-import darkPlatform from './dark/variables/platform';
+export { default as getTheme } from './components';
 
 const themes =  {
-  light: lightGetTheme(lightPlatform),
-  dark: darkGetTheme(darkPlatform),
+  light,
+  dark,
 }
 
 export default themes;

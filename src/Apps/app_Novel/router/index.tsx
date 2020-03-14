@@ -6,7 +6,7 @@ import {
 import _ from 'lodash';
 import createAnimatedSwitchNavigator from 'react-navigation-animated-switch';
 import { Transition } from 'react-native-reanimated';
-import { StyleProvider } from 'native-base';
+import { StyleProvider, Root } from 'native-base';
 import {
     createReduxContainer,
     createReactNavigationReduxMiddleware,
@@ -15,7 +15,7 @@ import {
 import { Mode } from 'react-native-dark-mode';
 import { connect } from 'react-redux';
 import { ConnectState } from '../models/connect';
-import themes from '@Global/utils/themes';
+import themes, { getTheme } from '@Global/utils/themes';
 
 import Splash from '../pages/Splash';
 import BottomTab from './BottomTab.router';
@@ -136,16 +136,18 @@ export default function createRouter() {
 
     render() {
       const { forceUpdate } = this.state;
-      const { dispatch, router, mode } = this.props;
-      return <StyleProvider style={themes[mode]}>
-          <LoginProvider>
-            {
-              !forceUpdate ? <App
-                dispatch={dispatch}
-                state={router}
-              /> : undefined
-            }
-          </LoginProvider>
+      const { dispatch, router, mode, theme } = this.props;
+      return <StyleProvider style={getTheme(theme)}>
+          <Root>
+            <LoginProvider>
+              {
+                !forceUpdate ? <App
+                  dispatch={dispatch}
+                  state={router}
+                /> : undefined
+              }
+            </LoginProvider>
+          </Root>
       </StyleProvider>
     }
   }
@@ -161,6 +163,7 @@ export default function createRouter() {
         router: state.router,
         token: state.auth.token,
         mode: state.global.mode,
+        getTheme: state.global.theme,
       }
     })(Router),
   }

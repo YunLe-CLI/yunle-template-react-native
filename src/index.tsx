@@ -2,7 +2,7 @@ import React, {Component, PureComponent } from 'react';
 import { Linking, View } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { persistStore, persistReducer, REHYDRATE } from 'redux-persist';
-import { StyleProvider } from 'native-base';
+import { Root, StyleProvider } from 'native-base';
 import { PersistGate } from 'redux-persist/integration/react';
 import { connect } from "react-redux";
 import RNBootSplash from 'react-native-bootsplash';
@@ -24,7 +24,7 @@ import CheckCodePushProvider from '@Global/components/CheckCodePush';
 import SelectThemeModalProvider, {withSelectThemeModal} from '@Global/components/SelectThemeModal';
 import ErrorView from '@Global/components/ErrorView';
 
-import themes from '@Global/utils/themes';
+import themes, { getTheme } from '@Global/utils/themes';
 import {setJSExceptionHandler} from "@Global/utils/globalErrorHandle";
 import moment from 'moment';
 
@@ -48,6 +48,7 @@ interface IMProps extends ConnectProps {
   ENV: string;
   appProps: ConnectState;
   mode: Mode;
+  theme: any;
 }
 
 function createApp(config: ICreateApp) {
@@ -172,32 +173,34 @@ function createApp(config: ICreateApp) {
       }
 
       render() {
-        const { appProps, mode } = this.props;
+        const { appProps, theme } = this.props;
         const { initLoading, forceUpdate, isError, errorInfo } = this.state;
         return (
-          <StyleProvider style={themes[mode]}>
-            <LoadingSpinnerProvider>
-              <DropdownAlertProvider>
-                <CheckAppUpdateProvider>
-                  <CheckCodePushProvider>
-                    <SelectThemeModalProvider>
-                      <MinProgramProvider>
-                        <View style={{ flex: 1, flexGrow: 1, }}>
-                          <View style={{ flexGrow: 1, }}>
-                            {
-                              isError ? (<ErrorView errorInfo={errorInfo} />) : (
-                                !initLoading && !forceUpdate ? <router.Router {...appProps} /> : undefined
-                              )
-                            }
+          <StyleProvider style={getTheme(theme)}>
+            <Root>
+              <LoadingSpinnerProvider>
+                <DropdownAlertProvider>
+                  <CheckAppUpdateProvider>
+                    <CheckCodePushProvider>
+                      <SelectThemeModalProvider>
+                        <MinProgramProvider>
+                          <View style={{ flex: 1, flexGrow: 1, }}>
+                            <View style={{ flexGrow: 1, }}>
+                              {
+                                isError ? (<ErrorView errorInfo={errorInfo} />) : (
+                                  !initLoading && !forceUpdate ? <router.Router {...appProps} /> : undefined
+                                )
+                              }
+                            </View>
+                            {!initLoading && $config.environment ? <IsTester /> : undefined }
                           </View>
-                          {!initLoading && $config.environment ? <IsTester /> : undefined }
-                        </View>
-                      </MinProgramProvider>
-                    </SelectThemeModalProvider>
-                  </CheckCodePushProvider>
-                </CheckAppUpdateProvider>
-              </DropdownAlertProvider>
-            </LoadingSpinnerProvider>
+                        </MinProgramProvider>
+                      </SelectThemeModalProvider>
+                    </CheckCodePushProvider>
+                  </CheckAppUpdateProvider>
+                </DropdownAlertProvider>
+              </LoadingSpinnerProvider>
+            </Root>
           </StyleProvider>
         );
       }
@@ -207,6 +210,7 @@ function createApp(config: ICreateApp) {
         appReload: _.get(state, 'app.appReload', false),
         appProps: state,
         mode: state.global.mode,
+        theme: state.global.theme,
       }
     })(withSelectThemeModal(withLoadingSpinner(Main)));
 
