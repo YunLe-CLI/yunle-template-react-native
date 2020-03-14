@@ -169,16 +169,22 @@ class SelectThemeModalProvider extends React.Component<{}, IState> {
                 colos.map((item) => {
                   return (
                     <View key={JSON.stringify(item)}>
-                      <Button rounded style={{
-                        margin: 5,
-                        marginHorizontal: 10,
-                        width: 50,
-                        height: 50,
-                        backgroundColor: item.color,
-                      }}/>
+                      <Button rounded 
+                        style={{
+                          margin: 5,
+                          marginHorizontal: 10,
+                          width: 50,
+                          height: 50,
+                          backgroundColor: item.color,
+                        }}
+                        onPress={() => {
+                          this.onSelect(info);
+                        }}
+                      />
                       <Text style={{
                         textAlign: 'center',
                         fontSize: 10,
+                        paddingBottom: 5,
                         }}>
                           {item.name}
                       </Text>
