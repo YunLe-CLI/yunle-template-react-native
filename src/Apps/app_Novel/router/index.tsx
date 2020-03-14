@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import {Platform, BackHandler, ToastAndroid, View} from 'react-native';
+import { Platform, BackHandler, ToastAndroid } from 'react-native';
 import {
   NavigationActions,
 } from 'react-navigation';
@@ -12,10 +12,10 @@ import {
     createReactNavigationReduxMiddleware,
     createNavigationReducer,
 } from 'react-navigation-redux-helpers';
-
+import { Mode } from 'react-native-dark-mode';
 import { connect } from 'react-redux';
-import getTheme from '@Global/utils/themes/dark/components';
-import platform from '@Global/utils/themes/dark/variables/platform';
+import { ConnectState } from '../models/connect';
+import themes from '@Global/utils/themes';
 
 import Splash from '../pages/Splash';
 import BottomTab from './BottomTab.router';
@@ -71,6 +71,8 @@ export default function createRouter() {
     dispatch: any;
     router: any;
     theme?: any;
+    token: undefined | string;
+    mode: Mode;
   }
 
   let lastBackPressed: any = undefined;
@@ -90,7 +92,7 @@ export default function createRouter() {
       forceUpdate: false,
     }
 
-    componentDidUpdate(prevProps: Readonly<IMProps>, prevState: Readonly<{}>): void {
+    componentDidUpdate(prevProps: Readonly<IRouterProps>, prevState: Readonly<{}>): void {
       // // todo: 暂时 当token改变强置刷新
       try {
         console.log('token this', this.props.token)
@@ -134,8 +136,8 @@ export default function createRouter() {
 
     render() {
       const { forceUpdate } = this.state;
-      const { dispatch, router } = this.props;
-      return <StyleProvider style={getTheme(platform)}>
+      const { dispatch, router, mode } = this.props;
+      return <StyleProvider style={themes[mode]}>
           <LoginProvider>
             {
               !forceUpdate ? <App
@@ -148,16 +150,17 @@ export default function createRouter() {
     }
   }
 
-  interface IConnectProps {
+  interface IConnectState extends ConnectState {
     router: any;
   }
   return {
     routerReducer,
     routerMiddleware,
-    Router: connect((state: IConnectProps) => {
+    Router: connect((state: IConnectState) => {
       return {
         router: state.router,
-        token: _.get(state, 'auth.token'),
+        token: state.auth.token,
+        mode: state.global.mode,
       }
     })(Router),
   }

@@ -12,11 +12,10 @@ import {
     createReactNavigationReduxMiddleware,
     createNavigationReducer,
 } from 'react-navigation-redux-helpers';
-
+import { Mode } from 'react-native-dark-mode';
 import { connect } from 'react-redux';
 import { ConnectState } from '../models/connect';
-import getTheme from '@Global/utils/themes/dark/components';
-import platform from '@Global/utils/themes/dark/variables/platform';
+import themes from '@Global/utils/themes';
 
 import Splash from '../pages/Splash';
 import BottomTab from './BottomTab.router';
@@ -73,6 +72,7 @@ export default function createRouter() {
     router: any;
     theme?: any;
     token: undefined | string;
+    mode: Mode;
   }
 
   let lastBackPressed: any = undefined;
@@ -136,8 +136,8 @@ export default function createRouter() {
 
     render() {
       const { forceUpdate } = this.state;
-      const { dispatch, router } = this.props;
-      return <StyleProvider style={getTheme(platform)}>
+      const { dispatch, router, mode } = this.props;
+      return <StyleProvider style={themes[mode]}>
           <LoginProvider>
             {
               !forceUpdate ? <App
@@ -160,6 +160,7 @@ export default function createRouter() {
       return {
         router: state.router,
         token: state.auth.token,
+        mode: state.global.mode,
       }
     })(Router),
   }

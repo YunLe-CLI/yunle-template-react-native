@@ -9,7 +9,7 @@
     "lib": ["es6", "es2017"],
     "moduleResolution": "node",
     "noEmit": true,
-    "incremental": true,
+    "incremental": false,
     "strict": true,
     "target": "esnext",
     "module": "commonjs",

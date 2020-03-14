@@ -9,7 +9,7 @@ import {
   Left,
   Body,
   Right,
-  Text,
+  Title,
   Segment,
 } from 'native-base';
 import _ from 'lodash';
@@ -127,7 +127,7 @@ class MinProgramProvider extends React.Component<IProps, IState> {
 
               </Left>
               <Body>
-                <Text>小程序</Text>
+                <Title>小程序</Title>
               </Body>
               <Right>
                 <Segment style={{

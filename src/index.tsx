@@ -1,5 +1,5 @@
 import React, {Component, PureComponent } from 'react';
-import { Linking, View, Alert } from 'react-native';
+import { Linking, View } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { persistStore, persistReducer, REHYDRATE } from 'redux-persist';
 import { StyleProvider } from 'native-base';
@@ -7,6 +7,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { connect } from "react-redux";
 import RNBootSplash from 'react-native-bootsplash';
 import codePush from "react-native-code-push";
+import { Mode } from 'react-native-dark-mode';
 import _ from 'lodash';
 import './global';
 import dva from '@Global/utils/dva';
@@ -23,12 +24,11 @@ import CheckCodePushProvider from '@Global/components/CheckCodePush';
 import SelectThemeModalProvider, {withSelectThemeModal} from '@Global/components/SelectThemeModal';
 import ErrorView from '@Global/components/ErrorView';
 
-import getTheme from '@Global/utils/themes/dark/components';
-import platform from '@Global/utils/themes/dark/variables/platform';
+import themes from '@Global/utils/themes';
 import {setJSExceptionHandler} from "@Global/utils/globalErrorHandle";
 import moment from 'moment';
 
-import * as themes from '@/Apps/index';
+import * as apps from '@/Apps/index';
 const appsMemoize = _.memoize(_.values);
 
 export interface ICreateApp {
@@ -46,7 +46,8 @@ export interface ICreateApp {
 interface IMProps extends ConnectProps {
   appReload: boolean;
   ENV: string;
-  appProps: ConnectState
+  appProps: ConnectState;
+  mode: Mode;
 }
 
 function createApp(config: ICreateApp) {
@@ -171,22 +172,33 @@ function createApp(config: ICreateApp) {
       }
 
       render() {
-        const { appProps } = this.props;
+        const { appProps, mode } = this.props;
         const { initLoading, forceUpdate, isError, errorInfo } = this.state;
         return (
-          <View style={{ flex: 1, flexGrow: 1, }}>
-            <View style={{ flexGrow: 1, }}>
-              {
-                isError ? (<ErrorView errorInfo={errorInfo} />) : (
-                  !initLoading && !forceUpdate ? <router.Router {...appProps} /> : undefined
-                )
-              }
-            </View>
-            <IsTester />
-            {/*{*/}
-            {/*  !initLoading && ENV === 'development' ? <IsTester /> : undefined*/}
-            {/*}*/}
-          </View>
+          <StyleProvider style={themes[mode]}>
+            <LoadingSpinnerProvider>
+              <DropdownAlertProvider>
+                <CheckAppUpdateProvider>
+                  <CheckCodePushProvider>
+                    <SelectThemeModalProvider>
+                      <MinProgramProvider>
+                        <View style={{ flex: 1, flexGrow: 1, }}>
+                          <View style={{ flexGrow: 1, }}>
+                            {
+                              isError ? (<ErrorView errorInfo={errorInfo} />) : (
+                                !initLoading && !forceUpdate ? <router.Router {...appProps} /> : undefined
+                              )
+                            }
+                          </View>
+                          {!initLoading && $config.environment ? <IsTester /> : undefined }
+                        </View>
+                      </MinProgramProvider>
+                    </SelectThemeModalProvider>
+                  </CheckCodePushProvider>
+                </CheckAppUpdateProvider>
+              </DropdownAlertProvider>
+            </LoadingSpinnerProvider>
+          </StyleProvider>
         );
       }
     }
@@ -194,6 +206,7 @@ function createApp(config: ICreateApp) {
       return {
         appReload: _.get(state, 'app.appReload', false),
         appProps: state,
+        mode: state.global.mode,
       }
     })(withSelectThemeModal(withLoadingSpinner(Main)));
 
@@ -204,21 +217,7 @@ function createApp(config: ICreateApp) {
             persistor={createPersist(dvaApp._store)}
             loading={<Loading />}
           >
-            <StyleProvider style={getTheme(platform)}>
-              <LoadingSpinnerProvider>
-                <DropdownAlertProvider>
-                  <CheckAppUpdateProvider>
-                    <CheckCodePushProvider>
-                      <SelectThemeModalProvider>
-                        <MinProgramProvider>
-                          <MainView />
-                        </MinProgramProvider>
-                      </SelectThemeModalProvider>
-                    </CheckCodePushProvider>
-                  </CheckAppUpdateProvider>
-                </DropdownAlertProvider>
-              </LoadingSpinnerProvider>
-            </StyleProvider>
+            <MainView />
           </PersistGate>
         );
       }
@@ -262,7 +261,7 @@ export default class RootView extends PureComponent {
   async createAppNode() {
     const appID = await AsyncStorage.getItem('__APP_ID__');
     const nowAppID = this.getAppID(appID);
-    const app = themes[nowAppID];
+    const app = apps[nowAppID];
     this[nowAppID] = createApp(app);
     this.setState({
       appID: nowAppID,
@@ -282,7 +281,7 @@ export default class RootView extends PureComponent {
 
   getAppID(appID: string | null) {
     let nowAppID = this.state.defaultAppID;
-    const supportedApps = appsMemoize(themes)
+    const supportedApps = appsMemoize(apps)
     if (appID && supportedApps.findIndex((item) => appID === item.id) > -1) {
       nowAppID = appID;
     } else {
