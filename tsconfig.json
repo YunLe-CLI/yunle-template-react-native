@@ -24,8 +24,8 @@
     "paths": {
       "@/*": ["./src/*"],
       "@Global/*": ["./src/*"],
-      "@Apps/*": ["src/Apps/*"],
-      "@Themes/*": ["src/utils/themes/*"],
+      "@Apps/*": ["./src/Apps/*"],
+      "@Themes/*": ["./src/utils/themes/*"],
     }
   },
   "exclude": [

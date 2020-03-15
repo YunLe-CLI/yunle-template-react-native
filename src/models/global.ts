@@ -1,11 +1,10 @@
 import { Reducer } from 'redux';
 import { AppState, AppStateStatus } from 'react-native';
 import { Subscription, Effect } from 'dva';
-import { Mode, eventEmitter, initialMode, useDarkMode } from 'react-native-dark-mode'
+import { Mode, eventEmitter, initialMode } from 'react-native-dark-mode'
 import Orientation, { OrientationType } from 'react-native-orientation-locker';
 
 import { ENVIRONMENT, BUILD_TYPE } from '@Global/utils/env';
-import themes from '@Global/utils/themes';
 
 export interface GlobalModelState {
   orientation: OrientationType;
