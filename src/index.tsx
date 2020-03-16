@@ -231,7 +231,7 @@ function createApp(config: ICreateApp) {
     }
     APP_NODE = dvaApp.start(<App />);
   } catch (e) {
-   
+    console.log(e)
   }
   return APP_NODE;
 }
@@ -251,7 +251,7 @@ export default class RootView extends PureComponent {
 
   state = {
     defaultAppID: 'app_Default',
-    appID: 'app_Default',
+    appID: '',
   }
 
   componentDidMount() {
@@ -269,6 +269,7 @@ export default class RootView extends PureComponent {
     const appID = await AsyncStorage.getItem('__APP_ID__');
     const nowAppID = this.getAppID(appID);
     const app = apps[nowAppID];
+    console.log('config', nowAppID, app, apps);
     this[nowAppID] = createApp(app);
     this.setState({
       appID: nowAppID,
@@ -302,6 +303,7 @@ export default class RootView extends PureComponent {
     const { appID } = this.state;
     const NODE = this[appID];
     global['$selectApp'] = this.selectApp;
+    console.log(appID, NODE)
     return appID && NODE ? <NODE /> : <Loading />
   }
 };
