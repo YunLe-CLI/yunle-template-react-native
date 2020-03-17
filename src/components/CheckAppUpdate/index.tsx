@@ -1,5 +1,5 @@
 import React, { createContext } from 'react';
-import { View, AppState,} from 'react-native';
+import { View, AppState, Alert,} from 'react-native';
 import styles from './styles';
 import Modal from "react-native-modal";
 import _ from "lodash";

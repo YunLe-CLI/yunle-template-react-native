@@ -1045,7 +1045,7 @@
 					"$(PROJECT_DIR)/UMComponent/UMShare/SocialLibraries/Sina",
 					"$(PROJECT_DIR)/UMComponent/UMShare/SocialLibraries/QQ",
 				);
-				MARKETING_VERSION = 0.0.14;
+				MARKETING_VERSION = 0.0.15;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1091,7 +1091,7 @@
 					"$(PROJECT_DIR)/UMComponent/UMShare/SocialLibraries/Sina",
 					"$(PROJECT_DIR)/UMComponent/UMShare/SocialLibraries/QQ",
 				);
-				MARKETING_VERSION = 0.0.14;
+				MARKETING_VERSION = 0.0.15;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1413,7 +1413,7 @@
 					"$(PROJECT_DIR)/UMComponent/UMShare/SocialLibraries/Sina",
 					"$(PROJECT_DIR)/UMComponent/UMShare/SocialLibraries/QQ",
 				);
-				MARKETING_VERSION = 0.0.14;
+				MARKETING_VERSION = 0.0.15;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1591,7 +1591,7 @@
 					"$(PROJECT_DIR)/UMComponent/UMShare/SocialLibraries/Sina",
 					"$(PROJECT_DIR)/UMComponent/UMShare/SocialLibraries/QQ",
 				);
-				MARKETING_VERSION = 0.0.14;
+				MARKETING_VERSION = 0.0.15;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1774,7 +1774,7 @@
 					"$(PROJECT_DIR)/UMComponent/UMShare/SocialLibraries/Sina",
 					"$(PROJECT_DIR)/UMComponent/UMShare/SocialLibraries/QQ",
 				);
-				MARKETING_VERSION = 0.0.14;
+				MARKETING_VERSION = 0.0.15;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1952,7 +1952,7 @@
 					"$(PROJECT_DIR)/UMComponent/UMShare/SocialLibraries/Sina",
 					"$(PROJECT_DIR)/UMComponent/UMShare/SocialLibraries/QQ",
 				);
-				MARKETING_VERSION = 0.0.14;
+				MARKETING_VERSION = 0.0.15;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

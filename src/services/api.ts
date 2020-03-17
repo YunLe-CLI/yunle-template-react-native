@@ -30,8 +30,11 @@ export async function getOnlineAppVersion(): Promise<VERSION_INFO> {
   return request({
     url: url,
     method: 'GET'
-  }).then((data: onlineVersion) => {
+  }).then(({ data }: { data: onlineVersion }) => {
     const res = _.get(data, `${Platform.OS}.${$config.environment}`, {}) || {};
+    console.log(3333, data, res, `${Platform.OS}.${$config.environment}`)
     return res
+  }).catch((err) => {
+    console.log(3333, err)
   });
 }

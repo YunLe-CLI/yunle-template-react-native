@@ -1,6 +1,6 @@
 import { Platform, Linking } from "react-native";
 import RNFetchBlob from 'rn-fetch-blob';
-import { getOnlineAppVersion } from '@/services/api'
+import { getOnlineAppVersion } from '@Global/services/api'
 import {checkAppVersion, showMsg} from "@Global/utils/utils";
 import moment from "moment";
 import Permissions, {PERMISSIONS, RESULTS} from "react-native-permissions";
@@ -9,7 +9,7 @@ export default async () => {
   let updateURI = undefined;
   try {
     const res = await getOnlineAppVersion();
-    console.log(3333, res)
+    console.log(999999, res)
     if (!res || !res.version) {
       updateURI = undefined;
       return updateURI;
