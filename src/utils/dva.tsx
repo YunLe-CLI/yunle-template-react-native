@@ -14,8 +14,8 @@ export default function(options: any) {
   const app = create(options)
   app.use(createLoading({}))
   // HMR workaround
-  if (!global.registered) options.models.forEach((model: Model) => app.model(model))
-  global.registered = true
+  if (!global.$dvaRegistered) options.models.forEach((model: Model) => app.model(model))
+  global.$dvaRegistered = true
 
   app.start()
   const store: any = app._store

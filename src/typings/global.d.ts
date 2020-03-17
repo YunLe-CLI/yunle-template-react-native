@@ -1,18 +1,21 @@
-declare var global: {
-	dvaStore: any; 
-	$selectApp: (appID: string) => void;
-	i18n: {
-	 setI18nConfig: (language: string, themeLocales: any) => string;
-	 supportedLanguages: string[];
- 	};
- 	$t: (key: string, conig: any) => string;
- 	$config: {
-	 environment: string;
-	 buildType: string;
- 	};
- 	$token: string | undefined;
-	[key: string]: any;
-};
+declare namespace NodeJS {
+	interface Global {
+		dvaStore: any; 
+		$selectApp: (appID: string) => void;
+		i18n: {
+		 setI18nConfig: (language: string, themeLocales: any) => string;
+			supportedLanguages: string[];
+		 };
+		 $t: (key: string, conig: any) => string;
+		 $config: {
+			environment: string;
+			buildType: string;
+		 };
+		 $token: string | undefined;
+		 $dvaRegistered: boolean;
+		 ErrorUtils: any;
+	}
+}
 
 declare namespace $config {
 	const environment: string;
