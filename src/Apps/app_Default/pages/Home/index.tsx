@@ -76,7 +76,9 @@ class Home extends React.Component<IProps, IState> {
           <Text>
             {JSON.stringify(global)}
           </Text>
-          <Button>
+          <Button onPress={() => {
+            this.componentDidMount()
+          }}>
             <Text>mock data</Text>
           </Button>
           <Text>

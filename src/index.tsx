@@ -280,6 +280,7 @@ export default class RootView extends PureComponent {
   }
 
   async selectApp(appID: string) {
+    RNBootSplash.show();
     const nowAppID = this.getAppID(appID);
     await AsyncStorage.setItem('__APP_ID__', nowAppID);
     setTimeout(() => {

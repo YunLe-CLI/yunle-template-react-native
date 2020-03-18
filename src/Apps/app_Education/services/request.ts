@@ -2,19 +2,35 @@ import axios, {AxiosRequestConfig} from 'axios';
 import {Platform} from 'react-native';
 import _ from 'lodash';
 import DeviceInfo from 'react-native-device-info';
+import MockAdapter from 'axios-mock-adapter';
+import Mock from 'mockjs';
+
+import apiMock from '../mock/api';
+
+const fetch = axios.create({});
+if (apiMock) {
+  const mock = new MockAdapter(fetch);
+  const list = Object.keys(apiMock);
+  list.forEach((item) => {
+    mock.onAny(item).reply(() => {
+      return [200, Mock.mock(apiMock[item])]
+    });
+  })
+}
+
 
 // 添加响应拦截器
-axios.interceptors.response.use(function (response) {
+fetch.interceptors.response.use(function ({ data }) {
   // 对响应数据做点什么
   // 退出登录
-  console.log('global.dvaStore', global.dvaStore)
-  if (_.get(response, 'code') === -1 && _.isFunction(_.get(global, 'dvaStore.dispatch'))) {
+  console.log('global.dvaStore', global.dvaStore, data)
+  if (_.get(data, 'code') === -1 && _.isFunction(_.get(global, 'dvaStore.dispatch'))) {
     global.dvaStore.dispatch({
       type: 'auth/logout'
     });
   }
-  console.log(11111, response)
-  return response || {};
+  console.log(11111, data)
+  return data || {};
 }, function (error) {
   // 对响应错误做点什么
   return Promise.reject(error);
@@ -44,15 +60,8 @@ export default async function request(config: AxiosRequestConfig, token?: string
     app_build_number: DeviceInfo.getBuildNumber(),
   };
   // axios.defaults.baseURL = 'https://api.example.com';
-  axios.defaults.headers.common['token'] = AUTH_TOKEN;
-  axios.defaults.headers.common['AppInfo'] = appInfo;
-  axios.defaults.headers.post['Content-Type'] = 'application/json; charset=utf-8';
-// 1:yktdemo
-  // 2:ktdemo
-  // 3:ykt
-  // 4:xxkt
-  // 5:zxkt
-  // 6:jykt
-  axios.defaults.headers.common['x-app-name'] = 'jiaoyu3';
-  return axios(config);
+  fetch.defaults.headers.common['token'] = AUTH_TOKEN;
+  fetch.defaults.headers.common['AppInfo'] = appInfo;
+  fetch.defaults.headers.post['Content-Type'] = 'application/json; charset=utf-8';
+  return fetch(config);
 }

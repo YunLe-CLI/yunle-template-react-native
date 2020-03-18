@@ -168,7 +168,7 @@ class LoginProvider extends React.Component<IProps, IState> {
         throw res.msg
       }
     } catch (e) {
-      alert('登录失败'+e)
+      alert('登录失败 123'+e)
     } finally {
       this.props.hiddenLoading()
     }

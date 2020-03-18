@@ -1,5 +1,4 @@
 import request from './request'
-import { getOrigin } from '@/utils/utils'
 
 /**
  * 登录
@@ -8,7 +7,7 @@ import { getOrigin } from '@/utils/utils'
  */
 export async function login(query: { loginName: string; password: string }): Promise<any> {
   return request( {
-    url: `https://yunshixun-live.dev.class100.com/api/v1/users/login`,
+    url: '/users/login',
     method: 'POST',
     data: query
   });
@@ -21,7 +20,7 @@ export async function login(query: { loginName: string; password: string }): Pro
  */
 export async function today_courses({}, token): Promise<any> {
   return request( {
-    url: await getOrigin('https://yunshixun-live.dev.class100.com/api/v1/today_courses', 'app'),
+    url: '/today_courses',
     method: 'GET',
   });
 }
@@ -33,7 +32,7 @@ export async function today_courses({}, token): Promise<any> {
  */
 export async function mine_courses({}, token): Promise<any> {
   return request({
-    url: await getOrigin('https://yunshixun-live.dev.class100.com/api/v1/courses/mine', 'app'),
+    url: '/courses/mine',
     method: 'GET',
   });
 }
@@ -45,7 +44,7 @@ export async function mine_courses({}, token): Promise<any> {
  */
 export async function signins(query: { courseId: string }, token): Promise<any> {
   return request({
-    url: await getOrigin('https://yunshixun-live.dev.class100.com/api/v1/signins', 'app'),
+    url: '/signins',
     method: 'POST',
     data: {
       courseId: query.courseId,

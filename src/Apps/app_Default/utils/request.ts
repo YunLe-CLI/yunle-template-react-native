@@ -3,6 +3,8 @@ import {Platform} from 'react-native';
 import _ from 'lodash';
 import DeviceInfo from 'react-native-device-info';
 import MockAdapter from 'axios-mock-adapter';
+import Mock from 'mockjs';
+
 import apiMock from '../mock/api';
 
 const fetch = axios.create({});
@@ -10,9 +12,12 @@ if (apiMock) {
   const mock = new MockAdapter(fetch);
   const list = Object.keys(apiMock);
   list.forEach((item) => {
-    mock.onGet(item).reply(200, apiMock[item]);
+    mock.onAny(item).reply(() => {
+      return [200, Mock.mock(apiMock[item])]
+    });
   })
 }
+
 
 // 添加响应拦截器
 fetch.interceptors.response.use(function (response) {
