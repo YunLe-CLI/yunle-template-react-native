@@ -212,8 +212,8 @@ function createApp(config: ICreateApp) {
       return {
         appReload: _.get(state, 'app.appReload', false),
         appProps: state,
-        mode: state.global.mode,
-        theme: state.theme.theme,
+        mode: _.get(state, 'global.mode'),
+        theme: _.get(state, 'global.theme.theme'),
       }
     })(withSelectThemeModal((withSelectAppModal(withLoadingSpinner(Main)))));
 
@@ -269,7 +269,7 @@ export default class RootView extends PureComponent {
     const appID = await AsyncStorage.getItem('__APP_ID__');
     const nowAppID = this.getAppID(appID);
     const app = apps[nowAppID];
-    console.log('config', nowAppID, app, apps);
+    // console.log('config: ', 'nowAppID: ', nowAppID, 'app: ', app, 'apps: ', apps);
     this[nowAppID] = createApp(app);
     this.setState({
       appID: nowAppID,
