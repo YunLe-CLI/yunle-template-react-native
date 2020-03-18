@@ -2,7 +2,18 @@ import axios, {AxiosRequestConfig} from 'axios';
 import {Platform} from 'react-native';
 import _ from 'lodash';
 import DeviceInfo from 'react-native-device-info';
-import { store } from '@Global/index';
+import MockAdapter from 'axios-mock-adapter';
+
+// This sets the mock adapter on the default instance
+const mock = new MockAdapter(axios);
+
+// Mock any GET request to /users
+// arguments for reply are (status, data, headers)
+mock.onGet('/users').reply(200, {
+  users: [
+    { id: 1, name: 'John Smith' }
+  ]
+});
 
 // 添加响应拦截器
 axios.interceptors.response.use(function (response) {

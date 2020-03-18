@@ -44,6 +44,7 @@
     "@react-native-community/viewpager": "^3.3.0",
     "@types/cheerio": "^0.22.16",
     "axios": "^0.19.2",
+    "axios-mock-adapter": "^1.17.0",
     "buffer": "5.5.0",
     "cheerio": "0.22.0",
     "compare-versions": "^3.6.0",

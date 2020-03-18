@@ -7,5 +7,5 @@ export default {
   router: createRouter(),
   models: Object.values(models),
   author: '大狗吱',
-  preview: require('./assets/preview.jpg'),
+  preview: require('./assets/preview.jpeg'),
 }
