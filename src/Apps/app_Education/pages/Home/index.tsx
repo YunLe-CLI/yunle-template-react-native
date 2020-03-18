@@ -209,7 +209,7 @@ class Home extends React.Component<IProps, IState> {
             // alignContent: 'center',
             // justifyContent: 'center',
           }}
-          source={require('./assets/item_img_slices/img.png')}
+          source={{ uri: data.cover }}
         >
           <View  style={[styles.type,
             type === -1 ? styles.type_0 : {},
