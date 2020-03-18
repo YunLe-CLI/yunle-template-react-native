@@ -93,6 +93,7 @@ class Home extends React.Component<IProps, IState> {
                                           styles.btn,
                                           {
                                               width,
+                                              height: width,
                                           }
                                       ]}
                                       textStyle={styles.btnText}

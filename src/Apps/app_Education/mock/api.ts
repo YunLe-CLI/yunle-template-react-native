@@ -31,6 +31,7 @@ export default {
     "success":true,
     'data|1-10': [
       {
+        "playbackURL": 'https://player.alicdn.com/video/aliyunmedia.mp4',
         "cover": () => Random.image('115x132', '#FD673D'),
         "studentIds":[
           "5df9ec49dbcad0dae13e310f",
@@ -103,11 +104,12 @@ export default {
         },
         "docs|1-10":[
             {
+              "playbackURL": 'https://player.alicdn.com/video/aliyunmedia.mp4',
               "cover": () => Random.image('115x132', '#FD673D'),
                 "studentIds":[
                     "5dfdba1412d8df0039796333"
                 ],
-                "status":-1,
+                "status": () => Random.integer(-1,3),
                 "startTime":1576926528765,
                 "endTime":1576936528765,
                 "title": ()=>Random.ctitle(),
@@ -123,8 +125,10 @@ export default {
                     "Status":0,
                     "MeetingType":0
                 },
-                "coursewares":[
-
+                "coursewares|1-10":[
+                  {
+                    "title": () => Random.ctitle(),
+                  }
                 ],
                 "__v":0,
                 "teacher":{
@@ -161,7 +165,7 @@ export default {
                         "__v":0
                     }
                 ],
-                "signin":false,
+                "signin|1": false,
                 'id|+1': 1
             }
         ]

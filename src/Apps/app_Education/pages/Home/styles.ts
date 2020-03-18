@@ -4,7 +4,210 @@ import {StyleSheet} from 'react-native';
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F9F9F9'
+  },
+  btn: {
+    borderRadius: 4,
+  },
+  header: {
+    overflow: 'hidden'
+  },
+  headerContent: {
+    // position: 'absolute',
+  },
+  userWrap: {
+    paddingHorizontal: 16,
+    height: 45,
+    flexGrow: 1,
+    backgroundColor: 'transparent',
+    alignItems: 'center',
+    // justifyContent: 'center',
+    flexDirection: 'row'
+  },
+  userName: {
+    fontWeight: '400',
+    color: 'rgba(0,0,0,0.85)',
+    fontSize: 12,
+  },
+  content: {
+    flexGrow: 1,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    backgroundColor: '#F6F9FB',
+
+    overflow: 'hidden'
+  },
+  title: {
+    paddingHorizontal: 16,
+    paddingVertical: 20,
+    fontSize: 20,
+    color: '#353B50',
+    fontWeight: '500',
+    lineHeight: 20,
+    backgroundColor: '#F4F6FA'
+  },
+  itemBox: {
+    flexGrow: 1,
+    // paddingVertical: 14,
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    overflow: 'hidden',
+    marginVertical: 16,
+    marginHorizontal: 20,
+  },
+  itemBox_1: {
+    flex: 1,
+  },
+  typeWrap: {
+    position: 'absolute',
+    height: 24,
+    paddingLeft: 10,
+    paddingRight: 10,
+    borderBottomLeftRadius: 8,
+    backgroundColor: '#32C5FF',
+  },
+  typeWrap_0: {
+    backgroundColor: '#21DE98',
+  },
+  typeWrap_1: {
+    backgroundColor: '#21DE98',
+  },
+  typeWrap_2: {
+    backgroundColor: '#FFB068',
+  },
+  typeWrap_3: {
+    backgroundColor: '#9C9EB9',
+  },
+  type: {
+    lineHeight: 24,
+    textAlign: 'center',
+    fontSize: 12,
+    color: '#fff',
+  },
+  itemBox_2: {
+    flex: 1,
+    flexGrow: 1,
+    // overflow: 'hidden',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    // marginHorizontal: 14,
+  },
+  itemBox_3: {
+    // paddingHorizontal: 14,
+  },
+  itemBox_4: {
+    flex: 1,
+    flexGrow: 1,
+    justifyContent: 'center',
+    // alignItems: 'center',
+    marginHorizontal: 14,
+    marginTop: 8,
+    marginBottom: 20,
+  },
+  checkWrap: {
+    borderWidth: 1,
+    borderColor: '#8F9BB3',
+    borderRadius: 4,
+    paddingHorizontal: 5,
+    paddingVertical: 0,
+    marginRight: 16,
+    height: 20,
+    paddingBottom: 0,
+    paddingTop: 0,
+  },
+  checkEndWrap: {
+    borderColor: '#2ED07D'
+  },
+  checkText: {
+    fontWeight: '400',
+    color: '#8F9BB3',
+    fontSize: 12,
+    marginRight: 10,
+  },
+  checkEndText: {
+    color: '#2ED07D'
+  },
+  timeText: {
+    fontWeight: '400',
+    color: '#B2B1B4',
+    fontSize: 14,
+    lineHeight: 20,
+    paddingRight: 19,
+  },
+  titleText: {
+    paddingHorizontal: 16,
+    flexGrow: 1,
+    fontWeight: '500',
+    color: '#000000',
+    fontSize: 18,
+    lineHeight: 25,
+    marginTop: 8,
+    marginBottom: 8,
+  },
+  nameText: {
+    fontWeight: '400',
+    color: '#B2B1B4',
+    fontSize: 14,
+    lineHeight: 20,
+    flexWrap: 'wrap'
+  },
+  btnWrap: {
+    flex: 1,
+    marginTop: 13,
+    flexGrow: 1,
+    height: 36,
+    borderRadius: 3,
+    overflow: 'hidden',
+  },
+  btnContent: {
+    // flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: 0,
+    paddingRight: 0,
+    paddingBottom: 0,
+    paddingLeft: 0,
+    flexGrow: 1,
+    height: 36,
+    borderWidth: 1,
+  },
+  btnText: {
+    fontWeight: '400',
+    color: '#00BCCA',
+    fontSize: 16,
+  },
+  linearGradientBtn: {
+    flex: 1,
+    flexGrow: 1,
+  },
+  allInfoWrap: {
+    flexDirection: 'row',
+    marginTop: 20,
+    paddingHorizontal: 16,
+    flex: 1,
+    // marginHorizontal: 16,
+    // backgroundColor: '#fff',
+  },
+  allInfoItem: {
+    flex: 1,
+    flexGrow: 1,
+    paddingVertical: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+    backgroundColor: 'rgba(127,134,148,0.08)',
+    overflow: 'hidden',
+  },
+  allInfoNum: {
+    fontWeight: '500',
+    color: '#353B50',
+    fontSize: 24,
+  },
+  allInfoTitle: {
+    marginTop: 8,
+    fontWeight: '400',
+    color: '#9C9EB9',
+    fontSize: 14,
   },
   btn: {
     borderRadius: 4,
@@ -26,8 +229,7 @@ export default StyleSheet.create({
     borderRightWidth: 0,
     borderBottomWidth: 0,
     overflow: 'hidden',
-    padding: 16,
-    flexDirection: 'row',
+    // padding: 16,
   },
   typeLineDefault: {
     width: 16,
@@ -154,14 +356,15 @@ export default StyleSheet.create({
     // flexDirection: 'row'
   },
   btnTabText: {
-    color: '#030600',
-    fontSize: 12,
-    lineHeight: 20,
-    fontWeight: '400',
+    // position: 'absolute',
+    color: 'rgba(0,0,0,0.5)',
+    fontSize: 16,
+    lineHeight: 22,
+    fontWeight: '500',
     textAlign: 'justify'
   },
   activeBtnTabText: {
-    // color: '#11CD8F',
+    color: '#51549A',
   },
   line: {
     width: 1,
@@ -220,127 +423,10 @@ export default StyleSheet.create({
     fontWeight: '400',
     lineHeight: 20,
   },
-  allInfoWrap: {
-    height: 56,
-    flexDirection: 'row',
-    // marginHorizontal: 16,
-    backgroundColor: '#fff',
-    overflow: 'hidden',
-  },
-  allInfoItem: {
-    flex: 1,
-    flexGrow: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  allInfoNum: {
-    fontWeight: '500',
-    color: '#9C9EB9',
-    fontSize: 16,
-    lineHeight: 22,
-  },
-  allInfoTitle: {
-    marginRight: 10,
-    fontWeight: '400',
-    color: '#9C9EB9',
-    fontSize: 16,
-    lineHeight: 22,
-  },
-  checkText: {
-    fontWeight: '400',
-    color: '#11CD8F',
-    fontSize: 16,
-    lineHeight: 16,
-  },
-  checkEndText: {
-    fontWeight: '400',
-    color: '#FF6633',
-    fontSize: 16,
-    lineHeight: 16,
-  },
-  itemBox_4: {
-    flex: 1,
-    flexGrow: 1,
-    marginTop: 16,
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
-  itemBox_2: {
-    marginTop: 8,
-  },
-  titleText: {
-    fontWeight: '400',
-    color: '#192038',
-    fontSize: 16,
-    lineHeight: 20,
-  },
-  timeText: {
-    fontWeight: '400',
-    color: '#999999',
-    fontSize: 16,
-    lineHeight: 20,
-  },
-  nameText: {
-    fontWeight: '400',
-    color: '#999999',
-    fontSize: 16,
-    lineHeight: 20,
-  },
-  btnWrap: {
-    flexGrow: 1,
+  iWrap: {
+    marginTop: 4,
+    width: 6,
+    height: 6,
     borderRadius: 3,
-    overflow: 'hidden'
-  },
-  btnContent: {
-    paddingTop: 0,
-    paddingBottom: 0,
-    height: 28,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  type: {
-    width: 52,
-    height: 20,
-    backgroundColor: '#3E4F63',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 3,
-  },
-  type_0: {
-    backgroundColor: '#FEC66C',
-  },
-  type_1: {
-    backgroundColor: '#FD673D',
-  },
-  type_2: {
-    backgroundColor: '#FEC66C',
-  },
-  type_3: {
-    backgroundColor: '#3E4F63',
-  },
-  typeText: {
-    color: '#fff',
-    fontSize: 12,
-    fontWeight: '500',
-  },
-  titleWrap: {
-    paddingVertical: 12,
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
-    backgroundColor: '#fff',
-  },
-  title: {
-    color: '#030303',
-    fontSize: 18,
-    fontWeight: '500',
-  },
-  dItem: {
-    marginHorizontal: 10,
-    width: 4,
-    height: 4,
-    borderRadius: 2,
-    backgroundColor: '#FF753E',
   }
 });
