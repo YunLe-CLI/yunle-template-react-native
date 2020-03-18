@@ -16,6 +16,8 @@ import { withMinProgram, withMinProgramProps } from '@Global/components/MinProgr
 import { ConnectProps, ConnectState } from '../../models/connect';
 import styles from './styles';
 
+import { getUsers } from '../../services/api'
+
 export interface IProps extends ConnectProps, withMinProgramProps {
   global: {}
 }
@@ -25,10 +27,20 @@ export interface IState {}
 
 class Home extends React.Component<IProps, IState> {
   state = {
-
+    users: {}
   };
-  componentDidMount() {
-    console.log('props: ', this.props)
+  async componentDidMount() {
+    console.log('props 11111: ', this.props)
+    try {
+      const users = await getUsers();
+      console.log(users, 1111)
+      this.setState({
+        users: users,
+      })
+    } catch (e) {
+      console.log('props 11111', e)
+    }
+   
   }
   render() {
     const { global } = this.props;
@@ -63,6 +75,12 @@ class Home extends React.Component<IProps, IState> {
           </Button>
           <Text>
             {JSON.stringify(global)}
+          </Text>
+          <Button>
+            <Text>mock data</Text>
+          </Button>
+          <Text>
+          {JSON.stringify(this.state.users)}
           </Text>
         </Content>
       </Container>

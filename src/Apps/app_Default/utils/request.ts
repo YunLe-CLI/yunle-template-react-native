@@ -3,20 +3,19 @@ import {Platform} from 'react-native';
 import _ from 'lodash';
 import DeviceInfo from 'react-native-device-info';
 import MockAdapter from 'axios-mock-adapter';
+import apiMock from '../mock/api';
 
-// This sets the mock adapter on the default instance
-const mock = new MockAdapter(axios);
-
-// Mock any GET request to /users
-// arguments for reply are (status, data, headers)
-mock.onGet('/users').reply(200, {
-  users: [
-    { id: 1, name: 'John Smith' }
-  ]
-});
+const fetch = axios.create({});
+if (apiMock) {
+  const mock = new MockAdapter(fetch);
+  const list = Object.keys(apiMock);
+  list.forEach((item) => {
+    mock.onGet(item).reply(200, apiMock[item]);
+  })
+}
 
 // 添加响应拦截器
-axios.interceptors.response.use(function (response) {
+fetch.interceptors.response.use(function (response) {
   // 对响应数据做点什么
   // 退出登录
   console.log('global.dvaStore', global.dvaStore)
@@ -55,9 +54,9 @@ export default async function request(config: AxiosRequestConfig, token?: string
     app_build_number: DeviceInfo.getBuildNumber(),
   };
   // axios.defaults.baseURL = 'https://api.example.com';
-  axios.defaults.headers.common['token'] = AUTH_TOKEN;
-  axios.defaults.headers.common['AppInfo'] = appInfo;
-  axios.defaults.headers.post['Content-Type'] = 'application/json; charset=utf-8';
+  fetch.defaults.headers.common['token'] = AUTH_TOKEN;
+  fetch.defaults.headers.common['AppInfo'] = appInfo;
+  fetch.defaults.headers.post['Content-Type'] = 'application/json; charset=utf-8';
 
-  return axios(config);
+  return fetch(config);
 }

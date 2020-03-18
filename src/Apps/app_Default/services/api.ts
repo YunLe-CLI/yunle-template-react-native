@@ -9,14 +9,12 @@ import moment from "moment";
  * api doc url:
  * @param params
  */
-export async function getOnlineAppVersion(): Promise<any> {
-  const url = `https://dagouzhi.oss-cn-qingdao.aliyuncs.com/com.dagouzhi.app.temp/app.version.update.info.json?time=${moment().format("X")}`;
+export async function getUsers(): Promise<any> {
+  const url = `/users`;
   return request({
     url: url,
     method: 'GET'
   }).then((data = {}) => {
-
-    const res = _.get(data, `${Platform.OS}.${ENVIRONMENT}`, {}) || {};
-    return res
+    return data
   });
 }

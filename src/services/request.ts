@@ -3,6 +3,8 @@ import {Platform} from 'react-native';
 import _ from 'lodash';
 import DeviceInfo from 'react-native-device-info';
 
+const fetch = axios.create({});
+
 /**
  * @param url
  * @param option
@@ -18,8 +20,8 @@ export default async function request(config: AxiosRequestConfig): Promise<any> 
     app_version: DeviceInfo.getVersion(),
     app_build_number: DeviceInfo.getBuildNumber(),
   };
-  axios.defaults.headers.common['AppInfo'] = appInfo;
-  axios.defaults.headers.post['Content-Type'] = 'application/json; charset=utf-8';
+  fetch.defaults.headers.common['AppInfo'] = appInfo;
+  fetch.defaults.headers.post['Content-Type'] = 'application/json; charset=utf-8';
 
-  return axios(config);
+  return fetch(config);
 }
