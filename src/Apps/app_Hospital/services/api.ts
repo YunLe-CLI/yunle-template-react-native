@@ -1,25 +1,5 @@
-import {Platform} from "react-native";
 import request from './request'
-import {ENVIRONMENT} from "@/utils/env";
 import _ from 'lodash';
-import moment from "moment";
-
-/**
- * 获取app版本
- * api doc url:
- * @param params
- */
-export async function getOnlineAppVersion(): Promise<any> {
-  const url = `https://dagouzhi.oss-cn-qingdao.aliyuncs.com/com.dagouzhi.app.temp/app.version.update.info.json?time=${moment().format("X")}`;
-  return request({
-    url: url,
-    method: 'GET'
-  }).then((data = {}) => {
-
-    const res = _.get(data, `${Platform.OS}.${ENVIRONMENT}`, {}) || {};
-    return res
-  });
-}
 
 /**
  * 患者登录
@@ -54,7 +34,7 @@ export interface LOGIN_RES {
   }
 }
 export async function LOGIN(query: LOGIN_REQ): Promise<LOGIN_RES> {
-  const url = `https://treatment-api.dev.class100.com/api/v1/patient-login`;
+  const url = `/patient-login`;
   return request({
     url: url,
     method: 'POST',

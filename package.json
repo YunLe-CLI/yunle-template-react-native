@@ -143,7 +143,7 @@
     "@types/mockjs": "^1.0.2",
     "@types/react": "^16.9.23",
     "@types/react-native": "^0.61.23",
-    "@types/react-native-snap-carousel": "^3.8.0",
+    "@types/react-native-snap-carousel": "^3.8.1",
     "@types/react-native-vector-icons": "^6.4.5",
     "@types/react-redux": "^7.1.7",
     "@types/styled-components": "^5.0.1",
