@@ -2,7 +2,7 @@ import React from 'react';
 import {Linking, View} from 'react-native';
 import { connect } from 'react-redux';
 import styles from "./styles";
-import {NavigationActions} from "react-navigation";
+import {NavigationActions} from "@react-navigation/compat";
 import {UrlProcessUtil} from "@Global/utils/utils";
 import { withLoginModal, ILoginProvider } from '../../components/LoginModal'
 import { ConnectProps, ConnectState } from '../../models/connect';

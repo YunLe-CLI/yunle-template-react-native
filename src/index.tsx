@@ -2,9 +2,10 @@ import React, {Component, PureComponent } from 'react';
 import { Linking, View } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { persistStore, persistReducer, REHYDRATE } from 'redux-persist';
-import { Root, StyleProvider, Button, Text } from 'native-base';
+import { Root, StyleProvider } from 'native-base';
 import { PersistGate } from 'redux-persist/integration/react';
 import { connect } from "react-redux";
+import { NavigationContainer } from '@react-navigation/native';
 import RNBootSplash from 'react-native-bootsplash';
 import codePush from "react-native-code-push";
 import { Mode } from 'react-native-dark-mode';
@@ -64,15 +65,14 @@ function createApp(config: ICreateApp) {
       storage: AsyncStorage,
       blacklist: [
         'global',
-        'router',
       ],
     };
 
     const dvaApp = dva({
       initialState: {},
       models,
-      extraReducers: { router: router.routerReducer },
-      onAction: [router.routerMiddleware],
+      extraReducers: {},
+      onAction: [],
       onReducer: (rootReducer:any) => persistReducer(persistConfig, rootReducer),
       onError: (e: any) => {
         console.log('onError', e);
@@ -177,34 +177,36 @@ function createApp(config: ICreateApp) {
         const { appProps, theme } = this.props;
         const { initLoading, forceUpdate, isError, errorInfo } = this.state;
         return (
-          <StyleProvider style={getTheme(theme)}>
-            <Root>
-              <LoadingSpinnerProvider>
-                <DropdownAlertProvider>
-                  <CheckAppUpdateProvider>
-                    <CheckCodePushProvider>
-                      <SelectThemeModalProvider>
-                        <SelectAppModalProvider>
-                          <MinProgramProvider>
-                            <View style={{ flex: 1, flexGrow: 1, }}>
-                              <View style={{ flexGrow: 1, }}>
-                                {
-                                  isError ? (<ErrorView errorInfo={errorInfo} />) : (
-                                    !initLoading && !forceUpdate ? <router.Router {...appProps} /> : undefined
-                                  )
-                                }
+          <NavigationContainer>
+            <StyleProvider style={getTheme(theme)}>
+              <Root>
+                <LoadingSpinnerProvider>
+                  <DropdownAlertProvider>
+                    <CheckAppUpdateProvider>
+                      <CheckCodePushProvider>
+                        <SelectThemeModalProvider>
+                          <SelectAppModalProvider>
+                            <MinProgramProvider>
+                              <View style={{ flex: 1, flexGrow: 1, }}>
+                                <View style={{ flexGrow: 1, }}>
+                                  {
+                                    isError ? (<ErrorView errorInfo={errorInfo} />) : (
+                                      !initLoading && !forceUpdate ? <router.Router {...appProps} /> : undefined
+                                    )
+                                  }
+                                </View>
+                                {!initLoading && $config.environment ? <IsTester /> : undefined }
                               </View>
-                              {!initLoading && $config.environment ? <IsTester /> : undefined }
-                            </View>
-                          </MinProgramProvider>
-                        </SelectAppModalProvider>
-                      </SelectThemeModalProvider>
-                    </CheckCodePushProvider>
-                  </CheckAppUpdateProvider>
-                </DropdownAlertProvider>
-              </LoadingSpinnerProvider>
-            </Root>
-          </StyleProvider>
+                            </MinProgramProvider>
+                          </SelectAppModalProvider>
+                        </SelectThemeModalProvider>
+                      </CheckCodePushProvider>
+                    </CheckAppUpdateProvider>
+                  </DropdownAlertProvider>
+                </LoadingSpinnerProvider>
+              </Root>
+            </StyleProvider>
+          </NavigationContainer>
         );
       }
     }
@@ -213,7 +215,7 @@ function createApp(config: ICreateApp) {
         appReload: _.get(state, 'app.appReload', false),
         appProps: state,
         mode: _.get(state, 'global.mode'),
-        theme: _.get(state, 'global.theme.theme'),
+        theme: _.get(state, 'theme.theme'),
       }
     })(withSelectThemeModal((withSelectAppModal(withLoadingSpinner(Main)))));
 

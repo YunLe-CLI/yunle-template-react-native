@@ -1,6 +1,6 @@
 import {Alert, Platform} from 'react-native';
 import compareVersions from 'compare-versions';
-import {NavigationActions} from "react-navigation";
+import { NavigationActions } from "@react-navigation/compat";
 import DeviceInfo from 'react-native-device-info';
 import _ from 'lodash';
 

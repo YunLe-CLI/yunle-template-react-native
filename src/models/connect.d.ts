@@ -1,5 +1,5 @@
 import { AnyAction, Dispatch } from 'redux';
-import { NavigationScreenProp } from 'react-navigation';
+// import { createCompatNavigationProp } from '@react-navigation/compat';
 import { GlobalModelState } from './global';
 import { ThemeModelState } from './theme';
 
@@ -13,8 +13,8 @@ export interface ConnectState {
 /**
  * @type T: Params matched in dynamic routing
  */
-export interface ConnectProps<T = {}> {
+export interface ConnectProps<T = {}> extends ConnectState {
   screenProps?: unknown;
-  navigation?: NavigationScreenProp<any,any>;
+  // navigation?: createCompatNavigationProp;
   dispatch: Dispatch<AnyAction>;
 }

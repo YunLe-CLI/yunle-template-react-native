@@ -2,70 +2,37 @@ import React, { PureComponent } from 'react';
 import { Platform, BackHandler, ToastAndroid } from 'react-native';
 import {
   NavigationActions,
-} from 'react-navigation';
+} from '@react-navigation/compat';
 import _ from 'lodash';
-import createAnimatedSwitchNavigator from 'react-navigation-animated-switch';
-import { Transition } from 'react-native-reanimated';
 import { StyleProvider, Root } from 'native-base';
-import {
-    createReduxContainer,
-    createReactNavigationReduxMiddleware,
-    createNavigationReducer,
-} from 'react-navigation-redux-helpers';
 import { Mode } from 'react-native-dark-mode';
 import { connect } from 'react-redux';
 import { ConnectState } from '../models/connect';
 import { getTheme } from '@Global/utils/themes';
 
-import Splash from '../pages/Splash';
+// import Splash from '../pages/Splash';
 import BottomTab from './BottomTab.router';
 
 import LoginProvider from '../components/LoginModal';
 import { getActiveRoute } from '@Global/utils/utils';
 
 
-const MainRouter = createAnimatedSwitchNavigator(
-  {
-    Main: BottomTab,
-  },
-  {
-    initialRouteName: 'Main',
-    // headerMode: 'none',
-    // mode: 'modal',
-      transition: (
-      <Transition.Together>
-          <Transition.Out type="slide-bottom" durationMs={300} interpolation="easeInOut" />
-          <Transition.In type="fade" durationMs={300} interpolation="easeInOut" />
-      </Transition.Together>
-    ),
-  }
-);
-
-const AppNavigator = createAnimatedSwitchNavigator(
-    {
-        Splash: Splash,
-        MainRouter: MainRouter,
-    },
-    {
-      initialRouteName: 'Splash',
-      transition: (
-        <Transition.Together>
-          <Transition.Out type="fade" durationMs={400} interpolation="easeInOut" />
-          <Transition.In type="fade" durationMs={300} interpolation="easeInOut"  />
-        </Transition.Together>
-      ),
-    }
-);
+// const AppNavigator = createAnimatedSwitchNavigator(
+//     {
+//         Splash: Splash,
+//     },
+//     {
+//       initialRouteName: 'Splash',
+//       transition: (
+//         <Transition.Together>
+//           <Transition.Out type="fade" durationMs={400} interpolation="easeInOut" />
+//           <Transition.In type="fade" durationMs={300} interpolation="easeInOut"  />
+//         </Transition.Together>
+//       ),
+//     }
+// );
 
 export default function createRouter() {
-  const routerReducer = createNavigationReducer(AppNavigator)
-
-  const routerMiddleware = createReactNavigationReduxMiddleware(
-    (state: any) => state.router,
-    'root'
-  )
-
-  const App = createReduxContainer(AppNavigator, 'root')
 
   interface IRouterProps {
     dispatch: any;
@@ -141,10 +108,7 @@ export default function createRouter() {
           <Root>
             <LoginProvider>
               {
-                !forceUpdate ? <App
-                  dispatch={dispatch}
-                  state={router}
-                /> : undefined
+                !forceUpdate ? <BottomTab /> : undefined
               }
             </LoginProvider>
           </Root>
@@ -156,14 +120,12 @@ export default function createRouter() {
     router: any;
   }
   return {
-    routerReducer,
-    routerMiddleware,
     Router: connect((state: IConnectState) => {
       return {
-        router: state.router,
-        token: state.auth.token,
-        mode: state.global.mode,
-        theme: state.theme.theme,
+        // router: state.router,
+        token: _.get(state, 'auth.token'),
+        mode: _.get(state, 'global.mode'),
+        theme: _.get(state, 'theme.theme'),
       }
     })(Router),
   }

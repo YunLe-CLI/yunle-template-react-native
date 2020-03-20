@@ -298,6 +298,6 @@ class SelectThemeModalProvider extends React.Component<{}, IState> {
 
 export default connect((state: ConnectState) => {
   return {
-    theme: state.theme.theme,
+    theme: _.get(state, 'theme.theme'),
   }
 })(SelectThemeModalProvider)

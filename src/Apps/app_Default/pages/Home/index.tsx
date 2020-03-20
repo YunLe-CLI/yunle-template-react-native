@@ -11,7 +11,6 @@ import {
   Button, Icon
 } from 'native-base';
 import _ from 'lodash';
-import { NavigationEvents } from 'react-navigation';
 import { withMinProgram, withMinProgramProps } from '@Global/components/MinProgram';
 import { ConnectProps, ConnectState } from '../../models/connect';
 import styles from './styles';
@@ -19,7 +18,6 @@ import styles from './styles';
 import { getUsers } from '../../services/api'
 
 export interface IProps extends ConnectProps, withMinProgramProps {
-  global: {}
 }
 
 export interface IState {}
@@ -43,27 +41,13 @@ class Home extends React.Component<IProps, IState> {
    
   }
   render() {
-    const { global } = this.props;
+    const { global = {} } = this.props;
     return (
       <Container style={styles.container}>
-        <NavigationEvents
-            onWillFocus={payload => {
-            
-            }}
-            onDidFocus={payload => {
-
-            }}
-            onWillBlur={payload => {
-              
-            }}
-            onDidBlur={payload => {
-
-            }}
-        />
         <Header>
           <Left />
           <Body>
-          <Title>{$t('pages.Home.home')} ({global.mode})</Title>
+            <Title>{$t('pages.Home.home')} ({global.mode})</Title>
           </Body>
           <Right />
         </Header>

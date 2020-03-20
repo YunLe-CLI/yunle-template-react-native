@@ -15,7 +15,7 @@ import {
 } from 'native-base';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import {NavigationActions, StackActions } from "react-navigation";
+import {NavigationActions, StackActions } from "@react-navigation/compat";
 import Modal from "react-native-modal";
 import LinearGradient from 'react-native-linear-gradient';
 import styles from './styles';

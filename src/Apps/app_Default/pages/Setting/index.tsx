@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text } from 'react-native';
-import { NavigationActions } from 'react-navigation';
+import { NavigationActions } from '@react-navigation/compat';
 import {Container, Header, Left, Body, Right, Title, Icon, Button, List, ListItem, Content} from 'native-base';
 import { connect } from 'react-redux';
 import styles from './styles';
