@@ -33,24 +33,20 @@ export interface withMinProgramProps {
   openMinProgram: () => void;
   closeMinProgram: () => void;
 }
-export function withMinProgram(WrappedComponent: new() => React.Component<any, any>) {
-  return class extends React.Component {
-    render() {
-      return <>
-        <MinProgramContext.Consumer>
-          {
-            ({ openMinProgram, closeMinProgram }) => {
-              return <WrappedComponent
-                {...this.props}
-                openMinProgram={openMinProgram} 
-                closeMinProgram={closeMinProgram} 
-              />;
-            }
-          }
-        </MinProgramContext.Consumer>
-      </>
-    }
-  }
+export function withMinProgram<T>(WrappedComponent: React.ComponentType<T>) {
+  return (props: T) => (
+    <MinProgramContext.Consumer>
+      {
+        ({ openMinProgram, closeMinProgram }) => {
+          return <WrappedComponent
+            {...props}
+            openMinProgram={openMinProgram} 
+            closeMinProgram={closeMinProgram} 
+          />;
+        }
+      }
+    </MinProgramContext.Consumer>
+  )
 }
 
 export interface IProps {

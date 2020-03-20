@@ -17,21 +17,18 @@ export const SelectThemeModalContext = createContext({
 })
 export const SelectThemeModalConsumer = SelectThemeModalContext.Consumer
 
-export function withSelectThemeModal(WrappedComponent: new() => React.Component<any, any>) {
-  return class extends React.Component {
-    render() {
-      return <>
-        <SelectThemeModalConsumer>
-          {
-            ({ handleShowSelectThemeModal }) => {
-              return <WrappedComponent  {...this.props} handleShowSelectThemeModal={handleShowSelectThemeModal} />
-            }
-          }
-        </SelectThemeModalConsumer>
-      </>
-    }
-  }
+export function withSelectThemeModal<T>(WrappedComponent: React.ComponentType<T>) {
+  return (props: T) => (
+    <SelectThemeModalConsumer>
+      {
+        ({ handleShowSelectThemeModal }) => {
+          return <WrappedComponent  {...props} handleShowSelectThemeModal={handleShowSelectThemeModal} />
+        }
+      }
+    </SelectThemeModalConsumer>
+  )
 }
+
 
 export interface IState {
   isModalVisible: boolean;

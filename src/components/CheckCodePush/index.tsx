@@ -13,20 +13,16 @@ export const CheckCodePushContext = createContext({
 
 export const CheckCodePushConsumer = CheckCodePushContext.Consumer
 
-export function withCheckCodePush(WrappedComponent: new() => React.Component<any, any>) {
-  return class extends React.Component {
-    render() {
-      return <>
-        <CheckCodePushContext.Consumer>
-          {
-            ({ handleCheck }) => {
-              return <WrappedComponent {...this.props} handleCheckCodePush={handleCheck} />;
-            }
-          }
-        </CheckCodePushContext.Consumer>
-      </>
-    }
-  }
+export function withCheckCodePush<T>(WrappedComponent: React.ComponentType<T>) {
+  return (props: T) => (
+    <CheckCodePushContext.Consumer>
+      {
+        ({ handleCheck }) => {
+          return <WrappedComponent {...props} handleCheckCodePush={handleCheck} />;
+        }
+      }
+    </CheckCodePushContext.Consumer>
+  )
 }
 
 export interface IState {

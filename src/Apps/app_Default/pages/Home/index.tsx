@@ -1,13 +1,14 @@
 import React from 'react';
 import { Image } from 'react-native';
 import { connect } from 'react-redux';
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import {
   Body,
   Content,
   Container, Header, 
   Left, Right, Title,
-  Card, CardItem, 
-  Thumbnail, Text, 
+  Text, 
   Button, Icon
 } from 'native-base';
 import _ from 'lodash';
@@ -17,18 +18,22 @@ import styles from './styles';
 
 import { getUsers } from '../../services/api'
 
+export type RootStackParamList = {
+  Home: { test: string; };
+};
 export interface IProps extends ConnectProps, withMinProgramProps {
+  navigation: StackNavigationProp<RootStackParamList, 'Home'>;
+  router: RouteProp<RootStackParamList, 'Home'>,
 }
 
 export interface IState {}
-
 
 class Home extends React.Component<IProps, IState> {
   state = {
     users: {}
   };
   async componentDidMount() {
-    console.log('props 11111: ', this.props)
+    console.log('props 11111: ', this.props.navigation.setParams({ test: '测试'  }))
     try {
       const users = await getUsers();
       console.log(users, 1111)
@@ -42,6 +47,7 @@ class Home extends React.Component<IProps, IState> {
   }
   render() {
     const { global = {} } = this.props;
+    console.log(this.props.router)
     return (
       <Container style={styles.container}>
         <Header>
@@ -55,7 +61,7 @@ class Home extends React.Component<IProps, IState> {
           <Button onPress={() => {
             this.props.openMinProgram()
           }}>
-            <Text>打开狗吱小程序</Text>
+            <Icon name={'ios-return-left'} /><Text>打开狗吱小程序</Text>
           </Button>
           <Text>
             {JSON.stringify(global)}

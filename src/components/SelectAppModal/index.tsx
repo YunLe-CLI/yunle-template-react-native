@@ -17,21 +17,19 @@ export const SelectAppModalContext = createContext({
 })
 export const SelectAppModalConsumer = SelectAppModalContext.Consumer
 
-export function withSelectAppModal(WrappedComponent: new() => React.Component<any, any>) {
-  return class extends React.Component {
-    render() {
-      return <>
-        <SelectAppModalConsumer>
-          {
-            ({ handleShowSelectAppModal }) => {
-              return <WrappedComponent  {...this.props} handleShowSelectAppModal={handleShowSelectAppModal} />
-            }
-          }
-        </SelectAppModalConsumer>
-      </>
-    }
-  }
+
+export function withSelectAppModal<T>(WrappedComponent: React.ComponentType<T>) {
+  return (props: T) => (
+    <SelectAppModalConsumer>
+      {
+        ({ handleShowSelectAppModal }) => {
+          return <WrappedComponent  {...props} handleShowSelectAppModal={handleShowSelectAppModal} />
+        }
+      }
+    </SelectAppModalConsumer>
+  )
 }
+
 
 export interface IState {
   isModalVisible: boolean;
