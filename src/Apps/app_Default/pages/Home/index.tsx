@@ -33,7 +33,7 @@ class Home extends React.Component<IProps, IState> {
     users: {}
   };
   async componentDidMount() {
-    console.log('props 11111: ', this.props.navigation.setParams({ test: '测试'  }))
+    console.log('props 11111: ', this.props)
     try {
       const users = await getUsers();
       console.log(users, 1111)
@@ -47,7 +47,6 @@ class Home extends React.Component<IProps, IState> {
   }
   render() {
     const { global = {} } = this.props;
-    console.log(this.props.router)
     return (
       <Container style={styles.container}>
         <Header>

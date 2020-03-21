@@ -176,6 +176,7 @@ function createApp(config: ICreateApp) {
       render() {
         const { appProps, theme } = this.props;
         const { initLoading, forceUpdate, isError, errorInfo } = this.state;
+        // return <NavigationContainer><router.Router {...appProps} /></NavigationContainer>
         return (
           <NavigationContainer>
             <StyleProvider style={getTheme(theme)}>
@@ -187,16 +188,12 @@ function createApp(config: ICreateApp) {
                         <SelectThemeModalProvider>
                           <SelectAppModalProvider>
                             <MinProgramProvider>
-                              <View style={{ flex: 1, flexGrow: 1, }}>
-                                <View style={{ flexGrow: 1, }}>
-                                  {
-                                    isError ? (<ErrorView errorInfo={errorInfo} />) : (
-                                      !initLoading && !forceUpdate ? <router.Router {...appProps} /> : undefined
-                                    )
-                                  }
-                                </View>
-                                {!initLoading && $config.environment ? <IsTester /> : undefined }
-                              </View>
+                              {
+                                isError ? (<ErrorView errorInfo={errorInfo} />) : (
+                                  !initLoading && !forceUpdate ? <router.Router {...appProps} /> : undefined
+                                )
+                              }
+                              {!initLoading && $config.environment ? <IsTester /> : undefined }
                             </MinProgramProvider>
                           </SelectAppModalProvider>
                         </SelectThemeModalProvider>
@@ -219,17 +216,15 @@ function createApp(config: ICreateApp) {
       }
     })(withSelectThemeModal((withSelectAppModal(withLoadingSpinner(Main)))));
 
-    class App extends React.Component {
-      render() {
-        return (
-          <PersistGate
-            persistor={createPersist(dvaApp._store)}
-            loading={<Loading />}
-          >
-            <MainView />
-          </PersistGate>
-        );
-      }
+    function App() {
+      return (
+        <PersistGate
+          persistor={createPersist(dvaApp._store)}
+          loading={<Loading />}
+        >
+          <MainView />
+        </PersistGate>
+      )
     }
     APP_NODE = dvaApp.start(<App />);
   } catch (e) {
@@ -306,7 +301,6 @@ export default class RootView extends PureComponent {
     const { appID } = this.state;
     const NODE = this[appID];
     global['$selectApp'] = this.selectApp;
-    console.log(appID, NODE)
     return appID && NODE ? <NODE /> : <Loading />
   }
 };
