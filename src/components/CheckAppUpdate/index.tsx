@@ -12,16 +12,20 @@ export const CheckAppUpdateContext = createContext({
 })
 export const CheckAppUpdateConsumer = CheckAppUpdateContext.Consumer
 
-export function withCheckAppUpdate<T>(WrappedComponent: React.ComponentType<T>) {
-  return (props: T) => (
-      <CheckAppUpdateConsumer>
-        {
-          ({ handleCheck }) => {
-          return <WrappedComponent {...props} handleCheckAppUpdate={handleCheck} />
+export function withCheckAppUpdate(WrappedComponent: new() => React.Component<any, any>) {
+  return class extends React.Component {
+    render() {
+      return <>
+        <CheckAppUpdateConsumer>
+          {
+            ({ handleCheck }) => {
+              return <WrappedComponent  {...this.props} handleCheckAppUpdate={handleCheck} />
+            }
           }
-        }
-      </CheckAppUpdateConsumer>
-  )
+        </CheckAppUpdateConsumer>
+      </>
+    }
+  }
 }
 
 export interface IState {

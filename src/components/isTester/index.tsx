@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Dimensions, Text} from "react-native";
 import {connect} from "react-redux";
-import { NavigationActions } from "@react-navigation/compat";
+import {NavigationActions} from "@react-navigation/compat";
 import { Button, Icon, Fab } from 'native-base';
 import CodePush from 'react-native-code-push';
 // @ts-ignore

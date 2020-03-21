@@ -7,16 +7,20 @@ export const LoadingSpinnerContext = createContext({
 })
 export const LoadingSpinnerConsumer = LoadingSpinnerContext.Consumer
 
-export function withLoadingSpinner<T>(WrappedComponent: React.ComponentType<T>) {
-  return (props: T) => (
-    <LoadingSpinnerContext.Consumer>
-      {
-        ({ showLoading, hiddenLoading }) => {
-          return <WrappedComponent {...props} showLoading={showLoading} hiddenLoading={hiddenLoading} />;
-        }
-      }
-    </LoadingSpinnerContext.Consumer>
-  )
+export function withLoadingSpinner(WrappedComponent: new() => React.Component<any, any>) {
+  return class extends React.Component {
+    render() {
+      return <>
+        <LoadingSpinnerContext.Consumer>
+          {
+            ({ showLoading, hiddenLoading }) => {
+              return <WrappedComponent {...this.props} showLoading={showLoading} hiddenLoading={hiddenLoading} />;
+            }
+          }
+        </LoadingSpinnerContext.Consumer>
+      </>
+    }
+  }
 }
 
 class LoadingSpinnerProvider extends React.Component<{}> {
