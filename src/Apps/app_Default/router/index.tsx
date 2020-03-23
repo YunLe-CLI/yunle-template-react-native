@@ -102,9 +102,9 @@ export default function createRouter() {
     };
 
     render() {
-      const { theme } = this.props;
+      const { theme, mode } = this.props;
       return (
-        <StyleProvider style={getTheme(theme)}>
+        <StyleProvider style={getTheme(theme, mode)}>
           <Root>
             <LoginProvider>
               <BottomTab />

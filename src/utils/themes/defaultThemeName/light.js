@@ -3,7 +3,7 @@
 import color from 'color';
 import { Platform, Dimensions, PixelRatio } from 'react-native';
 
-import { PLATFORM } from './commonColor';
+import { PLATFORM } from '../variables/commonColor';
 
 const deviceHeight = Dimensions.get('window').height;
 const deviceWidth = Dimensions.get('window').width;
@@ -133,13 +133,13 @@ export default {
   checkboxTextShadowRadius: 0,
 
   // Color
-  brandPrimary: '#1C1C1EFF',
+  brandPrimary: '#6FE180',
   brandInfo: '#62B1F6',
   brandSuccess: '#5cb85c',
   brandDanger: '#d9534f',
   brandWarning: '#f0ad4e',
-  brandDark: '#fff',
-  brandLight: '#54545899',
+  brandDark: '#000',
+  brandLight: '#a9a9a9',
 
   // Container
   containerBgColor: '#fff',
@@ -198,16 +198,16 @@ export default {
   tabActiveBgColor: platform === PLATFORM.IOS ? '#cde1f9' : '#3F51B5',
 
   // Header
-  toolbarBtnColor: '#fff',
-  toolbarDefaultBg: '#1C1C1EFF',
+  toolbarBtnColor: platform === PLATFORM.IOS ? '#007aff' : '#fff',
+  toolbarDefaultBg: platform === PLATFORM.IOS ? '#F8F8F8' : '#3F51B5',
   toolbarHeight: platform === PLATFORM.IOS ? 64 : 56,
   toolbarSearchIconSize: platform === PLATFORM.IOS ? 20 : 23,
-  toolbarInputColor: '#fff',
+  toolbarInputColor: platform === PLATFORM.IOS ? '#CECDD2' : '#fff',
   searchBarHeight: platform === PLATFORM.IOS ? 30 : 40,
   searchBarInputHeight: platform === PLATFORM.IOS ? 30 : 50,
-  toolbarBtnTextColor: platform === '#fff',
+  toolbarBtnTextColor: platform === PLATFORM.IOS ? '#007aff' : '#fff',
   toolbarDefaultBorder: platform === PLATFORM.IOS ? '#a7a6ab' : '#3F51B5',
-  iosStatusbar: 'light-content',
+  iosStatusbar: platform === PLATFORM.IOS ? 'dark-content' : 'light-content',
   get statusBarColor() {
     return color(this.toolbarDefaultBg)
       .darken(0.2)

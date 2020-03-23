@@ -1,27 +1,38 @@
 import _ from 'lodash';
-import dark from './variables/dark';
-import light from './variables/light';
+import { Mode } from 'react-native-dark-mode'
+import defaultThemeName from './defaultThemeName'
 
 import nativeGetTheme from './components';
-const themesMemoize = _.memoize(_.keys);
-const themes =  {
-  light,
-  dark,
+
+export type ThemeType =  {
+  light: any;
+  dark: any;
 }
 
-const defaultThemeName = 'light';
+export type ThemesType = {
+  [key: string]: ThemeType;
+}
 
-export function getTheme (themeName: string) {
-  let nowThemeName = defaultThemeName;
-  const supportedThemes = themesMemoize(themes);
+const themes: ThemesType =  {
+  defaultThemeName,
+}
 
-  if (themeName && supportedThemes.findIndex((item) => themeName === item) > -1) {
-    nowThemeName = themeName;
+const themesMemoize = _.memoize((key: string) => {
+  return themes[key]
+});
+
+
+export function getTheme (themeName: string, mode: Mode = 'light') {
+  let nowThemeName: ThemeType = defaultThemeName;
+  const supportedThemes: ThemeType = themes[themeName];
+  const list = Object.keys(themes);
+  if (themeName && list.findIndex((item) => themeName === item) > -1) {
+    nowThemeName = supportedThemes;
   } else {
     // 设置默认主题
     nowThemeName = defaultThemeName;
   }
-  return nativeGetTheme(themes[nowThemeName])
+  return nativeGetTheme(nowThemeName[mode])
 }
 
 export default themes;

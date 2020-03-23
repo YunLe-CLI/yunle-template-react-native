@@ -86,48 +86,94 @@ class SelectThemeModalProvider extends React.Component<{}, IState> {
   }
 
   renderItem(item: string) {
-    const info = themes[item];
-    const colos = [];
-    if (info.brandPrimary) {
-      colos.push({
+    const info = themes[item] || {};
+    const light = info['light'] || {};
+    const dark = info['dark'] || {};
+    const lightColos = [];
+    const darkColos = [];
+    if (light.brandPrimary) {
+      lightColos.push({
         name: 'brandPrimary',
-        color: info.brandPrimary,
+        color: light.brandPrimary,
       })
     }
-    if (info.brandInfo) {
-      colos.push({
+    if (light.brandInfo) {
+      lightColos.push({
         name: 'brandInfo',
-        color: info.brandInfo,
+        color: light.brandInfo,
       })
     }
-    if (info.brandSuccess) {
-      colos.push({
+    if (light.brandSuccess) {
+      lightColos.push({
         name: 'brandSuccess',
-        color: info.brandSuccess,
+        color: light.brandSuccess,
       })
     }
-    if (info.brandDanger) {
-      colos.push({
+    if (light.brandDanger) {
+      lightColos.push({
         name: 'brandDanger',
-        color: info.brandDanger,
+        color: light.brandDanger,
       })
     }
-    if (info.brandWarning) {
-      colos.push({
+    if (light.brandWarning) {
+      lightColos.push({
         name: 'brandWarning',
-        color: info.brandWarning,
+        color: light.brandWarning,
       })
     }
-    if (info.brandDark) {
-      colos.push({
+    if (light.brandDark) {
+      lightColos.push({
         name: 'brandDark',
-        color: info.brandDark,
+        color: light.brandDark,
       })
     }
-    if (info.brandLight) {
-      colos.push({
+    if (light.brandLight) {
+      lightColos.push({
         name: 'brandLight',
-        color: info.brandLight,
+        color: light.brandLight,
+      })
+    }
+
+    if (dark.brandPrimary) {
+      darkColos.push({
+        name: 'brandPrimary',
+        color: dark.brandPrimary,
+      })
+    }
+    if (dark.brandInfo) {
+      darkColos.push({
+        name: 'brandInfo',
+        color: dark.brandInfo,
+      })
+    }
+    if (dark.brandSuccess) {
+      darkColos.push({
+        name: 'brandSuccess',
+        color: dark.brandSuccess,
+      })
+    }
+    if (dark.brandDanger) {
+      darkColos.push({
+        name: 'brandDanger',
+        color: dark.brandDanger,
+      })
+    }
+    if (dark.brandWarning) {
+      darkColos.push({
+        name: 'brandWarning',
+        color: dark.brandWarning,
+      })
+    }
+    if (dark.brandDark) {
+      darkColos.push({
+        name: 'brandDark',
+        color: dark.brandDark,
+      })
+    }
+    if (dark.brandLight) {
+      darkColos.push({
+        name: 'brandLight',
+        color: dark.brandLight,
       })
     }
     return  <TouchableOpacity
@@ -157,6 +203,15 @@ class SelectThemeModalProvider extends React.Component<{}, IState> {
               </View>
             </Right>
           </CardItem>
+          <CardItem style={{
+            backgroundColor: '#eee'
+          }}>
+            <Left>
+              <Body>
+                <Text>light</Text>
+              </Body>
+            </Left>
+          </CardItem>
           <CardItem
             style={{
               justifyContent: 'center',
@@ -166,7 +221,52 @@ class SelectThemeModalProvider extends React.Component<{}, IState> {
             }}
             cardBody>
               {
-                colos.map((colorItem) => {
+                lightColos.map((colorItem) => {
+                  return (
+                    <View key={JSON.stringify(colorItem)}>
+                      <Button rounded 
+                        style={{
+                          margin: 5,
+                          marginHorizontal: 10,
+                          width: 50,
+                          height: 50,
+                          backgroundColor: colorItem.color,
+                        }}
+                        onPress={() => {
+                          this.onSelect(item);
+                        }}
+                      />
+                      <Text style={{
+                        textAlign: 'center',
+                        fontSize: 10,
+                        paddingBottom: 5,
+                        }}>
+                          {colorItem.name}
+                      </Text>
+                    </View>
+                  )
+                })
+              }
+          </CardItem>
+          <CardItem style={{
+            backgroundColor: '#eee'
+          }}>
+            <Left>
+              <Body>
+                <Text>dark</Text>
+              </Body>
+            </Left>
+          </CardItem>
+          <CardItem
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              flexWrap: 'wrap',
+              backgroundColor: '#eee'
+            }}
+            cardBody>
+              {
+                darkColos.map((colorItem) => {
                   return (
                     <View key={JSON.stringify(colorItem)}>
                       <Button rounded 

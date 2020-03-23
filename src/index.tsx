@@ -132,7 +132,7 @@ function createApp(config: ICreateApp) {
       }
 
       render() {
-        const { theme } = this.props;
+        const { theme, mode } = this.props;
         const { isError, isReader, errorInfo } = this.state;
         let MAIN_NODE = undefined;
         if (isError) {
@@ -143,7 +143,7 @@ function createApp(config: ICreateApp) {
 
         }
         return (
-          <StyleProvider style={getTheme(theme)}>
+          <StyleProvider style={getTheme(theme, mode)}>
             <Root>
               <NavigationContainer>
                 <LoadingSpinnerProvider>
