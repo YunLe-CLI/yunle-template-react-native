@@ -102,17 +102,23 @@ export default function createRouter() {
     };
 
     render() {
-      const { forceUpdate } = this.state;
-      const { dispatch, router, theme } = this.props;
-      return <StyleProvider style={getTheme(theme)}>
-          <Root>
+      const { theme } = this.props;
+      return (
+        <Root>
             <LoginProvider>
-              {
-                !forceUpdate ? <BottomTab /> : undefined
-              }
+              <BottomTab />
             </LoginProvider>
           </Root>
-      </StyleProvider>
+      );
+      // return <StyleProvider style={getTheme(theme)}>
+      //     <Root>
+      //       <LoginProvider>
+      //         {
+      //           !forceUpdate ? <BottomTab /> : undefined
+      //         }
+      //       </LoginProvider>
+      //     </Root>
+      // </StyleProvider>
     }
   }
 

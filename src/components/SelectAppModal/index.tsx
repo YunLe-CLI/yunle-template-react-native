@@ -17,7 +17,7 @@ export const SelectAppModalContext = createContext({
 })
 export const SelectAppModalConsumer = SelectAppModalContext.Consumer
 
-export function withSelectAppModal(WrappedComponent: new() => React.Component<any, any>) {
+export function withSelectAppModal(WrappedComponent: any) {
   return class extends React.Component {
     render() {
       return <>

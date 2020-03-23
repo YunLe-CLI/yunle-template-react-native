@@ -33,7 +33,7 @@ export interface withMinProgramProps {
   openMinProgram: () => void;
   closeMinProgram: () => void;
 }
-export function withMinProgram(WrappedComponent: new() => React.Component<any, any>) {
+export function withMinProgram(WrappedComponent: any) {
   return class extends React.Component {
     render() {
       return <>
