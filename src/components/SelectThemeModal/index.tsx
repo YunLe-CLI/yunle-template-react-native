@@ -17,7 +17,7 @@ export const SelectThemeModalContext = createContext({
 })
 export const SelectThemeModalConsumer = SelectThemeModalContext.Consumer
 
-export function withSelectThemeModal(WrappedComponent: new() => React.Component<any, any>) {
+export function withSelectThemeModal(WrappedComponent: any) {
   return class extends React.Component {
     render() {
       return <>

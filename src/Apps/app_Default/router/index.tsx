@@ -103,22 +103,13 @@ export default function createRouter() {
 
     render() {
       const { theme } = this.props;
-      return (
-        <Root>
+      return <StyleProvider style={getTheme(theme)}>
+          <Root>
             <LoginProvider>
               <BottomTab />
             </LoginProvider>
           </Root>
-      );
-      // return <StyleProvider style={getTheme(theme)}>
-      //     <Root>
-      //       <LoginProvider>
-      //         {
-      //           !forceUpdate ? <BottomTab /> : undefined
-      //         }
-      //       </LoginProvider>
-      //     </Root>
-      // </StyleProvider>
+      </StyleProvider>
     }
   }
 

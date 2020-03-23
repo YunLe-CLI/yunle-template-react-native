@@ -1,5 +1,4 @@
 import React, {Component, PureComponent } from 'react';
-import { Linking, View } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { persistStore, persistReducer, REHYDRATE } from 'redux-persist';
 import { Root, StyleProvider } from 'native-base';
@@ -31,6 +30,7 @@ import {setJSExceptionHandler} from "@Global/utils/globalErrorHandle";
 import moment from 'moment';
 
 import * as apps from '@/Apps/index';
+
 const appsMemoize = _.memoize(_.values);
 
 export interface ICreateApp {
@@ -97,15 +97,10 @@ function createApp(config: ICreateApp) {
       }
 
       state = {
-        loading: true,
-        isLogin: false,
         initLoading: false,
-        forceUpdate: false,
         isError: false,
         errorInfo: undefined,
       };
-
-      forceUpdateNum: number = 0;
 
       static getDerivedStateFromError() {
         return { isError: true };
@@ -122,36 +117,8 @@ function createApp(config: ICreateApp) {
         codePush.allowRestart();// 在加载完了，允许重启
       }
 
-      async componentDidUpdate(prevProps: Readonly<IMProps>, prevState: Readonly<{}>, snapshot?: any) {
-        // // todo: 暂时 当appReload改变强置刷新
-        try {
-          if (this.props.appReload !== prevProps.appReload && this.props.appReload) {
-            console.log('this.props.appReload', this.props.appReload, prevProps.appReload)
-            this.forceUpdateNum += 1;
-            await this.props.dispatch({
-              type:"global/appReload",
-              appReload: false,
-            });
-            this.setState({
-              forceUpdate: true,
-            }, () => {
-              this.setState({
-                forceUpdate: false,
-              })
-            })
-          }
-        } catch (e) {
-          console.log(e);
-        }
-      }
-
-      componentWillUnmount() {
-        Linking.removeEventListener('url', ({url}) => UrlProcessUtil.handleOpenURL(url));
-      }
-
       async init() {
         try {
-          await this.initLinking();
           setJSExceptionHandler((e) => {
             this.setState({
               isError: true,
@@ -169,18 +136,13 @@ function createApp(config: ICreateApp) {
         }
       }
 
-      initLinking = async () => {
-        Linking.addEventListener('url', ({url}) => UrlProcessUtil.handleOpenURL(url));
-      }
-
       render() {
         const { appProps, theme } = this.props;
-        const { initLoading, forceUpdate, isError, errorInfo } = this.state;
-        // return <NavigationContainer><router.Router {...appProps} /></NavigationContainer>
+        const { isError, errorInfo } = this.state;
         return (
-          <NavigationContainer>
-            <StyleProvider style={getTheme(theme)}>
-              <Root>
+          <StyleProvider style={getTheme(theme)}>
+            <Root>
+              <NavigationContainer>
                 <LoadingSpinnerProvider>
                   <DropdownAlertProvider>
                     <CheckAppUpdateProvider>
@@ -189,11 +151,9 @@ function createApp(config: ICreateApp) {
                           <SelectAppModalProvider>
                             <MinProgramProvider>
                               {
-                                isError ? (<ErrorView errorInfo={errorInfo} />) : (
-                                  !initLoading && !forceUpdate ? <router.Router {...appProps} /> : undefined
-                                )
+                                isError ? (<ErrorView errorInfo={errorInfo} />) : (<router.Router {...appProps} />)
                               }
-                              {!initLoading && $config.environment ? <IsTester /> : undefined }
+                              { $config.environment ? <IsTester /> : undefined }
                             </MinProgramProvider>
                           </SelectAppModalProvider>
                         </SelectThemeModalProvider>
@@ -201,9 +161,9 @@ function createApp(config: ICreateApp) {
                     </CheckAppUpdateProvider>
                   </DropdownAlertProvider>
                 </LoadingSpinnerProvider>
-              </Root>
-            </StyleProvider>
-          </NavigationContainer>
+              </NavigationContainer>
+            </Root>
+          </StyleProvider>
         );
       }
     }

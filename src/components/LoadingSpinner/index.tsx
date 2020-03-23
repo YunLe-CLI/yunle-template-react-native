@@ -7,7 +7,7 @@ export const LoadingSpinnerContext = createContext({
 })
 export const LoadingSpinnerConsumer = LoadingSpinnerContext.Consumer
 
-export function withLoadingSpinner(WrappedComponent: new() => React.Component<any, any>) {
+export function withLoadingSpinner(WrappedComponent: any) {
   return class extends React.Component {
     render() {
       return <>

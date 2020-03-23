@@ -82,10 +82,10 @@ const GlobalModel: GlobalModelType = {
             type: 'setMode',
             mode: newMode,
           });
-          dispatch({
-            type: 'theme/setTheme',
-            theme: newMode,
-          });
+          // dispatch({
+          //   type: 'theme/setTheme',
+          //   theme: newMode,
+          // });
         }
         function orientationListener(orientation: OrientationType) {
           dispatch({
