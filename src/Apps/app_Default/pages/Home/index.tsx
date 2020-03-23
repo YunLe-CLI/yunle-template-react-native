@@ -46,7 +46,7 @@ class Home extends React.Component<IProps, IState> {
    
   }
   render() {
-    const { global = {} } = this.props;
+    const { global, theme } = this.props;
     return (
       <Container style={styles.container}>
         <Header>
@@ -68,6 +68,14 @@ class Home extends React.Component<IProps, IState> {
           <Button onPress={() => {
             this.componentDidMount()
           }}>
+            <Text>Theme</Text>
+          </Button>
+          <Text>
+            {JSON.stringify(theme)}
+          </Text>
+          <Button onPress={() => {
+            this.componentDidMount()
+          }}>
             <Text>mock data</Text>
           </Button>
           <Text>
@@ -78,8 +86,9 @@ class Home extends React.Component<IProps, IState> {
     );
   }
 }
-export default (connect(({ global }: ConnectState) => {
+export default (connect(({ global, theme }: ConnectState) => {
   return {
     global,
+    theme,
   }
 }))(withMinProgram(Home));

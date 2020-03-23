@@ -7,13 +7,13 @@ import { connect } from "react-redux";
 import { NavigationContainer } from '@react-navigation/native';
 import RNBootSplash from 'react-native-bootsplash';
 import codePush from "react-native-code-push";
+import moment from 'moment';
 import { Mode } from 'react-native-dark-mode';
 import _ from 'lodash';
 import './global';
 import dva from '@Global/utils/dva';
 import createModels from '@Global/models';
 import { ConnectState, ConnectProps } from '@Global/models/connect';
-import { UrlProcessUtil } from '@Global/utils/utils';
 import MinProgramProvider from '@Global/components/MinProgram';
 import LoadingSpinnerProvider, {withLoadingSpinner} from '@Global/components/LoadingSpinner';
 import DropdownAlertProvider from '@Global/components/DropdownAlert';
@@ -27,7 +27,7 @@ import ErrorView from '@Global/components/ErrorView';
 
 import { getTheme } from '@Global/utils/themes';
 import {setJSExceptionHandler} from "@Global/utils/globalErrorHandle";
-import moment from 'moment';
+
 
 import * as apps from '@/Apps/index';
 
@@ -46,9 +46,6 @@ export interface ICreateApp {
 }
 
 interface IMProps extends ConnectProps {
-  appReload: boolean;
-  ENV: string;
-  appProps: ConnectState;
   mode: Mode;
   theme: any;
 }
@@ -92,12 +89,10 @@ function createApp(config: ICreateApp) {
       constructor(props: IMProps) {
         super(props)
         codePush.disallowRestart(); // 禁止重启
-        // @ts-ignore
-        UrlProcessUtil.dispatch = props.dispatch;
       }
 
       state = {
-        initLoading: false,
+        isReader: false,
         isError: false,
         errorInfo: undefined,
       };
@@ -129,7 +124,7 @@ function createApp(config: ICreateApp) {
 
         } finally {
           this.setState({
-            initLoading: false,
+            isReader: true,
           }, () => {
             RNBootSplash.hide({ duration: 250 });
           });
@@ -137,8 +132,16 @@ function createApp(config: ICreateApp) {
       }
 
       render() {
-        const { appProps, theme } = this.props;
-        const { isError, errorInfo } = this.state;
+        const { theme } = this.props;
+        const { isError, isReader, errorInfo } = this.state;
+        let MAIN_NODE = undefined;
+        if (isError) {
+          MAIN_NODE = <ErrorView errorInfo={errorInfo} />;
+        } else if (isReader) {
+          MAIN_NODE =  <router.Router />;
+        } else {
+
+        }
         return (
           <StyleProvider style={getTheme(theme)}>
             <Root>
@@ -150,9 +153,7 @@ function createApp(config: ICreateApp) {
                         <SelectThemeModalProvider>
                           <SelectAppModalProvider>
                             <MinProgramProvider>
-                              {
-                                isError ? (<ErrorView errorInfo={errorInfo} />) : (<router.Router {...appProps} />)
-                              }
+                              {MAIN_NODE}
                               { $config.environment ? <IsTester /> : undefined }
                             </MinProgramProvider>
                           </SelectAppModalProvider>
@@ -169,8 +170,6 @@ function createApp(config: ICreateApp) {
     }
     const MainView = connect((state: ConnectState) => {
       return {
-        appReload: _.get(state, 'app.appReload', false),
-        appProps: state,
         mode: _.get(state, 'global.mode'),
         theme: _.get(state, 'theme.theme'),
       }
@@ -226,7 +225,6 @@ export default class RootView extends PureComponent {
     const appID = await AsyncStorage.getItem('__APP_ID__');
     const nowAppID = this.getAppID(appID);
     const app = apps[nowAppID];
-    // console.log('config: ', 'nowAppID: ', nowAppID, 'app: ', app, 'apps: ', apps);
     this[nowAppID] = createApp(app);
     this.setState({
       appID: nowAppID,

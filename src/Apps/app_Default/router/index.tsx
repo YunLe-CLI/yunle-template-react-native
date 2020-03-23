@@ -103,23 +103,22 @@ export default function createRouter() {
 
     render() {
       const { theme } = this.props;
-      return <StyleProvider style={getTheme(theme)}>
+      return (
+        <StyleProvider style={getTheme(theme)}>
           <Root>
             <LoginProvider>
               <BottomTab />
             </LoginProvider>
           </Root>
-      </StyleProvider>
+        </StyleProvider>
+      )
     }
   }
 
-  interface IConnectState extends ConnectState {
-    router: any;
-  }
+  interface IConnectState extends ConnectState {}
   return {
     Router: connect((state: IConnectState) => {
       return {
-        // router: state.router,
         token: _.get(state, 'auth.token'),
         mode: _.get(state, 'global.mode'),
         theme: _.get(state, 'theme.theme'),
