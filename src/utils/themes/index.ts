@@ -1,7 +1,9 @@
 import _ from 'lodash';
-import { Mode } from 'react-native-dark-mode'
+import { Mode } from 'react-native-dark-mode';
 // @ts-ignore
 import { clearThemeCache } from 'native-base-shoutem-theme';
+
+import commonColor from './variables/commonColor';
 
 import defaultThemeName from './defaultThemeName'
 
@@ -19,7 +21,10 @@ export type ThemesType = {
 }
 
 const themes: ThemesType =  {
-  defaultThemeName,
+  defaultThemeName: {
+    light: _.merge(commonColor, defaultThemeName.light),
+    dark: _.merge(commonColor, defaultThemeName.dark),
+  },
 }
 
 const themesMemoize = _.memoize((key: string) => {
