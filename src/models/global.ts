@@ -3,8 +3,6 @@ import { AppState, AppStateStatus } from 'react-native';
 import { Subscription, Effect } from 'dva';
 import { Mode, eventEmitter, initialMode } from 'react-native-dark-mode'
 import Orientation, { OrientationType } from 'react-native-orientation-locker';
-// @ts-ignore
-import { clearThemeCache } from 'native-base-shoutem-theme';
 
 import { ENVIRONMENT, BUILD_TYPE } from '@Global/utils/env';
 
@@ -80,7 +78,6 @@ const GlobalModel: GlobalModelType = {
           });
         }
         function darkModeListener(newMode: Mode) {
-          clearThemeCache();
           dispatch({
             type: 'setMode',
             mode: newMode,

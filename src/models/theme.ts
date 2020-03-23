@@ -1,8 +1,7 @@
 import { Reducer } from 'redux';
 import { Subscription, Effect } from 'dva';
 import { initialMode } from 'react-native-dark-mode'
-// @ts-ignore
-import { clearThemeCache } from 'native-base-shoutem-theme';
+
 
 import themes from '@Global/utils/themes';
 
@@ -32,11 +31,9 @@ const GlobalModel: ThemeModelType = {
     state: { ...INIT_STATE },
     reducers: {
       clearCacheHandle() {
-        clearThemeCache();
         return { ...INIT_STATE }
       },
       setTheme(state, { theme }) {
-        clearThemeCache();
         return { ...state, theme }
       }
     },
