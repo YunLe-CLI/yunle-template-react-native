@@ -22,8 +22,10 @@ export type ThemesType = {
 
 const themes: ThemesType =  {
   defaultThemeName: {
-    light: _.merge(commonColor, defaultThemeName.light),
-    dark: _.merge(commonColor, defaultThemeName.dark),
+    light: _.merge({ ...commonColor }, defaultThemeName.light),
+    dark: _.merge({ ...commonColor }, defaultThemeName.dark),
+    // light: defaultThemeName.light,
+    // dark: defaultThemeName.dark,
   },
 }
 
