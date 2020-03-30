@@ -17,14 +17,12 @@
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* dgzTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* dgzTests.m */; };
+		7D0CC61C191261CB914F40EA /* libPods-dgz-dgzTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 293134B1F368E41C2DC23677 /* libPods-dgz-dgzTests.a */; };
 		A7D097FA241499BB00899519 /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7D097F9241499BB00899519 /* BootSplash.storyboard */; };
-		B856A680EBB2CEFFF039113D /* libPods-dgzTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B8D6EB4235E0DFEE014BABE /* libPods-dgzTests.a */; };
 		C30C7F8C232663A200E21E9C /* iconfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C30C7F8B232663A200E21E9C /* iconfont.ttf */; };
 		C33A66B8230138310016CFD8 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C33A66B7230138310016CFD8 /* UserNotifications.framework */; };
 		C33A66BB23013D540016CFD8 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C3A4D5D0230074E500BCD079 /* libsqlite3.tbd */; };
 		C33A66BC23013D640016CFD8 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3A4D5D4230074FB00BCD079 /* SystemConfiguration.framework */; };
-		C378DEB822FD7EB7005A9DD8 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = C378DEB722FD7EB7005A9DD8 /* App.swift */; };
-		C378DEB922FD801C005A9DD8 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = C378DEB722FD7EB7005A9DD8 /* App.swift */; };
 		C3A2E4A523007E6000FE8564 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3A2E4A423007E5F00FE8564 /* Photos.framework */; };
 		C3A2E4A72300811600FE8564 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3A4D5D2230074F100BCD079 /* CoreGraphics.framework */; };
 		C3A2E4A82300812500FE8564 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3A4D5D2230074F100BCD079 /* CoreGraphics.framework */; };
@@ -85,32 +83,38 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = dgz/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = dgz/main.m; sourceTree = "<group>"; };
 		13F5055C74AB93D4F493F0C0 /* Pods-dgzTests.release production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgzTests.release production.xcconfig"; path = "Target Support Files/Pods-dgzTests/Pods-dgzTests.release production.xcconfig"; sourceTree = "<group>"; };
-		1B8D6EB4235E0DFEE014BABE /* libPods-dgzTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-dgzTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C80801BE7255CE16B4D7BB5 /* Pods-dgz-tvOSTests.debug qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgz-tvOSTests.debug qa.xcconfig"; path = "Target Support Files/Pods-dgz-tvOSTests/Pods-dgz-tvOSTests.debug qa.xcconfig"; sourceTree = "<group>"; };
+		20C3B9C61F9747E6C830690B /* Pods-dgz-dgzTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgz-dgzTests.release.xcconfig"; path = "Target Support Files/Pods-dgz-dgzTests/Pods-dgz-dgzTests.release.xcconfig"; sourceTree = "<group>"; };
 		20F908E5173B5C4437964E90 /* Pods-dgzTests.debug qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgzTests.debug qa.xcconfig"; path = "Target Support Files/Pods-dgzTests/Pods-dgzTests.debug qa.xcconfig"; sourceTree = "<group>"; };
 		21888D8F852EB22293232443 /* Pods-dgz-tvOS.debugqa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgz-tvOS.debugqa.xcconfig"; path = "Target Support Files/Pods-dgz-tvOS/Pods-dgz-tvOS.debugqa.xcconfig"; sourceTree = "<group>"; };
 		255CB48F4AD1E40844B70A84 /* Pods-dgz.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgz.release.xcconfig"; path = "Target Support Files/Pods-dgz/Pods-dgz.release.xcconfig"; sourceTree = "<group>"; };
 		291D6B6BD9DC5133FCF609C0 /* Pods-dgz-tvOS.release qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgz-tvOS.release qa.xcconfig"; path = "Target Support Files/Pods-dgz-tvOS/Pods-dgz-tvOS.release qa.xcconfig"; sourceTree = "<group>"; };
+		293134B1F368E41C2DC23677 /* libPods-dgz-dgzTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-dgz-dgzTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C28E8E98B0B95617D357E3C /* Pods-dgz-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgz-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-dgz-tvOSTests/Pods-dgz-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* dgz-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "dgz-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* dgz-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "dgz-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		357DA1AAA397B8A23F19A5A7 /* Pods-dgz-dgzTests.debugqa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgz-dgzTests.debugqa.xcconfig"; path = "Target Support Files/Pods-dgz-dgzTests/Pods-dgz-dgzTests.debugqa.xcconfig"; sourceTree = "<group>"; };
 		369AF4C67BED49E99C4AF3D6 /* Pods-dgz-tvOSTests.release qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgz-tvOSTests.release qa.xcconfig"; path = "Target Support Files/Pods-dgz-tvOSTests/Pods-dgz-tvOSTests.release qa.xcconfig"; sourceTree = "<group>"; };
 		377349C51752EB6BA088107A /* Pods-dgz-tvOSTests.debug production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgz-tvOSTests.debug production.xcconfig"; path = "Target Support Files/Pods-dgz-tvOSTests/Pods-dgz-tvOSTests.debug production.xcconfig"; sourceTree = "<group>"; };
 		3BBD6BBC29B5AC9CBCCAB40D /* Pods-dgzTests.debugproduction.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgzTests.debugproduction.xcconfig"; path = "Target Support Files/Pods-dgzTests/Pods-dgzTests.debugproduction.xcconfig"; sourceTree = "<group>"; };
 		49139FA8133B491848DA138F /* Pods-dgz-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgz-tvOS.release.xcconfig"; path = "Target Support Files/Pods-dgz-tvOS/Pods-dgz-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		4D4ACAC5EBC84D482E314A2B /* Pods-dgz-dgzTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgz-dgzTests.debug.xcconfig"; path = "Target Support Files/Pods-dgz-dgzTests/Pods-dgz-dgzTests.debug.xcconfig"; sourceTree = "<group>"; };
 		52C3B53066AEF9FA182D49DB /* Pods-dgz-tvOS.debugproduction.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgz-tvOS.debugproduction.xcconfig"; path = "Target Support Files/Pods-dgz-tvOS/Pods-dgz-tvOS.debugproduction.xcconfig"; sourceTree = "<group>"; };
 		64AE1DFE0F9207E62696FCD3 /* Pods-dgz-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgz-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-dgz-tvOS/Pods-dgz-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		6808C51361CBF88C11DDBAD8 /* Pods-dgzTests.releaseproduction.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgzTests.releaseproduction.xcconfig"; path = "Target Support Files/Pods-dgzTests/Pods-dgzTests.releaseproduction.xcconfig"; sourceTree = "<group>"; };
 		6B58857227D3A49A9F931691 /* Pods-dgzTests.debugqa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgzTests.debugqa.xcconfig"; path = "Target Support Files/Pods-dgzTests/Pods-dgzTests.debugqa.xcconfig"; sourceTree = "<group>"; };
 		6DA76A3F15847E4714733876 /* Pods-dgz-tvOS.releaseqa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgz-tvOS.releaseqa.xcconfig"; path = "Target Support Files/Pods-dgz-tvOS/Pods-dgz-tvOS.releaseqa.xcconfig"; sourceTree = "<group>"; };
 		6F1266D1432BA7510D074861 /* Pods-dgz-tvOSTests.debugqa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgz-tvOSTests.debugqa.xcconfig"; path = "Target Support Files/Pods-dgz-tvOSTests/Pods-dgz-tvOSTests.debugqa.xcconfig"; sourceTree = "<group>"; };
+		7756B77BCB9BC33457B7B2C5 /* Pods-dgz-dgzTests.debugproduction.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgz-dgzTests.debugproduction.xcconfig"; path = "Target Support Files/Pods-dgz-dgzTests/Pods-dgz-dgzTests.debugproduction.xcconfig"; sourceTree = "<group>"; };
 		8214880D286A0B6EF6ECA0D4 /* Pods-dgz.debugqa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgz.debugqa.xcconfig"; path = "Target Support Files/Pods-dgz/Pods-dgz.debugqa.xcconfig"; sourceTree = "<group>"; };
 		8AF985899A653B4279608132 /* Pods-dgzTests.debug production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgzTests.debug production.xcconfig"; path = "Target Support Files/Pods-dgzTests/Pods-dgzTests.debug production.xcconfig"; sourceTree = "<group>"; };
 		8CB4E6383D89700E875F23A9 /* Pods-dgzTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgzTests.release.xcconfig"; path = "Target Support Files/Pods-dgzTests/Pods-dgzTests.release.xcconfig"; sourceTree = "<group>"; };
+		8F0D0EE9742F357DF14DCAF1 /* Pods-dgz-dgzTests.releaseqa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgz-dgzTests.releaseqa.xcconfig"; path = "Target Support Files/Pods-dgz-dgzTests/Pods-dgz-dgzTests.releaseqa.xcconfig"; sourceTree = "<group>"; };
 		9946914AE21607E7AD160102 /* Pods-dgz-tvOSTests.debugproduction.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgz-tvOSTests.debugproduction.xcconfig"; path = "Target Support Files/Pods-dgz-tvOSTests/Pods-dgz-tvOSTests.debugproduction.xcconfig"; sourceTree = "<group>"; };
 		9A1EC00CC44B38294F2CFA16 /* Pods-dgz-tvOSTests.release production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgz-tvOSTests.release production.xcconfig"; path = "Target Support Files/Pods-dgz-tvOSTests/Pods-dgz-tvOSTests.release production.xcconfig"; sourceTree = "<group>"; };
 		9A49BCF335A3131FEB764678 /* Pods-dgz-tvOSTests.releaseqa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgz-tvOSTests.releaseqa.xcconfig"; path = "Target Support Files/Pods-dgz-tvOSTests/Pods-dgz-tvOSTests.releaseqa.xcconfig"; sourceTree = "<group>"; };
 		9E532D6BB980DC3F91A5AB2C /* Pods-dgz-tvOS.debug production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgz-tvOS.debug production.xcconfig"; path = "Target Support Files/Pods-dgz-tvOS/Pods-dgz-tvOS.debug production.xcconfig"; sourceTree = "<group>"; };
+		A0E144B6DF39C0463C79428F /* Pods-dgz-dgzTests.releaseproduction.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgz-dgzTests.releaseproduction.xcconfig"; path = "Target Support Files/Pods-dgz-dgzTests/Pods-dgz-dgzTests.releaseproduction.xcconfig"; sourceTree = "<group>"; };
 		A66F5ED68C3D182F269E37BD /* Pods-dgz-tvOS.debug qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgz-tvOS.debug qa.xcconfig"; path = "Target Support Files/Pods-dgz-tvOS/Pods-dgz-tvOS.debug qa.xcconfig"; sourceTree = "<group>"; };
 		A700C4B12390CC8400BEFBBD /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		A7D097F9241499BB00899519 /* BootSplash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = BootSplash.storyboard; path = dgz/BootSplash.storyboard; sourceTree = "<group>"; };
@@ -122,8 +126,6 @@
 		C30C7F8B232663A200E21E9C /* iconfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = iconfont.ttf; path = ../src/components/XIcon/iconfont.ttf; sourceTree = "<group>"; };
 		C33A66B7230138310016CFD8 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		C34E32C16EBDF2FF362EF2ED /* Pods-dgz-tvOS.releaseproduction.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dgz-tvOS.releaseproduction.xcconfig"; path = "Target Support Files/Pods-dgz-tvOS/Pods-dgz-tvOS.releaseproduction.xcconfig"; sourceTree = "<group>"; };
-		C378DEB622FD7EB6005A9DD8 /* dgz-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "dgz-Bridging-Header.h"; sourceTree = "<group>"; };
-		C378DEB722FD7EB7005A9DD8 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		C3A2E4A423007E5F00FE8564 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		C3A2E4AA2300814000FE8564 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		C3A4D5A8230074AE00BCD079 /* UMSocialSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = UMSocialSDKResources.bundle; sourceTree = "<group>"; };
@@ -171,7 +173,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B856A680EBB2CEFFF039113D /* libPods-dgzTests.a in Frameworks */,
+				7D0CC61C191261CB914F40EA /* libPods-dgz-dgzTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -245,8 +247,6 @@
 				C30C7F8B232663A200E21E9C /* iconfont.ttf */,
 				C3A4D5A5230074AE00BCD079 /* UMComponent */,
 				C3A4D5BA230074AE00BCD079 /* UMReactBridge */,
-				C378DEB722FD7EB7005A9DD8 /* App.swift */,
-				C378DEB622FD7EB6005A9DD8 /* dgz-Bridging-Header.h */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -277,7 +277,7 @@
 				EBD4CACA0CE214A772575CCA /* libPods-dgz.a */,
 				B85C0093EE6916B43D5143FD /* libPods-dgz-tvOS.a */,
 				0A50EAC3A39A002BB4AC2D8C /* libPods-dgz-tvOSTests.a */,
-				1B8D6EB4235E0DFEE014BABE /* libPods-dgzTests.a */,
+				293134B1F368E41C2DC23677 /* libPods-dgz-dgzTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -456,6 +456,12 @@
 				3BBD6BBC29B5AC9CBCCAB40D /* Pods-dgzTests.debugproduction.xcconfig */,
 				AEEA128E4E113BDB0AB83F2B /* Pods-dgzTests.releaseqa.xcconfig */,
 				6808C51361CBF88C11DDBAD8 /* Pods-dgzTests.releaseproduction.xcconfig */,
+				4D4ACAC5EBC84D482E314A2B /* Pods-dgz-dgzTests.debug.xcconfig */,
+				357DA1AAA397B8A23F19A5A7 /* Pods-dgz-dgzTests.debugqa.xcconfig */,
+				7756B77BCB9BC33457B7B2C5 /* Pods-dgz-dgzTests.debugproduction.xcconfig */,
+				20C3B9C61F9747E6C830690B /* Pods-dgz-dgzTests.release.xcconfig */,
+				8F0D0EE9742F357DF14DCAF1 /* Pods-dgz-dgzTests.releaseqa.xcconfig */,
+				A0E144B6DF39C0463C79428F /* Pods-dgz-dgzTests.releaseproduction.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -471,6 +477,8 @@
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
+				D38A213A8AB3D4DE0B86CBF9 /* [CP] Embed Pods Frameworks */,
+				5F0E221B170F893DC6A30C18 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -551,7 +559,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0940;
-				ORGANIZATIONNAME = Facebook;
+				ORGANIZATIONNAME = dagouzhi;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
@@ -743,7 +751,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-dgzTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-dgz-dgzTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -763,6 +771,56 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+		};
+		5F0E221B170F893DC6A30C18 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-dgz-dgzTests/Pods-dgz-dgzTests-resources.sh",
+				"${PODS_ROOT}/AlipaySDK-iOS/AlipaySDK.bundle",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Feather.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Foundation.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Octicons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Zocial.ttf",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AlipaySDK.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AntDesign.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Entypo.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EvilIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Feather.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Brands.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Regular.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Solid.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Fontisto.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Foundation.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Ionicons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialCommunityIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Octicons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SimpleLineIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Zocial.ttf",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-dgz-dgzTests/Pods-dgz-dgzTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 		90B6EEFA1B14B91E96F7CA79 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -853,6 +911,32 @@
 			shellPath = /bin/sh;
 			shellScript = "bash \"${SRCROOT}/../.script/script.ios.sh\"\n";
 		};
+		D38A213A8AB3D4DE0B86CBF9 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-dgz-dgzTests/Pods-dgz-dgzTests-frameworks.sh",
+				"${PODS_ROOT}/AliPlayerSDK_iOS/AliyunPlayer.framework",
+				"${PODS_ROOT}/AliPlayerSDK_iOS/alivcffmpeg.framework",
+				"${PODS_ROOT}/AliPlayerSDK_iOS/AlivcConan.framework",
+				"${PODS_ROOT}/AliPlayerSDK_iOS/AliyunMediaDownloader.framework",
+				"${PODS_ROOT}/AliPlayerSDK_iOS/artpSource.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AliyunPlayer.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/alivcffmpeg.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlivcConan.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AliyunMediaDownloader.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/artpSource.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-dgz-dgzTests/Pods-dgz-dgzTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -909,7 +993,6 @@
 				C3A4D5CF230074AE00BCD079 /* UMAnalyticsModule.m in Sources */,
 				C3A5FCAF23715484007CA4CE /* AppInfo.m in Sources */,
 				C3A4D5CD230074AE00BCD079 /* UMShareModule.m in Sources */,
-				C378DEB822FD7EB7005A9DD8 /* App.swift in Sources */,
 				C3A4D5CE230074AE00BCD079 /* RNUMConfigure.m in Sources */,
 				C3A4D5CC230074AE00BCD079 /* UMPushModule.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
@@ -921,7 +1004,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C378DEB922FD801C005A9DD8 /* App.swift in Sources */,
 				2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */,
 				2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */,
 			);
@@ -966,9 +1048,8 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C418A01BB41D0B9EDBFD6A8F /* Pods-dgzTests.debug.xcconfig */;
+			baseConfigurationReference = 4D4ACAC5EBC84D482E314A2B /* Pods-dgz-dgzTests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				DEVELOPMENT_TEAM = U2784YTGC6;
@@ -992,9 +1073,8 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8CB4E6383D89700E875F23A9 /* Pods-dgzTests.release.xcconfig */;
+			baseConfigurationReference = 20C3B9C61F9747E6C830690B /* Pods-dgz-dgzTests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				COPY_PHASE_STRIP = NO;
@@ -1168,7 +1248,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C22908DE9DC9B8898F69CC7C /* Pods-dgz-tvOSTests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -1197,7 +1276,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2C28E8E98B0B95617D357E3C /* Pods-dgz-tvOSTests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -1431,9 +1509,8 @@
 		};
 		C3A5FC9B237152FB007CA4CE /* DebugProduction */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3BBD6BBC29B5AC9CBCCAB40D /* Pods-dgzTests.debugproduction.xcconfig */;
+			baseConfigurationReference = 7756B77BCB9BC33457B7B2C5 /* Pods-dgz-dgzTests.debugproduction.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				DEVELOPMENT_TEAM = U2784YTGC6;
@@ -1488,7 +1565,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9946914AE21607E7AD160102 /* Pods-dgz-tvOSTests.debugproduction.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -1608,9 +1684,8 @@
 		};
 		C3A5FCA023715312007CA4CE /* ReleaseProduction */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6808C51361CBF88C11DDBAD8 /* Pods-dgzTests.releaseproduction.xcconfig */;
+			baseConfigurationReference = A0E144B6DF39C0463C79428F /* Pods-dgz-dgzTests.releaseproduction.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				COPY_PHASE_STRIP = NO;
@@ -1662,7 +1737,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FF18CAFAC4001F294BCD9555 /* Pods-dgz-tvOSTests.releaseproduction.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -1792,9 +1866,8 @@
 		};
 		C3A5FCA523715331007CA4CE /* DebugQa */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6B58857227D3A49A9F931691 /* Pods-dgzTests.debugqa.xcconfig */;
+			baseConfigurationReference = 357DA1AAA397B8A23F19A5A7 /* Pods-dgz-dgzTests.debugqa.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				DEVELOPMENT_TEAM = U2784YTGC6;
@@ -1849,7 +1922,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6F1266D1432BA7510D074861 /* Pods-dgz-tvOSTests.debugqa.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -1969,9 +2041,8 @@
 		};
 		C3A5FCAA2371533C007CA4CE /* ReleaseQa */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AEEA128E4E113BDB0AB83F2B /* Pods-dgzTests.releaseqa.xcconfig */;
+			baseConfigurationReference = 8F0D0EE9742F357DF14DCAF1 /* Pods-dgz-dgzTests.releaseqa.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				COPY_PHASE_STRIP = NO;
@@ -2023,7 +2094,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9A49BCF335A3131FEB764678 /* Pods-dgz-tvOSTests.releaseqa.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
