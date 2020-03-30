@@ -93,7 +93,7 @@ target 'dgz' do
 
 
   target 'dgzTests' do
-    inherit! :complete
+    inherit! :search_paths
     # Pods for testing
   end
 
