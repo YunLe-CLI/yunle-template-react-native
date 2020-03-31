@@ -43,8 +43,6 @@ allprojects {
         maven { url 'https://www.jitpack.io' }
         mavenCentral()
         maven { url 'https://dl.bintray.com/umsdk/release' }
-        maven(){
-            url 'https://maven.aliyun.com/repository/releases'
-        }
+        maven(){ url 'https://maven.aliyun.com/repository/releases' }
     }
 }
